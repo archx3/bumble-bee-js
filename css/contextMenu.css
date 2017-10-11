@@ -1,0 +1,202 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#ctxMenu
+{
+    width:auto;
+    height:auto;
+    position: absolute;
+    z-index: 150;
+    padding: 5px 2px;
+    background: #fbfbfb;
+    border: 1px solid #c6c6c6;
+    /*box-shadow: 3px 3px 0.1em 0.0025em rgb(165, 165, 165);*/
+    box-shadow: 2px 2px 0.1em 0.0025em rgb(86, 86, 86);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 400;
+}
+
+#ctxMenu ul
+{
+    /*background: #f5f5f5;*/
+}
+
+#ctxMenu ul li
+{
+    width: 180px;
+    height:25px;
+    padding: 5px 5px 5px 15px;
+
+    list-style-type: none;
+    position: relative;
+    cursor: default;
+    white-space:nowrap;
+    /*overflow: hidden;*/
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    box-sizing: content-box;
+}
+
+#ctxMenu ul li.divider
+{
+    border-bottom: 1px solid #c6c6c6;
+    height: 0;
+    width: 190px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding: 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#ctxMenu ul li.disabledMenuItem
+{
+    opacity: .3;
+}
+
+#ctxMenu ul li:hover:not(.disabledMenuItem)
+{
+    background-color: rgba(67, 187, 254, 0.46) !important;
+    overflow: visible !important;
+}
+
+#ctxMenu ul li>ul
+{
+    background-color: #f5f5f5;
+    border: 1px solid #c6c6c6;
+    position: absolute;
+    display: none;
+    left: 100%;
+    top:0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+}
+
+
+#ctxMenu ul li:hover > ul {
+    display: block;
+}
+
+#ctxMenu li p{
+    width: 65%;
+    height: auto;
+    display: inline-block;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+
+#ctxMenu .noShortCutElliipse
+{
+    width: 95%;
+    height: 100%;
+}
+#ctxMenu .icoShortCutElliipse
+{
+    height: 100%;
+    float: left;
+}
+#ctxMenu .icoShortCutElliipse:hover
+{
+    float: none;
+}
+
+#ctxMenu .ellipsify{
+	text-overflow:ellipsis;
+    overflow-wrap:normal;
+	/*overflow:-moz-hidden-unscrollable;*/
+    overflow: hidden;
+}
+
+/*.ellipsify:hover{
+    overflow: visible;
+    width:auto;
+    padding: 0 5px 0 5px;
+    background-color: #696969;
+    border: 1px solid #c6c6c6;
+    color: #ffffff;
+}*/
+
+
+#ctxMenu ul li:hover > .ellipsify{
+    overflow: visible;
+    width:auto;
+    padding: 0 5px 0 5px;
+    background-color: #696969;
+    border: 1px solid #c6c6c6;
+    color: #ffffff;
+    display: inline-block;
+    float: none;
+	 vertical-align: bottom;
+}
+
+#ctxMenu li .shortCut  /*kb shortcut*/
+{
+   position:relative;
+   right: 0;
+   padding-right: 10px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+
+#ctxMenu li .iconItem
+{
+    background-image: url("images/editIcosSprite.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    float: left;
+    margin-left: -8%;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
+	 
+	 position: relative;
+	z-index: 20;
+}
+
+/*
+#ctxMenu li::before{
+	width: 24px;
+height: 100%;
+	content:'';
+	background-color:#ccc;
+	position: absolute;
+left: 0;
+z-index: 16;
+top: 0;
+opacity: 0.3;
+}
+*/
+
+#ctxMenu li :hover>span{
+    background-color: #43bbfe;
+    /*border: 1px solid #c6c6c6;*/
+    /*padding: 0 5px 0 5px;*/
+}
+
+#ctxMenu .rightChevron
+{
+    /*background-image: url("rChevron.png");todo get image */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 172px 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}

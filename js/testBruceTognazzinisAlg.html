@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>BTA</title>
+</head>
+<body>
+<ul id="output"></ul>
+
+</body>
+<script>
+   var last_position = {},
+//       $output       = $('#output'),
+   output = document.getElementById("output");
+
+   document.addEventListener('mousemove', function (event)
+   {
+      let ch;
+      if (typeof(last_position.x) !== undefined)
+      {
+         let deltaX = last_position.x - event.offsetX,
+             deltaY = last_position.y - event.offsetY;
+
+         if (Math.abs(deltaX) > Math.abs(deltaY) && deltaX > 0)
+         {
+            //left
+            $output.append('<li>Left</li>');
+            ch = document.createElement("li");
+            ch.innerHTML = "Left";
+            output.appendChild(ch);
+         }
+         else if (Math.abs(deltaX) > Math.abs(deltaY) && deltaX < 0)
+         {
+            //right
+            ch = document.createElement("li");
+            ch.innerHTML = "Right";
+            output.appendChild(ch);
+         }
+         else if (Math.abs(deltaY) > Math.abs(deltaX) && deltaY > 0)
+         {
+            //up
+            ch = document.createElement("li");
+            ch.innerHTML = "Up";
+            output.appendChild(ch);
+         }
+         else if (Math.abs(deltaY) > Math.abs(deltaX) && deltaY < 0)
+         {
+            //down
+            ch = document.createElement("li");
+            ch.innerHTML = "Down";
+            output.appendChild(ch);
+         }
+
+         if (output.children.length > 4)
+         {
+            output.removeChild(output.children[0])
+         }
+      }
+      last_position = {
+         x : event.offsetX,
+         y : event.offsetY
+      };
+   });
+
+//   $(document).on();
+</script>
+</html>

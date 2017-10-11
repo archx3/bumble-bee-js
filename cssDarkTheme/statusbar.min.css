@@ -1,0 +1,1 @@
+#statusBar{width:100%;height:20px;padding:2px 5px;margin:0;box-sizing:border-box;font-size:13px;font-weight:600;background:var(--normalBgColor);border-top:1px solid var(--dividerColor);font-family:"segoe ui","helvetica","Open Sans","Source Sans Pro","arial",sans-serif;position:relative}:root{--statusBarHeight:20px}#statusBar .highlighted{padding:0 3px;display:inline-block}

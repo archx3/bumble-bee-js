@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Timer</title>
+</head>
+<body>
+
+<button onclick="timer.pause()">Pause</button>
+<button onclick="timer.play()">Play</button>
+
+<script src="Barge.Timer.js"></script>
+<script >
+   var timer = new Barge.Timer(function ()
+                               {
+                                  console.log("it's time");
+                               }, 5000, "interval");
+
+</script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+/* -------------------------------- 
+
+Primary style
+
+-------------------------------- */
+*, *::after, *::before {
+  box-sizing: border-box;
+  margin:0;
+}
+
+/* -------------------------------- 
+
+Basic Style
+
+-------------------------------- */
+
+nav
+{
+  /*width: 900px;*/
+  height: 30px;
+  padding: 0;
+  margin: 0 auto;
+  //margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  /*border-bottom: 1px solid #ffffff;*/
+}
+
+.breadcrumb{
+  padding: 0;
+  margin: 0 auto;
+  background-color: #edeff0;
+  /*border-radius: .25em;*/
+}
+.breadcrumb:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+.breadcrumb li{
+  display: inline-block;
+  float: left;
+  margin: 0.5em 0;
+
+}
+.breadcrumb li::after{
+  /* this is the separator between items */
+  display: inline-block;
+  content: '\00bb';
+  margin: 0 .6em;
+  color: #959fa5;
+}
+.breadcrumb li:last-of-type::after{
+  /* hide separator after the last item */
+  display: none;
+}
+.breadcrumb li > * {
+  /* single step */
+  display: inline-block;
+  color: #2c3f4c;
+}
+
+
+.breadcrumb li.active > *{
+  /* selected step */
+  color: #ecbcf5;
+}
+.no-touch .breadcrumb a:hover{
+  /* steps already visited */
+  color: #96c03d;
+}
+
+.breadcrumb.custom-icons li:not(.active):nth-of-type(2) > *::before{
+  /* change custom icon using image sprites */
+  background-position: -20px 0;
+}
+.breadcrumb.custom-icons li:not(.active):nth-of-type(3) > *::before{
+  background-position: -40px 0;
+}
+.breadcrumb.custom-icons li:not(.active):nth-of-type(4) > *::before{
+  background-position: -60px 0;
+}
+.breadcrumb.custom-icons li.active:first-of-type > *::before{
+  /* change custom icon for the active item */
+  background-position: 0 -20px;
+}
+.breadcrumb.custom-icons li.active:nth-of-type(2) > *::before{
+  background-position: -20px -20px;
+}
+.breadcrumb.custom-icons li.active:nth-of-type(3) > *::before{
+  background-position: -40px -20px;
+}
+.breadcrumb.custom-icons li.active:nth-of-type(4) > *::before{
+  background-position: -60px -20px;
+}
+
+/* -------------------------------- 
+
+Triangle breadcrumb
+
+-------------------------------- */
+
+  .breadcrumb.triangle {
+    /* reset basic style */
+    background-color: transparent;
+    padding: 0;
+    height: 100%;
+  }
+  .breadcrumb.triangle li {
+    position: relative;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-style: normal;
+  }
+  .breadcrumb.triangle li:last-of-type {
+    margin-right: 0;
+  }
+
+  .breadcrumb.triangle li > * {
+     /* the border color is used to style its ::after pseudo-element */
+    position: relative;
+    padding: 2px .6em 2px 1.5em;
+    color: #000;
+    background-color: #f1f1f1;
+    border-color: #f1f1f1;
+    min-width: 150px;
+    height: 100%;
+    font-size: 23px;
+    text-align: center;
+  }
+
+
+
+  .breadcrumb.triangle li.active > * {
+    /* selected step */
+    color: #000;
+    background-color: #ecbcf5;
+    border-color: #ecbcf5;
+  }
+  .breadcrumb.triangle li:first-of-type > * {
+    /*border-radius: .25em 0 0 0;*/
+  }
+  .breadcrumb.triangle li:last-of-type > * {
+    /*border-radius: 0 .25em 0 0;*/
+  }
+  .no-touch .breadcrumb.triangle a:hover {
+    /* steps already visited */
+    color: #ffffff;
+    background-color: #2c3f4c;
+    border-color: #2c3f4c;
+  }
+  .breadcrumb.triangle li::after, .breadcrumb.triangle li > *::after,
+  .breadcrumb.triangle li:last-of-type::before, .breadcrumb.triangle li:last-of-type > *::before {
+    /* 
+    	li > *::after is the colored triangle after each item
+    	li::after is the white separator between two items
+    */
+    position: absolute;
+    top: -6px;
+    left: 100%;
+    content: '';
+    height: 0;
+    width: 0;
+    /* 48px is the height of the <a> element */
+    border: 24px solid transparent;
+    border-right-width: 0;
+    border-left-width: 13px;
+  }
+.breadcrumb.triangle li:last-of-type::before, .breadcrumb.triangle li:last-of-type > *::before {
+  left: 100%;
+}
+  .breadcrumb.triangle li::after,.breadcrumb.triangle li:last-of-type::before{
+    /* this is the white separator between two items */
+    z-index: 1;
+    -webkit-transform: translateX(4px);
+    -moz-transform: translateX(4px);
+    -ms-transform: translateX(4px);
+    -o-transform: translateX(4px);
+    transform: translateX(4px);
+    border-left-color: #000;
+    /* reset style */
+    margin: 0;
+    margin-left: -2px;
+  }
+  .breadcrumb.triangle li > *::after {
+    /* this is the colored triangle after each element */
+    z-index: 2;
+    border-left-color: inherit;
+  }
+.breadcrumb.triangle li:last-of-type::before{
+  margin-left: -5px;
+  top: -12px;
+  border-left-color: #ecbcf5;
+  border-left-width: 19px;
+  border-top-width: 26px;
+  border-bottom-width: 26px;
+
+}
+
+
+  .breadcrumb.triangle li:last-of-type::after, .breadcrumb.triangle li:last-of-type > *::after {
+    /* hide the triangle after the last step */
+    display: none;
+  }
+  .breadcrumb.triangle.custom-separator li::after {
+    /* reset style */
+    background-image: none;
+  }
+  .breadcrumb.triangle.custom-icons li::after, .breadcrumb.triangle.custom-icons li > *::after {
+    /* 50px is the height of the <a> element */
+    border-top-width: 20px;
+    border-bottom-width: 20px;
+  }
+
+  @-moz-document url-prefix() {
+    .breadcrumb.triangle li::after,
+    .breadcrumb.triangle li > *::after {
+      /* fix a bug on Firefix - tooth edge on css triangle */
+      border-left-style: dashed;
+    }
+  }
+
+/* -------------------------------- 
+
+Custom icons hover effects - breadcrumb and multi-steps
+
+-------------------------------- */
+
+  .no-touch .breadcrumb.triangle.custom-icons li:first-of-type a:hover::before, .breadcrumb.triangle.custom-icons li.active:first-of-type em::before {
+    /* change custom icon using image sprites - hover effect or active item */
+    background-position: 0 -40px;
+  }
+  .no-touch .breadcrumb.triangle.custom-icons li:nth-of-type(2) a:hover::before, .breadcrumb.triangle.custom-icons li.active:nth-of-type(2) em::before {
+    background-position: -20px -40px;
+  }
+  .no-touch .breadcrumb.triangle.custom-icons li:nth-of-type(3) a:hover::before, .breadcrumb.triangle.custom-icons li.active:nth-of-type(3) em::before{
+    background-position: -60px -40px;
+  }
+
+.breadcrumb.triangle li:not(.active) > *:hover
+{
+  color: #000;
+  background-color: #23ff8c;
+  border-color: #23ff8c;
+  cursor: pointer;
+}

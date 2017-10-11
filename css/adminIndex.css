@@ -1,0 +1,51 @@
+#desktop
+{
+  padding: 0;
+}
+
+.row
+{
+  /*padding-left: 23px;*/
+}
+
+.row ul
+{
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.row ul li
+{
+  display: inline-block;
+  margin-top: 0 !important;
+}
+
+.chosenSortItem
+{
+  /*color: #fff;*/
+  /*background-color: #2598ff;*/
+}
+
+.row ul li:nth-child(3n+1) a div
+{
+  /*margin-left: 45px;*/
+}
+
+.row:nth-child(2)
+{
+  /*margin-top: 0;*/
+}
+
+.row ul li a div
+{
+  /*margin-top: 5px;*/
+}
+
+.tile
+{
+  /*margin-left: 23px;*/
+  /*margin-right: 23px;*/
+  margin: 23px;
+}

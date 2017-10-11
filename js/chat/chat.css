@@ -1,0 +1,26 @@
+*
+{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+div.chatAppContainer
+{
+  width: 500px;
+  height: 600px;
+  /*min-height: 600px;*/
+  border: 1px solid #ccc;
+}
+div.chatAppContainer .userList
+{
+  width: 200px;
+  height: 100%;
+  border-right: 1px solid #ccc;
+  display: block;
+}
+div.chatAppContainer .chatHead
+{
+  width: 300px;
+  height: 100%;
+}

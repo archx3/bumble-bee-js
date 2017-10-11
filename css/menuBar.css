@@ -1,0 +1,699 @@
+:root
+{
+    /*declaring color vars*/
+    --normalBgColor : #000;
+    --menuItemHoverColor : #595959;
+    --menuTextColor : #fff;
+    --useInfoTextColor : #fff;
+    --checkBoxBg : #3B3B3B;
+    --checkBoxCheckBg : #555;
+    --checkGreen :  #04ec1f;
+    --abacusBlue : #0078ff;
+    --dividerColor:  #353434;
+    --shortCutColor: #2D2C2C;
+    --subMenuBorderColor: #000;
+    /*--subMenuShadowColor : rgba(0,0,0,.2);*/
+    --subMenuShadowColor : rgba(0, 0, 0, 0.63);
+
+}
+
+@font-face {
+    font-family: "segoe mdl2 Assets";
+    src:url("../fonts/segmdl2.ttf");
+}
+
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    outline:none;
+    /*-webkit-user-select: none;*/
+    /*transition: all .3s;*/
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+*:focus, *:active, *:hover
+{
+    outline:none;
+}
+
+a:hover, a:active, a:focus {
+    /* styling for any way a link is about to be used */
+    outline: none;
+}
+
+i.fa:not(.fa-calendar), button span{
+    pointer-events: none;
+}
+
+/*region Menu Bar*/
+
+li {
+    list-style: none;
+}
+
+input::-moz-focus-inner {
+    border: 0;
+}
+
+
+p, h1, h3, div, section
+{
+    cursor: default;
+}
+
+#menuBar
+{
+    font-size: 16px;
+    width: 100%;
+    height: 30px;
+    background-color: var(--normalBgColor);
+    border-bottom: 1px solid var(--dividerColor);
+    position: fixed;/*todo made changes here*/
+    top:0; /*todo made changes here*/
+    z-index: 30;
+    /*color: rgb(255, 255, 255);*/
+    box-sizing: content-box;
+}
+
+#menuBar a
+{
+    /*color:#393f4c;*/
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+
+}
+
+#menuBar ul li a
+{
+    padding: 0 10px 0 10px;
+}
+#menuBar ul
+{
+    height:100%;
+    display: inline-block;
+}
+
+#menuBar ul li
+{
+    /*height: 100%;*/
+    /*display: inline-block;*/
+    vertical-align: middle;
+    line-height: 1.87;
+    float: left;
+    font-weight:400;
+    text-transform: uppercase;
+}
+
+#menuBar ul li:hover:not(.noHov), #menuBar ul li a:hover:not(.noHov)
+{
+    /*background-color: #595959;*/
+    color: var(--menuTextColor);
+}
+/*endregion*/
+/*region Menu Item rules*/
+
+#menus, div.buttonMenus
+{
+    display:inline-block;
+    box-sizing: content-box;
+}
+
+#menus ul ul
+{
+    display: none;
+}
+
+/*4th level deep menu*/
+#menus ul ul ul ul li:hover:not(.disabled) > ul
+{
+    display: block;
+}
+
+#menus ul, div.buttonMenus ul
+{
+    background-color: var(--normalBgColor);
+    position: relative;
+    display: inline-table;
+}
+#menus ul::after, div.buttonMenus ul::after
+{
+    content: "";
+    clear: both;
+    display: block;
+}
+#menus ul li, div.buttonMenus ul li
+{
+    float: left;
+    color: var(--menuTextColor);
+}
+
+/*#tools ul li:hover
+{
+    background: #ccc;
+}
+#tools ul li:hover a
+{
+    color: #000;
+}*/
+
+#menus ul li a, div.buttonMenus ul li a
+{
+    display: block;
+    padding: 0 8px;
+    /*background-color: var(--normalBgColor);*/
+    /*color: #000;*/
+    color: inherit;
+    text-decoration: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+#menus ul ul {
+    min-width: 250px;
+    height: auto;
+    padding: 3px 0;
+    position: absolute;
+    top: 100%;
+    width: auto;
+    /*box-shadow: 0 2px 2px var(--subMenuShadowColor);*/
+    box-shadow: 0 4px 7px var(--subMenuShadowColor);
+    border: 1px solid var(--subMenuBorderColor);
+}
+
+#menus ul ul.long
+{
+    min-width: 300px;
+}
+
+#menuBar ul ul li
+{   width: auto;
+    height: 28.4px;
+    float: none;
+    /*border-top: 1px solid #898989;*/
+    /*border-bottom: 1px solid #171717;*/
+    text-transform: capitalize;
+    position: relative;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+#menuBar ul ul li a
+{
+    height: 100%;
+    width: auto;
+    padding: 0 10px;
+    /*background-color: var(--normalBgColor);*/
+    color: inherit;
+    font-size: 95%;
+    font-weight: 400;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+#menus ul ul li a:hover
+{
+    /*background-color: #595959;*/
+    /*color: #fff;*/
+}
+#menus ul ul li:hover
+{
+    background-color: var(--menuItemHoverColor);
+    /*color: #fff;*/
+}
+#menus ul ul ul
+{
+    position: absolute;
+    left: 100%; top:0;
+}
+
+.activeMenuItem
+{
+    background-color: var(--menuItemHoverColor);
+}
+
+/*endregion*/
+#menuBar ul li.hDivider
+{
+    border-bottom: 1px solid var(--dividerColor);
+    height: 0;
+    width: 95%;
+    margin: 0 auto;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    padding: 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#menuBar ul li.vDivider
+{
+
+    width: 0;
+    margin: 0 auto;
+    margin-right: 3px;
+    margin-left: 3px;
+    padding: 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+#menuBar ul li.vDivider a{
+    height: 25px;
+    border-right: 1px solid var(--dividerColor);
+    padding: 0;
+    color: transparent;
+    display: inline;
+    margin: 0;
+    width: 0;
+    line-height: .5;
+}
+
+#menuBar .ellipsify{
+    text-overflow:ellipsis;
+    overflow-wrap:normal;
+    /*overflow:-moz-hidden-unscrollable;*/
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#menuBar li p{
+    max-width: 73%;
+    height: auto;
+    display: inline-block;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
+
+    /*ellipsify by default*/
+    /*text-overflow:ellipsis;
+    overflow-wrap:normal;
+    overflow: hidden;
+    white-space: nowrap;*/
+}
+
+#menuBar span
+{
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+#menuBar li span.iconItem
+{
+    background-image: url("../css/images/editIcosSprite.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    float: left;
+    margin-left: -8px;
+    margin-top: 2px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+
+#menuBar li span.iconItem input
+{
+    pointer-events: all !important;
+    margin: auto;
+    padding: 0 10px;
+    height: 100%;
+    width: 100%;
+}
+
+#menuBar li span.smdl{
+    font-family: "segoe mdl2 Assets", sans-serif;
+    background-image: none;
+    vertical-align: text-bottom;
+    pointer-events: none;
+    text-align: center;
+    font-weight: bold;
+    /*text-transform: none;*/
+}
+
+#menuBar li span.fat{
+    background-image: none;
+    text-align: center;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+#menuBar li span.shortCut  /*kb shortcut*/
+{
+    /*position: absolute;*/
+    /*right: 8px;*/
+    /*padding-right: 10px;*/
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    color: var(--shortCutColor);
+    margin-left: 30px;
+    float: right;
+    text-transform: uppercase;
+    font-size: 14px;
+    /*line-height: 2.2;*/
+}
+
+/*region checkBox Type*/
+#menuBar li .checkbox input[type=checkbox] {
+    opacity:0;
+    display: none;
+}
+
+#menuBar  label {
+    display: inline-block;
+    position: relative;
+    /*padding-left: 5px;*/
+    user-select: none;
+    /*max-width: 90%;*/
+    width: 100%;
+}
+
+
+#menuBar .checkbox-info input[type="checkbox"]:checked + label::before
+{
+    /*background-color: #0078ff;*/
+    background-color: var(--checkGreen);
+    /*border-color: #0078ff;*/
+}
+
+
+#menuBar .checkbox label::before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    width: 17px;
+    height: 17px;
+    left: -4px;
+    top: 2px;
+    margin-left: -2px;
+    /*border: 1px solid #353434;*/
+    border: 1px solid transparent;
+    border-radius: 0;
+    background-color: var(--checkBoxBg);
+    transition: border .15s ease-in-out,color .15s ease-in-out;
+    transition: all, border .15s ease-in-out,color .15s ease-in-out, ease-out;
+}
+
+#menuBar .checkbox-info input[type="checkbox"]:checked + label::after {
+    /*color: #04ec1f;*/
+    color: var(--normalBgColor);
+}
+
+#menuBar .checkbox input[type="checkbox"]:checked + label::after {
+    font-family: FontAwesome;
+    content: "\f00c";
+}
+
+#menuBar .checkbox label::after {
+    display: inline-block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 1px;
+    /*top: 2px;*/
+    margin-left: -3px;
+    padding-left: 2px;
+    padding-top: 0;
+    font-size: 15px;
+    color: var(--checkBoxCheckBg);
+}
+
+
+
+/*region rounded switch*/
+/* The switch - the box around the slider */
+
+#menuBar label.toggleSwitch
+{
+    /*width: calc(100% - 17px);*/
+}
+#menuBar .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+#menuBar .switch input {display:none;}
+
+/* The slider */
+#menuBar .slider {
+    /*position: absolute;*/
+    width: 44px;
+    height: 17px;
+    cursor: pointer;
+    /*top: 0;	left: 0;	right: 0;	bottom: 0;*/
+    display: inline-block;
+    background-color: var(--checkBoxBg);
+    -webkit-transition: .3s;
+    transition: .3s;
+    z-index: 20;
+}
+
+#menuBar .slider::before {
+    /*left: 2px; bottom: 3px;*/
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .3s;
+    transition: .3s;
+    margin-top: 2px;
+    margin-left: 2px;
+    top: 6px;
+}
+
+#menuBar input[type='checkbox'] {
+    display: none;
+}
+
+#menuBar input:checked + .slider {
+background-color: var(--abacusBlue);
+}
+
+/*input:checked + .slider::before {
+margin-left: 2px;
+}*/
+
+#menuBar input:focus + .slider {
+    box-shadow: 0 0 1px var(--abacusBlue);
+}
+
+#menuBar input:checked + .slider:before {
+    -webkit-transform: translateX(32px);
+    -ms-transform: translateX(32px);
+    transform: translateX(32px);
+    margin-left: -3px;
+}
+
+/* Rounded sliders */
+#menuBar .slider.round {
+    border-radius: 34px;
+    float: right;
+    margin-top: 6px;
+    margin-left: 10px;
+}
+
+#menuBar .slider.round:before {
+    border-radius: 50%;
+}
+/*endregion*/
+
+/*endregion*/
+
+/*region icons and dividers*/
+#menus .rightChevron
+{
+    background-image: url("../css/images/rChevron.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#menuBar .dChevron
+{
+    background-image: url("../css/images/dChevron2.png");
+    /*background-size: contain;*/
+    background-repeat: no-repeat;
+    /*background-position: 100% 8px;*/
+    background-position: center center;
+}
+
+#menuBar i.toolBoxIcon
+{
+    line-height: 2.7;
+    font-size: 15px;
+    float: inherit;
+}
+
+#menuBar .disabled, #menuBar a[class="disabled"]
+{
+    /*background-color: #504E4E !important;*/
+    color: #494848 !important;
+    cursor: not-allowed !important;
+    border-color: #5C5B5B !important;
+    min-width:initial !important;
+    text-shadow: 1px 1px 0 #b3b0b0;
+    opacity: .5;
+}
+
+#menus li.disabled a{
+    color:var(--menuTextColor);
+}
+
+#menuBar ul.menuSetVDivider
+{
+    margin: 0 15px;
+}
+
+#menuBar div.buttonMenus ul li:hover:not(.noHov)
+{
+    background-color: var(--menuItemHoverColor);
+}
+/*endregion*/
+
+/*region user info*/
+
+#userInfo
+{
+    float: right;
+}
+
+#userInfo ul ul
+{
+  display: none;
+}
+
+#userInfo ul li:hover:not(.disabled) > ul
+{
+    display: block;
+}
+
+#userInfo ul ul {
+  min-width: 140px;
+  height: auto;
+  padding: 3px 0;
+  position: absolute;
+  top: 100%;
+    right: 0;
+  width: auto;
+  box-shadow: 0 2px 2px var(--subMenuShadowColor);
+  border: 1px solid var(--subMenuBorderColor);
+}
+
+#userInfo ul ul li{
+    display: block;
+}
+
+#userInfo ul ul ul
+{
+  position: absolute;
+  right: 100%; top:0;
+}
+
+
+#userInfo .dropDown, #userInfo .dropDown:hover
+{
+    color: transparent !important;
+}
+
+#userImage
+{
+    width: 30px;
+    border-radius: 50px;
+    /*background-color: aliceblue;*/
+    overflow: hidden;
+    height: 30px;
+    padding: .74%;
+}
+
+#userImage img
+{
+    height: 24px;
+    width: 24px;
+    vertical-align: sub;
+    border-radius: 50px;
+    text-align: center;
+    margin: 0 auto;
+    float: none;
+}
+
+#userInfo #userFullName
+{
+    background-color: var(--checkBoxBg);
+    color: #fff;
+    border-radius: 5px/14px;
+    margin: 0 3px;
+    /*line-height: 1.6;*/
+}
+
+
+#userFullName a
+{
+    max-width: 197px;
+    margin-right: 20px;
+    -webkit-margin-end: 24px;
+}
+
+#userFullName a::before
+{
+    /*background-color: #0078ff;*/
+    background-color: var(--checkGreen);
+    /*border-color: #0078ff;*/
+}
+
+#userFullName a::before
+{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    margin-left: -2px;
+    /*border: 1px solid #353434;*/
+    border: 1px solid transparent;
+    border-radius: 50%;
+    box-sizing: content-box;
+    width: 12px;
+    height: 12px;
+    right: 5px;
+    top: 7px;
+    float: right;
+}
+
+#userFullName a::after {
+    color: var(--normalBgColor);
+    font-family: FontAwesome, "Arial";
+    content: "\f00c";
+    display: inline-block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 3px;
+    font-size: 12px;
+    right: 2px;
+}
+ /*endregion*/
+
+label.containerLable
+{
+    pointer-events: none;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>testSlider</title>
+    <link rel="stylesheet" href="nouislider.css">
+
+    <style>
+        div.slider{
+            width: 200px;
+            height: 40px;
+            background-color: #ccc;
+        }
+
+        div.slider > *
+        {
+            /*position: relative;*/
+        }
+
+        div.sliderGauge
+        {
+            width: 100%;
+            height: 10px;
+            background-color: #4d4d4d;
+            margin: auto auto;
+        }
+
+        span.sliderGaugeProgress
+        {
+            height: 100%;
+            width: 40%;
+            background-color: #00a5ff;
+            display: block;
+        }
+
+        div.sliderThumb
+        {
+            width: 8px;
+            height: 20px;
+            background-color: #6b6b6b;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .5);
+        }
+    </style>
+</head>
+<body>
+    slider
+
+
+    <div class="slider">
+        <div class="sliderGauge">
+            <span class="sliderGaugeProgress"></span>
+        </div>
+        <div class="sliderThumb"></div>
+    </div>
+
+
+    <div id="slider-update" class="noUi-target noUi-ltr noUi-horizontal">
+        <div class="noUi-base">
+            <div class="noUi-connect" style="left: 0%; right: 50%;"></div>
+        </div>
+    </div>
+    <p>
+        value :
+        <span class="example-val" id="slider-update-value">30.00</span>
+    </p>
+
+    <script src="nouislider.js"></script>
+    <script>
+
+
+
+        var updateSlider = document.getElementById('slider-update'),
+            updateSliderValue = document.getElementById('slider-update-value');
+
+        noUiSlider.create(updateSlider, {
+            start: 50,
+            margin: 2,
+            step: 1,
+            connect : true,
+            range: {
+                'min': 0,
+                'max': 100
+            }
+        });
+
+        updateSlider.noUiSlider.on('update', function( values, handle ) {
+            updateSliderValue.innerHTML = values[handle];
+        });
+
+
+
+    </script>
+</body>
+</html>

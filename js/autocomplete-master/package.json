@@ -1,0 +1,57 @@
+{
+  "name": "autocompleter",
+  "version": "1.0.26",
+  "description": "Blazing fast and lightweight autocomplete library without dependencies. 1KB gzipped.",
+  "main": "autocomplete.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Denys Krasnoshchok",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "gulp-replace": "0.5.4",
+    "gulp-typescript": "3.1.6",
+    "gulp-uglify": "2.1.2",
+    "gulp-util": "3.0.8",
+    "tslint": "5.1.0",
+    "typescript": "2.2.2"
+  },
+  "homepage": "https://kraaden.github.io/autocomplete/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kraaden/autocomplete.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kraaden/autocomplete/issues"
+  },
+  "types": "./autocomplete.d.ts",
+  "keywords": [
+    "autocomplete",
+    "autocompleter",
+    "lightweight",
+    "javascript",
+    "auto-complete",
+    "vanilla",
+    "vanilla-js",
+    "input",
+    "ui",
+    "complete",
+    "ajax",
+    "form",
+    "component",
+    "collapse",
+    "dropdown",
+    "suggester",
+    "fast",
+    "tiny",
+    "small",
+    "typescript",
+    "widget",
+    "grouping",
+    "group",
+    "groups",
+    "categories",
+    "category"
+  ]
+}

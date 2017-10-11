@@ -1,0 +1,10 @@
+.sheet
+{
+    width: 437px;
+    height: 620px;
+    background-color:#fff;
+    margin: 0 auto;
+    /*margin-top: 20px;*/
+    border: 1px solid #5f6975;
+    padding: 2%;
+}

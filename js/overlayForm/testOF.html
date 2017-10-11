@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>OF</title>
+   <link rel="stylesheet" href="newFromStyle.css">
+</head>
+<body>
+
+<section class="overlay">
+</section>
+<div class="dialog fdg">
+   <div class="fdg-h">
+      <h1>
+         Add Student
+         <button>&times;</button>
+      </h1>
+   </div>
+   <div class="fdg-pr">
+      <div class="load-bar"></div>
+   </div>
+   <div class="fdg-b formContainer" style="margin-top: 0;">
+      <form action="#" method="post" name="parcelCheckIn">
+
+         <div class="formBody">
+            <fieldset class="noborder ">
+               <legend class="centered">Profile Photo</legend>
+               <div class="profilePic centered">
+                  <div class="editableImageDiv">
+                     <div class="editImgContainer" style="" id="schoolImage">
+
+                     </div>
+                     <div class="editCommands">
+                        <div class="inlineBlock hidden">
+                           <label> Logo</label>
+                           <input type="FILE" name="schoolLogo" id="schoolLogo" accept="image/*"/>
+                           <input type="hidden" name="logoAlt" value="" accept="image/*">
+                        </div>
+                        <span class="imgIDf ellipsify">Crest</span>
+                        <span class="editCommandIcons" data-modernToolTip="Change Image" data-sbtn="schoolLogo">
+                                <i class="fa fa-pencil fw">i</i>
+                           <!--title="Change Image"-->
+                            </span>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="aor-cs">
+                  <button class="add-control-set">
+                     &plus;
+                  </button>
+                  <button class="remove-control-set">
+                     &minus;
+                  </button>
+                  <button class="edit-control-set">
+                     i
+                  </button>
+               </div>
+            </fieldset>
+            <fieldset>
+               <legend>Parcel Sender</legend>
+               <div class="fields-row">
+                  <div class="field-wrap">
+                     <label for="enderName">
+                        User Name <span class="req-field">*</span>
+                        <input type="text" name="senderName" id="enderName" value="" placeholder="" autofocus>
+
+                     </label>
+                  </div>
+
+                  <div class="field-wrap">
+                     <label for="senderPhone">
+                        Phone
+                        <input type="text" name="senderPhone" id="senderPhone" value="" placeholder="">
+                     </label>
+                  </div>
+               </div>
+               <div class="fields-row">
+                  <div class="field-wrap">
+                     <label for="senderName">
+                        Moet
+                        <input type="text" name="senderName" id="senderName" value="" placeholder="" autofocus>
+                     </label>
+                  </div>
+
+                  <div class="field-wrap">
+                     <label for="senderPhone">
+                        <input type="text" name="senderPhone" id="senderPhone" value="" placeholder="Phone Number">
+                     </label>
+                  </div>
+               </div>
+            </fieldset>
+            <fieldset>
+               <legend>Parcel Sender</legend>
+               <div class="fields-row center-text">
+                  <label for="enderName" class="">
+                     User Name <span class="req-field">*</span>
+                     <input type="text" name="senderName" id="endeame" class="centered short" value="" placeholder="" autofocus>
+
+                  </label>
+               </div>
+            </fieldset>
+
+            <fieldset class="noborder">
+               <legend>Parcel Recipient</legend>
+               <div class="fields-row">
+                  <div class="field-wrap">
+                     <label for="recipientName">
+                        <input type="text" name="recipientName" id="recipientName" value="" placeholder="Recipient Name">
+                     </label>
+                  </div>
+
+                  <div class="field-wrap">
+                     <label for="recipientPhone">
+                        <input type="text" name="recipientPhone" id="recipientPhone" value="" placeholder="Recipient Phone Number">
+                     </label>
+                  </div>
+               </div>
+            </fieldset>
+            <div class="field-card tb">
+               <div class="fields-row">
+                  <div class="field-wrap">
+                     <label for="recipientName">
+                        <input type="text" name="recipientName" id="recpientName" value="" placeholder="Recipient Name">
+                     </label>
+                  </div>
+
+                  <div class="field-wrap">
+                     <label for="recipientPhone">
+                        <input type="text" name="recipientPhone" id="ecipientPhone" value="" placeholder="Recipient Phone Number">
+                     </label>
+                  </div>
+               </div>
+            </div>
+
+            <fieldset>
+               <legend>Parcel Info</legend>
+               <label for="weight">
+                  <input type="text" name="weight" id="weight" value="" placeholder="Weight" class="unwrapped">
+               </label>
+               <div class="iconed">
+                  <label for="weight">
+                     <input type="text" name="weight" id="weight" value="" placeholder="Weight" class="unwrapped">
+                  </label>
+                  <span class="inputIcon"></span>
+               </div>
+               <br>
+               <div class="iconed">
+                  <label for="weight">
+                     <input type="text" name="weight" id="weight" value="" placeholder="Weight" class="unwrapped" style="width: 40% !important;">
+                  </label>
+                  <span class="inputIcon"></span>
+               </div>
+
+               <label for="charge">
+                  <input type="text" name="charge" id="charge" value="" placeholder="Charge" style="width: 400px" class="unwrapped centered">
+               </label>
+
+               <select name="sourceTermCode" class="unwrapped">
+                  <option value=""> Source Terminal Name</option>
+                  <option value="">ABA</option>
+                  <option value="">JUDI</option>
+                  <option value="">ANI</option>
+                  <option value="">ABE</option>
+               </select>
+
+            </fieldset>
+            <fieldset>
+               <legend>No label</legend>
+               <input type="text" name="weight" id="weight" value="" placeholder="Weight" class="unwrapped">
+            </fieldset>
+
+
+            <fieldset>
+               <legend>Parcel Info</legend>
+               <label for="weight">
+                  Address
+                  <textarea name="" id="" cols="30" rows="5"></textarea>
+               </label>
+
+            </fieldset>
+         </div>
+
+         <div class="formFoot">
+            <button type="" name="submit" class="button button-block ">Cancel</button>
+            <button type="" name="submit" class="button button-block ">Save</button>
+            <button type="" name="submit" class="button button-block ">Help</button>
+         </div>
+      </form>
+   </div>
+</div>
+
+<div id="error-tip">
+   <h1>Error :
+
+      <button class="closeBtn">
+         &times;
+      </button>
+   </h1>
+   <p> <span id="field-name">Username</span> is a required field</p>
+</div>
+
+<script src="../../js/core"></script>
+<script src="../../js/core/Barge.String.js"></script>
+<script src="../../js/core/Barge.Array.js"></script>
+<script src="../../js/core/Barge.Object.js"></script>
+<script src="../ui/Barge.Events.js"></script>
+
+<script src="../ui/Barge.DomCore.js"></script>
+<script src="../ui/Barge.Animations.js"></script>
+
+<script src="../external/velocity.js"></script>
+</body>
+</html>

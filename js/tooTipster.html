@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>toolTipster</title>
+    <!--<link rel="stylesheet" type="text/css" href="toolTip.css"/>-->
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+        }
+     #mtp, .ttp
+    {
+        height:100px;
+        width:400px;
+        background:#2fecb1;
+    }
+
+    </style>
+</head>
+<body>
+
+<div data-tooltip="my tool Tip and it has a long amount of text associated" class="ttp"  >show tip</div>
+
+<div data-tooltip="Tip for this" id="mtp"  style="background:#6b54d3;" >show tip</div>
+
+<div data-hint="my tool hint and it has a long amount of text associated with it" class="ttp"  >show tip</div>
+
+<div data-hint="hint for this" id="mtp"  style="background:#6b54d3;" >show tip</div>
+
+    <!--<div id="tTip" style="display: block;" >mmtp</div>-->
+
+    <script src="core/Barge.Utils.js"></script>
+    <script src="ui/Barge.BarbeCue.js"></script>
+<script>
+    var cue = new Barge.Barbecue.tip();
+    var cued = new Barge.Barbecue.hint();
+</script>
+</body>
+</html>

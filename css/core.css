@@ -1,0 +1,582 @@
+body, html
+{
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 300;
+}
+
+.a1x1 .container /* 1:1 Aspect Ratio */
+{
+  background-color: red;
+  width: 100%;
+  padding-top: 100%;
+  position: relative; /* If you want text inside of it */
+}
+
+/*region aspect ratio*/
+.a1x1 .text
+{
+  /* If you want text inside of the container */
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.a16x9 .container
+{
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.a16x3 .container
+{
+  padding-top: 75%; /* 4:3 Aspect Ratio */
+}
+
+.a3x2 .container
+{
+  padding-top: 66.66%; /* 3:2 Aspect Ratio */
+}
+
+.a8x5 .container
+{
+  padding-top: 62.5%; /* 8:5 Aspect Ratio */
+}
+
+/*endregion*/
+
+a
+{
+  text-decoration: none;
+}
+
+li
+{
+  list-style: none;
+}
+
+a:hover, a:active, a:focus
+{
+  /* styling for any way a link is about to be used */
+  outline: none;
+}
+
+.npe
+{
+  pointer-events: none;
+}
+
+i.fa:not(.fa-calendar), button span
+{
+  pointer-events: none;
+}
+
+p, h1, h3, div, section
+{
+  cursor: default;
+}
+
+select
+{
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-image: url("../css/images/dChevronw.png");
+  background-repeat: no-repeat;
+  background-position: 100% 61%;
+  background-size: 30px;
+  padding-right: 25px !important;
+  outline: none;
+}
+
+select:focus
+{
+  outline: none;
+}
+
+.smdl
+{
+  font-family: "segoe mdl2 Assets", sans-serif;
+  vertical-align: text-bottom;
+  pointer-events: none;
+  /*text-transform: none;*/
+  /*color: #7cb5ec;*/
+}
+
+.hidden, .hide
+{
+  display: none;
+}
+
+.thinMdl
+{
+  font-weight: 400;
+}
+
+.al /*align left*/
+{
+  text-align: left;
+}
+
+.ar /*align right*/
+{
+  text-align: right;
+}
+
+.ac, .center /*align right*/
+{
+  text-align: left;
+}
+
+.ctr
+{
+  text-align: center !important;
+}
+
+.centerToDiv
+{
+  margin: 0 auto;
+}
+
+.fr
+{
+  float: right !important;
+}
+
+.fl
+{
+  float: left !important;
+}
+
+.lc /*lower case*/
+{
+  text-transform: lowercase;
+}
+
+.uc /*upper case*/
+{
+  text-transform: uppercase;
+}
+
+.ucf /*upper case first letter*/
+{
+  /*text-transform: uppercase;*/
+}
+
+.tc, .capitalise /*title case*/
+{
+  text-transform: capitalize;
+}
+
+.inlineBlock, .inline-block, .iblk
+{
+  display: inline-block;
+}
+
+.block, .blk
+{
+  display: block;
+}
+
+.sm
+{
+  font-size: small;
+}
+
+.md
+{
+  font-size: medium;
+}
+
+.abs
+{
+  position: absolute;
+}
+
+.rltv
+{
+  position: relative;
+}
+
+.lg
+{
+  font-size: large;
+}
+
+.bld
+{
+  font-weight: 600;
+}
+
+.m0
+{
+  margin: 0;
+}
+
+.m0a
+{
+  margin: 0 auto;
+}
+
+.pd0
+{
+  padding: 0;
+}
+
+.scrollable, .scroll, .xys
+{
+  overflow: auto;
+}
+
+.yScroll, .ys
+{
+  overflow-y: auto;
+}
+
+.xScroll, .xs
+{
+  overflow-x: auto;
+}
+
+.bb
+{
+  border-bottom: 1px solid var(--dividerColor);
+}
+
+.bt
+{
+  border-top: 1px solid var(--dividerColor);
+}
+
+.bl
+{
+  border-left: 1px solid var(--dividerColor);
+}
+
+.br
+{
+  border-right: 1px solid var(--dividerColor);
+}
+
+.ellipsify
+{
+  text-overflow: ellipsis;
+  overflow-wrap: normal;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.clearfix
+{
+  clear: both;
+  float: none !important;
+}
+
+/*region pagination*/
+.paginationContainer
+{
+  border: none;
+}
+
+.fillParent, .fp
+{
+  height: 100%;
+  width: 100%;
+}
+
+.fillParentHorizontal, .fph
+{
+  width: 100%;
+}
+
+.fillParentVertical, .fpv
+{
+  height: 100%;
+}
+
+.ha
+{
+  height: auto;
+}
+
+.wa
+{
+  width: auto;
+}
+
+.hwa
+{
+  height: auto;
+  width: auto;
+}
+
+.hai
+{
+  height: auto !important;
+}
+
+.wai
+{
+  width: auto !important;
+}
+
+.hwai
+{
+  height: auto !important;
+  width: auto !important;
+}
+
+#pagination
+{
+  clear: both;
+}
+
+#pagination .selected
+{
+  padding: 2px 5px;
+  background-color: #deff00;;
+  color: #43484d;
+  font-weight: 500;
+}
+
+#pagination a, .goBack
+{
+  padding: 2px 5px;
+  background-color: #0078ff;
+  color: #fff;
+  font-weight: 500;
+}
+
+#pagination a:hover
+{
+  background-color: #9aa1ac;
+  color: #000;
+}
+
+/*endregion*/
+.sortableGhost
+{
+  /*width: 320px;*/
+  margin-left: 20px;
+  position: relative;
+  right: 0;
+  color: #fff;
+  background-color: var(--themeHighlightColor);
+}
+
+/*region rows and cols*/
+.col-2
+{
+  width: 50%;
+  display: inline-block;
+  float: left;
+}
+
+.col-2:first-of-type
+{
+  padding-right: 5px;
+}
+
+.col-2:last-of-type
+{
+  padding-left: 5px;
+}
+
+.col-3
+{
+  width: 33.33333333%;
+  display: inline-block;
+  float: left;
+}
+
+.col-4
+{
+  width: 25%;
+  display: inline-block;
+  float: left;
+}
+
+.row-2
+{
+  height: 50%;
+  display: block;
+}
+
+.row-3
+{
+  height: 33.33333333%;
+  display: block;
+}
+
+.row-4
+{
+  height: 25%;
+  display: block;
+}
+
+/*endregion*/
+
+.commandIcon
+{
+  background-image: url("images/toolBoxSprite.png");
+  background-repeat: no-repeat !important;
+  background-size: 300px;
+
+  /*background-position-y:center  !important;*/
+  /*background-size: cover !important;*/
+  /*background-size: 100% !important;*/
+  /*background-size: 900px !important;*/
+}
+
+/*TODO white icons*/
+
+#menuBar li span.commandIcon.tbIs1, span.commandIcon.tbIs1, .tbIs1
+{
+  background-image: url("images/toolBoxSprite.png") !important;
+  background-repeat: no-repeat !important;
+  background-size: 300px;
+}
+
+.commandIcon.tbIs2, #menuBar li span.commandIcon.tbIs2, .tbIs2
+{
+  background-image: url("images/toolBoxSpriteN2.png") !important;
+  background-size: 500px
+}
+
+.commandIcon.tbIs3, #menuBar li span.commandIcon.tbIs3, .tbIs3
+{
+  background-image: url("images/toolBoxSpriteN3.png") !important;
+  background-size: 350px
+}
+
+.commandIcon.tbIs4, #menuBar li span.commandIcon.tbIs4, .tbIs4
+{
+  background-image: url("images/toolBoxSpriteN4.png") !important;
+  background-size: 500px
+}
+
+.commandIcon.finIs, #menuBar li span.commandIcon.finIs
+{
+  background-image: url("images/finance.png") !important;
+  background-size: 500px
+}
+
+#toolBox .smdl
+{
+  font-size: 20px;
+}
+
+#toolBox span.svgIcon, #toolBox ul li ul li span.svgIcon
+{
+  /*background-size: auto;*/
+  background-image: url("images/svg/svgIcoSprite.svg");
+  background-size: 300px;
+  background-repeat: no-repeat;
+  width: 25px;
+  height: 25px;
+  display: block;
+  pointer-events: none;
+  /*background-size: 20px;*/
+  background-position-y: center;
+  margin: 5% auto;
+}
+
+#toolBox ul li ul li span.svgIcon
+{
+  background-size: 300px;
+  /* width: 25px;
+   height: 25px;*/
+  float: left;
+  margin-left: -8px;
+  margin-top: 2px;
+  margin-bottom: 0;
+}
+
+#toolBox li span.commandIcon /*imhere fixme*/
+{
+  /*background-image: url("images/toolBoxSprite.png") !important;*/
+  /*background-position: 0 0;*/
+}
+
+#toolBox li span.smdl
+{
+  font-family: "segoe mdl2 Assets", sans-serif;
+  background-image: none !important;
+  vertical-align: text-bottom;
+  pointer-events: none;
+  text-align: center;
+  font-weight: bold;
+  /*text-transform: none;*/
+}
+
+#toolBox ul li span.fat
+{
+  background-image: none;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.5;
+  margin: 5% auto;
+}
+
+#toolBox ul li ul li span.fat
+{
+  margin-left: -8px;
+  margin-top: 2px;
+  margin-bottom: 0;
+}
+
+.tabIco
+{
+  background-repeat: no-repeat;
+  pointer-events: none;
+  display: inline-block;
+  width: 25px;
+  height: 20px;
+  margin-right: 5px;
+  background-image: url("images/tabIs.png");
+  background-position: -47px -11px;
+  background-size: 350px;
+  vertical-align: text-bottom;
+}
+
+.tabIco.down
+{
+  background-position: -47px -11px;
+}
+
+.tabIco.up
+{
+  background-position: -11px -13px;
+}
+
+.tabIco.same
+{
+  background-position: -85px -11px;
+}
+
+.tabIco.start
+{
+  background-position: -122px -11px;
+}
+
+.clr0 { background-color: #2598ff; }
+.clr1 { background-color: #ff486b; }
+.clr2 { background-color: #e4d354; }
+.clr3 { background-color: #62ecbe; }
+.clr4 { background-color: #2b908f; }
+.clr5 { background-color: #91e8e1; }
+.clr6 { background-color: #f45b5b; }
+.clr7 { background-color: #434348; }
+.clr8 { background-color: #f7a35c; }
+.clr9 { background-color: #8085e9; }
+.clr10 { background-color: #fee22d; }
+.clr11 { background-color: #f6911e; }
+.clr12 { background-color: #91e8e1; }
+.clr13 { background-color: #9d4f36; }
+.clr13 { background-color: #90ed7d; }
+.clr14 { background-color: #f15c80; }
+
+
+
+
+
+

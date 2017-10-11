@@ -1,0 +1,212 @@
+/*region Toolbox*/
+#toolBox
+{
+    font-size: 18px;
+    width: 100%;
+    height: 40px;
+    background: rgb(0, 0, 0) none repeat scroll 0 0;
+    position: fixed;/*todo made changes here*/
+    top:0; /*todo made changes here*/
+    z-index: 30;
+    color: rgb(255, 255, 255);
+    text-transform: capitalize;
+}
+
+#toolBox a
+{
+    color:#fff;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+#toolBox ul li a
+{
+    padding: 0 10px 0 10px;
+}
+#toolBox ul
+{
+    height:100%;
+    display: inline-block;
+}
+
+#toolBox ul li
+{
+    //height: 100%;
+    //display: inline-block;
+    vertical-align: middle;
+    line-height: 2.2;
+    float: left;
+	 font-weight:400;
+}
+
+.noRb
+{
+    border-right: 0;
+}
+
+#toolBox ul li:hover, #toolBox ul li a:hover
+{
+    background-color: #ccc;
+    color: #000;
+}
+/*endregion*/
+/*region Tools rules*/
+
+#tools
+{
+    margin-right: 20px;
+    display:inline-block;
+}
+
+#tools ul ul
+{
+    display: none;
+}
+
+#tools ul li:hover > ul
+{
+    display: block;
+}
+#tools ul
+{
+    background-color: #000;
+    list-style: none;
+    position: relative;
+    display: inline-table;
+}
+#tools ul::after
+{
+    content: "";
+    clear: both;
+    display: block;
+}
+#tools ul li
+{
+    float: left;
+}
+/*#tools ul li:hover
+{
+    background: #ccc;
+}
+#tools ul li:hover a
+{
+    color: #000;
+}*/
+
+#tools ul li a
+{
+    display: block;
+    padding: 0 10px;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+}
+#tools ul ul {
+    min-width: 150px;
+    height: auto;
+    padding: 0;
+    position: absolute;
+    top: 99%;
+    width: auto;
+}
+#tools ul ul li
+{   width: auto;
+    float: none;
+    border-top: 1px solid #6b727c;
+    border-bottom: 1px solid #575f6a;
+    position: relative;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+#tools ul ul li a
+{
+    height: 100%;
+    width: auto;
+    padding: 0 10px;
+    color: #fff;
+    font-size: 95%;
+    font-weight: 400;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+#tools ul ul li a:hover
+{
+    background: #ccc;
+    color: #000;
+}
+#tools ul ul ul
+{
+    position: absolute;
+    left: 100%; top:0;
+}
+
+/*endregion*/
+/*region user info*/
+#info
+{
+    position: absolute;
+    right: 350px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+
+#user
+{
+    position: absolute;
+    right: 40px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+#user li, #info li
+{
+    padding: 0 10px 0 10px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+#user li:hover
+{
+    background: #000 !important;
+    color:#fff !important;
+}
+#user a li:hover
+{
+    background: #ccc !important;
+    color:#000 !important;
+}
+
+#logout:hover
+{
+    background: #fff !important;
+    color:#000 !important;
+}
+/*endregion*/
+
+i.toolBoxIcon
+{
+    line-height: 2.7;
+    font-size: 15px;
+    float: inherit;
+}
+
+span.goBackArrow
+{
+    line-height: 2.7;
+    /*font-size: 20px;*/
+    float: inherit;
+    background-image: url("../images2/appbar.chevron.left_thinLIght.png");
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+}
