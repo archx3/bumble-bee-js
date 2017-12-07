@@ -30,7 +30,7 @@
  * @requires {@link Barge.Array}
  * @requires {@link Barge.Object} NIU atm
  *
- * @version 1.8
+ * @version 1.3
  */
 /**
  * @namespace
@@ -95,31 +95,6 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
       this.events = {};
    };
 
-   //old ie event must be dealt with specially, lol
-   //they're jst nt regular
-   let ieEvent = function (evtType, handler)
-   {
-      if (window.attachEvent) //thanks to DHTML CookBook for this fix
-      {
-         addEve = el.attachEvent("on" + evtType, handler);
-      }
-   };
-
-   //let's do this just once and speed up our stuff :-)
-   //init time branching
-   let addEve = (function (evtType, handler)
-   {
-      if (window.addEventListener)
-      {
-         addEve = window.addEventListener;
-      }
-      else if (window.attachEvent)
-      {
-         // Handle old IE implementation
-         addEve = window.attachEvent;
-      }
-   }());
-
    /**
     *
     * @param el
@@ -142,6 +117,11 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
          {
 
             el.attachEvent("on" + evtType, handler);
+         }
+         else
+         {
+            // for IE/Mac, NN4, and older
+            el["on" + evtType] = handler;
          }
       }
 
@@ -618,19 +598,11 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
 /**
  *
  * TODO Add Touch Support by resolving {mousedown to touchstart} and {mouseup to touchend}
- * msg for this the userAgent.platform has to be tested first
- * msg to determine if it's a mobile device with touch support or not
- * TODO Make useCapture dynamic DONE
+ * TODO Make useCapture dynamic
+ * for this the userAgent.platform has to be tested first
+ * to determine if it's a mobile device with touch support or not
  * MSG NB: click simulates both mouse - down | up and touch - start | end tho
  * Fixme issue #02 {@link e.preventDefault()} seems not to work [DONE] depends on node type
  * Fixme issue #03 {@link e.stopPropagation()} too may not be working
- * TODO Implement the number of times feature for all
- * MSG (cud be used to implement calling the event handler like say every three times)
- * */
-
-/**
- *@change log
- *
- * @since V 1.8: No more support for browsers that don't have either addEventListener() or attacheEvent()
- *               Init time branching used to resolve browser differences
+ * TODO Implement the number of times feature for all (cud be used to implement calling the event handler like say every three times)
  * */

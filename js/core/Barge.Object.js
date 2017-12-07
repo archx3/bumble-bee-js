@@ -194,6 +194,23 @@ var Barge = Barge || {};
    };
 
    /**
+    * returns an the value for an item in an Object
+    * if it exists and null if otherwise
+    * @param {Object<K,V>} obj The object to check.
+    * @param {String} key The function to
+    *
+    * @return {boolean} null if the key does not exist.
+    */
+   Barge.Object.get = function (obj, key,)
+   {
+      if (key in  obj)
+      {
+         return obj[key]
+      }
+      return null
+   };
+
+   /**
     * Returns the number of key-value pairs in the object map.
     *
     * @param {Object} obj The object for which to get the number of key-value
@@ -298,9 +315,8 @@ var Barge = Barge || {};
     * Example usage: getValueByKeys(jsonObj, 'foo', 'entries', 3)
     *
     * @param {!Object} obj An object to get the value from.  Can be array-like.
-    * @param {...(string|number|!IArrayLike<number|string>)}
-    *     var_args A number of keys
-    *     (as strings, or numbers, for array-like objects).  Can also be
+    * @param {...(string|number|!IArrayLike<number|string>)}var_args
+    *     A number of keys (as strings, or numbers, for array-like objects).  Can also be
     *     specified as a single array of keys.
     * @return {*} The resulting value.  If, at any point, the value for a key
     *     is undefined, returns undefined.

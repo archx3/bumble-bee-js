@@ -21,7 +21,8 @@
          font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
       }
 
-      .serialKey{
+      .serialKey
+      {
          max-width: 70px;
          display: inline-block !important;
          text-transform: uppercase;
@@ -301,18 +302,18 @@
 <script>
 
    //region dgbx
-   let tester  = Barge.Dom.getEl("#tester"),
-       tester2 = Barge.Dom.getEl("#tester2"),
-       tester3 = Barge.Dom.getEl("#tester3"),
-       tester4 = Barge.Dom.getEl("#tester4"),
-       tester5 = Barge.Dom.getEl("#tester5"),
-       tester6 = Barge.Dom.getEl("#tester6"),
+   let tester   = Barge.Dom.getEl("#tester"),
+       tester2  = Barge.Dom.getEl("#tester2"),
+       tester3  = Barge.Dom.getEl("#tester3"),
+       tester4  = Barge.Dom.getEl("#tester4"),
+       tester5  = Barge.Dom.getEl("#tester5"),
+       tester6  = Barge.Dom.getEl("#tester6"),
 
-   /******************************************************/
-   tester7 = Barge.Dom.getEl("#tester7"),
-   tester8 = Barge.Dom.getEl("#tester8"),
-   tester9 = Barge.Dom.getEl("#tester9"),
-   tester10 = Barge.Dom.getEl("#tester10");
+       /******************************************************/
+       tester7  = Barge.Dom.getEl("#tester7"),
+       tester8  = Barge.Dom.getEl("#tester8"),
+       tester9  = Barge.Dom.getEl("#tester9"),
+       tester10 = Barge.Dom.getEl("#tester10");
 
    tester.onclick = function ()
    {
@@ -333,21 +334,21 @@
    tester3.onclick = function ()
    {
       Barge.DiceyDialog.progressDialog({
-                                   title            : "Testing Icons",
-                                   message          : "",
-                                   icon             : "f",
-                                   primaryBtnNumber : 1,
-                                   dismissible : true,
-                                   onAffirm         : function ()
-                                   {
-                                      console.log("//affirm button clicked");
-                                      console.log("//onAffirm callback called");
-                                   },
-                                   cancel           : function ()
-                                   {
+                                          title            : "Testing Icons",
+                                          message          : "",
+                                          icon             : "f",
+                                          primaryBtnNumber : 1,
+                                          dismissible      : true,
+                                          onAffirm         : function ()
+                                          {
+                                             console.log("//affirm button clicked");
+                                             console.log("//onAffirm callback called");
+                                          },
+                                          cancel           : function ()
+                                          {
 //                                      console.log("//cancel button clicked");
-                                   }
-                                });
+                                          }
+                                       });
    };
 
    tester4.onclick = function ()
@@ -379,21 +380,21 @@
    tester6.onclick = function (e)
    {
       Barge.DiceyDialog.fileDialog({
-                                   title            : "Defile a feline, and you go to jail",
-                                   files : [{name : "wassce.gsys"}, {name : "bece.gsys"}, {name : "sssce.gsys"} ],
-                                   accept : ".gsys",
-                                   primaryBtnNumber : 1,
+                                      title            : "Defile a feline, and you go to jail",
+                                      files            : [{ name : "wassce.gsys" }, { name : "bece.gsys" }, { name : "sssce.gsys" }],
+                                      accept           : ".gsys",
+                                      primaryBtnNumber : 1,
 
-                                   onAffirm         : function (value)
-                                   {
-                                      console.log("New Grading system '" + value + "' has been saved");
-                                   },
-                                   cancel           : function ()
-                                   {
+                                      onAffirm              : function (value)
+                                      {
+                                         console.log("New Grading system '" + value + "' has been saved");
+                                      },
+                                      cancel                : function ()
+                                      {
 //                                      console.log("//cancel button clicked");
-                                   },
-         dismissOnOverlayClick : true
-                                });
+                                      },
+                                      dismissOnOverlayClick : true
+                                   });
    };
    /******************************************************/
 
@@ -411,33 +412,57 @@
    tester8.onclick = function ()
    {
       Barge.DiceyDialog.confirm({
-                                   t                : "Your last warning",
-                                   m                : "we'll demolish your reputation",
-                                   i                : "w"
+                                   t : "Your last warning",
+                                   m : "we'll demolish your reputation",
+                                   i : "w"
                                 });
    };
 
    tester9.onclick = function ()
    {
       Barge.DiceyDialog.confirm({
-                                   t                : "Got some juicy info for ya",
-                                   m                : "Really, let me have it. ;nl Ok here it goes, ;nl trrrrrrrrrrrrrrrrr haha",
-                                   i                : "i"
+                                   t : "Got some juicy info for ya",
+                                   m : "Really, let me have it. ;nl Ok here it goes, ;nl trrrrrrrrrrrrrrrrr haha",
+                                   i : "i"
                                 });
    };
 
    tester10.onclick = function ()
    {
       Barge.DiceyDialog.confirm({
-                                   t                : "Success is your portion",
-                                   m                : "I know right, Jehovah's got me",
-                                   i                : "s"
+                                   title    : "Success is your portion",
+                                   message  : "I know right, Jehovah's got me",
+                                   icon     : "s",
+                                   onCancel : function ()
+                                   {
+                                      console.log("Cancelled");
+                                   }
+
                                 });
    };
 
    //endregion   Barge.DiceyDialog.alert({title : "My First Alert"});
 
    Barge.Input.manageTextBoxGroup("serialKey", 4);
+
+   function getName(name, doSth)
+   {
+      if (doSth)
+      {
+         doSth()
+      }
+
+      return name;
+   }
+
+   let fn = getName("Charles", function ()
+   {
+      document.writeln("<b>" + "Nama" + "</b>");
+   });
+
+   console.log(fn);
+
+
 </script>
 </body>
 </html>

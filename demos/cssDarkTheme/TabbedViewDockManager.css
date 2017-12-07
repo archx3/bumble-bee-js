@@ -1,0 +1,531 @@
+/************* Panel with title bar ************/
+.panel-base
+{
+}
+
+.panel-titlebar
+{
+  background-color: #333;
+  height: 25px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.panel-titlebar-text
+{
+  float: left;
+  padding-left: 10px;
+  padding-top: 5px;
+  font-weight: bold;
+  color: #aaa;
+}
+
+.panel-titlebar-button-close
+{
+  float: right;
+  /*padding-top:5px;*/
+  /*padding-right:8px;*/
+  font-weight: bold;
+  color: #aaa;
+  font-size: 25px;
+  line-height: .8;
+  padding: 2px 8px;
+}
+
+.panel-titlebar-button-close:hover
+{
+  float: right;
+  /*padding-top:5px;*/
+  /*padding-right:8px;*/
+  font-weight: bold;
+  color: #fff;
+  background-color: #f00;
+}
+
+.panel-content
+{
+  background-color: #fff;
+  width: 100%;
+}
+
+.panel-content *
+{
+  margin: 0px;
+}
+
+/***************** Floating dialog box ****************/
+.dialog-floating
+{
+  position: absolute;
+  box-shadow: 5px 5px 20px #000;
+}
+
+/************ Resize decorator ************/
+.resize-handle
+{
+  position: absolute;
+  width: 6px;
+  height: 6px;
+}
+
+.resize-handle-corner
+{
+  position: absolute;
+  width: 12px;
+  height: 12px;
+}
+
+.resize-handle-e
+{ cursor: e-resize; }
+
+.resize-handle-w
+{ cursor: w-resize; }
+
+.resize-handle-s
+{ cursor: s-resize; }
+
+.resize-handle-n
+{ cursor: n-resize; }
+
+.resize-handle-ne
+{ cursor: ne-resize; }
+
+.resize-handle-nw
+{ cursor: nw-resize; }
+
+.resize-handle-se
+{ cursor: se-resize; }
+
+.resize-handle-sw
+{ cursor: sw-resize; }
+
+/******************* Dock Manager ********************/
+.dock-container
+{
+  /*background-color: #888; */
+}
+
+.dock-container-fill
+{
+}
+
+/******************* Document Manager ********************/
+.document-manager
+{
+  /*background-color: #666;*/
+  width: 100% !important;
+}
+
+/******************* Dock Wheel ********************/
+
+.dock-wheel-base
+{
+  position: absolute;
+}
+
+.dock-wheel-item
+{
+  position: absolute;
+  width: 32px;
+  height: 32px;
+}
+
+.dock-wheel-fill
+{
+  margin-left: -16px;
+  margin-top: -16px;
+}
+
+.dock-wheel-left
+{
+  margin-left: -48px;
+  margin-top: -16px;
+}
+
+.dock-wheel-right
+{
+  margin-left: 16px;
+  margin-top: -16px;
+}
+
+.dock-wheel-top
+{
+  margin-left: -16px;
+  margin-top: -48px;
+}
+
+.dock-wheel-down
+{
+  margin-left: -16px;
+  margin-top: 16px;
+}
+
+.dock-wheel-panel-preview
+{
+  position: absolute;
+  background-color: rgba(128, 128, 255, 0.5);
+}
+
+.dock-wheel-fill-icon
+{ background: url(../css/images/dockImages/dock_fill.png) 0 0; }
+
+.dock-wheel-left-icon
+{ background: url(../css/images/dockImages/dock_left.png) 0 0; }
+
+.dock-wheel-right-icon
+{ background: url(../css/images/dockImages/dock_right.png) 0 0; }
+
+.dock-wheel-top-icon
+{ background: url(../css/images/dockImages/dock_top.png) 0 0; }
+
+.dock-wheel-down-icon
+{ background: url(../css/images/dockImages/dock_bottom.png) 0 0; }
+
+.dock-wheel-fill-icon-hover
+{ background: url(../css/images/dockImages/dock_fill_sel.png) 0 0; }
+
+.dock-wheel-left-icon-hover
+{ background: url(../css/images/dockImages/dock_left_sel.png) 0 0; }
+
+.dock-wheel-right-icon-hover
+{ background: url(../css/images/dockImages/dock_right_sel.png) 0 0; }
+
+.dock-wheel-top-icon-hover
+{ background: url(../css/images/dockImages/dock_top_sel.png) 0 0; }
+
+.dock-wheel-down-icon-hover
+{ background: url(../css/images/dockImages/dock_bottom_sel.png) 0 0; }
+
+/**************************** Splitter *********************************/
+.splitter-container-horizontal
+{
+  float: left;
+  /*	background-color: #333; */
+}
+
+.splitter-container-vertical
+{
+  /*	background-color: #333; */
+}
+
+.splitbar-horizontal
+{
+  background-color: #000000;
+  width: 100%;
+  height: 5px;
+  cursor: n-resize;
+}
+
+.splitbar-vertical
+{
+  background-color: #000000;
+  width: 5px;
+  height: 100%;
+  float: left;
+  cursor: e-resize;
+}
+
+/*************************** Tab Host ********************************/
+.tab-host
+{
+  /*background-color: #666;*/
+  width: 100% !important;
+}
+
+.tab-content
+{
+  /*background-color: #666; */
+}
+
+/*.tab-content * {
+    margin: 0;
+}*/
+
+.tab-handle
+{
+  position: relative;
+  background-color: #bbb;
+  color: #000;
+  height: 22px;
+  float: left;
+  overflow: hidden;
+  cursor: default;
+  /*box-shadow: 0px 5px 20px #000;*/
+  border-right: 1px solid #333;
+  font-weight: 400;
+  z-index: 0 !important;
+}
+
+.tab-handle:hover
+{
+  background-color: #23ff8c;
+  color: #000;
+}
+
+.tab-handle-selected
+{
+  background-color: var(--themeHighlightColor);
+  color: #000;
+  z-index: 1 !important;
+}
+
+.tab-handle-text
+{
+  /*margin-top: 3px;*/
+  /*margin-left: 6px;*/
+  /*margin-right: 6px;*/
+  float: left;
+  padding: 0 10px;
+}
+
+.tab-handle-close-button
+{
+  /*margin-top: 3px;*/
+  /*margin-right: 6px;*/
+  float: right;
+  font-size: 22px;
+  padding: 0 6px;
+  line-height: .9;
+  opacity: .3;
+}
+
+.tab-handle-close-button:hover
+{
+  opacity: 1;
+}
+
+.tab-handle-list-container
+{
+  background-color: #6b6b6b;
+  height: 22px;
+  overflow: hidden;
+}
+
+.tab-handle-content-seperator
+{
+  background-color: var(--themeHighlightColor);
+  height: 2px;
+}
+
+/*************************** Text Selection **************************/
+.disable-selection
+{
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+/************************ Misc Utils *************************/
+.full-screen
+{
+  display: block;
+
+  /*set the div in the top-left corner of the screen*/
+  top: 0;
+  left: 0;
+
+  /*set the width and height to 100% of the screen*/
+  width: 100%;
+  height: 100%;
+}
+
+.rounded-corner-top
+{
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+/**************************  TABBED VIEW SPECIFIC STYLES  ***************************************/
+
+.tabbedView, .tabbedView > *
+{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+.tabbedView
+{
+  width: 100% !important;
+  height: 100%;
+  /*background-color: #2fecb1;*/
+  margin: 0;
+  /*border:1px solid #ccc;*/
+  /*border-radius: 3px;*/
+  overflow: hidden;
+  /*box-shadow: 0 2px 5px rgba(46, 50, 61, 0.36);*/
+}
+
+.tabHeads > *
+{
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.tabHeads
+{
+  height: 7%;
+  max-height: 22px;
+  width: 100%;
+  background-color: var(--normalBgColor);
+  border-bottom: 2px solid var(--themeHighlightColor);
+}
+
+.tabHead, .addButton
+{
+  /*background-color: #ffffff;*/
+  /*padding: 0 10px;*/
+  position: relative;
+  background-color: var(--themeHighlightComplement);
+  font-weight: 400;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  /*border-bottom: 2px solid #fff;*/
+}
+
+.tabHead:hover, .addButton:hover
+{
+  background-color: var(--tabHoverColor)
+}
+
+.tabHead a
+{
+  /*background-color:#fff ;*/
+  /*padding: 4px 10px 4px 10px;*/
+  line-height: 1.4;
+  max-width: 110px;
+  text-overflow: ellipsis;
+  overflow-wrap: normal;
+  /*overflow:-moz-hidden-unscrollable;*/
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  user-select: none;
+}
+
+.activeTabHead
+{
+  height: 41px;
+  max-width: 180px !important;
+  /*border: 2px solid #93e2ff;*/
+  background-color: var(--themeHighlightColor);
+  user-select: none;
+  /*border-bottom: 0;*/
+}
+
+.tabCloseBtn
+{
+  opacity: .5;
+  font-weight: 600;
+  float: right;
+  line-height: 1.2;
+}
+
+.tabCloseBtn:hover
+{
+  opacity: 1;
+}
+
+.activeTabHead a
+{
+  /*background-color: var(--themeHightlightColor);*/
+  /*padding: 4px 10px 4px 10px;*/
+  line-height: 1.4;
+  font-weight: 400;
+  user-select: none;
+}
+
+.tabHeads ul
+{
+  height: 100%;
+  display: inline;
+}
+
+.tabHeads ul:first-of-type
+{
+  max-width: calc(100% - 20px);
+  display: inline-block;
+  float: left;
+}
+
+.tabHeads ul li
+{
+  position: relative;
+  transition: all .4s ease-out, background-color .2s;
+  width: auto;
+  min-width: 80px;
+  max-width: 150px;
+  height: 100%;
+  /*border-right: 1px solid #ccc;*/
+  border-right: 1px solid var(--dividerColor);
+  font-size: 97%;
+  float: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: normal;
+  padding: 0 10px;
+}
+
+.tabHeads ul li a
+{
+  color: var(--menuTextColor);
+}
+
+.panes
+{
+  height: 93%;
+  width: 100%;
+  overflow: hidden;
+  /*background-color: #fff;*/
+}
+
+.pane
+{
+  height: 100%;
+  width: 100%;
+  /*padding: 10px;*/
+  display: none;
+}
+
+.activePane
+{
+  height: 100%;
+  width: 100%;
+  /*padding: 10px;*/
+  display: block;
+  font-weight: 400;
+}
+
+.tvCloseBtn
+{
+  position: absolute;
+  right: 0;
+  z-index: 10;
+  background-color: transparent;
+  color: rgba(0, 0, 0, .5);
+  font-size: 18px;
+  height: inherit;
+}
+
+.tvCloseBtn:hover
+{
+  color: rgba(0, 0, 0, 1);
+}
+
+.tabIcon
+{
+  height: 21px !important;
+  margin-left: -6px;
+
+}
+
+.tabHead .tabIcon
+{
+  vertical-align: baseline !important;
+}
+/********************************** END OF TBV SS ***********************************/
