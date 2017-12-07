@@ -12,4 +12,4 @@ If your app makes use of UI components like:
  - List and Table Views
  - Form input elements with some sweet perks and user-input restrictionz as needed.
 ------------------------------
-* The bumble-bee library, Made w/ love @ BARGE Studios, Inc. by @archx3 and other contributers, is what you shd be using. 
+* The bumble-bee library, Made w/ :yellow_heart: @ BARGE Studios, Inc. by @archx3 and other contributers, is what you shd be using. 
