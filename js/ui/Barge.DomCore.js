@@ -73,6 +73,35 @@ var Barge = Barge || {};
       gsv : Barge.utils.getStyleValue,
 
       /**
+       *
+       * @param query {String}
+       * @param single {Boolean}
+       * @returns {*}
+       */
+      $ : function (query, single)
+      {
+         if (query)
+         {
+            if(query.match(/^#(\S*)/))
+            {
+               return document.getElementById(query)
+            }
+            else if(query.match(/^\.(\S*)/) && single)
+            {
+               return document.querySelector(query)
+            }
+            else
+            {
+               return document.querySelectorAll(query)
+            }
+         }
+         else if (!Bu.defined(query))
+         {
+            throw new Error("method Barge.Dome.$() expects a query");
+         }
+      },
+
+      /**
        * @use Jquery-lyk el(s) selector
        * @param query {string}
        * @param multiple {boolean}

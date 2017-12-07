@@ -1,49 +1,74 @@
+*
+{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  border: 0;
+  outline:none;
+  /*-webkit-user-select: none;*/
+  /*transition: all .3s;*/
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*:before, *:after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+*:focus, *:active, *:hover
+{
+  outline:none;
+}
+
+@font-face {
+  font-family: "segoe mdl2 Assets";
+  src:url("../fonts/segmdl2.ttf");
+}
+
+
+a:hover, a:active, a:focus {
+  /* styling for any way a link is about to be used */
+  outline: none;
+}
+
+i.fa:not(.fa-calendar), button span{
+  pointer-events: none;
+}
+
+/*region Menu Bar*/
+
+body{
+  background:#fbfbfb;
+
+  /*background-image: url("../images/homebs/bgs1.jpg");*/
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
 body, html
 {
-  font-family: "Segoe UI", sans-serif;
+  font-family:"segoe ui","helvetica","arial",sans-serif;
   font-weight: 300;
 }
 
-.a1x1 .container /* 1:1 Aspect Ratio */
-{
-  background-color: red;
-  width: 100%;
-  padding-top: 100%;
-  position: relative; /* If you want text inside of it */
+li {
+  list-style: none;
 }
 
-/*region aspect ratio*/
-.a1x1 .text
-{
-  /* If you want text inside of the container */
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+input::-moz-focus-inner {
+  border: 0;
 }
 
-.a16x9 .container
+
+p, h1, h3, div, section
 {
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  cursor: default;
 }
 
-.a16x3 .container
-{
-  padding-top: 75%; /* 4:3 Aspect Ratio */
-}
 
-.a3x2 .container
-{
-  padding-top: 66.66%; /* 3:2 Aspect Ratio */
-}
-
-.a8x5 .container
-{
-  padding-top: 62.5%; /* 8:5 Aspect Ratio */
-}
-
-/*endregion*/
 
 a
 {
@@ -60,6 +85,7 @@ a:hover, a:active, a:focus
   /* styling for any way a link is about to be used */
   outline: none;
 }
+
 
 .npe
 {
@@ -197,6 +223,11 @@ select:focus
   position: relative;
 }
 
+.fxd
+{
+  position: fixed;
+}
+
 .lg
 {
   font-size: large;
@@ -211,15 +242,53 @@ select:focus
 {
   margin: 0;
 }
+.m5
+{
+  margin: 5px;
+}
+.m10
+{
+  margin: 10px;
+}
+.m15
+{
+  margin: 15px;
+}
+
+.mr5
+{
+  margin-right: 5px;
+}
+
+.m20
+{
+  margin: 20px;
+}
 
 .m0a
 {
   margin: 0 auto;
 }
 
+.ma0
+{
+  margin: auto 0;
+}
+
+.maa
+{
+  margin: auto;
+}
+
+
 .pd0
 {
   padding: 0;
+}
+
+.p5
+{
+  padding: 5px;
 }
 
 .scrollable, .scroll, .xys
@@ -237,9 +306,19 @@ select:focus
   overflow-x: auto;
 }
 
+.bdr
+{
+  border: 1px solid var(--dividerColor);
+}
+
 .bb
 {
   border-bottom: 1px solid var(--dividerColor);
+}
+
+.bb2
+{
+  border-bottom: 2px solid var(--dividerColor);
 }
 
 .bt
@@ -291,6 +370,18 @@ select:focus
 .fillParentVertical, .fpv
 {
   height: 100%;
+}
+
+.fillParentHorizontalAuto, .fpha
+{
+  width: 100% ;
+  height: auto;
+}
+
+.fillParentVerticalAuto, .fpva
+{
+  height: 100%;
+  width: auto;
 }
 
 .ha
@@ -575,6 +666,46 @@ select:focus
 .clr13 { background-color: #90ed7d; }
 .clr14 { background-color: #f15c80; }
 
+/*region aspect ratio, Heavily influenced by tuts on www.w3schools.com/howto*/
+.a1x1 .container /* 1:1 Aspect Ratio */
+{
+  background-color: red;
+  width: 100%;
+  padding-top: 100%;
+  position: relative; /* If you want text inside of it */
+}
+
+.a1x1 .text
+{
+  /* If you want text inside of the container */
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.a16x9 .container
+{
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.a16x3 .container
+{
+  padding-top: 75%; /* 4:3 Aspect Ratio */
+}
+
+.a3x2 .container
+{
+  padding-top: 66.66%; /* 3:2 Aspect Ratio */
+}
+
+.a8x5 .container
+{
+  padding-top: 62.5%; /* 8:5 Aspect Ratio */
+}
+
+/*endregion*/
 
 
 

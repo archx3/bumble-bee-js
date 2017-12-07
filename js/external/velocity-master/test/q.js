@@ -959,7 +959,7 @@
       return deferred.promise;
    };
    /**
-    * Registers an observer on a promise.
+    * Registers an observers on a promise.
     *
     * Guarantees:
     *

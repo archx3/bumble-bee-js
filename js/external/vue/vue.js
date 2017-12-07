@@ -813,7 +813,7 @@ var observerState = {
 
 /**
  * Observer class that are attached to each observed
- * object. Once attached, the observer converts target
+ * object. Once attached, the observers converts target
  * object's property keys into getter/setters that
  * collect dependencies and dispatches updates.
  */
@@ -879,9 +879,9 @@ function copyAugment (target, src, keys) {
 }
 
 /**
- * Attempt to create an observer instance for a value,
- * returns the new observer if successfully observed,
- * or the existing observer if the value already has one.
+ * Attempt to create an observers instance for a value,
+ * returns the new observers if successfully observed,
+ * or the existing observers if the value already has one.
  */
 function observe (value, asRootData) {
   if (!isObject(value)) {
@@ -2340,7 +2340,7 @@ function lifecycleMixin (Vue) {
       vm._watchers[i].teardown();
     }
     // remove reference from data ob
-    // frozen object may not have observer.
+    // frozen object may not have observers.
     if (vm._data.__ob__) {
       vm._data.__ob__.vmCount--;
     }

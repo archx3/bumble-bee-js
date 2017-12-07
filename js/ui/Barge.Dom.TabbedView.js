@@ -25,7 +25,10 @@
  *    \      /
  * @fileOverview constructor and associated methods for creating and managing
  * a tabbed view
- * @requires {@link Barge.utils, @link  Barge.String, @link  Barge.Dom<?>, @link  Barge.Object}
+ * @requires {@link Barge.utils,
+ * @link  Barge.String,
+ * @link  Barge.Dom<?>,
+ * @link  Barge.Object}
  *
  *
  * @user msg: Some lines in this file use constructs from es6 or later
@@ -74,13 +77,18 @@ var Barge = Barge || {};
    /**
     *
     * @param parent {String<css> | Element}
-    * @param tabHeadNames {Array.<String>}
+    * @param tabHeadNames {Array.<String>|{
+                                 containerID : String,
+                                 tabName     : String,
+                                 style : {}
+                              }}
     * @param options {{sortHeads : Boolean, defaultActiveTabNumber : Number, closeButtons : Boolean,
       icons : Boolean, keepState : Boolean, canAddTab : Boolean, addButtonCallback : fn, canRemoveTab : Boolean, keepSortHeadsState : Boolean, tabbedViewID : String, style : Object, panesHostStyle : {}, panesHostProps :{} }}
     * @constructor
     */
    function TabbedView (parent, tabHeadNames, options)
    {
+      //region properties
       /**
        *
        * @type {String<css>|Element}
@@ -88,7 +96,6 @@ var Barge = Barge || {};
       this.parent = parent;
 
       this.INDEX = 0;
-
       /**
        *
        * @type {{tabName: string, containerID: string,
@@ -97,19 +104,19 @@ var Barge = Barge || {};
       this.tabHeadNames = tabHeadNames;
 
       /**
-       * the container el of the tabHeads <div></div>
+       * the container el of the tabHeads view <div></div>
        * @type {Element|null}
        */
       this.tabsHost = null;
 
       /**
-       * the container el of the tabHeads <div></div>
+       * the container el of the tabHeads view <div></div>
        * @type {Element|null}
        */
       this.panesHost = null;
 
       /**
-       * the tabs list el <UL></UL>
+       * the tabs list view el <UL></UL>
        * @type {null}
        */
       this.list = null;
@@ -121,29 +128,33 @@ var Barge = Barge || {};
       this.tabs = [];
 
       /**
-       *
+       * the list of panes
        * @type {Array<Element>}
        */
       this.panes = [];
 
+      //the add button object
       this.addButton = null;
 
+      //the show tabs list button
+      this.showTabsList = null;
+
       /**
-       *
+       * tracking the active tab
        * @type {Object}
        */
       this.activeTab = null;
 
       /**
-       *
+       * tracking the active pane
        * @type {Object}
        */
       this.activePane = null;
 
       this.sortable = null;
-
+      //endregion
       /**
-       *
+       * the default config setting
        * @type {{defaultActiveTabNumber: number,
        * closeButtons: boolean, tabHeadLocation: string,
        * sortHeads: boolean, icons: boolean,
@@ -168,11 +179,20 @@ var Barge = Barge || {};
          scrollablePanes : false
       };
 
+      /*tab = {
+         title : "",
+         canClose : False,
+         icon : "",
+
+         * */
+
+      //replace the default options w/ the user set ones if any is available
       if (options)
       {
          this.options = Bu.extend(this.options, options);
       }
 
+      //check if the auto create option is set to true and create the view component if so
       if(this.options.autoCreate === true)
       {
          this.create();
@@ -202,6 +222,7 @@ var Barge = Barge || {};
       tabbedView.appendChild(this._renderTabHeads(this.tabHeadNames));
       tabbedView.appendChild(this._renderPanes(this.tabHeadNames));
 
+      //insert the tabbed view created into the parent el supplied if any (else : FIXME)
       if (this.parent)
       {
          if (Bu.isString(this.parent))
@@ -219,8 +240,10 @@ var Barge = Barge || {};
        */
       var tabHeads = document.querySelectorAll(".tabbedView .tabHead");
 
+      //let's add the click event that switches the tabs
       this._addClickEvent();
 
+      //making the tabbed view state persistent
       if (self.options.keepState === true) //imhere fixme
       {
          if (Bu.defined(self.options.tabbedViewID) && !Bs.isEmpty(self.options.tabbedViewID))
@@ -244,6 +267,7 @@ var Barge = Barge || {};
          }
       }
 
+      //let's join the memory freedom movement
       tabbedView = tabHeads = null;
    };
 
@@ -344,15 +368,13 @@ var Barge = Barge || {};
                           },
                           { userSelect : 'none', pointerEvents : 'none' });
 
-      console.log(iconObj);
+      //console.log(iconObj);
       if(Bu.defined(iconObj))
       {
          let span = Bd.createEl("span", { 'className' : "tabIcon tabIco" },
                                 Bu.defined(iconObj.style) ? iconObj.style : null);
 
          li.appendChild(span);
-
-
          //span = null;
       }
 
@@ -368,7 +390,10 @@ var Barge = Barge || {};
          li.appendChild(closeBtn);
       }
 
-      self.tabs.push(li);
+      //add the tab to the list of tabs in the model
+      self.tabs.push({el : li, tabName : tabName, index : count, });
+
+      //add the tab <li> to the view
       self.list.appendChild(li);
 
       //let's free up some mem, shall we?
@@ -448,9 +473,8 @@ var Barge = Barge || {};
          this._createSorter();
       }
 
-      if (self.options.canAddTab === true)
+      function creatLi(text)
       {
-         let ul = Bd.createEl("ul");
          let li = Bd.createEl("li", { 'className' : 'addButton' }, {
             userSelect : 'none',
             padding    : "2px",
@@ -460,28 +484,45 @@ var Barge = Barge || {};
             textAlign  : "center"
          });
          let a = Bd.createEl("span", {
-            href : '#', innerHTML : "+"
+            href : '#', innerHTML : text
 
          }, { userSelect : 'none', });
 
          li.appendChild(a);
-         ul.appendChild(li);
+         return li;
+      }
 
-         self.tabsHost.appendChild(ul);
-         self.addButton = li;
+      if (self.options.canAddTab === true || self.options.showTabsList === true)
+      {
+         let ul = Bd.createEl("ul"), li = null;
 
-         Be.bind(this.addButton, "click", function (e)
+         if(self.options.canAddTab === true)
          {
-            //imhere ADD TAB fn
-            self.addTab(self.options.genericTabName + " " + (self.list.children.length + 1));
+            li = creatLi("+");
+            ul.appendChild(li);
+            self.addButton = li;
 
-            if (self.options.addButtonCallback !== null)
+            Be.bind(self.addButton, "click", function (e)
             {
-               self.options.addButtonCallback();
-            }
-         });
+               //imhere ADD TAB fn
+               self.addTab(self.options.genericTabName + " " + (self.list.children.length + 1));
 
-         li = a = null;
+               if (self.options.addButtonCallback !== null)
+               {
+                  self.options.addButtonCallback();
+               }
+            });
+         }
+
+         if(self.options.showTabsList === true)
+         {
+            li = creatLi("&equiv;");
+            ul.appendChild(li);
+            self.showTabsList = li;
+         }
+
+         li = null;
+         self.tabsHost.appendChild(ul);
       }
 
       return this.tabsHost;
@@ -521,7 +562,9 @@ var Barge = Barge || {};
       //   div.innerHTML = tabName;
       //}
 
-      self.panes.push(div);
+      //add the pane and it's properties to the model
+      self.panes.push({el : div, tabName : tabName, index : count});
+      //update the view with the generated pane el
       self.panesHost.appendChild(div);
 
       //let the sea give up the dead in it
@@ -874,7 +917,8 @@ var Barge = Barge || {};
    //FIXME then return the object.
 
    //we're going public whoop! whoop!, lol
-   return Barge.Dom.TabbedView = TabbedView;
+   //return Barge.Dom.TabbedView = TabbedView;
+   return TabbedView;
 });
 
 /*
@@ -883,5 +927,9 @@ var Barge = Barge || {};
  * TODO : tabHead location{top <default>, right, bottom, left}
  * TODO : tabHead repositioning by drag sorting DONE
  * TODO : tabHead icons
- * TODO : special tabHead colors
+ * TODO : special tabHead colors (changeability)
+ * TODO : a last tab head item that has a list of all tabs
+ * TODO : the ability to return to the previous tab from which
+ * the current tab as moved to if the current tab is closed
+ * TODO : add feature that dynamically calculates tabHead widths from the number of tabs
  * */

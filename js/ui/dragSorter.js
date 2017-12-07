@@ -77,7 +77,7 @@
              win                     = window,
              document                = win.document,
 
-
+             //supportDraggable        = !!('draggable' in document.createElement('div')),
              supportDraggable        = !!('draggable' in document.createElement('div')),
              supportCssPointerEvents = (function (el)
              {

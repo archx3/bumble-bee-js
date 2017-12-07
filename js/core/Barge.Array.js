@@ -1219,20 +1219,20 @@ var Barge = Barge || {};
       },
 
       /**
-       * Removes from an array the element at index i
+       * Removes from an array the element at index index
        * @param {Array<?>} arr Array or array like object from which to
        *     remove value.
-       * @param {number} i The index to remove.
+       * @param {number} index The index to remove.
        * @return {boolean} True if an element was removed.
        */
-      removeAt : function (arr, i)
+      removeAt : function (arr, index)
       {
          // goog.asserts.assert(arr.length != null);
 
          // use generic form of splice
          // splice returns the removed items and if successful the length of that
          // will be 1
-         return Array.prototype.splice.call(arr, i, 1).length == 1;
+         return Array.prototype.splice.call(arr, index, 1).length == 1;
       },
 
       /**
@@ -1333,8 +1333,6 @@ var Barge = Barge || {};
 
       slice        : function (arr, start, opt_end)
       {
-         // goog.asserts.assert(arr.length != null);
-
          // passing 1 arg to slice is not the same as passing 2 where the second is
          // null or undefined (in that case the second argument is treated as 0).
          // we could use slice on the arguments object and then use apply instead of
@@ -1352,8 +1350,6 @@ var Barge = Barge || {};
 
       splice       : function (arr, index, howMany, var_args)
       {
-         // goog.asserts.assert(arr.length != null);
-
          return Array.prototype.splice.apply(arr, this.slice(arguments, 1));
       },
 

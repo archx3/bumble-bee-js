@@ -33,6 +33,7 @@
  * @requires {@link Barge.Dom}
  *
  */
+
 (function (global, factory)
 {
    if (typeof define === 'function' && define.amd)
@@ -213,7 +214,8 @@
    DiceyDialog.prototype.render = function (isAlert = true, options = null, isFileDialog = false)
    {
       //console.log("here");
-      //if a dialog is already showing dismiss it
+      //msg if a dialog is already showing dismiss it
+      //issue #50 this makes it impossible to create overlapping dialog boxes
       if (Bu.defined(this.dialog))
       {
          this.dismiss();
