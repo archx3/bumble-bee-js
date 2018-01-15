@@ -2,7 +2,14 @@
   "name": "bumblebee-js",
   "version": "0.0.1",
   "dependencies": {
-
+    "bumblebee-css": "https://github.com/archX3/bumble-bee-css.git"
   },
-  "files": ["js", "demos"]
+  "files": [
+    "js",
+    "demos"
+  ],
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1"
+  }
 }
