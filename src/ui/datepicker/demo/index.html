@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="./demo.css"/>
+        <link rel="stylesheet" href="../../../../css/datepicker.css"/>
+        <meta charset="utf-8">
+        <title>Datepicker Demo</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div class="field">
+            <input name="date" value=""/>
+        </div>
+
+
+        <script src="../../../core/base/Barge.Utils.js"></script>
+        <script src="../../../ui/Barge.DomCore.js"></script>
+        <script src="../../../core/base/Barge.Timer.js"></script>
+        <script src="../datepicker.js"></script>
+        <script>
+            var input = document.querySelector('input[name="date"]');
+
+            var picker = datepicker('input[name="date"]');
+
+            input.addEventListener('change', () => {
+                console.log('change', input.value);
+            });
+
+            input.addEventListener('input', () => {
+                console.log('input', input.value);
+            });
+        </script>
+    </body>
+</html>

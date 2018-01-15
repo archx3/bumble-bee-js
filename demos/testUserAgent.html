@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>testUserAgent</title>
+   <script src="../js/core/base/Barge.Utils.js"></script>
+   <script src="../js/core/base/Barge.Array.js"></script>
+   <script src="../js/core/base/Barge.String.js"></script>
+   <script src="../js/core/base/Barge.Object.js"></script>
+</head>
+<body>
+
+<script src="../js/core/Barge.UserAgent.js"></script>
+
+
+<script >
+
+   console.log(Barge.userAgent.getNavigator());
+   console.log('gk', Barge.userAgent.GECKO);
+   console.log(Barge.uLabs.userAgent.platform.isWindows());
+   console.log('lin', Barge.uLabs.userAgent.platform.isLinux());
+
+   console.log(Barge.uLabs.userAgent.platform.isMacintosh());
+   console.log('chr',Barge.uLabs.userAgent.browser.isChrome());
+   console.log('ff',Barge.uLabs.userAgent.browser.isFirefox());
+
+
+</script>
+
+
+</body>
+</html>
