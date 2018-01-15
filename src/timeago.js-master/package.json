@@ -1,0 +1,49 @@
+{
+  "name": "timeago.js",
+  "officialName": "timeago.js",
+  "version": "3.0.1",
+  "summary": "timeago.js is a simple library (less than 2kb) to used to format datetime with `*** time ago` statement. eg: '3 hours ago'.",
+  "description": "timeago.js is a simple library (only 2kb) to used to format datetime with `*** time ago` statement. eg: '3 hours ago'. localization supported.",
+  "author": {
+    "name": "hustcc",
+    "url": "http://git.hust.cc/timeago.js"
+  },
+  "license": "MIT",
+  "keywords": [
+    "timeago",
+    "datetime",
+    "*** time ago",
+    "date",
+    "javascript timeago"
+  ],
+  "main": "dist/timeago.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hustcc/timeago.js"
+  },
+  "bugs": {
+    "url": "https://github.com/hustcc/timeago.js/issues"
+  },
+  "dependencies": {
+    "@types/jquery": "^2.0.40"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-inject-version": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0",
+    "jshint": "^2.9.2",
+    "slice.js": "^1.0.3",
+    "tape": "^4.6.2",
+    "webpack": "^1.12.9",
+    "typescript": "^2.2.1"
+  },
+  "scripts": {
+    "lint": "jshint src/timeago.js",
+    "test": "npm run lint && node tests/locales_test.js && node tests/test.js && npm run test_ts",
+    "test_dev": "npm run lint && node tests/test_dev.js",
+    "test_ts": "tsc tests/test_ts.ts --noImplicitAny && node tests/test_ts.js",
+    "build": "gulp mini && webpack && npm run test"
+  },
+  "typings": "./timeago.d.ts"
+}
