@@ -1,4 +1,4 @@
-<div style="text-align:center; width 100%"><img style="text-align:center; width 100%" src ="https://lh6.googleusercontent.com/4d9oIKqSnzW0em1F9HNlOrUQ-sCK2ScALccfLLZnT_HaIHpVJHWjqohn4w-5ldSZ5yIaIJLK-xbFoRp7moBa0mOIEwxZD5tAJlksgEcACbsxv1_AOVwcdDhnJd1TWJ99tICHp6MD" /></div>
+<div style="text-align:center; width 100%"><img style="text-align:center; width 100%" src ="https://lh3.googleusercontent.com/1pVi_86WVsqT87d1M36nUB17aX67A7m0kZK5K0ERx9JqFQ7ZsOAXEmwmUsRon6sDfnPk2NFKcf7_-tarkvdClHvjoal2fHSBYgLCJ5buJ-YvREB9T1PHfDvvFez9yKUGfHbS5_xs" /></div>
 # bumble-bee-js
 A UI building, component creation and management library with an accompanying base library with tonnes of methods 
 to help reduce repetitive tasks.
