@@ -132,7 +132,7 @@ var Barge = Barge || {};
          else
          {
             var l = arr.length;  // must be fixed during loop... see docs
-            var res = new Array(l);
+            var res = new Array(l); // bad idea
             var arr2 = Bu.isString(arr) ? arr.split('') : arr;
             for (var i = 0; i < l; i++)
             {
@@ -455,8 +455,7 @@ var Barge = Barge || {};
          var ret = {};
          this.forEach(arr, function (element, index)
          {
-            ret[keyFunc.call(/** @type {?} */ (opt_obj), element, index, arr)] =
-               element;
+            ret[keyFunc.call(/** @type {?} */ (opt_obj), element, index, arr)] = element;
          });
          return ret;
       },
