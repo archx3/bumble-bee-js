@@ -11,6 +11,6 @@
         "declaration": true
     },
     "files": [
-        "autocomplete.ts"
+      "autocomplete.ts"
     ]
 }
