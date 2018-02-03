@@ -38,20 +38,20 @@
 var COMPILED = false;
 
 /**
- * Base namespace for the Bumble Bee library.  Checks to see Barge is already
+ * Base namespace for the Bumble Bee library.  Checks to see Bee is already
  * defined in the current scope before assigning to prevent clobbering if
- * Barge.Utils.js is loaded more than once.
+ * Bee.Utils.js is loaded more than once.
  *
  * this should be loaded before any other file
  *
  * @const
  */
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 /**
  * Reference to the global context.  In most cases this will be 'window'.
  */
-Barge.global = this;
+Bee.global = this;
 
 /**
  * A hook for overriding the define values in uncompiled mode.
@@ -64,12 +64,12 @@ Barge.global = this;
  *
  * Example:
  * <pre>
- *   var UNCOMPILED_DEFINES = {'Barge.DEBUG': false};
+ *   var UNCOMPILED_DEFINES = {'Bee.DEBUG': false};
  * </pre>
  *
  * @type {Object<string, (string|number|boolean)>|undefined}
  */
-Barge.global.UNCOMPILED_DEFINES;
+Bee.global.UNCOMPILED_DEFINES;
 
 /**
  * A hook for overriding the define values in uncompiled or compiled mode,
@@ -84,12 +84,12 @@ Barge.global.UNCOMPILED_DEFINES;
  *
  * Example:
  * <pre>
- *   var CLOSURE_DEFINES = {'Barge.DEBUG': false} ;
+ *   var CLOSURE_DEFINES = {'Bee.DEBUG': false} ;
  * </pre>
  *
  * @type {Object<string, (string|number|boolean)>|undefined}
  */
-Barge.global.DEFINES;
+Bee.global.DEFINES;
 
 /**
  * @type {Element}
@@ -113,7 +113,7 @@ const BODY = document ? document.body : null;
  *  * @type {Object}
  * @static
  */
-Barge.utils = {
+Bee.utils = {
 
    posX : 0,
    posY : 0,
@@ -323,16 +323,16 @@ Barge.utils = {
    getStyleValue            : function (elRule, el)
    {
       var self = this;
-      if (Barge.utils.isString(elRule) && el)
+      if (Bee.utils.isString(elRule) && el)
       {
-         return Barge.utils.pInt(el.style[elRule].toString().replace(/px|%|pt|em/gi, ""));
+         return Bee.utils.pInt(el.style[elRule].toString().replace(/px|%|pt|em/gi, ""));
       }
 
       if (elRule.toString().indexOf(/px|%|pt|em/gi) > -1)
       {
-         return Barge.utils.pInt(elRule.toString().replace(/px|%|pt|em/gi, ""));
+         return Bee.utils.pInt(elRule.toString().replace(/px|%|pt|em/gi, ""));
       }
-      return Barge.utils.pInt(elRule.toString());
+      return Bee.utils.pInt(elRule.toString());
    },
    /**@use: the following function returns the id of the object passed
     *@param {Element} el HTML Element
@@ -379,11 +379,11 @@ Barge.utils = {
     */
    removeEl                 : function (winEl)
    {
-      if (Barge.utils.defined(winEl.remove))
+      if (Bee.utils.defined(winEl.remove))
       {
          winEl.remove();
       }
-      else if (Barge.utils.defined(winEl.parentNode) && winEl.parentNode.hasChildNodes())
+      else if (Bee.utils.defined(winEl.parentNode) && winEl.parentNode.hasChildNodes())
       {
          winEl.parentNode.removeChild(winEl);
       }
@@ -443,7 +443,7 @@ Barge.utils = {
                {
                   var clockOut2 = setTimeout(function ()
                                              {
-                                                Barge.utils.setDisplayState(windowEl, "none");
+                                                Bee.utils.setDisplayState(windowEl, "none");
                                                 clearTimeout(clockOut2);
                                              }, delayVal);
                }
@@ -466,7 +466,7 @@ Barge.utils = {
             var delayVal = delay ? delay : 50;
             var clockOut = setTimeout(function ()
                                       {
-                                         Barge.utils.setDisplayState(windowEl, "block");
+                                         Bee.utils.setDisplayState(windowEl, "block");
                                          clearTimeout(clockOut);
                                       }, delayVal);
          }
@@ -495,7 +495,7 @@ Barge.utils = {
          {
             var clockOut = setTimeout(function ()
                                       {
-                                         Barge.utils.setDisplayState(windowEl, "block");
+                                         Bee.utils.setDisplayState(windowEl, "block");
                                          clearTimeout(clockOut);
                                       }, delayVal);
          }
@@ -510,7 +510,7 @@ Barge.utils = {
          {
             var clockOut2 = setTimeout(function ()
                                        {
-                                          Barge.utils.setDisplayState(windowEl, "none");
+                                          Bee.utils.setDisplayState(windowEl, "none");
                                           clearTimeout(clockOut2);
                                        }, delayVal);
          }
@@ -704,10 +704,10 @@ Barge.utils = {
                                         if (op <= 0.1)
                                         {
                                            clearInterval(fadeOutTimer);
-                                           Barge.utils.setDisplayState(el, "none");
+                                           Bee.utils.setDisplayState(el, "none");
                                            if (rem)
                                            {
-                                              Barge.utils.removeEl(el);
+                                              Bee.utils.removeEl(el);
                                            }
                                         }
                                         el.style.opacity = op;
@@ -738,7 +738,7 @@ Barge.utils = {
     */
    addClass                 : function (el, newClassName)
    {
-      if (Barge.utils.isString(el))
+      if (Bee.utils.isString(el))
       {
          el = this.getEl(el);
       }
@@ -756,7 +756,7 @@ Barge.utils = {
     */
    removeClass              : function (el, oldClassName)
    {
-      if (Barge.utils.isString(el))
+      if (Bee.utils.isString(el))
       {
          el = this.getEl(el);
       }
@@ -779,7 +779,7 @@ Barge.utils = {
    {
       if (this.defined(el) && currentElClass && newElClass)
       {
-         if (Barge.utils.isString(el))
+         if (Bee.utils.isString(el))
          {
             el = this.getEl(el);
          }
@@ -1408,11 +1408,11 @@ Barge.utils = {
                   delete properties['classList'];
                }
             }
-            Barge.utils.extend(el, properties);
+            Bee.utils.extend(el, properties);
          }
          if (styles && typeof styles === "object")
          {
-            Barge.utils.css(el, styles);
+            Bee.utils.css(el, styles);
          }
       }
       else
@@ -1521,13 +1521,13 @@ Barge.utils = {
     * @param {string} name name of the object that this file defines.
     * @param {*=} opt_object the object to expose at the end of the path.
     * @param {Object=} opt_objectToExportTo The object to add the path to; default
-    *     is |Barge.global|.
+    *     is |Bee.global|.
     * @private
     */
    _exportPath : function (name, opt_object, opt_objectToExportTo)
    {
       var parts = name.split('.');
-      var cur = opt_objectToExportTo || Barge.global;
+      var cur = opt_objectToExportTo || Bee.global;
 
       // issue Internet Explorer exhibits strange behavior when throwing errors from
       // methods externed in this manner.  See the testExportSymbolExceptions in
@@ -1576,14 +1576,14 @@ Barge.utils = {
       var value = defaultValue;
       if (!COMPILED)
       {
-         if (Barge.global.UNCOMPILED_DEFINES &&
-             Object.prototype.hasOwnProperty.call(Barge.global.UNCOMPILED_DEFINES, name))
+         if (Bee.global.UNCOMPILED_DEFINES &&
+             Object.prototype.hasOwnProperty.call(Bee.global.UNCOMPILED_DEFINES, name))
          {
-            value = Barge.global.UNCOMPILED_DEFINES[name];
+            value = Bee.global.UNCOMPILED_DEFINES[name];
          }
-         else if (Barge.global.DEFINES && Object.prototype.hasOwnProperty.call(Barge.global.DEFINES, name))
+         else if (Bee.global.DEFINES && Object.prototype.hasOwnProperty.call(Bee.global.DEFINES, name))
          {
-            value = Barge.global.DEFINES[name];
+            value = Bee.global.DEFINES[name];
          }
       }
       this._exportPath(name, value);
@@ -1597,7 +1597,7 @@ Barge.utils = {
    define : function (namespaceString)
    {
       let parts = namespaceString.split('.'),
-          parent = Barge,
+          parent = Bee,
           i;
 
       // strip redundant leading global
@@ -1762,15 +1762,15 @@ Barge.utils = {
  *
  * If your JavaScript can be loaded by a third party site and you are wary about
  * relying on non-standard implementations, specify
- * "--define Barge.TRUSTED_SITE=false" to the JSCompiler.
+ * "--define Bee.TRUSTED_SITE=false" to the JSCompiler.
  */
-Barge.utils.define('Barge.TRUSTED_SITE', true);
+Bee.utils.define('Barge.TRUSTED_SITE', true);
 
 /**
  * @return {number} An integer value representing the number of milliseconds
  *     between midnight, January 1, 1970 and the current time.
  */
-Barge.utils.now = (Barge.TRUSTED_SITE && Date.now) || (function ()
+Bee.utils.now = (Bee.TRUSTED_SITE && Date.now) || (function ()
    {
       // Unary plus operator converts its operand to a number which in
       // the case of
@@ -1798,7 +1798,7 @@ Barge.utils.now = (Barge.TRUSTED_SITE && Date.now) || (function ()
  * @param {!Function} childCtor Child class.
  * @param {!Function} parentCtor Parent class.
  */
-Barge.utils.inherits = function (childCtor, parentCtor)
+Bee.utils.inherits = function (childCtor, parentCtor)
 {
    /** @constructor */
    function tempCtor()
@@ -1813,7 +1813,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
    /**
     * Calls superclass constructor/method.
     *
-    * This function is only available if you use Barge.utils.inherits to
+    * This function is only available if you use Bee.utils.inherits to
     * express inheritance relationships between classes.
     *
     * NOTE: This is a replacement for goog.base and for superClass_

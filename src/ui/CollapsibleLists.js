@@ -7,7 +7,7 @@ http://creativecommons.org/publicdomain/zero/1.0/legalcode
 
 */
 
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 /**
  * IICE Immidiately instantiated constructor expression
@@ -16,7 +16,7 @@ var Barge = Barge || {};
  */
 (function (/*Bu, Bs, Bo, Bd*/)
 {
-   Barge.CollapsibleLists = new function()
+   Bee.CollapsibleLists = new function()
 {
       /**Makes all lists with the class 'collapsibleList' collapsible.
        *@param doNotRecurse {boolean}- true if sub-lists should not be made collapsible
@@ -202,6 +202,6 @@ var Barge = Barge || {};
       }
 
     }();
-})(/*Barge.utils, Barge.String, Barge.Object, Barge.Dom*/);
+})(/*Bee.utils, Bee.String, Bee.Object, Bee.Dom*/);
 
 /*TODO ADD keyboard support for collapsing and expanding as well as cycling through list up and down*/

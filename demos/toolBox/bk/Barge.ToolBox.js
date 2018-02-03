@@ -25,7 +25,7 @@
  *    \      /
  */
 
-var Barge = Barge || {};
+var Barge = Bee || {};
 (function (Bu, Bs, Bd)
 {
    //region prtected globals
@@ -119,7 +119,7 @@ var Barge = Barge || {};
         *
         * @type {Barge.Event.EventManager}
         */
-       Be               = new Barge.Event.EventManager(),
+       Be               = new Bee.Event.EventManager(),
        /**
         *
         * @type {Array}
@@ -937,7 +937,7 @@ var Barge = Barge || {};
          var moveParent = dragOptions.moveParent || null,
              tolerance  = dragOptions.tolerance || null;
 
-         //let dBe = new Barge.Event.EventManager();
+         //let dBe = new Bee.Event.EventManager();
 
          var self = this;
          var gsv = Bu.getStyleValue;
@@ -1278,7 +1278,7 @@ var Barge = Barge || {};
 
       });
    }
-})(Barge.utils, Barge.String, Barge.Dom);
+})(Bee.utils, Bee.String, Bee.Dom);
 
 /*
  * TODO ADD support for adjusting surrounding els

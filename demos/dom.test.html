@@ -63,9 +63,9 @@
 <script src="../js/external/velocity-master/velocity.ui.js"></script>
 
 <script>
-//    include(['core/Barge.Utils', 'core/Barge.Array', 'core/Barge.String',
-//             'core/Barge.Object', 'Barge.UserAgent.js', 'core/Barge.Dom', 'core/Barge.Events',
-//             'core/Barge.Animations',  'external/velocity']);
+//    include(['core/Bee.Utils', 'core/Bee.Array', 'core/Bee.String',
+//             'core/Bee.Object', 'Bee.UserAgent.js', 'core/Bee.Dom', 'core/Bee.Events',
+//             'core/Bee.Animations',  'external/velocity']);
 </script>
 
 <script src="../js/external/velocity.js"></script>
@@ -75,19 +75,19 @@
 
 
 //        console.log(e);
-        var el1 = Barge.utils.gebi("el1");
-        var el2 = Barge.utils.gebi("el2");
-        var el3 = Barge.utils.gebi("el3");
+        var el1 = Bee.utils.gebi("el1");
+        var el2 = Bee.utils.gebi("el2");
+        var el3 = Bee.utils.gebi("el3");
 
-        var b = Barge.Dom;
+        var b = Bee.Dom;
 
         elsArr = [el2, el3];
         elsArr2 = [el1, el2, el3];
 
-//    Barge.Dom.centerToPage(elsArr2);
+//    Bee.Dom.centerToPage(elsArr2);
         b.alignLeft(el1, elsArr);
         b.anchorBottom(el1, elsArr);
-//    Barge.Dom.alignCentersHorizontally(el1, elsArr);
+//    Bee.Dom.alignCentersHorizontally(el1, elsArr);
 
 //    console.log(el1);
 //
@@ -98,8 +98,8 @@
 //    console.log(b.getBottomLeft(el1));
 
 
-        var Be = new Barge.Event.EventManager(),
-            ba = Barge.Animations;
+        var Be = new Bee.Event.EventManager(),
+            ba = Bee.Animations;
 
         b.registerFx('headShake');
 
@@ -126,7 +126,7 @@
 ////        console.log(e);
 ////        console.log(e.preventDefault());
 ////        console.log(Be.getEvent(e));
-////        console.log(Barge.Event.getEvent(e));
+////        console.log(Bee.Event.getEvent(e));
 ////        console.log(Be.getEventTarget(e));
 //       b.centerToPageVertically(Be.getEventTarget(e));
 //
@@ -146,7 +146,7 @@
 
         console.log(ba.slideDown);
 
-        Barge.Array.forEachAs(elsArr2, function (el)
+        Bee.Array.forEachAs(elsArr2, function (el)
         {
             Be.bind(el, 'click', function ()
             {

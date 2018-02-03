@@ -30,7 +30,7 @@
  *
  * @user msg: Some lines in this file use constructs from es6 or later
  */
-var Barge = Barge || {};
+var Barge = Bee || {};
 
 (function (global, factory)
 {
@@ -57,12 +57,12 @@ var Barge = Barge || {};
 {
    "use strict";
 
-   let Bu = Barge.utils;
+   let Bu = Bee.utils;
    /**
     *
     * @type {{}}
     */
-   Barge.Ajax = Barge.Ajax || {};
+   Bee.Ajax = Bee.Ajax || {};
 
    /**
     *
@@ -156,22 +156,22 @@ var Barge = Barge || {};
          //   {
                //case 1:
                //{
-               //   Barge.Dom.css(prEl, {width : "25%"});
+               //   Bee.Dom.css(prEl, {width : "25%"});
                //   break;
                //}
                //case 2:
                //{
-               //   Barge.Dom.css(prEl, {width : "50%"});
+               //   Bee.Dom.css(prEl, {width : "50%"});
                //   break;
                //}
                //case 3:
                //{
-               //   Barge.Dom.css(prEl, {width : "75%"});
+               //   Bee.Dom.css(prEl, {width : "75%"});
                //   break;
                //}
                //case 4:
                //{
-               //   Barge.Dom.css(prEl, {width : "100%"})
+               //   Bee.Dom.css(prEl, {width : "100%"})
                //}
             //}
          //}
@@ -283,7 +283,7 @@ var Barge = Barge || {};
     */
 
    //going public whoop! whoop! lol
-   return Barge.Ajax = Ajax;
+   return Bee.Ajax = Ajax;
 });
 
 

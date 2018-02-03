@@ -5,20 +5,20 @@
 var COMPILED = false;
 
 /**
- * Base namespace for the Bumble Bee library.  Checks to see Barge is already
+ * Base namespace for the Bumble Bee library.  Checks to see Bee is already
  * defined in the current scope before assigning to prevent clobbering if
- * Barge.Utils.js is loaded more than once.
+ * Bee.Utils.js is loaded more than once.
  *
  * this should be loaded before any other file
  *
  * @const
  */
-var Barge = Barge || {};
+var Barge = Bee || {};
 
 /**
  * Reference to the global context.  In most cases this will be 'window'.
  */
-Barge.global = this;
+Bee.global = this;
 
 /**
  * A hook for overriding the define values in uncompiled mode.
@@ -31,12 +31,12 @@ Barge.global = this;
  *
  * Example:
  * <pre>
- *   var UNCOMPILED_DEFINES = {'Barge.DEBUG': false};
+ *   var UNCOMPILED_DEFINES = {'Bee.DEBUG': false};
  * </pre>
  *
  * @type {Object<string, (string|number|boolean)>|undefined}
  */
-Barge.global.UNCOMPILED_DEFINES;
+Bee.global.UNCOMPILED_DEFINES;
 
 /**
  * A hook for overriding the define values in uncompiled or compiled mode,
@@ -51,12 +51,12 @@ Barge.global.UNCOMPILED_DEFINES;
  *
  * Example:
  * <pre>
- *   var CLOSURE_DEFINES = {'Barge.DEBUG': false} ;
+ *   var CLOSURE_DEFINES = {'Bee.DEBUG': false} ;
  * </pre>
  *
  * @type {Object<string, (string|number|boolean)>|undefined}
  */
-Barge.global.DEFINES;
+Bee.global.DEFINES;
 
 /**
  * @type {Element}
@@ -80,7 +80,7 @@ const BODY = document ? document.body : null;
  *  * @type {Object}
  * @static
  */
-Barge.utils = {
+Bee.utils = {
 
    posX : 0,
    posY : 0,
@@ -290,16 +290,16 @@ Barge.utils = {
    getStyleValue            : function (elRule, el)
    {
       var self = this;
-      if (Barge.utils.isString(elRule) && el)
+      if (Bee.utils.isString(elRule) && el)
       {
-         return Barge.utils.pInt(el.style[elRule].toString().replace(/px|%|pt|em/gi, ""));
+         return Bee.utils.pInt(el.style[elRule].toString().replace(/px|%|pt|em/gi, ""));
       }
 
       if (elRule.toString().indexOf(/px|%|pt|em/gi) > -1)
       {
-         return Barge.utils.pInt(elRule.toString().replace(/px|%|pt|em/gi, ""));
+         return Bee.utils.pInt(elRule.toString().replace(/px|%|pt|em/gi, ""));
       }
-      return Barge.utils.pInt(elRule.toString());
+      return Bee.utils.pInt(elRule.toString());
    },
    /**@use: the following function returns the id of the object passed
     *@param {Element} el HTML Element
@@ -346,11 +346,11 @@ Barge.utils = {
     */
    removeEl                 : function (winEl)
    {
-      if (Barge.utils.defined(winEl.remove))
+      if (Bee.utils.defined(winEl.remove))
       {
          winEl.remove();
       }
-      else if (Barge.utils.defined(winEl.parentNode) && winEl.parentNode.hasChildNodes())
+      else if (Bee.utils.defined(winEl.parentNode) && winEl.parentNode.hasChildNodes())
       {
          winEl.parentNode.removeChild(winEl);
       }
@@ -410,7 +410,7 @@ Barge.utils = {
                {
                   var clockOut2 = setTimeout(function ()
                                              {
-                                                Barge.utils.setDisplayState(windowEl, "none");
+                                                Bee.utils.setDisplayState(windowEl, "none");
                                                 clearTimeout(clockOut2);
                                              }, delayVal);
                }
@@ -433,7 +433,7 @@ Barge.utils = {
             var delayVal = delay ? delay : 50;
             var clockOut = setTimeout(function ()
                                       {
-                                         Barge.utils.setDisplayState(windowEl, "block");
+                                         Bee.utils.setDisplayState(windowEl, "block");
                                          clearTimeout(clockOut);
                                       }, delayVal);
          }
@@ -462,7 +462,7 @@ Barge.utils = {
          {
             var clockOut = setTimeout(function ()
                                       {
-                                         Barge.utils.setDisplayState(windowEl, "block");
+                                         Bee.utils.setDisplayState(windowEl, "block");
                                          clearTimeout(clockOut);
                                       }, delayVal);
          }
@@ -477,7 +477,7 @@ Barge.utils = {
          {
             var clockOut2 = setTimeout(function ()
                                        {
-                                          Barge.utils.setDisplayState(windowEl, "none");
+                                          Bee.utils.setDisplayState(windowEl, "none");
                                           clearTimeout(clockOut2);
                                        }, delayVal);
          }
@@ -671,10 +671,10 @@ Barge.utils = {
                                         if (op <= 0.1)
                                         {
                                            clearInterval(fadeOutTimer);
-                                           Barge.utils.setDisplayState(el, "none");
+                                           Bee.utils.setDisplayState(el, "none");
                                            if (rem)
                                            {
-                                              Barge.utils.removeEl(el);
+                                              Bee.utils.removeEl(el);
                                            }
                                         }
                                         el.style.opacity = op;
@@ -705,7 +705,7 @@ Barge.utils = {
     */
    addClass                 : function (el, newClassName)
    {
-      if (Barge.utils.isString(el))
+      if (Bee.utils.isString(el))
       {
          el = this.getEl(el);
       }
@@ -723,7 +723,7 @@ Barge.utils = {
     */
    removeClass              : function (el, oldClassName)
    {
-      if (Barge.utils.isString(el))
+      if (Bee.utils.isString(el))
       {
          el = this.getEl(el);
       }
@@ -746,7 +746,7 @@ Barge.utils = {
    {
       if (this.defined(el) && currentElClass && newElClass)
       {
-         if (Barge.utils.isString(el))
+         if (Bee.utils.isString(el))
          {
             el = this.getEl(el);
          }
@@ -1375,11 +1375,11 @@ Barge.utils = {
                   delete properties['classList'];
                }
             }
-            Barge.utils.extend(el, properties);
+            Bee.utils.extend(el, properties);
          }
          if (styles && typeof styles === "object")
          {
-            Barge.utils.css(el, styles);
+            Bee.utils.css(el, styles);
          }
       }
       else
@@ -1488,13 +1488,13 @@ Barge.utils = {
     * @param {string} name name of the object that this file defines.
     * @param {*=} opt_object the object to expose at the end of the path.
     * @param {Object=} opt_objectToExportTo The object to add the path to; default
-    *     is |Barge.global|.
+    *     is |Bee.global|.
     * @private
     */
    _exportPath : function (name, opt_object, opt_objectToExportTo)
    {
       var parts = name.split('.');
-      var cur = opt_objectToExportTo || Barge.global;
+      var cur = opt_objectToExportTo || Bee.global;
 
       // issue Internet Explorer exhibits strange behavior when throwing errors from
       // methods externed in this manner.  See the testExportSymbolExceptions in
@@ -1543,14 +1543,14 @@ Barge.utils = {
       var value = defaultValue;
       if (!COMPILED)
       {
-         if (Barge.global.UNCOMPILED_DEFINES &&
-             Object.prototype.hasOwnProperty.call(Barge.global.UNCOMPILED_DEFINES, name))
+         if (Bee.global.UNCOMPILED_DEFINES &&
+             Object.prototype.hasOwnProperty.call(Bee.global.UNCOMPILED_DEFINES, name))
          {
-            value = Barge.global.UNCOMPILED_DEFINES[name];
+            value = Bee.global.UNCOMPILED_DEFINES[name];
          }
-         else if (Barge.global.DEFINES && Object.prototype.hasOwnProperty.call(Barge.global.DEFINES, name))
+         else if (Bee.global.DEFINES && Object.prototype.hasOwnProperty.call(Bee.global.DEFINES, name))
          {
-            value = Barge.global.DEFINES[name];
+            value = Bee.global.DEFINES[name];
          }
       }
       this._exportPath(name, value);
@@ -1564,7 +1564,7 @@ Barge.utils = {
    define : function (namespaceString)
    {
       let parts = namespaceString.split('.'),
-          parent = Barge,
+          parent = Bee,
           i;
 
       // strip redundant leading global
@@ -1729,15 +1729,15 @@ Barge.utils = {
  *
  * If your JavaScript can be loaded by a third party site and you are wary about
  * relying on non-standard implementations, specify
- * "--define Barge.TRUSTED_SITE=false" to the JSCompiler.
+ * "--define Bee.TRUSTED_SITE=false" to the JSCompiler.
  */
-Barge.utils.define('Barge.TRUSTED_SITE', true);
+Bee.utils.define('Barge.TRUSTED_SITE', true);
 
 /**
  * @return {number} An integer value representing the number of milliseconds
  *     between midnight, January 1, 1970 and the current time.
  */
-Barge.utils.now = (Barge.TRUSTED_SITE && Date.now) || (function ()
+Bee.utils.now = (Bee.TRUSTED_SITE && Date.now) || (function ()
    {
       // Unary plus operator converts its operand to a number which in
       // the case of
@@ -1765,7 +1765,7 @@ Barge.utils.now = (Barge.TRUSTED_SITE && Date.now) || (function ()
  * @param {!Function} childCtor Child class.
  * @param {!Function} parentCtor Parent class.
  */
-Barge.utils.inherits = function (childCtor, parentCtor)
+Bee.utils.inherits = function (childCtor, parentCtor)
 {
    /** @constructor */
    function tempCtor()
@@ -1780,7 +1780,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
    /**
     * Calls superclass constructor/method.
     *
-    * This function is only available if you use Barge.utils.inherits to
+    * This function is only available if you use Bee.utils.inherits to
     * express inheritance relationships between classes.
     *
     * NOTE: This is a replacement for goog.base and for superClass_
@@ -1832,9 +1832,9 @@ Barge.utils.inherits = function (childCtor, parentCtor)
 {
    "use strict";
    //let's  create the namespace to house the observable array factory object
-   Barge.Array = Barge.Array || {};
+   Bee.Array = Bee.Array || {};
    //region protected globals
-   //let Bu = Barge.utils, Ba = Barge.Array;
+   //let Bu = Bee.utils, Ba = Bee.Array;
 
    //endregion
 
@@ -1977,10 +1977,10 @@ Barge.utils.inherits = function (childCtor, parentCtor)
       /*Implement in the concrete observer*/
    };
 
-    Barge.Observable =  SubjectInterface;
+    Bee.Observable =  SubjectInterface;
 
    //public methods object
-   //Barge.Array.ObservableArray = {
+   //Bee.Array.ObservableArray = {
    //
    //};
    //going public whoop! whoop! lol
@@ -1994,7 +1994,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @static
     * @type {{f}}
     */
-   Barge.Array = {
+   Bee.Array = {
 
       /**
        * Utility for iterating over an array.
@@ -2007,7 +2007,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
        */
       forEach : function (arr, fn, ctx)
       { // modern browsers
-         let arr2 = !Bu.isArray(arr) ? Barge.Array.toArray(arr) : arr;
+         let arr2 = !Bu.isArray(arr) ? Bee.Array.toArray(arr) : arr;
 
          if (!Array.prototype.forEach)
          {
@@ -2301,8 +2301,8 @@ Barge.utils.inherits = function (childCtor, parentCtor)
             {
                for (var c = 0; c < element.length; c += CHUNK_SIZE)
                {
-                  var chunk = Barge.Array.slice(element, c, c + CHUNK_SIZE);
-                  var recurseResult = Barge.Array.flatten.apply(null, chunk);
+                  var chunk = Bee.Array.slice(element, c, c + CHUNK_SIZE);
+                  var recurseResult = Bee.Array.flatten.apply(null, chunk);
                   for (var r = 0; r < recurseResult.length; r++)
                   {
                      result.push(recurseResult[r]);
@@ -3388,7 +3388,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
       /**
        * Searches the specified array for the specified target using the binary
        * search algorithm.  If no opt_compareFn is specified, elements are compared
-       * using {@code Barge.Array.defaultCompare}, which compares the elements
+       * using {@code Bee.Array.defaultCompare}, which compares the elements
        * using the built in < and > operators.  This will produce the expected
        * behavior for homogeneous arrays of String(s) and Number(s). The array
        * specified <b>must</b> be sorted in ascending order (as defined by the
@@ -3471,17 +3471,17 @@ Barge.utils.inherits = function (childCtor, parentCtor)
          return arr.indexOf(obj) > -1;
       }
    };
-})(Barge.utils);
+})(Bee.utils);
 
 
 (function (Bu)
 {
-   //cr8n the Barge.Object object
+   //cr8n the Bee.Object object
    /**
     * @static
     * @type {{}}
     */
-   Barge.Object = Barge.Object || {};
+   Bee.Object = Bee.Object || {};
    /**
     * Whether two values are not observably distinguishable. This
     * correctly detects that 0 is not the same as -0 and two NaNs are
@@ -3494,7 +3494,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {boolean} Whether two values are not observably distinguishable.
     * @see http://wiki.ecmascript.org/doku.php?id=harmony:egal
     */
-   Barge.Object.is = function (v, v2)
+   Bee.Object.is = function (v, v2)
    {
       if (v === v2)
       {
@@ -3519,7 +3519,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param {T=} opt_obj This is used as the 'this' object within f.
     * @template T,K,V
     */
-   Barge.Object.forEach = function (obj, f, opt_obj)
+   Bee.Object.forEach = function (obj, f, opt_obj)
    {
       for (var key in obj)
       {
@@ -3543,7 +3543,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     *     test are present.
     * @template T,K,V
     */
-   Barge.Object.filter = function (obj, f, opt_obj)
+   Bee.Object.filter = function (obj, f, opt_obj)
    {
       var res = {};
       for (var key in obj)
@@ -3570,7 +3570,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {!Object<K,R>} a new object with the results from f.
     * @template T,K,V,R
     */
-   Barge.Object.map = function (obj, f, opt_obj)
+   Bee.Object.map = function (obj, f, opt_obj)
    {
       var res = {};
       for (var key in obj)
@@ -3594,7 +3594,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {boolean} true if any element passes the test.
     * @template T,K,V
     */
-   Barge.Object.some = function (obj, f, opt_obj)
+   Bee.Object.some = function (obj, f, opt_obj)
    {
       for (var key in obj)
       {
@@ -3620,7 +3620,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {boolean} false if any element fails the test.
     * @template T,K,V
     */
-   Barge.Object.every = function (obj, f, opt_obj)
+   Bee.Object.every = function (obj, f, opt_obj)
    {
       for (var key in obj)
       {
@@ -3640,7 +3640,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     *
     * @return {boolean} null if the key does not exist.
     */
-   Barge.Object.get = function (obj, key)
+   Bee.Object.get = function (obj, key)
    {
       if (key in  obj)
       {
@@ -3656,7 +3656,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     *     pairs.
     * @return {number} The number of key-value pairs in the object map.
     */
-   Barge.Object.getCount = function (obj)
+   Bee.Object.getCount = function (obj)
    {
       var rv = 0;
       for (var key in obj)
@@ -3674,7 +3674,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param {Object} obj The object to pick a key from.
     * @return {string|undefined} The key or undefined if the object is empty.
     */
-   Barge.Object.getAnyKey = function (obj)
+   Bee.Object.getAnyKey = function (obj)
    {
       for (var key in obj)
       {
@@ -3691,7 +3691,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {V|undefined} The value or undefined if the object is empty.
     * @template K,V
     */
-   Barge.Object.getAnyValue = function (obj)
+   Bee.Object.getAnyValue = function (obj)
    {
       for (var key in obj)
       {
@@ -3701,16 +3701,16 @@ Barge.utils.inherits = function (childCtor, parentCtor)
 
    /**
     * Whether the object/hash/map contains the given object as a value.
-    * An alias for Barge.Object.containsValue(obj, val).
+    * An alias for Bee.Object.containsValue(obj, val).
     *
     * @param {Object<K,V>} obj The object in which to look for val.
     * @param {V} val The object for which to check.
     * @return {boolean} true if val is present.
     * @template K,V
     */
-   Barge.Object.contains = function (obj, val)
+   Bee.Object.contains = function (obj, val)
    {
-      return Barge.Object.containsValue(obj, val);
+      return Bee.Object.containsValue(obj, val);
    };
 
    /**
@@ -3720,7 +3720,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {!Array<V>} The values in the object/map/hash.
     * @template K,V
     */
-   Barge.Object.getValues = function (obj)
+   Bee.Object.getValues = function (obj)
    {
       var res = [];
       var i = 0;
@@ -3737,7 +3737,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param {Object} obj The object from which to get the keys.
     * @return {!Array<string>} Array of property keys.
     */
-   Barge.Object.getKeys = function (obj)
+   Bee.Object.getKeys = function (obj)
    {
       var res = [];
       var i = 0;
@@ -3760,16 +3760,16 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {*} The resulting value.  If, at any point, the value for a key
     *     is undefined, returns undefined.
     */
-   Barge.Object.getValueByKeys = function (obj, var_args)
+   Bee.Object.getValueByKeys = function (obj, var_args)
    {
-      var isArrayLike = Barge.isArrayLike(var_args);
+      var isArrayLike = Bee.isArrayLike(var_args);
       var keys = isArrayLike ? var_args : arguments;
 
       // Start with the 2nd parameter for the variable parameters syntax.
       for (var i = isArrayLike ? 0 : 1; i < keys.length; i++)
       {
          obj = obj[keys[i]];
-         if (!Barge.isDef(obj))
+         if (!Bee.isDef(obj))
          {
             break;
          }
@@ -3785,7 +3785,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param {?} key The key for which to check.
     * @return {boolean} true If the map contains the key.
     */
-   Barge.Object.containsKey = function (obj, key)
+   Bee.Object.containsKey = function (obj, key)
    {
       return obj !== null && key in obj;
    };
@@ -3798,7 +3798,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {boolean} true If the map contains the value.
     * @template K,V
     */
-   Barge.Object.containsValue = function (obj, val)
+   Bee.Object.containsValue = function (obj, val)
    {
       for (var key in obj)
       {
@@ -3822,7 +3822,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     *     returns true or undefined if no such element is found.
     * @template T,K,V
     */
-   Barge.Object.findKey = function (obj, f, opt_this)
+   Bee.Object.findKey = function (obj, f, opt_this)
    {
       for (var key in obj)
       {
@@ -3846,9 +3846,9 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     *     undefined if no such element is found.
     * @template T,K,V
     */
-   Barge.Object.findValue = function (obj, f, opt_this)
+   Bee.Object.findValue = function (obj, f, opt_this)
    {
-      var key = Barge.Object.findKey(obj, f, opt_this);
+      var key = Bee.Object.findKey(obj, f, opt_this);
       return key && obj[key];
    };
 
@@ -3858,7 +3858,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param {Object} obj The object to test.
     * @return {boolean} true if obj is empty.
     */
-   Barge.Object.isEmpty = function (obj)
+   Bee.Object.isEmpty = function (obj)
    {
       for (var key in obj)
       {
@@ -3872,7 +3872,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     *
     * @param {Object} obj The object to clear.
     */
-   Barge.Object.clear = function (obj)
+   Bee.Object.clear = function (obj)
    {
       for (var i in obj)
       {
@@ -3885,7 +3885,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     *
     * @param {Object} obj The object to clear.
     */
-   Barge.Object.destroy = function (obj)
+   Bee.Object.destroy = function (obj)
    {
       for (var i in obj)
       {
@@ -3902,7 +3902,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param {?} key The key to remove.
     * @return {boolean} Whether an element was removed.
     */
-   Barge.Object.remove = function (obj, key)
+   Bee.Object.remove = function (obj, key)
    {
       var rv;
       if (rv = key in /** @type {!Object} */ (obj))
@@ -3921,13 +3921,13 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param {V} val The value to add.
     * @template K,V
     */
-   Barge.Object.add = function (obj, key, val)
+   Bee.Object.add = function (obj, key, val)
    {
       if (obj !== null && key in obj)
       {
          throw Error('The object already contains the key "' + key + '"');
       }
-      Barge.Object.set(obj, key, val);
+      Bee.Object.set(obj, key, val);
    };
 
    /**
@@ -3940,7 +3940,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {V|R|undefined} The value for the given key.
     * @template K,V,R
     */
-   Barge.Object.get = function (obj, key, opt_val)
+   Bee.Object.get = function (obj, key, opt_val)
    {
       if (obj !== null && key in obj)
       {
@@ -3957,7 +3957,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param {V} value The value to add.
     * @template K,V
     */
-   Barge.Object.set = function (obj, key, value)
+   Bee.Object.set = function (obj, key, value)
    {
       obj[key] = value;
    };
@@ -3971,7 +3971,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {V} The value of the entry at the end of the function.
     * @template K,V
     */
-   Barge.Object.setIfUndefined = function (obj, key, value)
+   Bee.Object.setIfUndefined = function (obj, key, value)
    {
       return key in /** @type {!Object} */ (obj) ? obj[key] : (obj[key] = value);
    };
@@ -3990,7 +3990,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {V} The value of the entry at the end of the function.
     * @template K,V
     */
-   Barge.Object.setWithReturnValueIfNotSet = function (obj, key, f)
+   Bee.Object.setWithReturnValueIfNotSet = function (obj, key, f)
    {
       if (key in obj)
       {
@@ -4010,7 +4010,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {boolean}
     * @template K,V
     */
-   Barge.Object.equals = function (a, b)
+   Bee.Object.equals = function (a, b)
    {
       for (var k in a)
       {
@@ -4036,7 +4036,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @return {!Object<K,V>} Clone of the input object.
     * @template K,V
     */
-   Barge.Object.clone = function (obj)
+   Bee.Object.clone = function (obj)
    {
       // We cannot use the prototype trick because a lot of methods depend on where
       // the actual key is set.
@@ -4052,7 +4052,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
          res[key] = obj[key];
       }
       return res;
-      // We could also use Barge.mixin but I wanted this to be independent from that.
+      // We could also use Bee.mixin but I wanted this to be independent from that.
    };
 
    /**
@@ -4060,28 +4060,28 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * arrays will be cloned recursively.
     *
     * WARNINGS:
-    * <code>Barge.Object.unsafeClone</code> does not detect reference loops. Objects
+    * <code>Bee.Object.unsafeClone</code> does not detect reference loops. Objects
     * that refer to themselves will cause infinite recursion.
     *
-    * <code>Barge.Object.unsafeClone</code> is unaware of unique identifiers, and
+    * <code>Bee.Object.unsafeClone</code> is unaware of unique identifiers, and
     * copies UIDs created by <code>getUid</code> into cloned results.
     *
     * @param {*} obj The value to clone.
     * @return {*} A clone of the input value.
     */
-   Barge.Object.unsafeClone = function (obj)
+   Bee.Object.unsafeClone = function (obj)
    {
-      var type = Barge.typeOf(obj);
+      var type = Bee.typeOf(obj);
       if (type == 'object' || type == 'array')
       {
-         if (Barge.isFunction(obj.clone))
+         if (Bee.isFunction(obj.clone))
          {
             return obj.clone();
          }
          var clone = type == 'array' ? [] : {};
          for (var key in obj)
          {
-            clone[key] = Barge.Object.unsafeClone(obj[key]);
+            clone[key] = Bee.Object.unsafeClone(obj[key]);
          }
          return clone;
       }
@@ -4097,7 +4097,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param {Object} obj The object to transpose.
     * @return {!Object} The transposed object.
     */
-   Barge.Object.transpose = function (obj)
+   Bee.Object.transpose = function (obj)
    {
       var transposed = {};
       for (var key in obj)
@@ -4112,7 +4112,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @type {Array<string>}
     * @private
     */
-   Barge.Object.PROTOTYPE_FIELDS_ = [
+   Bee.Object.PROTOTYPE_FIELDS_ = [
       'constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable',
       'toLocaleString', 'toString', 'valueOf'
    ];
@@ -4123,9 +4123,9 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     *
     * Example:
     * var o = {};
-    * Barge.Object.extend(o, {a: 0, b: 1});
+    * Bee.Object.extend(o, {a: 0, b: 1});
     * o; // {a: 0, b: 1}
-    * Barge.Object.extend(o, {b: 2, c: 3});
+    * Bee.Object.extend(o, {b: 2, c: 3});
     * o; // {a: 0, b: 2, c: 3}
     *
     * @param {Object} target The object to modify. Existing properties will be
@@ -4134,7 +4134,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param {...Object} var_args The objects from which values will be copied.
     * @deprecated use{@link Barge.Object.extend | @link Barge.utils.extend } instead
     */
-   Barge.Object.extendss = function (target, var_args)
+   Bee.Object.extendss = function (target, var_args)
    {
       var key, source;
       for (var i = 1; i < arguments.length; i++)
@@ -4151,9 +4151,9 @@ Barge.utils.inherits = function (childCtor, parentCtor)
          // extend String and change 'replace' (not that it is common for anyone to
          // extend anything except Object).
 
-         for (var j = 0; j < Barge.Object.PROTOTYPE_FIELDS_.length; j++)
+         for (var j = 0; j < Bee.Object.PROTOTYPE_FIELDS_.length; j++)
          {
-            key = Barge.Object.PROTOTYPE_FIELDS_[j];
+            key = Bee.Object.PROTOTYPE_FIELDS_[j];
             if (Object.prototype.hasOwnProperty.call(source, key))
             {
                target[key] = source[key];
@@ -4162,9 +4162,9 @@ Barge.utils.inherits = function (childCtor, parentCtor)
       }
    };
 
-   Barge.Object.extend = Bu.extend;
+   Bee.Object.extend = Bu.extend;
 
-   /*Barge.Object.extendClone = function (a, b)FIXME
+   /*Bee.Object.extendClone = function (a, b)FIXME
    {
       Bu.extend(a, b)
    };*/
@@ -4178,12 +4178,12 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @throws {Error} If there are uneven number of arguments or there is only one
     *     non array argument.
     */
-   Barge.Object.create = function (var_args)
+   Bee.Object.create = function (var_args)
    {
       var argLength = arguments.length;
-      if (argLength === 1 && Barge.isArray(arguments[0]))
+      if (argLength === 1 && Bee.isArray(arguments[0]))
       {
-         return Barge.Object.create.apply(null, arguments[0]);
+         return Bee.Object.create.apply(null, arguments[0]);
       }
 
       if (argLength % 2)
@@ -4205,7 +4205,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param prototype
     * @returns {Creator}
     */
-   Barge.Object.createObject = function (prototype)
+   Bee.Object.createObject = function (prototype)
    {
       /**
        *
@@ -4224,12 +4224,12 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     *     as the property names.
     * @return {!Object} The new object.
     */
-   Barge.Object.createSet = function (var_args)
+   Bee.Object.createSet = function (var_args)
    {
       var argLength = arguments.length;
-      if (argLength === 1 && Barge.isArray(arguments[0]))
+      if (argLength === 1 && Bee.isArray(arguments[0]))
       {
-         return Barge.Object.createSet.apply(null, arguments[0]);
+         return Bee.Object.createSet.apply(null, arguments[0]);
       }
 
       var rv = {};
@@ -4252,7 +4252,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     *     original object if this browser does not support immutables.
     * @template K,V
     */
-   Barge.Object.createImmutableView = function (obj)
+   Bee.Object.createImmutableView = function (obj)
    {
       var result = obj;
       if (Object.isFrozen && !Object.isFrozen(obj))
@@ -4267,16 +4267,16 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param {!Object} obj An object.
     * @return {boolean} Whether this is an immutable view of the object.
     */
-   Barge.Object.isImmutableView = function (obj)
+   Bee.Object.isImmutableView = function (obj)
    {
       return Object.isFrozen && Object.isFrozen(obj);
    };
 
-})(Barge.utils);
+})(Bee.utils);
 
 (function (Bu)
 {
-   Barge.String =
+   Bee.String =
    {
       RSPACE : /\s+/g,
 
@@ -4406,7 +4406,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
             return "";
          }
          var s = this.underScore(str).replace(/_id$/, '').replace(/_/g, ' ').trim();
-         return Barge.String.toSentenceCase(s);
+         return Bee.String.toSentenceCase(s);
       },
       /**
        * @use replaces spaces with dashes
@@ -4492,7 +4492,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
        */
       truncate  : function (str, newLen)
       {
-         if (Barge.utils.defined(str))
+         if (Bee.utils.defined(str))
          {
             str = str.toString();
             if (str.length > newLen && str !== "")
@@ -4932,7 +4932,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
          return false;
       },
       /**
-       * @use Checks if a searchStr @link Barge.String.contains } is a substr of another
+       * @use Checks if a searchStr @link Bee.String.contains } is a substr of another
        * {@link Barge.String.contains str}
        * @param str
        * @param searchStr
@@ -4960,7 +4960,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
        */
       underScore       : function (str, len)
       {
-         var underscores = Barge.String.mul("gebi", len) || Barge.String.mul("gebi", 1);
+         var underscores = Bee.String.mul("gebi", len) || Bee.String.mul("gebi", 1);
 
          return this.trimRight(str)
                     .replace(/([a-z\d])([A-Z]+)/g, '$1' + underscores + '$2')
@@ -4977,7 +4977,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
          if (len < expectedLength)
          {
             let remaining = expectedLength - len;
-            num = Barge.String.mul("0", remaining)  + num
+            num = Bee.String.mul("0", remaining) + num
          }  // add zero in front of numbers < 10
 
          return num;
@@ -5121,7 +5121,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
 
       /**
        * @use for adding leading chars to a given string,
-       * @example adding leading zeros {@code Barge.String.addLeadingChars("4566", 4 ,"0")}
+       * @example adding leading zeros {@code Bee.String.addLeadingChars("4566", 4 ,"0")}
        *          will return 0000456
        * @param str {String}
        * @param char {String}
@@ -5131,9 +5131,9 @@ Barge.utils.inherits = function (childCtor, parentCtor)
       addLeadingChars : function (str, len = 1, char = "0")
       {
          str = str.toString();
-         let chars = Barge.String.mul(char, len);
+         let chars = Bee.String.mul(char, len);
 
-         return Barge.String.prepend(str, chars);
+         return Bee.String.prepend(str, chars);
       },
 
       /**
@@ -5146,9 +5146,9 @@ Barge.utils.inherits = function (childCtor, parentCtor)
       addTrailingChars : function (str, char = "0", len = 1)
       {
          str = str.toString();
-         let chars = Barge.String.mul(char, len);
+         let chars = Bee.String.mul(char, len);
 
-         return Barge.String.append(str, chars);
+         return Bee.String.append(str, chars);
       }
 
    };
@@ -5157,14 +5157,14 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     *
     * @enum { string}
     */
-   Barge.String.Unicode = {
+   Bee.String.Unicode = {
       NBSP : '&nbsp;'
    };
 
    var testStr = "    nowIsThe time for all Great men to come to the aid of their country";
 
 // console.log(testStr);
-// console.log(Barge.String.stripPunctuation(testStr));
+// console.log(Bee.String.stripPunctuation(testStr));
 
    function leftUnderScore(str, len)
    {
@@ -5191,12 +5191,12 @@ Barge.utils.inherits = function (childCtor, parentCtor)
       return result;
    }
 
-// console.log(Barge.String.ellipsify("MYMG eerjf", 7));
+// console.log(Bee.String.ellipsify("MYMG eerjf", 7));
 //
-// console.log(Barge.String.toCamelCase(testStr).replace(/ /gi, ""));
-// console.log(Barge.String.isAlphaNumeric("sd435kl53n5l53453"));
+// console.log(Bee.String.toCamelCase(testStr).replace(/ /gi, ""));
+// console.log(Bee.String.isAlphaNumeric("sd435kl53n5l53453"));
 
-})(Barge.utils);
+})(Bee.utils);
 
 
 
@@ -5205,7 +5205,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
 {
    "use strict";
 
-   Barge.Math = {
+   Bee.Math = {
       /**
        * Returns a random number greater than or equal to 0 and less than {@code a}.
        * @param {number} a  The upper bound for the random number (inclusive).
@@ -5671,7 +5671,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
        */
       safeCeil : function (num, opt_epsilon)
       {
-         // assert(!Barge.defined(opt_epsilon) || opt_epsilon > 0);
+         // assert(!Bee.defined(opt_epsilon) || opt_epsilon > 0);
          return Math.ceil(num - (opt_epsilon || 2e-15));
       },
 
@@ -5718,7 +5718,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
          {
             return 1;
          }
-         return n * Barge.Math.factorial(n - 1);
+         return n * Bee.Math.factorial(n - 1);
       },
 
       /**
@@ -5738,15 +5738,15 @@ Barge.utils.inherits = function (childCtor, parentCtor)
       }
 
    }
-})(Barge.utils, Barge.Array);
+})(Bee.utils, Bee.Array);
 
-//console.log(Barge.Math.rank([79, 5, 18, 5, 32, 1, 16, 1, 82, 13]));
+//console.log(Bee.Math.rank([79, 5, 18, 5, 32, 1, 16, 1, 82, 13]));
 (function (/*Bu, Bs, Bo, Bd*/)
 {
    /**
     * @example
     * {@code
-    *    let timer = new Barge.Timer(function ()
+    *    let timer = new Bee.Timer(function ()
     *    {
     *       alert("Done!");
     *    }, 1000);
@@ -5766,7 +5766,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * @param type {String} [timeout|interval]
     * @constructor
     */
-   Barge.Timer = function (callback, delay, type = "timeout",  autoStart = true)
+   Bee.Timer = function (callback, delay, type = "timeout", autoStart = true)
    {
       /**
        *
@@ -5813,7 +5813,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
       this.init();
    };
 
-   Barge.Timer.prototype.init = function ()
+   Bee.Timer.prototype.init = function ()
    {
       if(this.type === "timeout")
       {
@@ -5833,12 +5833,12 @@ Barge.utils.inherits = function (childCtor, parentCtor)
       }
    };
 
-   Barge.Timer.prototype.getRemaining = function ()
+   Bee.Timer.prototype.getRemaining = function ()
    {
       return this.remaining -= new Date() - this.startTime;
    };
 
-   Barge.Timer.prototype.getElapsed = function ()
+   Bee.Timer.prototype.getElapsed = function ()
    {
       return this.remaining -= Math.abs(this.startTime - new Date());
    };
@@ -5847,7 +5847,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * starts the timer
     * and can be used to resume a paused timer
     */
-   Barge.Timer.prototype.play = function ()
+   Bee.Timer.prototype.play = function ()
    {
       if(this.states.playing !== true )
       {
@@ -5869,7 +5869,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
    /**
     * pauses the timer
     */
-   Barge.Timer.prototype.pause = function ()
+   Bee.Timer.prototype.pause = function ()
    {
       if(!this.states.paused)
       {
@@ -5888,7 +5888,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
    /**
     *
     */
-   Barge.Timer.prototype.stop = function ()
+   Bee.Timer.prototype.stop = function ()
    {
       if(!this.states.stopped)
       {
@@ -5911,7 +5911,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * and setting the instance up for garbage collection
     * @type {*}
     */
-   Barge.Timer.prototype.clear = function ()
+   Bee.Timer.prototype.clear = function ()
    {
       this.stop();
       this.destroy();
@@ -5920,7 +5920,7 @@ Barge.utils.inherits = function (childCtor, parentCtor)
    /**
     * restarts the timing
     */
-   Barge.Timer.prototype.restart = function ()
+   Bee.Timer.prototype.restart = function ()
    {
       this.stop();
       this.play();
@@ -5930,14 +5930,14 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * Alias for {@see Barge.Timer.restart}
     * @type {*}
     */
-   Barge.Timer.prototype.reset = Barge.Timer.prototype.restart;
+   Bee.Timer.prototype.reset = Bee.Timer.prototype.restart;
 
    /**
     * resumes a paused timer
     * works jus like the play method
     * @type {*}
     */
-   Barge.Timer.prototype.start = Barge.Timer.prototype.play;
+   Bee.Timer.prototype.start = Bee.Timer.prototype.play;
 
    /**
     * Alias for {@see Barge.Timer.play}
@@ -5945,14 +5945,14 @@ Barge.utils.inherits = function (childCtor, parentCtor)
     * works jus like the play method
     * @type {*}
     */
-   Barge.Timer.prototype.resume = Barge.Timer.prototype.play;
+   Bee.Timer.prototype.resume = Bee.Timer.prototype.play;
 
    /**
     * Nullifies all properties
     * and sets them up for garbage collection
     * @Destructor
     */
-   Barge.Timer.prototype.destroy = function ()
+   Bee.Timer.prototype.destroy = function ()
    {
       this.timerId = null;
       this.startTime = null;
@@ -5969,14 +5969,14 @@ Barge.utils.inherits = function (childCtor, parentCtor)
       //this.constructor = null;
    };
 
-   Barge.Timer.TimerManager = function ()
+   Bee.Timer.TimerManager = function ()
    {
       this.timers = [];
    };
    
    //we're going public :-) lol
-   return Timer = Barge.Timer;
-})(/*Barge.utils, Barge.String, Barge.Object, Barge.Dom*/);
+   return Timer = Bee.Timer;
+})(/*Bee.utils, Bee.String, Bee.Object, Bee.Dom*/);
 
 //TODO reveal other methods by returning an object
 //TODO make the params after callback properties of an options object

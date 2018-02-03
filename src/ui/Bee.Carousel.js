@@ -58,10 +58,10 @@
    "use strict";
 
    //region protected globals
-   let Bu = Barge.utils,
-       Ba = Barge.Array,
-       Bs = Barge.String,
-       Bd = Barge.Dom;
+   let Bu = Bee.utils,
+       Ba = Bee.Array,
+       Bs = Bee.String,
+       Bd = Bee.Dom;
    //endregion
 
    /**
@@ -80,7 +80,7 @@
    //let ca = new Carousel();
 
    //public methods object
-   Barge.Dom.Carousel = {
+   Bee.Dom.Carousel = {
       create : function (config)
       {
          let ca = new Carousel(config);
@@ -88,5 +88,5 @@
    };
 
    //going public whoop! whoop! lol
-   return Barge.Dom.Carousel;
+   return Bee.Dom.Carousel;
 });

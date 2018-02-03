@@ -3,7 +3,7 @@
  * Copyright (C) 2016 Barge Studios <bargestd@gmail.com>
  */
 
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 (function (Bu, Bd)
 {
@@ -17,7 +17,7 @@ var Barge = Barge || {};
 
        gsv     = Bu.getStyleValue;
 
-   Barge.BubblyBalloon =
+   Bee.BubblyBalloon =
    {
       //region configurable
       /**
@@ -311,7 +311,7 @@ var Barge = Barge || {};
 
    };
 
-   var Bb = Barge.BubblyBalloon;
+   var Bb = Bee.BubblyBalloon;
 
    function _renderCloseBtn()
    {
@@ -544,8 +544,8 @@ var Barge = Barge || {};
    {
       var balloonDiv        = Bu.createEl('div', { className : "balloon" }),
 
-          lastBalloonHeight = Bu.defined(Barge.BubblyBalloon.getLastBalloon()) ?
-                              Barge.BubblyBalloon.getLastBalloon().offsetHeight : null;
+          lastBalloonHeight = Bu.defined(Bee.BubblyBalloon.getLastBalloon()) ?
+                              Bee.BubblyBalloon.getLastBalloon().offsetHeight : null;
 
       var baseHeight   = lastBalloonHeight !== null ? (lastBalloonHeight > 100 ? 140 : 100) : 100,
 
@@ -590,9 +590,9 @@ var Barge = Barge || {};
       return balloonDiv;
    }
 
-   window.TWB = Barge.BubblyBalloon.toolWindowBalloon;
-   //window.BB = Barge.BubblyBalloon.ligtoolWindowBalloon;
-})(Barge.utils, Barge.Dom);
+   window.TWB = Bee.BubblyBalloon.toolWindowBalloon;
+   //window.BB = Bee.BubblyBalloon.ligtoolWindowBalloon;
+})(Bee.utils, Bee.Dom);
 
 /*TODO : Add Icon support for more informativeness
  * TODO : Add Link or action button and handler control support*/

@@ -27,14 +27,14 @@
  * @fileOverview This object contains static methods for manipulating Arrays
  * @user msg: Some lines in this file use constructs from es6 or later
  */
-var Barge = Barge || {};
+var Bee = Bee || {};
 (function (Bu)
 {
    /**
     * @static
     * @type {{f}}
     */
-   Barge.Array = {
+   Bee.Array = {
 
       /**
        * Utility for iterating over an array.
@@ -47,7 +47,7 @@ var Barge = Barge || {};
        */
       forEach : function (arr, fn, ctx)
       { // modern browsers
-         let arr2 = !Bu.isArray(arr) ? Barge.Array.toArray(arr) : arr;
+         let arr2 = !Bu.isArray(arr) ? Bee.Array.toArray(arr) : arr;
 
          if (!Array.prototype.forEach)
          {
@@ -341,8 +341,8 @@ var Barge = Barge || {};
             {
                for (var c = 0; c < element.length; c += CHUNK_SIZE)
                {
-                  var chunk = Barge.Array.slice(element, c, c + CHUNK_SIZE);
-                  var recurseResult = Barge.Array.flatten.apply(null, chunk);
+                  var chunk = Bee.Array.slice(element, c, c + CHUNK_SIZE);
+                  var recurseResult = Bee.Array.flatten.apply(null, chunk);
                   for (var r = 0; r < recurseResult.length; r++)
                   {
                      result.push(recurseResult[r]);
@@ -1427,7 +1427,7 @@ var Barge = Barge || {};
       /**
        * Searches the specified array for the specified target using the binary
        * search algorithm.  If no opt_compareFn is specified, elements are compared
-       * using {@code Barge.Array.defaultCompare}, which compares the elements
+       * using {@code Bee.Array.defaultCompare}, which compares the elements
        * using the built in < and > operators.  This will produce the expected
        * behavior for homogeneous arrays of String(s) and Number(s). The array
        * specified <b>must</b> be sorted in ascending order (as defined by the
@@ -1484,7 +1484,7 @@ var Barge = Barge || {};
          }
          else
          {
-            throw new Error("Barge.Array.toArray method expects a list")
+            throw new Error("Bee.Array.toArray method expects a list")
          }
       },
 
@@ -1510,4 +1510,4 @@ var Barge = Barge || {};
          return arr.indexOf(obj) > -1;
       }
    };
-})(Barge.utils);
+})(Bee.utils);

@@ -33,7 +33,7 @@
       {
          "use strict";
 
-         if (typeof window == "undefined" || !window.document)
+         if (typeof window === "undefined" || !window.document)
          {
             return function sortableError()
             {
@@ -99,7 +99,7 @@
 
              touchDragOverListeners  = [],
 
-             Be = new Barge.Event.EventManager(),
+             Be = new Bee.Event.EventManager(),
 
              _autoScroll             = _throttle(function (/**Event*/evt, /**Object*/options, /**HTMLElement*/rootEl)
              {
@@ -1547,7 +1547,7 @@
          // Export utils
          /**
           *
-          * @type {{on: *, off: *, css: _css, find: _find, is: DragSorter.utils.is, extend: Barge.utils.extend, throttle: _throttle, closest: _closest, toggleClass: _toggleClass, clone: Barge.Dom.cloneNode, index: Barge.Dom.index}}
+          * @type {{on: *, off: *, css: _css, find: _find, is: DragSorter.utils.is, extend: Bee.utils.extend, throttle: _throttle, closest: _closest, toggleClass: _toggleClass, clone: Bee.Dom.cloneNode, index: Bee.Dom.index}}
           */
          DragSorter.utils = {
             on          : Be.bind,
@@ -1580,4 +1580,4 @@
          DragSorter.version = '1.5.0-rc1';
          return DragSorter;
       });
-})(Barge.utils, Barge.Dom);
+})(Bee.utils, Bee.Dom);

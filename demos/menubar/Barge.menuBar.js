@@ -59,10 +59,10 @@
    "use strict";
 
    //region protected globals
-   let Bu = Barge.utils,
-       Ba  = Barge.Array,
-       Bo  = Barge.Object,
-       Bd  = Barge.Dom;
+   let Bu = Bee.utils,
+       Ba  = Bee.Array,
+       Bo  = Bee.Object,
+       Bd  = Bee.Dom;
    //endregion
 
    //idk why this is here but I'm not removing it yet
@@ -113,7 +113,7 @@
        *
        * @type {Barge.Event.EventManager}
        */
-      this.Be = new Barge.Event.EventManager();
+      this.Be = new Bee.Event.EventManager();
 
       //this.list = document.getElementsByClassName(this.options.menuItemsClassName);
       /**
@@ -1045,21 +1045,21 @@
       this.addCloseOutEvent();
    };
 
-   Barge.Dom.MenuBar = new MenuBar();
-   Barge.Dom.MenuBar.create();
+   Bee.Dom.MenuBar = new MenuBar();
+   Bee.Dom.MenuBar.create();
 
    //public methods object
-   //Barge..Dom.MenuBar = {
+   //Bee..Dom.MenuBar = {
    //
    //};
    //going public whoop! whoop! lol
-   return Barge.Dom.MenuBar;
+   return Bee.Dom.MenuBar;
 });
 
 
 /*
 
- TODO : Make the {@link Barge.Dom.MenuBar} Constructor accept a config object that specifies a list menu items and sub-menu items
+ TODO : Make the {@link Bee.Dom.MenuBar} Constructor accept a config object that specifies a list menu items and sub-menu items
  TODO : Use MVC so the menubar DOM will be a visual rep'tn of the menubar data
  TODO : Add support for removing and adding menu item
  TODO :

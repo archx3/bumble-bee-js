@@ -36,7 +36,7 @@
  * @namespace
  * @type {{}}
  */
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 (function (global, factory)
 {
@@ -64,11 +64,11 @@ var Barge = Barge || {};
    "use strict";
 
    //region protected globals
-   let Bu = Barge.utils,
-       Ba = Barge.Array,
-       Bd = Barge.Dom;//NIU atm
+   let Bu = Bee.utils,
+       Ba = Bee.Array,
+       Bd = Bee.Dom;//NIU atm
 
-   let Be = new Barge.Event.EventManager();
+   let Be = new Bee.Event.EventManager();
 
    let stIsIE = /*@cc_on!@*/false;
    let the            = null,
@@ -769,7 +769,7 @@ var Barge = Barge || {};
    };
 
    //going public whoop! whoop! lol
-   return Barge.Dom.TableSorter = TableSorter;
+   return Bee.Dom.TableSorter = TableSorter;
 });
 
 /**

@@ -292,7 +292,7 @@
 <script src="../../src/ui/Barge.DomCore.min.js"></script>
 <script src="../../src/ui/Barge.Drag.min.js"></script>
 <script src="../../src/ui/Barge.Events.min.js"></script>
-<script src="../../src/ui/Barge.DiceyDialog.min.js"></script>
+<script src="../../src/ui/Bee.DiceyDialog.min.js"></script>
 
 
 <script src="../../src/core/Barge.Keyboard.js"></script>
@@ -302,27 +302,27 @@
 <script>
 
    //region dgbx
-   let tester   = Barge.Dom.getEl("#tester"),
-       tester2  = Barge.Dom.getEl("#tester2"),
-       tester3  = Barge.Dom.getEl("#tester3"),
-       tester4  = Barge.Dom.getEl("#tester4"),
-       tester5  = Barge.Dom.getEl("#tester5"),
-       tester6  = Barge.Dom.getEl("#tester6"),
+   let tester   = Bee.Dom.getEl("#tester"),
+       tester2  = Bee.Dom.getEl("#tester2"),
+       tester3  = Bee.Dom.getEl("#tester3"),
+       tester4  = Bee.Dom.getEl("#tester4"),
+       tester5  = Bee.Dom.getEl("#tester5"),
+       tester6  = Bee.Dom.getEl("#tester6"),
 
        /******************************************************/
-       tester7  = Barge.Dom.getEl("#tester7"),
-       tester8  = Barge.Dom.getEl("#tester8"),
-       tester9  = Barge.Dom.getEl("#tester9"),
-       tester10 = Barge.Dom.getEl("#tester10");
+       tester7  = Bee.Dom.getEl("#tester7"),
+       tester8  = Bee.Dom.getEl("#tester8"),
+       tester9  = Bee.Dom.getEl("#tester9"),
+       tester10 = Bee.Dom.getEl("#tester10");
 
    tester.onclick = function ()
    {
-      Barge.DiceyDialog.alert({ title : "Confirm me", message : "Sing it Damn It!", b : "YES" });
+      Bee.DiceyDialog.alert({ title : "Confirm me", message : "Sing it Damn It!", b : "YES" });
    };
 
    tester2.onclick = function ()
    {
-      Barge.DiceyDialog.confirm({
+      Bee.DiceyDialog.confirm({
                                    title          : "show me you head",
                                    message        : "This is my body!",
                                    affirmBtnTitle : "YES",
@@ -333,7 +333,7 @@
 
    tester3.onclick = function ()
    {
-      Barge.DiceyDialog.progressDialog({
+      Bee.DiceyDialog.progressDialog({
                                           title            : "Testing Icons",
                                           message          : "",
                                           icon             : "f",
@@ -353,7 +353,7 @@
 
    tester4.onclick = function ()
    {
-      Barge.DiceyDialog.confirm({
+      Bee.DiceyDialog.confirm({
                                    t                : "Testing Icons",
                                    m                : "Are you gonna ask me a question or what?" +
                                                       "well i'll give an answer if you ask so please do," +
@@ -374,12 +374,12 @@
 
    tester5.onclick = function ()
    {
-      Barge.DiceyDialog.alert({ t : "Get me out of here will you?", affirmBtnTitle : "Sorry Man" })
+      Bee.DiceyDialog.alert({ t : "Get me out of here will you?", affirmBtnTitle : "Sorry Man" })
    };
 
    tester6.onclick = function (e)
    {
-      Barge.DiceyDialog.fileDialog({
+      Bee.DiceyDialog.fileDialog({
                                       title            : "Defile a feline, and you go to jail",
                                       files            : [{ name : "wassce.gsys" }, { name : "bece.gsys" }, { name : "sssce.gsys" }],
                                       accept           : ".gsys",
@@ -400,7 +400,7 @@
 
    tester7.onclick = function ()
    {
-      Barge.DiceyDialog.confirm({
+      Bee.DiceyDialog.confirm({
                                    t                : "You are a failure",
                                    m                : "<span class='al'>Hell NO! that's absolutely impossible.<span> ;nl" +
                                                       "<span class='al'>I know it's not, cos Jehovah is my refuge</span> ",
@@ -411,7 +411,7 @@
 
    tester8.onclick = function ()
    {
-      Barge.DiceyDialog.confirm({
+      Bee.DiceyDialog.confirm({
                                    t : "Your last warning",
                                    m : "we'll demolish your reputation",
                                    i : "w"
@@ -420,7 +420,7 @@
 
    tester9.onclick = function ()
    {
-      Barge.DiceyDialog.confirm({
+      Bee.DiceyDialog.confirm({
                                    t : "Got some juicy info for ya",
                                    m : "Really, let me have it. ;nl Ok here it goes, ;nl trrrrrrrrrrrrrrrrr haha",
                                    i : "i"
@@ -429,7 +429,7 @@
 
    tester10.onclick = function ()
    {
-      Barge.DiceyDialog.confirm({
+      Bee.DiceyDialog.confirm({
                                    title    : "Success is your portion",
                                    message  : "I know right, Jehovah's got me",
                                    icon     : "s",
@@ -441,9 +441,9 @@
                                 });
    };
 
-   //endregion   Barge.DiceyDialog.alert({title : "My First Alert"});
+   //endregion   Bee.DiceyDialog.alert({title : "My First Alert"});
 
-   Barge.Input.manageTextBoxGroup("serialKey", 4);
+   Bee.Input.manageTextBoxGroup("serialKey", 4);
 
    function getName(name, doSth)
    {

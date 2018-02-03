@@ -26,7 +26,7 @@
  *@fileOverview Static and constructor methods for managing keyboard events
  */
 
-var Barge = Barge || {};
+var Barge = Bee || {};
 (function (global, factory)
 {
    if (typeof define === 'function' && define.amd)
@@ -52,9 +52,9 @@ var Barge = Barge || {};
 {
    "use strict";
 
-   let Bu = Barge.utils, Bs = Barge.String;
+   let Bu = Bee.utils, Bs = Bee.String;
 
-      Barge.Keyboard = Barge.Keyboard || {};
+      Bee.Keyboard = Bee.Keyboard || {};
 
       //region
       /**
@@ -73,7 +73,7 @@ var Barge = Barge || {};
        * @see Barge.Keyboard.KeyCodes
        * @enum {string}
        */
-      Barge.Keyboard.KeyNames = {
+      Bee.Keyboard.KeyNames = {
          8   : 'backspace',
          9   : 'tab',
          13  : 'enter',
@@ -180,11 +180,11 @@ var Barge = Barge || {};
        * shortcut form of {@link Barge.Keyboard.KeyCodes}
        * @enum {Number}
        */
-      var kc = Barge.Keyboard.KeyCodes;
+      var kc = Bee.Keyboard.KeyCodes;
 
-      Barge.Keyboard = {
+      Bee.Keyboard = {
 
-         kc : Barge.Keyboard.KeyCodes,
+         kc : Bee.Keyboard.KeyCodes,
 
          checkKey : function (e)
          {
@@ -202,8 +202,8 @@ var Barge = Barge || {};
          {
             if (e.altKey && !e.ctrlKey || e.metaKey ||
                 // Function keys don't generate text
-                e.keyCode >= Barge.Keyboard.KeyCodes.F1 &&
-                e.keyCode <= Barge.Keyboard.KeyCodes.F12)
+                e.keyCode >= Bee.Keyboard.KeyCodes.F1 &&
+                e.keyCode <= Bee.Keyboard.KeyCodes.F12)
             {
                return false;
             }
@@ -211,44 +211,44 @@ var Barge = Barge || {};
             // CTRL, ALT or SHIFT.
             switch (e.keyCode)
             {
-               case Barge.Keyboard.KeyCodes.ALT:
-               case Barge.Keyboard.KeyCodes.CAPS_LOCK:
-               case Barge.Keyboard.KeyCodes.CONTEXT_MENU:
-               case Barge.Keyboard.KeyCodes.CTRL:
-               case Barge.Keyboard.KeyCodes.DOWN:
-               case Barge.Keyboard.KeyCodes.END:
-               case Barge.Keyboard.KeyCodes.ESC:
-               case Barge.Keyboard.KeyCodes.HOME:
-               case Barge.Keyboard.KeyCodes.INSERT:
-               case Barge.Keyboard.KeyCodes.LEFT:
-               case Barge.Keyboard.KeyCodes.MAC_FF_META:
-               case Barge.Keyboard.KeyCodes.META:
-               case Barge.Keyboard.KeyCodes.NUMLOCK:
-               case Barge.Keyboard.KeyCodes.NUM_CENTER:
-               case Barge.Keyboard.KeyCodes.PAGE_DOWN:
-               case Barge.Keyboard.KeyCodes.PAGE_UP:
-               case Barge.Keyboard.KeyCodes.PAUSE:
-               case Barge.Keyboard.KeyCodes.PHANTOM:
-               case Barge.Keyboard.KeyCodes.PRINT_SCREEN:
-               case Barge.Keyboard.KeyCodes.RIGHT:
-               case Barge.Keyboard.KeyCodes.SCROLL_LOCK:
-               case Barge.Keyboard.KeyCodes.SHIFT:
-               case Barge.Keyboard.KeyCodes.UP:
-               case Barge.Keyboard.KeyCodes.VK_NONAME:
-               case Barge.Keyboard.KeyCodes.WIN_KEY:
-               case Barge.Keyboard.KeyCodes.WIN_KEY_RIGHT:
+               case Bee.Keyboard.KeyCodes.ALT:
+               case Bee.Keyboard.KeyCodes.CAPS_LOCK:
+               case Bee.Keyboard.KeyCodes.CONTEXT_MENU:
+               case Bee.Keyboard.KeyCodes.CTRL:
+               case Bee.Keyboard.KeyCodes.DOWN:
+               case Bee.Keyboard.KeyCodes.END:
+               case Bee.Keyboard.KeyCodes.ESC:
+               case Bee.Keyboard.KeyCodes.HOME:
+               case Bee.Keyboard.KeyCodes.INSERT:
+               case Bee.Keyboard.KeyCodes.LEFT:
+               case Bee.Keyboard.KeyCodes.MAC_FF_META:
+               case Bee.Keyboard.KeyCodes.META:
+               case Bee.Keyboard.KeyCodes.NUMLOCK:
+               case Bee.Keyboard.KeyCodes.NUM_CENTER:
+               case Bee.Keyboard.KeyCodes.PAGE_DOWN:
+               case Bee.Keyboard.KeyCodes.PAGE_UP:
+               case Bee.Keyboard.KeyCodes.PAUSE:
+               case Bee.Keyboard.KeyCodes.PHANTOM:
+               case Bee.Keyboard.KeyCodes.PRINT_SCREEN:
+               case Bee.Keyboard.KeyCodes.RIGHT:
+               case Bee.Keyboard.KeyCodes.SCROLL_LOCK:
+               case Bee.Keyboard.KeyCodes.SHIFT:
+               case Bee.Keyboard.KeyCodes.UP:
+               case Bee.Keyboard.KeyCodes.VK_NONAME:
+               case Bee.Keyboard.KeyCodes.WIN_KEY:
+               case Bee.Keyboard.KeyCodes.WIN_KEY_RIGHT:
                   return false;
-               case Barge.Keyboard.KeyCodes.WIN_KEY_FF_LINUX:
-                  return !Barge.userAgent.GECKO;
+               case Bee.Keyboard.KeyCodes.WIN_KEY_FF_LINUX:
+                  return !Bee.userAgent.GECKO;
                default:
-                  return e.keyCode < Barge.Keyboard.KeyCodes.FIRST_MEDIA_KEY ||
-                         e.keyCode > Barge.Keyboard.KeyCodes.LAST_MEDIA_KEY;
+                  return e.keyCode < Bee.Keyboard.KeyCodes.FIRST_MEDIA_KEY ||
+                         e.keyCode > Bee.Keyboard.KeyCodes.LAST_MEDIA_KEY;
             }
          },
 
          isBackSpaceKey : function (key)
          {
-            return key.keyCode === Barge.Keyboard.KeyCodes.BACKSPACE;
+            return key.keyCode === Bee.Keyboard.KeyCodes.BACKSPACE;
          },
 
          /**
@@ -290,32 +290,32 @@ var Barge = Barge || {};
 
          isLeftArrowKey : function (key)
          {
-            return key.keyCode === Barge.Keyboard.KeyCodes.LEFT;
+            return key.keyCode === Bee.Keyboard.KeyCodes.LEFT;
          },
 
          isRightArrowKey : function (key)
          {
-            return key.keyCode === Barge.Keyboard.KeyCodes.RIGHT ;
+            return key.keyCode === Bee.Keyboard.KeyCodes.RIGHT ;
          },
 
          isLeftOrRightArrowKey : function (key)
          {
-            return key.keyCode === Barge.Keyboard.KeyCodes.RIGHT || key.keyCode === Barge.Keyboard.KeyCodes.LEFT;
+            return key.keyCode === Bee.Keyboard.KeyCodes.RIGHT || key.keyCode === Bee.Keyboard.KeyCodes.LEFT;
          },
 
          isUpKey             : function (key)
          {
-            return key.keyCode === Barge.Keyboard.KeyCodes.UP;
+            return key.keyCode === Bee.Keyboard.KeyCodes.UP;
          },
 
          isDownKey             : function (key)
          {
-            return key.keyCode === Barge.Keyboard.KeyCodes.DOWN;
+            return key.keyCode === Bee.Keyboard.KeyCodes.DOWN;
          },
 
          isUpOrDownKey             : function (key)
          {
-            return key.keyCode === Barge.Keyboard.KeyCodes.UP || key.keyCode === Barge.Keyboard.KeyCodes.DOWN;
+            return key.keyCode === Bee.Keyboard.KeyCodes.UP || key.keyCode === Bee.Keyboard.KeyCodes.DOWN;
          },
          /**
           * Returns true if the key produces a character.
@@ -326,52 +326,52 @@ var Barge = Barge || {};
           */
          isCharacterKey            : function (keyCode)
          {
-            if (keyCode >= Barge.Keyboard.KeyCodes.ZERO &&
-                keyCode <= Barge.Keyboard.KeyCodes.NINE)
+            if (keyCode >= Bee.Keyboard.KeyCodes.ZERO &&
+                keyCode <= Bee.Keyboard.KeyCodes.NINE)
             {
                return true;
             }
 
-            if (keyCode >= Barge.Keyboard.KeyCodes.NUM_ZERO &&
-                keyCode <= Barge.Keyboard.KeyCodes.NUM_MULTIPLY)
+            if (keyCode >= Bee.Keyboard.KeyCodes.NUM_ZERO &&
+                keyCode <= Bee.Keyboard.KeyCodes.NUM_MULTIPLY)
             {
                return true;
             }
 
-            if (keyCode >= Barge.Keyboard.KeyCodes.A && keyCode <= Barge.Keyboard.KeyCodes.Z)
+            if (keyCode >= Bee.Keyboard.KeyCodes.A && keyCode <= Bee.Keyboard.KeyCodes.Z)
             {
                return true;
             }
 
             // Safari sends zero key code for non-latin characters.
-            if ((Barge.userAgent.WEBKIT || Barge.userAgent.EDGE) && keyCode === 0)
+            if ((Bee.userAgent.WEBKIT || Bee.userAgent.EDGE) && keyCode === 0)
             {
                return true;
             }
 
             switch (keyCode)
             {
-               case Barge.Keyboard.KeyCodes.SPACE:
-               case Barge.Keyboard.KeyCodes.PLUS_SIGN:
-               case Barge.Keyboard.KeyCodes.QUESTION_MARK:
-               case Barge.Keyboard.KeyCodes.AT_SIGN:
-               case Barge.Keyboard.KeyCodes.NUM_PLUS:
-               case Barge.Keyboard.KeyCodes.NUM_MINUS:
-               case Barge.Keyboard.KeyCodes.NUM_DOT:
-               case Barge.Keyboard.KeyCodes.NUM_DIVISION:
-               case Barge.Keyboard.KeyCodes.SEMICOLON:
-               case Barge.Keyboard.KeyCodes.FF_SEMICOLON:
-               case Barge.Keyboard.KeyCodes.DASH:
-               case Barge.Keyboard.KeyCodes.EQUALS:
-               case Barge.Keyboard.KeyCodes.FF_EQUALS:
-               case Barge.Keyboard.KeyCodes.COMMA:
-               case Barge.Keyboard.KeyCodes.DOT:
-               case Barge.Keyboard.KeyCodes.SLASH:
-               case Barge.Keyboard.KeyCodes.APOSTROPHE:
-               case Barge.Keyboard.KeyCodes.SINGLE_QUOTE:
-               case Barge.Keyboard.KeyCodes.OPEN_SQUARE_BRACKET:
-               case Barge.Keyboard.KeyCodes.BACKSLASH:
-               case Barge.Keyboard.KeyCodes.CLOSE_SQUARE_BRACKET:
+               case Bee.Keyboard.KeyCodes.SPACE:
+               case Bee.Keyboard.KeyCodes.PLUS_SIGN:
+               case Bee.Keyboard.KeyCodes.QUESTION_MARK:
+               case Bee.Keyboard.KeyCodes.AT_SIGN:
+               case Bee.Keyboard.KeyCodes.NUM_PLUS:
+               case Bee.Keyboard.KeyCodes.NUM_MINUS:
+               case Bee.Keyboard.KeyCodes.NUM_DOT:
+               case Bee.Keyboard.KeyCodes.NUM_DIVISION:
+               case Bee.Keyboard.KeyCodes.SEMICOLON:
+               case Bee.Keyboard.KeyCodes.FF_SEMICOLON:
+               case Bee.Keyboard.KeyCodes.DASH:
+               case Bee.Keyboard.KeyCodes.EQUALS:
+               case Bee.Keyboard.KeyCodes.FF_EQUALS:
+               case Bee.Keyboard.KeyCodes.COMMA:
+               case Bee.Keyboard.KeyCodes.DOT:
+               case Bee.Keyboard.KeyCodes.SLASH:
+               case Bee.Keyboard.KeyCodes.APOSTROPHE:
+               case Bee.Keyboard.KeyCodes.SINGLE_QUOTE:
+               case Bee.Keyboard.KeyCodes.OPEN_SQUARE_BRACKET:
+               case Bee.Keyboard.KeyCodes.BACKSLASH:
+               case Bee.Keyboard.KeyCodes.CLOSE_SQUARE_BRACKET:
                   return true;
                default:
                   return false;
@@ -406,14 +406,14 @@ var Barge = Barge || {};
           */
          firesKeyPressEvent        : function (keyCode, opt_heldKeyCode, opt_shiftKey, opt_ctrlKey, opt_altKey)
          {
-            if (!Barge.userAgent.IE && !Barge.userAgent.EDGE && !(Barge.userAgent.WEBKIT && Barge.userAgent.isVersionOrHigher('525')))
+            if (!Bee.userAgent.IE && !Bee.userAgent.EDGE && !(Bee.userAgent.WEBKIT && Bee.userAgent.isVersionOrHigher('525')))
             {
                return true;
             }
 
-            if (Barge.userAgent.MAC && opt_altKey)
+            if (Bee.userAgent.MAC && opt_altKey)
             {
-               return Barge.Keyboard.isCharacterKey(keyCode);
+               return Bee.Keyboard.isCharacterKey(keyCode);
             }
 
             // Alt but not AltGr which is represented as Alt+Ctrl.
@@ -425,54 +425,54 @@ var Barge = Barge || {};
             // Saves Ctrl or Alt + key for IE and WebKit 525+, which won't fire keypress.
             // Non-IE browsers and WebKit prior to 525 won't get this far so no need to
             // check the user agent.
-            if (Barge.utils.isNumber(opt_heldKeyCode))
+            if (Bee.utils.isNumber(opt_heldKeyCode))
             {
-               opt_heldKeyCode = Barge.Keyboard.normalizeKeyCode(opt_heldKeyCode);
+               opt_heldKeyCode = Bee.Keyboard.normalizeKeyCode(opt_heldKeyCode);
             }
-            if (!opt_shiftKey && (opt_heldKeyCode === Barge.Keyboard.KeyCodes.CTRL ||
-                                  opt_heldKeyCode === Barge.Keyboard.ALT || Barge.userAgent.MAC &&
-                                                                            opt_heldKeyCode === Barge.Keyboard.KeyCodes.META))
+            if (!opt_shiftKey && (opt_heldKeyCode === Bee.Keyboard.KeyCodes.CTRL ||
+                                  opt_heldKeyCode === Bee.Keyboard.ALT || Bee.userAgent.MAC &&
+                                  opt_heldKeyCode === Bee.Keyboard.KeyCodes.META))
             {
                return false;
             }
 
             // Some keys with Ctrl/Shift do not Issue keypress in WEBKIT.
-            if ((Barge.userAgent.WEBKIT || Barge.userAgent.EDGE) && opt_ctrlKey && opt_shiftKey)
+            if ((Bee.userAgent.WEBKIT || Bee.userAgent.EDGE) && opt_ctrlKey && opt_shiftKey)
             {
                switch (keyCode)
                {
-                  case Barge.Keyboard.KeyCodes.BACKSLASH:
-                  case Barge.Keyboard.KeyCodes.OPEN_SQUARE_BRACKET:
-                  case Barge.Keyboard.KeyCodes.CLOSE_SQUARE_BRACKET:
-                  case Barge.Keyboard.KeyCodes.TILDE:
-                  case Barge.Keyboard.KeyCodes.SEMICOLON:
-                  case Barge.Keyboard.KeyCodes.DASH:
-                  case Barge.Keyboard.KeyCodes.EQUALS:
-                  case Barge.Keyboard.KeyCodes.COMMA:
-                  case Barge.Keyboard.KeyCodes.DOT:
-                  case Barge.Keyboard.KeyCodes.SLASH:
-                  case Barge.Keyboard.KeyCodes.APOSTROPHE:
-                  case Barge.Keyboard.KeyCodes.SINGLE_QUOTE:
+                  case Bee.Keyboard.KeyCodes.BACKSLASH:
+                  case Bee.Keyboard.KeyCodes.OPEN_SQUARE_BRACKET:
+                  case Bee.Keyboard.KeyCodes.CLOSE_SQUARE_BRACKET:
+                  case Bee.Keyboard.KeyCodes.TILDE:
+                  case Bee.Keyboard.KeyCodes.SEMICOLON:
+                  case Bee.Keyboard.KeyCodes.DASH:
+                  case Bee.Keyboard.KeyCodes.EQUALS:
+                  case Bee.Keyboard.KeyCodes.COMMA:
+                  case Bee.Keyboard.KeyCodes.DOT:
+                  case Bee.Keyboard.KeyCodes.SLASH:
+                  case Bee.Keyboard.KeyCodes.APOSTROPHE:
+                  case Bee.Keyboard.KeyCodes.SINGLE_QUOTE:
                      return false;
                }
             }
 
             // When Ctrl+<somekey> is held in IE, it only fires a keypress once, but it
             // continues to fire keydown events as the event repeats.
-            if (Barge.userAgent.IE && opt_ctrlKey && opt_heldKeyCode === keyCode)
+            if (Bee.userAgent.IE && opt_ctrlKey && opt_heldKeyCode === keyCode)
             {
                return false;
             }
 
             switch (keyCode)
             {
-               case Barge.Keyboard.KeyCodes.ENTER:
+               case Bee.Keyboard.KeyCodes.ENTER:
                   return true;
-               case Barge.Keyboard.KeyCodes.ESC:
-                  return !(Barge.userAgent.WEBKIT || Barge.userAgent.EDGE);
+               case Bee.Keyboard.KeyCodes.ESC:
+                  return !(Bee.userAgent.WEBKIT || Bee.userAgent.EDGE);
             }
 
-            return Barge.Keyboard.isCharacterKey(keyCode);
+            return Bee.Keyboard.isCharacterKey(keyCode);
          },
          /**
           * Normalizes key codes from OS/Browser-specific value to the general one.
@@ -481,13 +481,13 @@ var Barge = Barge || {};
           */
          normalizeKeyCode          : function (keyCode)
          {
-            if (Barge.userAgent.GECKO)
+            if (Bee.userAgent.GECKO)
             {
-               return Barge.Keyboard.normalizeGeckoKeyCode(keyCode);
+               return Bee.Keyboard.normalizeGeckoKeyCode(keyCode);
             }
-            else if (Barge.userAgent.MAC && Barge.userAgent.WEBKIT)
+            else if (Bee.userAgent.MAC && Bee.userAgent.WEBKIT)
             {
-               return Barge.Keyboard.normalizeMacWebKitKeyCode(keyCode);
+               return Bee.Keyboard.normalizeMacWebKitKeyCode(keyCode);
             }
             else
             {
@@ -503,8 +503,8 @@ var Barge = Barge || {};
          {
             switch (keyCode)
             {
-               case Barge.Keyboard.KeyCodes.MAC_WK_CMD_RIGHT:  // 93
-                  return Barge.Keyboard.KeyCodes.META;          // 91
+               case Bee.Keyboard.KeyCodes.MAC_WK_CMD_RIGHT:  // 93
+                  return Bee.Keyboard.KeyCodes.META;          // 91
                default:
                   return keyCode;
             }
@@ -518,20 +518,20 @@ var Barge = Barge || {};
          {
             switch (keyCode)
             {
-               case Barge.Keyboard.KeyCodes.FF_EQUALS:
-                  return Barge.Keyboard.KeyCodes.EQUALS;
+               case Bee.Keyboard.KeyCodes.FF_EQUALS:
+                  return Bee.Keyboard.KeyCodes.EQUALS;
 
-               case Barge.Keyboard.KeyCodes.FF_SEMICOLON:
-                  return Barge.Keyboard.KeyCodes.SEMICOLON;
+               case Bee.Keyboard.KeyCodes.FF_SEMICOLON:
+                  return Bee.Keyboard.KeyCodes.SEMICOLON;
 
-               case Barge.Keyboard.KeyCodes.FF_DASH:
-                  return Barge.Keyboard.KeyCodes.DASH;
+               case Bee.Keyboard.KeyCodes.FF_DASH:
+                  return Bee.Keyboard.KeyCodes.DASH;
 
-               case Barge.Keyboard.KeyCodes.MAC_FF_META:
-                  return Barge.Keyboard.KeyCodes.META;
+               case Bee.Keyboard.KeyCodes.MAC_FF_META:
+                  return Bee.Keyboard.KeyCodes.META;
 
-               case Barge.Keyboard.KeyCodes.WIN_KEY_FF_LINUX:
-                  return Barge.Keyboard.KeyCodes.WIN_KEY;
+               case Bee.Keyboard.KeyCodes.WIN_KEY_FF_LINUX:
+                  return Bee.Keyboard.KeyCodes.WIN_KEY;
 
                default:
                   return keyCode;
@@ -541,7 +541,7 @@ var Barge = Barge || {};
       };
 
 
-      Barge.Keyboard.shortcut = function ()
+      Bee.Keyboard.shortcut = function ()
       {
          //console.log("called");
 
@@ -690,20 +690,20 @@ var Barge = Barge || {};
       };
 
 
-      if(Barge.utils.getElementsByAttribute("data-shortcut", true) !== undefined)
+      if(Bee.utils.getElementsByAttribute("data-shortcut", true) !== undefined)
       {
-         let myVar = new Barge.Keyboard.shortcut();
+         let myVar = new Bee.Keyboard.shortcut();
       }
 
    //going public whoop! whoop! lol
-   return Barge.Keyboard;
+   return Bee.Keyboard;
 });
 
 /**
  @Author Created by ARCH on 05/01/2017
  @fileoverview Constant declarations for common key codes.
  */
-Barge.utils.provide('Barge.Keyboard.KeyCodes');
+Bee.utils.provide('Barge.Keyboard.KeyCodes');
 /**
  * Key codes for common characters.
  *
@@ -712,7 +712,7 @@ Barge.utils.provide('Barge.Keyboard.KeyCodes');
  *
  * @enum {number}
  */
-Barge.Keyboard.KeyCodes = {
+Bee.Keyboard.KeyCodes = {
    WIN_KEY_FF_LINUX : 0,
    MAC_ENTER        : 3,
    BACKSPACE        : 8,

@@ -2,11 +2,11 @@
  * @Author       Created by arch on 29/07/17 using PhpStorm.
  * @Time         : 08:08
  * @Copyright (C) 2017
- * Barge Studios Inc, The $ Authors
+ * Bee Studios Inc, The $ Authors
  * <bargestd@gmail.com>
  * <bumble.bee@bargestd.com>
  *
- * @licence      Licensed under the Barge Studios Eula
+ * @licence      Licensed under the Bee Studios Eula
  *  you may not use this file except in compliance with the License.
  *
  * You may obtain a copy of the License at

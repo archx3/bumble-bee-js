@@ -33,14 +33,14 @@
  */
 
 
-var Barge = Barge || {};
+var Bee = Bee || {};
 (function (Bu, Ba, Bs, Bd, Bk)
 {
-   let Be = new Barge.Event.EventManager();
-   let KC = Barge.Keyboard.KeyCodes;
-   Barge.Input = Barge.Input || {};
+   let Be = new Bee.Event.EventManager();
+   let KC = Bee.Keyboard.KeyCodes;
+   Bee.Input = Bee.Input || {};
 
-   Barge.Input = {
+   Bee.Input = {
       /**
        *
        * @param e {Event}
@@ -181,7 +181,7 @@ var Barge = Barge || {};
             else
             {
                let str = el.value.split("");
-               //Barge.String
+               //Bee.String
                console.log("str", str);
                console.log("val", val);
 
@@ -333,7 +333,7 @@ var Barge = Barge || {};
     * @param options {{headCheckboxClass: string, checkBoxesClass: string, bdTable: Barge.Dom.Table, maxChecks: Number|string}}
     * @constructor
     */
-   Barge.Input.Checkbox = function (options)
+   Bee.Input.Checkbox = function (options)
    {
       /**
        *
@@ -364,7 +364,7 @@ var Barge = Barge || {};
     * @param className {NodeList|String<className>}
     * @param maxChecks
     */
-   Barge.Input.Checkbox.prototype.restrictChecks = function (className, maxChecks)
+   Bee.Input.Checkbox.prototype.restrictChecks = function (className, maxChecks)
    {
       let self       = this,
           numChecked = 0;
@@ -413,7 +413,7 @@ var Barge = Barge || {};
     * onAllChecked : fn, onSomeChecked : fn, onNoneChecked : fn, countChecks : Boolean}}
     * @param parentEl {Element}
     */
-   Barge.Input.Checkbox.prototype.manageCheckboxGroup = function (options = null, parentEl = false)
+   Bee.Input.Checkbox.prototype.manageCheckboxGroup = function (options = null, parentEl = false)
    {
       let self = this;
 
@@ -429,8 +429,8 @@ var Barge = Barge || {};
 
       if (!parentEl)
       {
-         checkboxes = Barge.Dom.getEl("." + this.options.checkBoxesClass, true);
-         fatherCheckBx = Barge.Dom.getEl("." + this.options.headCheckboxClass);
+         checkboxes = Bee.Dom.getEl("." + this.options.checkBoxesClass, true);
+         fatherCheckBx = Bee.Dom.getEl("." + this.options.headCheckboxClass);
       }
       else
       {
@@ -460,14 +460,14 @@ var Barge = Barge || {};
 
       function highlight(row)
       {
-         //Barge.Dom.css(row, { transition : "background-color .6s"});
-         Barge.Dom.addClass(row, "highlighted")
+         //Bee.Dom.css(row, { transition : "background-color .6s"});
+         Bee.Dom.addClass(row, "highlighted")
       }
 
       function unHighlight(row)
       {
-         //Barge.Dom.css(row, {transition : "" });
-         Barge.Dom.removeClass(row, "highlighted")
+         //Bee.Dom.css(row, {transition : "" });
+         Bee.Dom.removeClass(row, "highlighted")
       }
 
       fatherCheckBx.addEventListener("click", function (e)
@@ -479,7 +479,7 @@ var Barge = Barge || {};
             rows = self.options.bdTable.getRows();
          }
 
-         Barge.utils.forEach(checkboxes, function (checkBox)
+         Bee.utils.forEach(checkboxes, function (checkBox)
          {
             checkBox.checked = checked;
          });
@@ -490,13 +490,13 @@ var Barge = Barge || {};
             {
                //console.log(self.options.editableRow, self.options.inputSet);
 
-               Barge.utils.forEach(rows, function (row, i)
+               Bee.utils.forEach(rows, function (row, i)
                {
                   highlight(row);
 
                   if (self.options.editableRow === true && self.options.inputSet !== null)
                   {
-                     Barge.utils.forEach(self.options.inputSet, function (input, j)
+                     Bee.utils.forEach(self.options.inputSet, function (input, j)
                      {
                         if (Bu.defined(input[i]))
                         {
@@ -513,13 +513,13 @@ var Barge = Barge || {};
             }
             else
             {
-               Barge.utils.forEach(rows, function (row, i)
+               Bee.utils.forEach(rows, function (row, i)
                {
                   unHighlight(row);
 
                   if (self.options.editableRow === true && self.options.inputSet !== null)
                   {
-                     Barge.utils.forEach(self.options.inputSet, function (input, j)
+                     Bee.utils.forEach(self.options.inputSet, function (input, j)
                      {
                         if (Bu.defined(input[i]))
                         {
@@ -536,30 +536,30 @@ var Barge = Barge || {};
             }
          }
 
-         if (checked && Barge.Dom.hasClass(this, "someChecked"))
+         if (checked && Bee.Dom.hasClass(this, "someChecked"))
          {
-            Barge.Dom.addClass(this, "allChecked");
-            Barge.Dom.removeClass(this, ["someChecked", "noneChecked"]);
+            Bee.Dom.addClass(this, "allChecked");
+            Bee.Dom.removeClass(this, ["someChecked", "noneChecked"]);
 
             if(Bu.defined(self.options.countChecks) && self.options.countChecks === true)
             {
                numChecked = numberOfCheckBoxes;
             }
          }
-         else if (checked && Barge.Dom.hasClass(this, "noneChecked"))
+         else if (checked && Bee.Dom.hasClass(this, "noneChecked"))
          {
-            Barge.Dom.addClass(this, "allChecked");
-            Barge.Dom.removeClass(this, ["someChecked", "noneChecked"]);
+            Bee.Dom.addClass(this, "allChecked");
+            Bee.Dom.removeClass(this, ["someChecked", "noneChecked"]);
 
             if(Bu.defined(self.options.countChecks) && self.options.countChecks === true)
             {
                numChecked = numberOfCheckBoxes;
             }
          }
-         else if (!checked && Barge.Dom.hasClass(this, "someChecked"))
+         else if (!checked && Bee.Dom.hasClass(this, "someChecked"))
          {
-            Barge.Dom.addClass(this, "noneChecked");
-            Barge.Dom.removeClass(this, ["someChecked", "allChecked"]);
+            Bee.Dom.addClass(this, "noneChecked");
+            Bee.Dom.removeClass(this, ["someChecked", "allChecked"]);
 
             if(Bu.defined(self.options.countChecks) && self.options.countChecks === true)
             {
@@ -589,7 +589,7 @@ var Barge = Barge || {};
             if (self.options.editableRow === true && self.options.inputSet !== null)
             {
                let i = 0;
-               Barge.utils.forEach(self.options.inputSet, function (input, j)
+               Bee.utils.forEach(self.options.inputSet, function (input, j)
                {
                   if (Bu.defined(input[i]))
                   {
@@ -605,7 +605,7 @@ var Barge = Barge || {};
             if (self.options.editableRow === true && self.options.inputSet !== null)
             {
                let i = 0;
-               Barge.utils.forEach(self.options.inputSet, function (input, j)
+               Bee.utils.forEach(self.options.inputSet, function (input, j)
                {
                   if (Bu.defined(input[i]))
                   {
@@ -617,27 +617,27 @@ var Barge = Barge || {};
 
          let allChecked, noneChecked, someChecked;
 
-         checkboxes = Barge.Array.toArray(checkboxes);
+         checkboxes = Bee.Array.toArray(checkboxes);
 
-         someChecked = Barge.Array.someOf(checkboxes, function (checkBox)
+         someChecked = Bee.Array.someOf(checkboxes, function (checkBox)
          {
             return checkBox.checked === true;
          });
 
-         noneChecked = Barge.Array.someOf(checkboxes, function (checkBox)
+         noneChecked = Bee.Array.someOf(checkboxes, function (checkBox)
          {
             return checkBox.checked === false;
          });
 
-         allChecked = Barge.Array.allOf(checkboxes, function (checkBox)
+         allChecked = Bee.Array.allOf(checkboxes, function (checkBox)
          {
             return checkBox.checked === true;
          });
 
          if (allChecked)
          {
-            Barge.Dom.removeClass(fatherCheckBx, ["someChecked", "noneChecked"]);
-            Barge.Dom.addClass(fatherCheckBx, "allChecked");
+            Bee.Dom.removeClass(fatherCheckBx, ["someChecked", "noneChecked"]);
+            Bee.Dom.addClass(fatherCheckBx, "allChecked");
 
             if (Bu.defined(self.options.onAllChecked) && Bu.isFunction(self.options.onAllChecked))
             {
@@ -646,8 +646,8 @@ var Barge = Barge || {};
          }
          else if (someChecked)
          {
-            Barge.Dom.addClass(fatherCheckBx, "someChecked");
-            Barge.Dom.removeClass(fatherCheckBx, ["allChecked", "noneChecked"]);
+            Bee.Dom.addClass(fatherCheckBx, "someChecked");
+            Bee.Dom.removeClass(fatherCheckBx, ["allChecked", "noneChecked"]);
 
             if (fatherCheckBx.checked === false)
             {
@@ -661,8 +661,8 @@ var Barge = Barge || {};
          }
          else if (noneChecked)
          {
-            Barge.Dom.removeClass(fatherCheckBx, ["someChecked", "allChecked"]);
-            Barge.Dom.addClass(fatherCheckBx, "noneChecked");
+            Bee.Dom.removeClass(fatherCheckBx, ["someChecked", "allChecked"]);
+            Bee.Dom.addClass(fatherCheckBx, "noneChecked");
 
             if (fatherCheckBx.checked === true)
             {
@@ -691,7 +691,7 @@ var Barge = Barge || {};
     * Add a blur event to the els [false by default]
     * @param checkOnBlur {Boolean}
     */
-   Barge.Input.manageRequiredInput = function (inputs, buttons = null, checkOnLoad = true, callback = null, checkOnBlur = false)
+   Bee.Input.manageRequiredInput = function (inputs, buttons = null, checkOnLoad = true, callback = null, checkOnBlur = false)
    {
       inputs = !Bu.isString(inputs) ? inputs : Bd.getEl("." + inputs, true);
 
@@ -754,7 +754,7 @@ var Barge = Barge || {};
       {
          Be.bindOnAll(inputs, "blur", function (e)
          {
-            //if(Barge.String.isEmpty(this.value))
+            //if(Bee.String.isEmpty(this.value))
             //{
             //   Bd.css(this, {borderColor : "#ff0000"})
             //}
@@ -774,7 +774,7 @@ var Barge = Barge || {};
     * @param {Array<BUTTON>|HTMLCollection<BUTTON>} [buttons]
     * @param {fn} [callback]
     */
-   Barge.Input.manageClearable = function (clrInpEls, hasRequiredInput = false, buttons, callback = null)
+   Bee.Input.manageClearable = function (clrInpEls, hasRequiredInput = false, buttons, callback = null)
    {
       Be.bindOnAll(clrInpEls, "click", function ()
       {
@@ -782,7 +782,7 @@ var Barge = Barge || {};
 
          if (!Bs.isEmpty(myInputEl.value))
          {
-            Barge.Input.clear(myInputEl);
+            Bee.Input.clear(myInputEl);
 
             if (hasRequiredInput && Bu.defined(buttons))
             {
@@ -814,7 +814,7 @@ var Barge = Barge || {};
     mustNotEqual : Array<INPUT> }}
     * @param callback {fn}
     */
-   Barge.Input.managePasswordPolicy = function (passInputEl, confirmPassInputEl, policy, callback)
+   Bee.Input.managePasswordPolicy = function (passInputEl, confirmPassInputEl, policy, callback)
    {
       let passwordOk     = false,
           passVal        = passInputEl.value,
@@ -852,7 +852,7 @@ var Barge = Barge || {};
     *
     * @param tempShowPassBtns{HTMLCollection|Array<Element<INPUT>>}
     */
-   Barge.Input.managePasswordPreview = function (tempShowPassBtns)
+   Bee.Input.managePasswordPreview = function (tempShowPassBtns)
    {
       let passwordEls = [];
       Ba.forEach(tempShowPassBtns, function (button)
@@ -882,7 +882,7 @@ var Barge = Barge || {};
       });
    };
 
-   Barge.Input.manageImagePreviewBtns = function (imgInputEl, imageEl, editBtns)
+   Bee.Input.manageImagePreviewBtns = function (imgInputEl, imageEl, editBtns)
    {
       if(Bs.isEmpty(imageEl.style.backgroundImage))
       {
@@ -914,7 +914,7 @@ var Barge = Barge || {};
                editBtns[2].classList.add("disabled");
 
                imgInputEl.value = null;
-               Barge.Dom.css(imageEl, { backgroundImage : "" });
+               Bee.Dom.css(imageEl, { backgroundImage : "" });
             }
          }
       });
@@ -925,7 +925,7 @@ var Barge = Barge || {};
     * @param groupClassName {String}
     * @param maxTextLength {Number}
     */
-   Barge.Input.manageTextBoxGroup = function (groupClassName, maxTextLength)
+   Bee.Input.manageTextBoxGroup = function (groupClassName, maxTextLength)
    {
       let textBoxes = Ba.toArray(Bd.getEl("." + groupClassName, true)),
           numberOfTextBoxes = textBoxes.length;
@@ -942,12 +942,12 @@ var Barge = Barge || {};
 
          if(this.value.length === maxTextLength && (index + 1 < numberOfTextBoxes))
          {
-            if(Barge.Keyboard.isAlphaKey(e) || Barge.Keyboard.isNumericKey(e))
+            if(Bee.Keyboard.isAlphaKey(e) || Bee.Keyboard.isNumericKey(e))
             {
                textBoxes[++index].focus();
             }
          }
-         if (Barge.Keyboard.isBackSpaceKey(e) && this.value.length === 0 && (index !== 0))
+         if (Bee.Keyboard.isBackSpaceKey(e) && this.value.length === 0 && (index !== 0))
          {
             textBoxes[--index].focus();
          }
@@ -959,22 +959,22 @@ var Barge = Barge || {};
 
          if(this.value.length >= maxTextLength)
          {
-            if(Barge.Keyboard.isAlphaKey(e) || Barge.Keyboard.isNumericKey(e))
+            if(Bee.Keyboard.isAlphaKey(e) || Bee.Keyboard.isNumericKey(e))
             {
                e.preventDefault();
             }
          }
 
 
-         if(Barge.Keyboard.isArrowKey(e))
+         if(Bee.Keyboard.isArrowKey(e))
          {
-            if(Barge.Keyboard.isRightArrowKey(e) &&
-               (Barge.Input.getCaretPosition(this) === this.value.length) && (index + 1 < numberOfTextBoxes))
+            if(Bee.Keyboard.isRightArrowKey(e) &&
+               (Bee.Input.getCaretPosition(this) === this.value.length) && (index + 1 < numberOfTextBoxes))
             {
                textBoxes[++index].focus();
             }
-            else if(Barge.Keyboard.isLeftArrowKey(e) &&
-                    ((Barge.Input.getCaretPosition(this) === 0)) && (index !== 0))
+            else if(Bee.Keyboard.isLeftArrowKey(e) &&
+                    ((Bee.Input.getCaretPosition(this) === 0)) && (index !== 0))
             {
                textBoxes[--index].focus();
             }
@@ -987,7 +987,7 @@ var Barge = Barge || {};
     * @param imgPreviewEl  {Object}
     * @type {preview}
     */
-   Barge.Input.makeImagePreviewable = function (imgInputEl, imgPreviewEl)
+   Bee.Input.makeImagePreviewable = function (imgInputEl, imgPreviewEl)
    {
 
       let typeRegEx = /^([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.jpeg|.tiff|.gif|.ico|.svg)$/;
@@ -1043,7 +1043,7 @@ var Barge = Barge || {};
                   }
                   else
                   {
-                     Barge.DiceyDialog.confirm({
+                     Bee.DiceyDialog.confirm({
                                                   t : 'Selected file type not supported',
                                                   m : 'Please choose an image file.',
                                                   i : 'f'
@@ -1054,7 +1054,7 @@ var Barge = Barge || {};
                }
                else
                {
-                  Barge.DiceyDialog.confirm({ t : 'Selected file type not supported', m : 'Please choose an image file.', i : 'f' });
+                  Bee.DiceyDialog.confirm({ t : 'Selected file type not supported', m : 'Please choose an image file.', i : 'f' });
 
                }
 
@@ -1063,7 +1063,7 @@ var Barge = Barge || {};
          }
          else
          {
-            Barge.DiceyDialog.confirm({
+            Bee.DiceyDialog.confirm({
                                          t : '...well this is embarrassing',
                                          m : 'Your image has been loaded but previewing is not supported by your browser.',
                                          i : 'w'
@@ -1083,14 +1083,14 @@ var Barge = Barge || {};
     * @use restricts input into an el with data-type attr to a specific data-type only
     * @constructor
     */
-   Barge.Input.dataType = function ()
+   Bee.Input.dataType = function ()
    {
 
       var dataTypeEls = Bu.getElementsByAttribute("data-type");
 
       Be.bindOnAll(dataTypeEls, 'keydown', function (e)
       {
-         var Bi  = Barge.Input,
+         var Bi  = Bee.Input,
              gcp = Bi.getCaretPosition(this);
 
          if (this.getAttribute("data-type").match(/number,?((([\w]*)+)?((,?[\W]*)*)?((,?[\w]*)+)?)*/))
@@ -1133,11 +1133,11 @@ var Barge = Barge || {};
                }
 
                //else if((wilCards.indexOf("-") > 0 && (e.keyCode === KC.DASH)) ||
-               //        (wilCards.indexOf(".") > 0 && (e.keyCode === Barge.Keyboard.KeyCodes.PERIOD)))
+               //        (wilCards.indexOf(".") > 0 && (e.keyCode === Bee.Keyboard.KeyCodes.PERIOD)))
                //{
                //
                //}
-               //else if(wilCards.indexOf(".") > 0 && (e.keyCode === Barge.Keyboard.KeyCodes.PERIOD))
+               //else if(wilCards.indexOf(".") > 0 && (e.keyCode === Bee.Keyboard.KeyCodes.PERIOD))
                //{
                //
                //}
@@ -1232,7 +1232,7 @@ var Barge = Barge || {};
     * only work on els with data-type="number,*" | data-type="number" attrs
     * @constructor
     */
-   Barge.Input.dataMax = function ()
+   Bee.Input.dataMax = function ()
    {
       /**
        *
@@ -1275,7 +1275,7 @@ var Barge = Barge || {};
     * only work on els with data-type="number,*" | data-type="number" attrs
     * @constructor
     */
-   Barge.Input.dataMin = function ()
+   Bee.Input.dataMin = function ()
    {
       var dMin = Bu.getElementsByAttribute("data-min");
       for (var i = 0; i < dMin.length; i++)
@@ -1303,7 +1303,7 @@ var Barge = Barge || {};
     * the data-maxLen value
     * @constructor
     */
-   Barge.Input.dataMaxLength = function ()
+   Bee.Input.dataMaxLength = function ()
    {
       var dMin = Bu.getElementsByAttribute("data-maxLen");
 
@@ -1321,18 +1321,18 @@ var Barge = Barge || {};
 
                   if (!Bu.defined(this.getAttribute("data-type")))
                   {
-                     Barge.Input.deleteSelectedText(this);
+                     Bee.Input.deleteSelectedText(this);
                      this.focus();
-                     Barge.Input.setCaretPosition(this, gcp);
+                     Bee.Input.setCaretPosition(this, gcp);
                   }
                }
                else
                {
                   if (!Bu.defined(this.getAttribute("data-type")))
                   {
-                     Barge.Input.deleteAtCaret(this);
+                     Bee.Input.deleteAtCaret(this);
 
-                     Barge.Input.setCaretPosition(this, gcp - 1);
+                     Bee.Input.setCaretPosition(this, gcp - 1);
                   }
 
                }
@@ -1342,7 +1342,7 @@ var Barge = Barge || {};
             {
                if (!Bd.disabled(this))
                {
-                  Barge.Keyboard.insertKeyBoardValue(this, gcp);
+                  Bee.Keyboard.insertKeyBoardValue(this, gcp);
                }
             }
             else
@@ -1367,7 +1367,7 @@ var Barge = Barge || {};
     * @param inputEl {Element<INPUT>}
     * @static
     */
-   Barge.Input.clear = function (inputEl)
+   Bee.Input.clear = function (inputEl)
    {
 
       if (inputEl.type === "file")
@@ -1379,4 +1379,7 @@ var Barge = Barge || {};
          inputEl.value = "";
       }
    };
-})(Barge.utils, Barge.Array, Barge.String, Barge.Dom, Barge.Keyboard);
+})(Bee.utils, Bee.Array, Bee.String, Bee.Dom, Bee.Keyboard);
+
+//add shift button down multiple checkbox checking feature
+

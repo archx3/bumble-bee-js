@@ -33,12 +33,12 @@
  *
  */
 
-var Barge = Barge || {};
+var Bee = Bee || {};
 (function (Bu, Ba)
 {
    "use strict";
 
-   Barge.Math = {
+   Bee.Math = {
       /**
        * Returns a random number greater than or equal to 0 and less than {@code a}.
        * @param {number} a  The upper bound for the random number (inclusive).
@@ -530,7 +530,7 @@ var Barge = Barge || {};
        */
       safeCeil : function (num, opt_epsilon)
       {
-         // assert(!Barge.defined(opt_epsilon) || opt_epsilon > 0);
+         // assert(!Bee.defined(opt_epsilon) || opt_epsilon > 0);
          return Math.ceil(num - (opt_epsilon || 2e-15));
       },
 
@@ -577,7 +577,7 @@ var Barge = Barge || {};
          {
             return 1;
          }
-         return n * Barge.Math.factorial(n - 1);
+         return n * Bee.Math.factorial(n - 1);
       },
 
       /**
@@ -597,7 +597,7 @@ var Barge = Barge || {};
       }
 
    }
-})(Barge.utils, Barge.Array);
+})(Bee.utils, Bee.Array);
 
-//console.log(Barge.Math.rank([79, 5, 18, 5, 32, 1, 16, 1, 82, 13]));
+//console.log(Bee.Math.rank([79, 5, 18, 5, 32, 1, 16, 1, 82, 13]));
 

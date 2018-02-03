@@ -2,11 +2,11 @@
  * Created by ARCH on 23/07/2016.
  * Copyright (C) 2016 Barge Studios <bargestd@gmail.com>
  */
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 (function (Bu, Bd)
 {
-   let Be = new Barge.Event.EventManager();
+   let Be = new Bee.Event.EventManager();
    var theme = document.head.getAttribute("data-theme");
    theme = theme || 'light';
 
@@ -19,17 +19,17 @@ var Barge = Barge || {};
 
       msgBackTint.onmousedown = function ()
       {
-         Barge.utils.closeWin(this, true, false);
-         Barge.utils.closeWin(Barge.utils.gebi("popImageDiv"), false, false);
+         Bee.utils.closeWin(this, true, false);
+         Bee.utils.closeWin(Bee.utils.gebi("popImageDiv"), false, false);
       };
 
       return msgBackTint;
    }
 
-   Barge.Bursty = Barge.Bursty || {};
-   Barge.Bursty.popup = function ()
+   Bee.Bursty = Bee.Bursty || {};
+   Bee.Bursty.popup = function ()
    {
-      var hasPopUp = Barge.utils.getElementsByAttribute("data-popup");
+      var hasPopUp = Bee.utils.getElementsByAttribute("data-popup");
 
       for (let i = 0; i < hasPopUp.length; i++)
       {
@@ -37,11 +37,11 @@ var Barge = Barge || {};
          //displaying the popup
          hasPopUp[i].addEventListener('click', function (event)
          {
-            let popUpItem = Barge.utils.qs(this.getAttribute("data-popupItem"));
+            let popUpItem = Bee.utils.qs(this.getAttribute("data-popupItem"));
             console.log(this.offsetLeft);
-            Barge.utils.toggleDisplay(popUpItem);
+            Bee.utils.toggleDisplay(popUpItem);
             popUpItem.style.position = "absolute";
-            Barge.utils.setObjectPositionAt(popUpItem, this, 'bottomLeft');
+            Bee.utils.setObjectPositionAt(popUpItem, this, 'bottomLeft');
 
             //removing the popup
             popUpItem.addEventListener('click', function (event)
@@ -52,7 +52,7 @@ var Barge = Barge || {};
                {
                   console.log(event.target);
                   //console.log(popUpItem);
-                  Barge.utils.closeWin(popUpItem, false, false);
+                  Bee.utils.closeWin(popUpItem, false, false);
                }
             });
 
@@ -61,7 +61,7 @@ var Barge = Barge || {};
       }
    };
 
-   Barge.Bursty.BulgeImage = function (dark, parent)
+   Bee.Bursty.BulgeImage = function (dark, parent)
    {
       // var bg = bgColor ? bgColor : "#fff";
       var popupImageCss = "#popupImageDiv {margin: 0; width: auto;  height:auto; padding: 10px; border: 1px solid #ccc; position: absolute;background-color: #fff;z-index: 30; box-shadow: 0 0 4px rgba(0, 0, 0, .5);border-radius: 3px;}\
@@ -70,7 +70,7 @@ var Barge = Barge || {};
    #popupImageDivImg{border:0; border: 1px solid #353434;}";
       var popupImageDiv = document.createElement("div");
       popupImageDiv.id = "popupImageDiv";
-      Barge.utils.addClass(popupImageDiv, "zoomIn");
+      Bee.utils.addClass(popupImageDiv, "zoomIn");
       popupImageDiv.style.display = "none";
 
       var popupImage = document.createElement("img");
@@ -78,11 +78,11 @@ var Barge = Barge || {};
       popupImage.id = "popupImageDivImg";
       if (dark && dark == "dark")
       {
-         Barge.utils.insertDynamicCss(popupImageCssDark, "popupImageCssDark");
+         Bee.utils.insertDynamicCss(popupImageCssDark, "popupImageCssDark");
       }
       else
       {
-         Barge.utils.insertDynamicCss(popupImageCss, "popupImageCss");
+         Bee.utils.insertDynamicCss(popupImageCss, "popupImageCss");
       }
       if (!parent)
       {
@@ -93,14 +93,14 @@ var Barge = Barge || {};
          parent.appendChild(popupImageDiv)
       }
 
-      var hasPopupImage = Barge.utils.getElementsByAttribute("data-popupImage");
+      var hasPopupImage = Bee.utils.getElementsByAttribute("data-popupImage");
 
       for (var i = 0; i < hasPopupImage.length; i++)
       {
          hasPopupImage[i].addEventListener('mouseenter', function (event)
          {
             event.stopPropagation();
-            Barge.utils.setObjectPositionAt(popupImageDiv, false, false, event);
+            Bee.utils.setObjectPositionAt(popupImageDiv, false, false, event);
 
             if ((this.getAttribute("src") !== "" && this.complete.toString() === "true") || this.getAttribute("src") !== "defaultImg.png")
             {
@@ -113,26 +113,26 @@ var Barge = Barge || {};
                {
 
                   popupImageDiv.appendChild(popupImage);
-                  Barge.utils.openWin(popupImageDiv);
+                  Bee.utils.openWin(popupImageDiv);
 
-                  Barge.utils.dynamicSpaceElPositioner(popupImageDiv, parent);
+                  Bee.utils.dynamicSpaceElPositioner(popupImageDiv, parent);
                }
             }
          }, true);
 
          /*hasPopupImage[i].addEventListener("mousemove", function (event)
           {   hasPopupImage[i].removeEventListener("mouseover");
-          Barge.utils.setObjectPositionAt(popupImageDiv, false,false,event);
+          Bee.utils.setObjectPositionAt(popupImageDiv, false,false,event);
           });*/
 
          hasPopupImage[i].addEventListener("mouseout", function ()
          {
-            Barge.utils.closeWin(popupImageDiv, false, false)
+            Bee.utils.closeWin(popupImageDiv, false, false)
          });
       }
    };
 
-   Barge.Bursty.PopImage = function (theme)
+   Bee.Bursty.PopImage = function (theme)
    {
       // region css
       var popImageCss = "section{ width: 100%; height: 100%; overflow: hidden;}" +
@@ -148,7 +148,7 @@ var Barge = Barge || {};
       //endregion
       var popImageDiv = document.createElement("div");
       popImageDiv.id = "popImageDiv";
-      Barge.utils.addClass(popImageDiv, "zoomIn");
+      Bee.utils.addClass(popImageDiv, "zoomIn");
       popImageDiv.style.display = "none";
 
       var popImage = document.createElement("img");
@@ -164,16 +164,16 @@ var Barge = Barge || {};
 
       if (theme && theme == "dark")
       {
-         Barge.utils.insertDynamicCss(popImageCssDark, "popImageCssDark");
+         Bee.utils.insertDynamicCss(popImageCssDark, "popImageCssDark");
       }
       else
       {
-         Barge.utils.insertDynamicCss(popImageCss, "popImageCss");
+         Bee.utils.insertDynamicCss(popImageCss, "popImageCss");
       }
 
       document.body.appendChild(popImageDiv);
 
-      var hasPopImage = Barge.utils.getElementsByAttribute("data-popupImage");
+      var hasPopImage = Bee.utils.getElementsByAttribute("data-popupImage");
 
       for (var i = 0; i < hasPopImage.length; i++)
       {
@@ -192,7 +192,7 @@ var Barge = Barge || {};
                   document.body.appendChild(_generateOverlay());
                   popImageDiv.appendChild(popImage);
                   //popImageDiv.appendChild(downloadBtn);
-                  Barge.utils.openWin(popImageDiv);
+                  Bee.utils.openWin(popImageDiv);
                   popImageDiv.style.left = ((document.body.offsetWidth / 2) - popImageDiv.offsetWidth / 2) + "px";
                   popImageDiv.style.top = (document.body.offsetHeight / 2 - popImageDiv.offsetHeight / 2) + "px";
                }
@@ -202,9 +202,9 @@ var Barge = Barge || {};
       }
    };
 
-   Barge.Image = Barge.Image || {};
+   Bee.Image = Bee.Image || {};
 
-   Barge.Image.insertGenericAvatar = function (genericImageLoc, genericAvatarLoc )
+   Bee.Image.insertGenericAvatar = function (genericImageLoc, genericAvatarLoc )
    {
       //console.log("there are images on page"); //console.log(document.images[0]);
       var fnValidateImage = function (oImg)
@@ -240,12 +240,12 @@ var Barge = Barge || {};
 
     * @type {preview}
     */
-   Barge.Image.preview = new function ()
+   Bee.Image.preview = new function ()
    {
 
       function _fileErrorMessage(theme)
       {
-         Barge.DiceyDialog.confirm({t : "Selected file type not supported", m : "Please choose an image file.", i : "f"});
+         Bee.DiceyDialog.confirm({t : "Selected file type not supported", m : "Please choose an image file.", i : "f"});
       }
 
       /**
@@ -311,13 +311,13 @@ var Barge = Barge || {};
                      }
                      else
                      {
-                        Barge.DiceyDialog.confirm({t : "Selected file type not supported", m : "Please choose an image file.", i : "f"});
+                        Bee.DiceyDialog.confirm({t : "Selected file type not supported", m : "Please choose an image file.", i : "f"});
                      }
 
                   }
                   else
                   {
-                     Barge.DiceyDialog.confirm({ t  : "Selected file type not supported",
+                     Bee.DiceyDialog.confirm({ t    : "Selected file type not supported",
                                                   m : "Please choose an image file.",
                                                   i : "f"
                                                });
@@ -326,7 +326,7 @@ var Barge = Barge || {};
             }
             else
             {
-               Barge.DiceyDialog.confirm({t : "...well this is embarrassing",
+               Bee.DiceyDialog.confirm({t     : "...well this is embarrassing",
                                             m : "Your image has been loaded but previewing is not supported by your browser.",
                                             i : "w"});
             }
@@ -353,7 +353,7 @@ var Barge = Barge || {};
     * Finished by Arch on 02/10/16.
     */
    //TODO implement popup with dynamic options object param lyk goog.window.popup
-   Barge.Bursty.window = function ()
+   Bee.Bursty.window = function ()
    {
       if (Bu.getElementsByAttribute("data-window")[0] !== undefined)
       {
@@ -399,7 +399,7 @@ var Barge = Barge || {};
       }
    };
 
-   Barge.Bursty.DropDown = function ()
+   Bee.Bursty.DropDown = function ()
    {
       let drippys = Bd.getElementsByAttribute("data-dropdown");
 
@@ -434,5 +434,5 @@ var Barge = Barge || {};
       }
    };
 
-   let drps = new Barge.Bursty.DropDown();
-})(Barge.utils, Barge.Dom);
+   let drps = new Bee.Bursty.DropDown();
+})(Bee.utils, Bee.Dom);

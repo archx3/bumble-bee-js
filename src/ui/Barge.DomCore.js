@@ -35,7 +35,7 @@
  * to make it es5 compatible check for es6+ or #es6+ in comments
  */
 
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 (function (Bu, Bs, Ba, Bo)
 {
@@ -43,7 +43,7 @@ var Barge = Barge || {};
     *@object
     *
     */
-   Barge.Dom = {
+   Bee.Dom = {
       root     : Element.prototype,
       i        : 0,
       len      : 0,
@@ -70,7 +70,7 @@ var Barge = Barge || {};
        */
       _defaultDomHelper : null,
 
-      gsv : Barge.utils.getStyleValue,
+      gsv : Bee.utils.getStyleValue,
 
       /**
        *
@@ -97,7 +97,7 @@ var Barge = Barge || {};
          }
          else if (!Bu.defined(query))
          {
-            throw new Error("method Barge.Dome.$() expects a query");
+            throw new Error("method Bee.Dome.$() expects a query");
          }
       },
 
@@ -472,7 +472,7 @@ var Barge = Barge || {};
                   {
                      var clockOut2 = setTimeout(function ()
                                                 {
-                                                   Barge.utils.setDisplayState(windowEl, "none");
+                                                   Bee.utils.setDisplayState(windowEl, "none");
                                                    clearTimeout(clockOut2);
                                                 }, delayVal);
                   }
@@ -495,7 +495,7 @@ var Barge = Barge || {};
                var clockOut = setTimeout(function ()
                                          {
                                             clearTimeout(clockOut);
-                                            Barge.utils.setDisplayState(windowEl, "block");
+                                            Bee.utils.setDisplayState(windowEl, "block");
                                          }, delayVal);
             }
             else
@@ -588,7 +588,7 @@ var Barge = Barge || {};
        */
       addClass    : function (el, newClassName)
       {
-         if (Barge.utils.isString(el))
+         if (Bee.utils.isString(el))
          {
             el = this.getEl(el);
          }
@@ -618,7 +618,7 @@ var Barge = Barge || {};
        */
       removeClass : function (el, oldClassName)
       {
-         if (Barge.utils.isString(el))
+         if (Bee.utils.isString(el))
          {
             el = this.getEl(el);
          }
@@ -654,7 +654,7 @@ var Barge = Barge || {};
       {
          if (Bu.defined(el) && className1 && className2)
          {
-            if (Barge.utils.isString(el))
+            if (Bee.utils.isString(el))
             {
                el = this.getEl(el);
             }
@@ -863,7 +863,7 @@ var Barge = Barge || {};
 
             if (Bu.defined(posX))
             {
-               Barge.Dom.css(el, {
+               Bee.Dom.css(el, {
                   backgroundPositionX : Bu.isNumber(Number(posX)) ? posX + "px" : posX,
                   backgroundPositionY : Bu.isNumber(Number(posY)) ? posY + "px" : posY
                });
@@ -873,7 +873,7 @@ var Barge = Barge || {};
          {//is FFx
             if (Bu.defined(posX))
             {
-               Barge.Dom.css(el, {
+               Bee.Dom.css(el, {
                   backgroundPosition : (Bu.isNumber(Number(posX)) ? posX + "px" : posX) + " " +
                                        (Bu.isNumber(Number(posY)) ? posY + "px" : posY)
                });
@@ -1060,7 +1060,7 @@ var Barge = Barge || {};
                   delete properties['classList'];
                }
 
-               Barge.utils.extend(el, properties);
+               Bee.utils.extend(el, properties);
             }
             if (styles && typeof styles === "object")
             {
@@ -1113,7 +1113,7 @@ var Barge = Barge || {};
                   html += item.id; // Submenu found, but top level list item.
                }
                // Submenu found. Calling recursively same method (and wrapping it in a div)
-               html += Barge.Dom.createItems(item.sub, true);
+               html += Bee.Dom.createItems(item.sub, true);
             }
             else
             {
@@ -1346,7 +1346,7 @@ var Barge = Barge || {};
          // Declare variables
          if (collapsed)
          {
-            Barge.CollapsibleLists.toggleCollapseAll();
+            Bee.CollapsibleLists.toggleCollapseAll();
          }
 
          if (inputEl && ul)
@@ -1559,7 +1559,7 @@ var Barge = Barge || {};
        */
       setTop : function (el, val)
       {
-         Barge.Dom.css(el, { top : val });
+         Bee.Dom.css(el, { top : val });
       },
 
       /**
@@ -1598,7 +1598,7 @@ var Barge = Barge || {};
        */
       setLeft : function (el, val)
       {
-         Barge.Dom.css(el, { left : val });
+         Bee.Dom.css(el, { left : val });
       },
 
       /**
@@ -1628,8 +1628,8 @@ var Barge = Barge || {};
       getTopRight : function (el)
       {
          return {
-            top   : Barge.Dom.getTop(el),
-            right : Barge.Dom.getRight(el)
+            top   : Bee.Dom.getTop(el),
+            right : Bee.Dom.getRight(el)
          }
       },
 
@@ -1641,8 +1641,8 @@ var Barge = Barge || {};
       getBottomRight : function (el)
       {
          return {
-            bottom : Barge.Dom.getBottom(el),
-            right  : Barge.Dom.getRight(el)
+            bottom : Bee.Dom.getBottom(el),
+            right  : Bee.Dom.getRight(el)
          }
       },
 
@@ -1654,8 +1654,8 @@ var Barge = Barge || {};
       getTopLeft : function (el)
       {
          return {
-            top  : Barge.Dom.getTop(el),
-            left : Barge.Dom.getLeft(el)
+            top  : Bee.Dom.getTop(el),
+            left : Bee.Dom.getLeft(el)
          }
       },
 
@@ -1667,8 +1667,8 @@ var Barge = Barge || {};
       getBottomLeft : function (el)
       {
          return {
-            bottom : Barge.Dom.getBottom(el),
-            left   : Barge.Dom.getLeft(el)
+            bottom : Bee.Dom.getBottom(el),
+            left   : Bee.Dom.getLeft(el)
          }
       },
 
@@ -2013,7 +2013,7 @@ var Barge = Barge || {};
          {
             if (useWidth)
             {
-               horMid = (window.innerWidth / 2) - (Bu.pInt(Barge.utils.getStyleValue('width', el)) / 2) - offset;
+               horMid = (window.innerWidth / 2) - (Bu.pInt(Bee.utils.getStyleValue('width', el)) / 2) - offset;
             }
             else
             {
@@ -2051,7 +2051,7 @@ var Barge = Barge || {};
             if (useHeight)
             {
                console.log(offset);
-               verMid -= ((Bu.pInt(Barge.utils.getStyleValue('height', el))) / 2 ) +  offset;
+               verMid -= ((Bu.pInt(Bee.utils.getStyleValue('height', el))) / 2 ) + offset;
             }
             else
             {
@@ -2223,7 +2223,7 @@ var Barge = Barge || {};
          Bu.assert(node, 'Node cannot be null or undefined.');
 
          /** @type {!Document} */
-         return (node.nodeType == Barge.Dom.NodeType.DOCUMENT ?
+         return (node.nodeType == Bee.Dom.NodeType.DOCUMENT ?
                  node : node.ownerDocument || node.document);
       },
 
@@ -2279,7 +2279,7 @@ var Barge = Barge || {};
        */
       registerFx : function (fxName)
       {
-         fx = Barge.Animations[fxName];
+         fx = Bee.Animations[fxName];
          Velocity.RegisterEffect(fx.animName, fx.animStyles);
       },
 
@@ -2332,7 +2332,7 @@ var Barge = Barge || {};
          var sheet = document.getElementById(sheetId) || document.createElement('style');
 
          sheet.id = sheetId;
-         var className = "pseudoStyle"/* + Barge.Dom.UID.getNew()*/;
+         var className = "pseudoStyle"/* + Bee.Dom.UID.getNew()*/;
          //_this.className += " " + className;
 
          this.addClass(element, className);
@@ -2351,7 +2351,7 @@ var Barge = Barge || {};
        */
       isElement : function (obj)
       {
-         return Bu.isObject(obj) && obj.nodeType === Barge.Dom.NodeType.ELEMENT;
+         return Bu.isObject(obj) && obj.nodeType === Bee.Dom.NodeType.ELEMENT;
       },
 
       /**
@@ -2369,9 +2369,9 @@ var Barge = Barge || {};
             return element.children;
          }
          // Fall back to manually filtering the element's child nodes.
-         return Barge.Array.filter(element.childNodes, function (node)
+         return Bee.Array.filter(element.childNodes, function (node)
          {
-            return node.nodeType === Barge.Dom.NodeType.ELEMENT;
+            return node.nodeType === Bee.Dom.NodeType.ELEMENT;
          });
       },
 
@@ -2428,8 +2428,8 @@ var Barge = Barge || {};
       appendOverlay : function (properties, styles)
       {
          var self = this,
-             overlay = Barge.Dom.createEl('section', { className : 'overlay' });
-         Barge.Dom.css(overlay, {
+             overlay = Bee.Dom.createEl('section', { className : 'overlay' });
+         Bee.Dom.css(overlay, {
             zIndex          : 200,
             position        : 'absolute',
             top             : 0,
@@ -2452,7 +2452,7 @@ var Barge = Barge || {};
             self.css(overlay, styles);
          }
 
-         Barge.Dom.appendToWindow(overlay);
+         Bee.Dom.appendToWindow(overlay);
 
          return overlay;
       },
@@ -2528,7 +2528,7 @@ var Barge = Barge || {};
                // same DOM tree is returned on all browsers.
                if (fillWithNBSP)
                {
-                  Barge.Dom.setTextContent(td, Barge.String.Unicode.NBSP);
+                  Bee.Dom.setTextContent(td, Bee.String.Unicode.NBSP);
                }
 
                if (useContent)
@@ -2556,11 +2556,11 @@ var Barge = Barge || {};
          {
             node.textContent = text;
          }
-         else if (node.nodeType === Barge.Dom.NodeType.TEXT)
+         else if (node.nodeType === Bee.Dom.NodeType.TEXT)
          {
             node.data = text;
          }
-         else if (node.firstChild && node.firstChild.nodeType === Barge.Dom.NodeType.TEXT)
+         else if (node.firstChild && node.firstChild.nodeType === Bee.Dom.NodeType.TEXT)
          {
             // If the first child is a text node we just change its data and remove the
             // rest of the children.
@@ -2572,9 +2572,9 @@ var Barge = Barge || {};
          }
          else
          {
-            Barge.Dom.removeChildren(node);
+            Bee.Dom.removeChildren(node);
 
-            var doc = Barge.Dom.getOwnerDocument(node);
+            var doc = Bee.Dom.getOwnerDocument(node);
 
             node.appendChild(doc.createTextNode(String(text)));
          }
@@ -2588,16 +2588,16 @@ var Barge = Barge || {};
     * @const
     * @enum
     */
-   Barge.Dom.CSSSTYLE = document.documentElement.style;
+   Bee.Dom.CSSSTYLE = document.documentElement.style;
 
    /**
     *
     * @param PropertyName {string}
     * @param value {string}
     */
-   Barge.Dom.setRootStyle = function (PropertyName, value)
+   Bee.Dom.setRootStyle = function (PropertyName, value)
    {
-      return Barge.Dom.CSSSTYLE.setProperty(PropertyName, value);
+      return Bee.Dom.CSSSTYLE.setProperty(PropertyName, value);
    };
 
    /**
@@ -2605,25 +2605,25 @@ var Barge = Barge || {};
     * @param PropertyName
     * @returns {string}
     */
-   Barge.Dom.getRootStyle = function (PropertyName)
+   Bee.Dom.getRootStyle = function (PropertyName)
    {
-      return Barge.Dom.CSSSTYLE.getPropertyValue(PropertyName);
+      return Bee.Dom.CSSSTYLE.getPropertyValue(PropertyName);
    };
 
    /**
     * Gets the document object being used by the dom library.
     * @return {!Document} Document object.
     */
-   Barge.Dom.getDocument = function ()
+   Bee.Dom.getDocument = function ()
    {
       return document;
    };
 
    //these globals will be used for constructor and object type fns
    var i = 0, len = 0;
-   Barge.Dom.surrogateButton = function ()
+   Bee.Dom.surrogateButton = function ()
    {
-      var sBtns = Barge.Dom.getElementsByAttribute("data-sbtn");
+      var sBtns = Bee.Dom.getElementsByAttribute("data-sbtn");
       // console.log(sBtns);
       if (sBtns)
       {
@@ -2633,11 +2633,11 @@ var Barge = Barge || {};
             {
                sBtn.addEventListener("click", function (e)
                {
-                  let actualBtn = Barge.Dom.getEl('#' + e.target.getAttribute("data-sbtn"));
+                  let actualBtn = Bee.Dom.getEl('#' + e.target.getAttribute("data-sbtn"));
 
                   if (Bu.defined(actualBtn))
                   {
-                     if ((!Barge.Dom.disabled(actualBtn)))
+                     if ((!Bee.Dom.disabled(actualBtn)))
                      {
                         actualBtn.click();
                         if (actualBtn.classList.contains('reload'))
@@ -2661,7 +2661,7 @@ var Barge = Barge || {};
                //console.log(window.opener)
                if (this.getAttribute("data-sbtn") && !Bs.isEmpty(this.getAttribute("data-sbtn")))
                {
-                  var actualBtn = Barge.Dom.getEl('#' + this.getAttribute("data-sbtn"));
+                  var actualBtn = Bee.Dom.getEl('#' + this.getAttribute("data-sbtn"));
                   // console.log(actualBtn);
 
                   if (actualBtn)
@@ -2669,7 +2669,7 @@ var Barge = Barge || {};
                      console.log(actualBtn);
 
                      console.log(actualBtn.classList.contains("disabled"));
-                     if ((!Barge.Dom.disabled(actualBtn)))
+                     if ((!Bee.Dom.disabled(actualBtn)))
                      {
                         actualBtn.click();
                         if (actualBtn.classList.contains('reload'))
@@ -2695,7 +2695,7 @@ var Barge = Barge || {};
     * @return {boolean} whether or not we can use parent.querySelector* APIs.
     * @private
     */
-   Barge.Dom._canUseQuerySelector = function (parent)
+   Bee.Dom._canUseQuerySelector = function (parent)
    {
       return !!(parent.querySelectorAll && parent.querySelector);
    };
@@ -2713,7 +2713,7 @@ var Barge = Barge || {};
     * See http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-1950641247
     * @enum {number}
     */
-   Barge.Dom.NodeType = {
+   Bee.Dom.NodeType = {
       ELEMENT                : 1,
       ATTRIBUTE              : 2,
       TEXT                   : 3,
@@ -2728,56 +2728,56 @@ var Barge = Barge || {};
       NOTATION               : 12
    };
 
-   if (Bu.defined(Barge.userAgent))
+   if (Bu.defined(Bee.userAgent))
    {
       /**
        * Enum of browser capabilities.
        * @enum {boolean}
        */
-      Barge.Dom.BrowserFeature = {
+      Bee.Dom.BrowserFeature = {
          /**
           * Whether attributes 'name' and 'type' can be added to an element after it's
           * created. False in Internet Explorer prior to version 9.
           */
-         CAN_ADD_NAME_OR_TYPE_ATTRIBUTES : !Barge.userAgent.IE || Barge.userAgent.isDocumentModeOrHigher(9),
+         CAN_ADD_NAME_OR_TYPE_ATTRIBUTES : !Bee.userAgent.IE || Bee.userAgent.isDocumentModeOrHigher(9),
 
          /**
           * Whether we can use element.children to access an element's Element
           * children. Available since Gecko 1.9.1, IE 9. (IE<9 also includes comment
           * nodes in the collection.)
           */
-         CAN_USE_CHILDREN_ATTRIBUTE : !Barge.userAgent.GECKO && !Barge.userAgent.IE ||
-                                      Barge.userAgent.IE && Barge.userAgent.isDocumentModeOrHigher(9) ||
-                                      Barge.userAgent.GECKO && Barge.userAgent.isVersionOrHigher('1.9.1'),
+         CAN_USE_CHILDREN_ATTRIBUTE : !Bee.userAgent.GECKO && !Bee.userAgent.IE ||
+                                      Bee.userAgent.IE && Bee.userAgent.isDocumentModeOrHigher(9) ||
+                                      Bee.userAgent.GECKO && Bee.userAgent.isVersionOrHigher('1.9.1'),
 
          /**
           * Opera, Safari 3, and Internet Explorer 9 all support innerText but they
           * include text nodes in script and style tags. Not document-mode-dependent.
           */
-         CAN_USE_INNER_TEXT : (Barge.userAgent.IE && !Barge.userAgent.isVersionOrHigher('9')),
+         CAN_USE_INNER_TEXT : (Bee.userAgent.IE && !Bee.userAgent.isVersionOrHigher('9')),
 
          /**
           * MSIE, Opera, and Safari>=4 support element.parentElement to access an
           * element's parent if it is an Element.
           */
-         CAN_USE_PARENT_ELEMENT_PROPERTY : Barge.userAgent.IE || Barge.userAgent.OPERA || Barge.userAgent.WEBKIT,
+         CAN_USE_PARENT_ELEMENT_PROPERTY : Bee.userAgent.IE || Bee.userAgent.OPERA || Bee.userAgent.WEBKIT,
 
          /**
           * Whether NoScope elements need a scoped element written before them in
           * innerHTML.
           * MSDN: http://msdn.microsoft.com/en-us/library/ms533897(VS.85).aspx#1
           */
-         INNER_HTML_NEEDS_SCOPED_ELEMENT : Barge.userAgent.IE,
+         INNER_HTML_NEEDS_SCOPED_ELEMENT : Bee.userAgent.IE,
 
          /**
           * Whether we use legacy IE range API.
           */
-         LEGACY_IE_RANGES : Barge.userAgent.IE && !Barge.userAgent.isDocumentModeOrHigher(9)
+         LEGACY_IE_RANGES : Bee.userAgent.IE && !Bee.userAgent.isDocumentModeOrHigher(9)
       };
    }
 
    //endregion
-})(Barge.utils, Barge.String, Barge.Array, Barge.Object);
+})(Bee.utils, Bee.String, Bee.Array, Bee.Object);
 
 /*issue #01 the display state of grandParent lis and uls don't change for filter list
  * */

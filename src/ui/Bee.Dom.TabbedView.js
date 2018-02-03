@@ -34,8 +34,8 @@
  * @user msg: Some lines in this file use constructs from es6 or later
  */
 
-   //Declaring the Barge Namespace
-var Barge = Barge || {};
+   //Declaring the Bee Namespace
+var Barge = Bee || {};
 
 (function (global, factory)// don't litter the global scope
 {
@@ -64,14 +64,14 @@ var Barge = Barge || {};
    "use strict";
 
    //region protected globals
-   Barge.Dom = Barge.Dom || {};
+   Bee.Dom = Bee.Dom || {};
 
-   let Bu = Barge.utils,
-       Bs = Barge.String,
-       Bd = Barge.Dom,
-       Bo = Barge.Object;
+   let Bu = Bee.utils,
+       Bs = Bee.String,
+       Bd = Bee.Dom,
+       Bo = Bee.Object;
 
-   let Be = new Barge.Event.EventManager();
+   let Be = new Bee.Event.EventManager();
    //endregion
    
    /**
@@ -254,7 +254,7 @@ var Barge = Barge || {};
             var lastTabHead = Bd.getElementsByAttribute("data-pane", lastActive, true);
 
             //console.log(lastActive);
-            /*var nextPane = Barge.utils.gebi(this.getAttribute("data-pane").toString());
+            /*var nextPane = Bee.utils.gebi(this.getAttribute("data-pane").toString());
              var activePane = document.querySelector(".activePane");
 
              self._setActive(this, "tabHead", "activeTabHead");
@@ -284,7 +284,7 @@ var Barge = Barge || {};
          }
          else
          {
-            var nextPane = Barge.utils.gebi(target.getAttribute("data-pane").toString());
+            var nextPane = Bee.utils.gebi(target.getAttribute("data-pane").toString());
             var activePane = document.querySelector(".activePane");
 
             self._setActive(target, "tabHead", "activeTabHead");
@@ -691,7 +691,7 @@ var Barge = Barge || {};
    TabbedView.prototype.closeTab = function (target)
    {
       const self = this;
-      let paneToClose = Barge.utils.gebi(target.parentElement.getAttribute("data-pane").toString());
+      let paneToClose = Bee.utils.gebi(target.parentElement.getAttribute("data-pane").toString());
 
       //if the tab is the current active tab
       if (target.parentElement.classList.contains("activeTabHead"))
@@ -759,9 +759,9 @@ var Barge = Barge || {};
     {
     if((parseInt(this.parentElement.getAttribute("data-count"))- parseInt(tabHeads[d].getAttribute("data-count"))) == 1)
     {
-    Barge.utils.setActive(tabHeads[d], "tabHead", "activeTabHead");
-    var nextActivePane = Barge.utils.gebi(tabHeads[d].getAttribute("data-pane").toString());
-    Barge.utils.setActive(nextActivePane, "pane", "activePane");
+    Bee.utils.setActive(tabHeads[d], "tabHead", "activeTabHead");
+    var nextActivePane = Bee.utils.gebi(tabHeads[d].getAttribute("data-pane").toString());
+    Bee.utils.setActive(nextActivePane, "pane", "activePane");
     break;
     }
     }
@@ -773,25 +773,25 @@ var Barge = Barge || {};
     {
     var lastTabHead = document.querySelector("tabHead");
     var lastPane = document.querySelector("pane");
-    Barge.utils.setActive(lastTabHead, "tabHead", "activeTabHead");
-    Barge.utils.setActive(lastPane, "pane", "activePane");
+    Bee.utils.setActive(lastTabHead, "tabHead", "activeTabHead");
+    Bee.utils.setActive(lastPane, "pane", "activePane");
     //break;
     }
     console.log("tabHead " + tabHeads[d]);
     console.log("tabHead " + tabHeads[d].parentElement);
 
-    Barge.utils.setActive(tabHeads[d], "tabHead", "activeTabHead");
-    var nextActivePane2 = Barge.utils.gebi(tabHeads[d].getAttribute("data-pane").toString());
-    Barge.utils.setActive(nextActivePane2, "pane", "activePane");
+    Bee.utils.setActive(tabHeads[d], "tabHead", "activeTabHead");
+    var nextActivePane2 = Bee.utils.gebi(tabHeads[d].getAttribute("data-pane").toString());
+    Bee.utils.setActive(nextActivePane2, "pane", "activePane");
     //break;
     }
     }
     }
     }
-    var toBeDeletedPane = Barge.utils.gebi(this.parentElement.getAttribute("data-pane").toString());
+    var toBeDeletedPane = Bee.utils.gebi(this.parentElement.getAttribute("data-pane").toString());
 
-    Barge.utils.closeWin(pel, "remove", true);
-    Barge.utils.closeWin(toBeDeletedPane, "remove", true);
+    Bee.utils.closeWin(pel, "remove", true);
+    Bee.utils.closeWin(toBeDeletedPane, "remove", true);
     // region resetting data-count(s)
     for (var t = 0; t < tabHeads.length; t++)
     {
@@ -899,7 +899,7 @@ var Barge = Barge || {};
 
     Be.bindOnAll(tabHeads, "click", function (event)
     {
-    var nextPane = Barge.utils.gebi(this.getAttribute("data-pane").toString());
+    var nextPane = Bee.utils.gebi(this.getAttribute("data-pane").toString());
     var activePane = document.querySelector(".activePane");
 
     _setActive(this, "tabHead", "activeTabHead");
@@ -917,7 +917,7 @@ var Barge = Barge || {};
    //FIXME then return the object.
 
    //we're going public whoop! whoop!, lol
-   //return Barge.Dom.TabbedView = TabbedView;
+   //return Bee.Dom.TabbedView = TabbedView;
    return TabbedView;
 });
 

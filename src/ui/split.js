@@ -29,54 +29,53 @@
           addEvt                = 'addEventListener',
           removeEventListener   = 'removeEventListener',
           getBoundingClientRect = 'getBoundingClientRect',
-          isIE8                 = global.attachEvent && !global[addEvt],
+          isIE8                 = global.attachEvent && !global[addEvt];
 
-          // This library only needs two helper functions:
-          //
-          // The first determines which prefixes of CSS calc we need.
-          // We only need to do this once on startup, when this anonymous function is called.
-          //
-          // Tests -webkit, -moz and -o prefixes. Modified from StackOverflow:
-          // http://stackoverflow.com/questions/16625140/js-feature-detection-to-detect-the-usage-of-webkit-calc-over-calc/16625167#16625167
-          _calc                 = (function ()
-          {
-             var el,
-                 prefixes = ["", "-webkit-", "-moz-", "-o-"];
+      // This library only needs two helper functions:
+      //
+      // The first determines which prefixes of CSS calc we need.
+      // We only need to do this once on startup, when this anonymous function is called.
+      //
+      // Tests -webkit, -moz and -o prefixes. Modified from StackOverflow:
+      // http://stackoverflow.com/questions/16625140/js-feature-detection-to-detect-the-usage-of-webkit-calc-over-calc/16625167#16625167
 
-             for (var i = 0; i < prefixes.length; i++)
-             {
-                el = document.createElement('div');
+      let _calc = (function ()
+      {
+         var el,
+             prefixes = ["", "-webkit-", "-moz-", "-o-"];
 
-                Bu.css(el, { cssText : "width:" + prefixes[i] + "calc(9px)" });
-                // el.style.cssText = "width:" + prefixes[i] + "calc(9px)";
+         for (var i = 0; i < prefixes.length; i++)
+         {
+            el = document.createElement('div');
 
-                if (el.style.length)
-                {
-                   return prefixes[i] + "calc";
-                }
-             }
-          })(),
+            Bu.css(el, { cssText : "width:" + prefixes[i] + "calc(9px)" });
+            // el.style.cssText = "width:" + prefixes[i] + "calc(9px)";
 
-          /**
-           * @use The second helper function allows elements and string selectors to be used
-           interchangeably. In either case an element is returned. This allows us to
-           do `SplitPanes(elem1, elem2)` as well as `SplitPanes('#id1', '#id2')`.
-           * @param el
-           * @returns {*}
-           * @private
-           */
-          _elementOrSelector    = function (el)
-          { //typeof el === 'string' || el instanceof String
-             if (Bu.isString(el))
-             {
-                return document.querySelector(el);
-             }
-             else
-             {
-                return el;
-             }
-          };
-
+            if (el.style.length)
+            {
+               return prefixes[i] + "calc";
+            }
+         }
+      })();
+      /**
+       * @use The second helper function allows elements and string selectors to be used
+       interchangeably. In either case an element is returned. This allows us to
+       do `SplitPanes(elem1, elem2)` as well as `SplitPanes('#id1', '#id2')`.
+       * @param el
+       * @returns {*}
+       * @private
+       */
+      let _elementOrSelector = function (el)
+      { //typeof el === 'string' || el instanceof String
+         if (Bu.isString(el))
+         {
+            return document.querySelector(el);
+         }
+         else
+         {
+            return el;
+         }
+      };
       // The main function to initialize a split. SplitPanes.js thinks about each pair
       // of elements as an independent pair. Dragging the gutter between two elements
       // only changes the dimensions of elements in that pair. This is key to understanding
@@ -707,9 +706,9 @@
       }
       else
       {
-         Barge.Dom.SplitPanes = Bd.SplitPanes;
+         Bee.Dom.SplitPanes = Bd.SplitPanes;
       }
 
 // Call our wrapper function with the current global. In this case, `window`.
    }).call(window);
-})(Barge.utils, Barge.Dom);
+})(Bee.utils, Bee.Dom);

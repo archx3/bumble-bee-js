@@ -27,22 +27,22 @@
  * @fileOverview Utilities for manipulating Objects/Maps/Hashes.
  * Shout outs to Erik Arvidsson aka arvomatic
  *
- * @requires Barge.utils
+ * @requires Bee.utils
  *
  * @user MSG: Some lines in this file use constructs from es6 or later
  * to make it es5 compatible check for es6+ or #es6+ in comments
  */
 
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 (function (Bu)
 {
-   //cr8n the Barge.Object object
+   //cr8n the Bee.Object object
    /**
     * @static
     * @type {{}}
     */
-   Barge.Object = Barge.Object || {};
+   Bee.Object = Bee.Object || {};
    /**
     * Whether two values are not observably distinguishable. This
     * correctly detects that 0 is not the same as -0 and two NaNs are
@@ -55,7 +55,7 @@ var Barge = Barge || {};
     * @return {boolean} Whether two values are not observably distinguishable.
     * @see http://wiki.ecmascript.org/doku.php?id=harmony:egal
     */
-   Barge.Object.is = function (v, v2)
+   Bee.Object.is = function (v, v2)
    {
       if (v === v2)
       {
@@ -80,7 +80,7 @@ var Barge = Barge || {};
     * @param {T=} opt_obj This is used as the 'this' object within f.
     * @template T,K,V
     */
-   Barge.Object.forEach = function (obj, f, opt_obj)
+   Bee.Object.forEach = function (obj, f, opt_obj)
    {
       for (var key in obj)
       {
@@ -104,7 +104,7 @@ var Barge = Barge || {};
     *     test are present.
     * @template T,K,V
     */
-   Barge.Object.filter = function (obj, f, opt_obj)
+   Bee.Object.filter = function (obj, f, opt_obj)
    {
       var res = {};
       for (var key in obj)
@@ -131,7 +131,7 @@ var Barge = Barge || {};
     * @return {!Object<K,R>} a new object with the results from f.
     * @template T,K,V,R
     */
-   Barge.Object.map = function (obj, f, opt_obj)
+   Bee.Object.map = function (obj, f, opt_obj)
    {
       var res = {};
       for (var key in obj)
@@ -155,7 +155,7 @@ var Barge = Barge || {};
     * @return {boolean} true if any element passes the test.
     * @template T,K,V
     */
-   Barge.Object.some = function (obj, f, opt_obj)
+   Bee.Object.some = function (obj, f, opt_obj)
    {
       for (var key in obj)
       {
@@ -181,7 +181,7 @@ var Barge = Barge || {};
     * @return {boolean} false if any element fails the test.
     * @template T,K,V
     */
-   Barge.Object.every = function (obj, f, opt_obj)
+   Bee.Object.every = function (obj, f, opt_obj)
    {
       for (var key in obj)
       {
@@ -201,7 +201,7 @@ var Barge = Barge || {};
     *
     * @return {boolean} null if the key does not exist.
     */
-   Barge.Object.get = function (obj, key,)
+   Bee.Object.get = function (obj, key)
    {
       if (key in  obj)
       {
@@ -217,7 +217,7 @@ var Barge = Barge || {};
     *     pairs.
     * @return {number} The number of key-value pairs in the object map.
     */
-   Barge.Object.getCount = function (obj)
+   Bee.Object.getCount = function (obj)
    {
       var rv = 0;
       for (var key in obj)
@@ -235,7 +235,7 @@ var Barge = Barge || {};
     * @param {Object} obj The object to pick a key from.
     * @return {string|undefined} The key or undefined if the object is empty.
     */
-   Barge.Object.getAnyKey = function (obj)
+   Bee.Object.getAnyKey = function (obj)
    {
       for (var key in obj)
       {
@@ -252,7 +252,7 @@ var Barge = Barge || {};
     * @return {V|undefined} The value or undefined if the object is empty.
     * @template K,V
     */
-   Barge.Object.getAnyValue = function (obj)
+   Bee.Object.getAnyValue = function (obj)
    {
       for (var key in obj)
       {
@@ -262,16 +262,16 @@ var Barge = Barge || {};
 
    /**
     * Whether the object/hash/map contains the given object as a value.
-    * An alias for Barge.Object.containsValue(obj, val).
+    * An alias for Bee.Object.containsValue(obj, val).
     *
     * @param {Object<K,V>} obj The object in which to look for val.
     * @param {V} val The object for which to check.
     * @return {boolean} true if val is present.
     * @template K,V
     */
-   Barge.Object.contains = function (obj, val)
+   Bee.Object.contains = function (obj, val)
    {
-      return Barge.Object.containsValue(obj, val);
+      return Bee.Object.containsValue(obj, val);
    };
 
    /**
@@ -281,7 +281,7 @@ var Barge = Barge || {};
     * @return {!Array<V>} The values in the object/map/hash.
     * @template K,V
     */
-   Barge.Object.getValues = function (obj)
+   Bee.Object.getValues = function (obj)
    {
       var res = [];
       var i = 0;
@@ -298,7 +298,7 @@ var Barge = Barge || {};
     * @param {Object} obj The object from which to get the keys.
     * @return {!Array<string>} Array of property keys.
     */
-   Barge.Object.getKeys = function (obj)
+   Bee.Object.getKeys = function (obj)
    {
       var res = [];
       var i = 0;
@@ -321,16 +321,16 @@ var Barge = Barge || {};
     * @return {*} The resulting value.  If, at any point, the value for a key
     *     is undefined, returns undefined.
     */
-   Barge.Object.getValueByKeys = function (obj, var_args)
+   Bee.Object.getValueByKeys = function (obj, var_args)
    {
-      var isArrayLike = Barge.isArrayLike(var_args);
+      var isArrayLike = Bee.isArrayLike(var_args);
       var keys = isArrayLike ? var_args : arguments;
 
       // Start with the 2nd parameter for the variable parameters syntax.
       for (var i = isArrayLike ? 0 : 1; i < keys.length; i++)
       {
          obj = obj[keys[i]];
-         if (!Barge.isDef(obj))
+         if (!Bee.isDef(obj))
          {
             break;
          }
@@ -346,7 +346,7 @@ var Barge = Barge || {};
     * @param {?} key The key for which to check.
     * @return {boolean} true If the map contains the key.
     */
-   Barge.Object.containsKey = function (obj, key)
+   Bee.Object.containsKey = function (obj, key)
    {
       return obj !== null && key in obj;
    };
@@ -359,7 +359,7 @@ var Barge = Barge || {};
     * @return {boolean} true If the map contains the value.
     * @template K,V
     */
-   Barge.Object.containsValue = function (obj, val)
+   Bee.Object.containsValue = function (obj, val)
    {
       for (var key in obj)
       {
@@ -383,7 +383,7 @@ var Barge = Barge || {};
     *     returns true or undefined if no such element is found.
     * @template T,K,V
     */
-   Barge.Object.findKey = function (obj, f, opt_this)
+   Bee.Object.findKey = function (obj, f, opt_this)
    {
       for (var key in obj)
       {
@@ -407,9 +407,9 @@ var Barge = Barge || {};
     *     undefined if no such element is found.
     * @template T,K,V
     */
-   Barge.Object.findValue = function (obj, f, opt_this)
+   Bee.Object.findValue = function (obj, f, opt_this)
    {
-      var key = Barge.Object.findKey(obj, f, opt_this);
+      var key = Bee.Object.findKey(obj, f, opt_this);
       return key && obj[key];
    };
 
@@ -419,7 +419,7 @@ var Barge = Barge || {};
     * @param {Object} obj The object to test.
     * @return {boolean} true if obj is empty.
     */
-   Barge.Object.isEmpty = function (obj)
+   Bee.Object.isEmpty = function (obj)
    {
       for (var key in obj)
       {
@@ -433,7 +433,7 @@ var Barge = Barge || {};
     *
     * @param {Object} obj The object to clear.
     */
-   Barge.Object.clear = function (obj)
+   Bee.Object.clear = function (obj)
    {
       for (var i in obj)
       {
@@ -446,7 +446,7 @@ var Barge = Barge || {};
     *
     * @param {Object} obj The object to clear.
     */
-   Barge.Object.destroy = function (obj)
+   Bee.Object.destroy = function (obj)
    {
       for (var i in obj)
       {
@@ -463,7 +463,7 @@ var Barge = Barge || {};
     * @param {?} key The key to remove.
     * @return {boolean} Whether an element was removed.
     */
-   Barge.Object.remove = function (obj, key)
+   Bee.Object.remove = function (obj, key)
    {
       var rv;
       if (rv = key in /** @type {!Object} */ (obj))
@@ -482,13 +482,13 @@ var Barge = Barge || {};
     * @param {V} val The value to add.
     * @template K,V
     */
-   Barge.Object.add = function (obj, key, val)
+   Bee.Object.add = function (obj, key, val)
    {
       if (obj !== null && key in obj)
       {
          throw Error('The object already contains the key "' + key + '"');
       }
-      Barge.Object.set(obj, key, val);
+      Bee.Object.set(obj, key, val);
    };
 
    /**
@@ -501,7 +501,7 @@ var Barge = Barge || {};
     * @return {V|R|undefined} The value for the given key.
     * @template K,V,R
     */
-   Barge.Object.get = function (obj, key, opt_val)
+   Bee.Object.get = function (obj, key, opt_val)
    {
       if (obj !== null && key in obj)
       {
@@ -518,7 +518,7 @@ var Barge = Barge || {};
     * @param {V} value The value to add.
     * @template K,V
     */
-   Barge.Object.set = function (obj, key, value)
+   Bee.Object.set = function (obj, key, value)
    {
       obj[key] = value;
    };
@@ -532,7 +532,7 @@ var Barge = Barge || {};
     * @return {V} The value of the entry at the end of the function.
     * @template K,V
     */
-   Barge.Object.setIfUndefined = function (obj, key, value)
+   Bee.Object.setIfUndefined = function (obj, key, value)
    {
       return key in /** @type {!Object} */ (obj) ? obj[key] : (obj[key] = value);
    };
@@ -551,7 +551,7 @@ var Barge = Barge || {};
     * @return {V} The value of the entry at the end of the function.
     * @template K,V
     */
-   Barge.Object.setWithReturnValueIfNotSet = function (obj, key, f)
+   Bee.Object.setWithReturnValueIfNotSet = function (obj, key, f)
    {
       if (key in obj)
       {
@@ -571,7 +571,7 @@ var Barge = Barge || {};
     * @return {boolean}
     * @template K,V
     */
-   Barge.Object.equals = function (a, b)
+   Bee.Object.equals = function (a, b)
    {
       for (var k in a)
       {
@@ -597,7 +597,7 @@ var Barge = Barge || {};
     * @return {!Object<K,V>} Clone of the input object.
     * @template K,V
     */
-   Barge.Object.clone = function (obj)
+   Bee.Object.clone = function (obj)
    {
       // We cannot use the prototype trick because a lot of methods depend on where
       // the actual key is set.
@@ -613,7 +613,7 @@ var Barge = Barge || {};
          res[key] = obj[key];
       }
       return res;
-      // We could also use Barge.mixin but I wanted this to be independent from that.
+      // We could also use Bee.mixin but I wanted this to be independent from that.
    };
 
    /**
@@ -621,28 +621,28 @@ var Barge = Barge || {};
     * arrays will be cloned recursively.
     *
     * WARNINGS:
-    * <code>Barge.Object.unsafeClone</code> does not detect reference loops. Objects
+    * <code>Bee.Object.unsafeClone</code> does not detect reference loops. Objects
     * that refer to themselves will cause infinite recursion.
     *
-    * <code>Barge.Object.unsafeClone</code> is unaware of unique identifiers, and
+    * <code>Bee.Object.unsafeClone</code> is unaware of unique identifiers, and
     * copies UIDs created by <code>getUid</code> into cloned results.
     *
     * @param {*} obj The value to clone.
     * @return {*} A clone of the input value.
     */
-   Barge.Object.unsafeClone = function (obj)
+   Bee.Object.unsafeClone = function (obj)
    {
-      var type = Barge.typeOf(obj);
+      var type = Bee.typeOf(obj);
       if (type == 'object' || type == 'array')
       {
-         if (Barge.isFunction(obj.clone))
+         if (Bee.isFunction(obj.clone))
          {
             return obj.clone();
          }
          var clone = type == 'array' ? [] : {};
          for (var key in obj)
          {
-            clone[key] = Barge.Object.unsafeClone(obj[key]);
+            clone[key] = Bee.Object.unsafeClone(obj[key]);
          }
          return clone;
       }
@@ -658,7 +658,7 @@ var Barge = Barge || {};
     * @param {Object} obj The object to transpose.
     * @return {!Object} The transposed object.
     */
-   Barge.Object.transpose = function (obj)
+   Bee.Object.transpose = function (obj)
    {
       var transposed = {};
       for (var key in obj)
@@ -673,7 +673,7 @@ var Barge = Barge || {};
     * @type {Array<string>}
     * @private
     */
-   Barge.Object.PROTOTYPE_FIELDS_ = [
+   Bee.Object.PROTOTYPE_FIELDS_ = [
       'constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable',
       'toLocaleString', 'toString', 'valueOf'
    ];
@@ -684,18 +684,18 @@ var Barge = Barge || {};
     *
     * Example:
     * var o = {};
-    * Barge.Object.extend(o, {a: 0, b: 1});
+    * Bee.Object.extend(o, {a: 0, b: 1});
     * o; // {a: 0, b: 1}
-    * Barge.Object.extend(o, {b: 2, c: 3});
+    * Bee.Object.extend(o, {b: 2, c: 3});
     * o; // {a: 0, b: 2, c: 3}
     *
     * @param {Object} target The object to modify. Existing properties will be
     *     overwritten if they are also present in one of the objects in
     *     {@code var_args}.
     * @param {...Object} var_args The objects from which values will be copied.
-    * @deprecated use{@link Barge.Object.extend | @link Barge.utils.extend } instead
+    * @deprecated use{@link Bee.Object.extend | @link Bee.utils.extend } instead
     */
-   Barge.Object.extendss = function (target, var_args)
+   Bee.Object.extendss = function (target, var_args)
    {
       var key, source;
       for (var i = 1; i < arguments.length; i++)
@@ -712,9 +712,9 @@ var Barge = Barge || {};
          // extend String and change 'replace' (not that it is common for anyone to
          // extend anything except Object).
 
-         for (var j = 0; j < Barge.Object.PROTOTYPE_FIELDS_.length; j++)
+         for (var j = 0; j < Bee.Object.PROTOTYPE_FIELDS_.length; j++)
          {
-            key = Barge.Object.PROTOTYPE_FIELDS_[j];
+            key = Bee.Object.PROTOTYPE_FIELDS_[j];
             if (Object.prototype.hasOwnProperty.call(source, key))
             {
                target[key] = source[key];
@@ -723,9 +723,9 @@ var Barge = Barge || {};
       }
    };
 
-   Barge.Object.extend = Bu.extend;
+   Bee.Object.extend = Bu.extend;
 
-   /*Barge.Object.extendClone = function (a, b)FIXME
+   /*Bee.Object.extendClone = function (a, b)FIXME
    {
       Bu.extend(a, b)
    };*/
@@ -739,12 +739,12 @@ var Barge = Barge || {};
     * @throws {Error} If there are uneven number of arguments or there is only one
     *     non array argument.
     */
-   Barge.Object.create = function (var_args)
+   Bee.Object.create = function (var_args)
    {
       var argLength = arguments.length;
-      if (argLength === 1 && Barge.isArray(arguments[0]))
+      if (argLength === 1 && Bee.isArray(arguments[0]))
       {
-         return Barge.Object.create.apply(null, arguments[0]);
+         return Bee.Object.create.apply(null, arguments[0]);
       }
 
       if (argLength % 2)
@@ -766,7 +766,7 @@ var Barge = Barge || {};
     * @param prototype
     * @returns {Creator}
     */
-   Barge.Object.createObject = function (prototype)
+   Bee.Object.createObject = function (prototype)
    {
       /**
        *
@@ -785,12 +785,12 @@ var Barge = Barge || {};
     *     as the property names.
     * @return {!Object} The new object.
     */
-   Barge.Object.createSet = function (var_args)
+   Bee.Object.createSet = function (var_args)
    {
       var argLength = arguments.length;
-      if (argLength === 1 && Barge.isArray(arguments[0]))
+      if (argLength === 1 && Bee.isArray(arguments[0]))
       {
-         return Barge.Object.createSet.apply(null, arguments[0]);
+         return Bee.Object.createSet.apply(null, arguments[0]);
       }
 
       var rv = {};
@@ -813,7 +813,7 @@ var Barge = Barge || {};
     *     original object if this browser does not support immutables.
     * @template K,V
     */
-   Barge.Object.createImmutableView = function (obj)
+   Bee.Object.createImmutableView = function (obj)
    {
       var result = obj;
       if (Object.isFrozen && !Object.isFrozen(obj))
@@ -828,9 +828,9 @@ var Barge = Barge || {};
     * @param {!Object} obj An object.
     * @return {boolean} Whether this is an immutable view of the object.
     */
-   Barge.Object.isImmutableView = function (obj)
+   Bee.Object.isImmutableView = function (obj)
    {
       return Object.isFrozen && Object.isFrozen(obj);
    };
 
-})(Barge.utils);
+})(Bee.utils);

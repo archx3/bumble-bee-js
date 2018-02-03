@@ -5,10 +5,10 @@
 PRE: takes the element to be made draggable
      whether the default effect of the event should be appiled or not
 **/
-var Barge = Barge || {};
+var Bee = Bee || {};
 (function (Bu)
 {
-   Barge.Drag = Barge.Drag || {};
+   Bee.Drag = Bee.Drag || {};
    /**
     * @param el {Element}
     * @param prevDef {boolean}
@@ -16,7 +16,7 @@ var Barge = Barge || {};
     * @param dragDrop {String}
     * @constructor
     */
-   Barge.Drag.Movable = function (el,  prevDef, dragStart, dragDrop)
+   Bee.Drag.Movable = function (el, prevDef, dragStart, dragDrop)
    {
       this.el = el;
       this.dragStart = dragStart;
@@ -130,7 +130,7 @@ var Barge = Barge || {};
     * var dragObject1 = new BargeDraggable(div1,dragStart,dragDrop);
     * */
 
-   Barge.Drag.Move = function(WinElID)
+   Bee.Drag.Move = function(WinElID)
    {
       var cnLeft = "0", cnTop = "0", xpos = 0, ypos = 0, domStyle = null;
 
@@ -220,5 +220,5 @@ var Barge = Barge || {};
       document.onmousemove = _dragIt;
       document.onmouseup = _dropIt;
    };
-})(Barge.utils);
+})(Bee.utils);
 

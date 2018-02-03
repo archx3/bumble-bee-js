@@ -29,7 +29,7 @@
  *    Forked from JavaScript Cookie v2.1.4
  *    https://github.com/js-cookie/js-cookie
  */
-var Barge = Barge || {};
+var Barge = Bee || {};
 (function (global, Bu)
 {
    'use strict';
@@ -49,10 +49,10 @@ var Barge = Barge || {};
        * @returns {*}
        * @constructor
        */
-      Barge.Cookies = function (key, value, options)
+      Bee.Cookies = function (key, value, options)
       {
          return arguments.length === 1 ?
-                Barge.Cookies.get(key) : Barge.Cookies.set(key, value, options);
+                Bee.Cookies.get(key) : Bee.Cookies.set(key, value, options);
       };
 
       /**
@@ -60,7 +60,7 @@ var Barge = Barge || {};
        * @type {HTMLDocument}
        * @private
        */
-      Barge.Cookies._document = window.document;
+      Bee.Cookies._document = window.document;
 
       /**
        * Used to ensure cookie keys do not collide with
@@ -68,20 +68,20 @@ var Barge = Barge || {};
        * @type {string}
        * @private
        */
-      Barge.Cookies._cacheKeyPrefix = 'cookey.'; // Hurr hurr, :)
+      Bee.Cookies._cacheKeyPrefix = 'cookey.'; // Hurr hurr, :)
 
       /**
        *
        * @type {Date}
        * @private
        */
-      Barge.Cookies._maxExpireDate = new Date('Fri, 31 Dec 9999 23:59:59 UTC');
+      Bee.Cookies._maxExpireDate = new Date('Fri, 31 Dec 9999 23:59:59 UTC');
 
       /**
        *
        * @type {{path: string, secure: boolean}}
        */
-      Barge.Cookies.defaults = {
+      Bee.Cookies.defaults = {
          path   : '/',
          secure : false
       };
@@ -92,14 +92,14 @@ var Barge = Barge || {};
        * @param {Boolean} [json]
        * @returns {*}
        */
-      Barge.Cookies.get = function (key, json)
+      Bee.Cookies.get = function (key, json)
       {
-         if (Barge.Cookies._cachedDocumentCookie !== Barge.Cookies._document.cookie)
+         if (Bee.Cookies._cachedDocumentCookie !== Bee.Cookies._document.cookie)
          {
-            Barge.Cookies._renewCache();
+            Bee.Cookies._renewCache();
          }
 
-         var value = Barge.Cookies._cache[Barge.Cookies._cacheKeyPrefix + key];
+         var value = Bee.Cookies._cache[Bee.Cookies._cacheKeyPrefix + key];
 
          return value === undefined ? undefined :
                 json ? JSON.parse(value) :
@@ -112,7 +112,7 @@ var Barge = Barge || {};
        * @param value
        * @param options
        */
-      Barge.Cookies.toggle = function (key, value, options = null)
+      Bee.Cookies.toggle = function (key, value, options = null)
       {
          /*jshint ignore*/
          if (this.get(key) !== undefined)
@@ -132,11 +132,11 @@ var Barge = Barge || {};
        * @param options {{expires:Number|String<Date>|Date|Infinity, domain: String , secure: Boolean, json : Boolean }}
        * @returns {Barge.Cookies|*}
        */
-      Barge.Cookies.set = function (key, value, options)
+      Bee.Cookies.set = function (key, value, options)
       {
-         options = Barge.Cookies._getExtendedOptions(options);
-         options.expires = Barge.Cookies._getExpiresDate(value === undefined ? -1 :
-                           Bu.defined(options.expires) ? options.expires : Barge.Cookies._maxExpireDate);
+         options = Bee.Cookies._getExtendedOptions(options);
+         options.expires = Bee.Cookies._getExpiresDate(value === undefined ? -1 :
+                                                       Bu.defined(options.expires) ? options.expires : Bee.Cookies._maxExpireDate);
 
          if (options.json)
          {
@@ -151,7 +151,7 @@ var Barge = Barge || {};
             value = (value + '').replace(/[^!#$&-+\--:<-\[\]-~]/g, encodeURIComponent);
 
             cookeiString = key.toString() + "=" + value.toString() +
-                           "; expires=" + (Bu.defined(options.expires) ? options.expires : Barge.Cookies._maxExpireDate);
+                           "; expires=" + (Bu.defined(options.expires) ? options.expires : Bee.Cookies._maxExpireDate);
             document.cookie = cookeiString;
          }
          else
@@ -159,9 +159,9 @@ var Barge = Barge || {};
             cookeiString = key.toString() + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=abacus.edu";
             document.cookie = cookeiString;
          }
-         //console.log(Barge.Cookies._generateCookieString(key, value, options));
-         Barge.Cookies._document.cookie = Barge.Cookies._generateCookieString(key, value, options);
-         return Barge.Cookies;
+         //console.log(Bee.Cookies._generateCookieString(key, value, options));
+         Bee.Cookies._document.cookie = Bee.Cookies._generateCookieString(key, value, options);
+         return Bee.Cookies;
       };
 
       /**
@@ -170,16 +170,16 @@ var Barge = Barge || {};
        * @param options
        * @returns {Barge.Cookies|*}
        */
-      Barge.Cookies.expire = function (key, options)
+      Bee.Cookies.expire = function (key, options)
       {
-         return Barge.Cookies.set(key, undefined, options);
+         return Bee.Cookies.set(key, undefined, options);
       };
 
       /**
        * Alias
        * @type {*}
        */
-      Barge.Cookies.remove = Barge.Cookies.expire;
+      Bee.Cookies.remove = Bee.Cookies.expire;
 
       /**
        *
@@ -187,13 +187,13 @@ var Barge = Barge || {};
        * @returns {{path: (*|string), domain: *, expires: *, secure: boolean}}
        * @private
        */
-      Barge.Cookies._getExtendedOptions = function (options)
+      Bee.Cookies._getExtendedOptions = function (options)
       {
          return {
-            path    : options && options.path || Barge.Cookies.defaults.path,
-            domain  : options && options.domain || Barge.Cookies.defaults.domain,
-            expires : options && options.expires || Barge.Cookies.defaults.expires,
-            secure  : options && options.secure !== undefined ? options.secure : Barge.Cookies.defaults.secure
+            path    : options && options.path || Bee.Cookies.defaults.path,
+            domain  : options && options.domain || Bee.Cookies.defaults.domain,
+            expires : options && options.expires || Bee.Cookies.defaults.expires,
+            secure  : options && options.secure !== undefined ? options.secure : Bee.Cookies.defaults.secure
          };
       };
 
@@ -203,7 +203,7 @@ var Barge = Barge || {};
        * @returns {boolean}
        * @private
        */
-      Barge.Cookies._isValidDate = function (date)
+      Bee.Cookies._isValidDate = function (date)
       {
          return Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date.getTime());
       };
@@ -215,21 +215,21 @@ var Barge = Barge || {};
        * @returns {*}
        * @private
        */
-      Barge.Cookies._getExpiresDate = function (expires, now)
+      Bee.Cookies._getExpiresDate = function (expires, now)
       {
          now = now || new Date();
 
          if (typeof expires === 'number')
          {
             expires = expires === Infinity ?
-                      Barge.Cookies._maxExpireDate : new Date(now.getTime() + expires * 1000);
+                      Bee.Cookies._maxExpireDate : new Date(now.getTime() + expires * 1000);
          }
          else if (typeof expires === 'string')
          {
             expires = new Date(expires);
          }
 
-         if (expires && !Barge.Cookies._isValidDate(expires))
+         if (expires && !Bee.Cookies._isValidDate(expires))
          {
             throw new Error('`expires` parameter cannot be converted to a valid Date instance');
          }
@@ -245,7 +245,7 @@ var Barge = Barge || {};
        * @returns {string}
        * @private
        */
-      Barge.Cookies._generateCookieString = function (key, value, options)
+      Bee.Cookies._generateCookieString = function (key, value, options)
       {
          key = key.replace(/[^#$&+\^`|]/g, encodeURIComponent);
          key = key.replace(/\(/g, '%28').replace(/\)/g, '%29');
@@ -268,18 +268,18 @@ var Barge = Barge || {};
        * @returns {{}}
        * @private
        */
-      Barge.Cookies._getCacheFromString = function (documentCookie)
+      Bee.Cookies._getCacheFromString = function (documentCookie)
       {
          var cookieCache = {};
          var cookiesArray = documentCookie ? documentCookie.split('; ') : [];
 
          for (var i = 0; i < cookiesArray.length; i++)
          {
-            var cookieKvp = Barge.Cookies._getKeyValuePairFromCookieString(cookiesArray[i]);
+            var cookieKvp = Bee.Cookies._getKeyValuePairFromCookieString(cookiesArray[i]);
 
-            if (cookieCache[Barge.Cookies._cacheKeyPrefix + cookieKvp.key] === undefined)
+            if (cookieCache[Bee.Cookies._cacheKeyPrefix + cookieKvp.key] === undefined)
             {
-               cookieCache[Barge.Cookies._cacheKeyPrefix + cookieKvp.key] = cookieKvp.value;
+               cookieCache[Bee.Cookies._cacheKeyPrefix + cookieKvp.key] = cookieKvp.value;
             }
          }
 
@@ -292,7 +292,7 @@ var Barge = Barge || {};
        * @returns {{key: *, value: string}}
        * @private
        */
-      Barge.Cookies._getKeyValuePairFromCookieString = function (cookieString)
+      Bee.Cookies._getKeyValuePairFromCookieString = function (cookieString)
       {
          // "=" is a valid character in a cookie value according to RFC6265, so cannot `split('=')`
          var separatorIndex = cookieString.indexOf('=');
@@ -324,10 +324,10 @@ var Barge = Barge || {};
        *
        * @private
        */
-      Barge.Cookies._renewCache = function ()
+      Bee.Cookies._renewCache = function ()
       {
-         Barge.Cookies._cache = Barge.Cookies._getCacheFromString(Barge.Cookies._document.cookie);
-         Barge.Cookies._cachedDocumentCookie = Barge.Cookies._document.cookie;
+         Bee.Cookies._cache = Bee.Cookies._getCacheFromString(Bee.Cookies._document.cookie);
+         Bee.Cookies._cachedDocumentCookie = Bee.Cookies._document.cookie;
       };
 
       /**
@@ -335,11 +335,11 @@ var Barge = Barge || {};
        * @returns {boolean}
        * @private
        */
-      Barge.Cookies._areEnabled = function ()
+      Bee.Cookies._areEnabled = function ()
       {
          var testKey = 'cookies.js';
-         var areEnabled = Barge.Cookies.set(testKey, 1).get(testKey) === '1';
-         Barge.Cookies.expire(testKey);
+         var areEnabled = Bee.Cookies.set(testKey, 1).get(testKey) === '1';
+         Bee.Cookies.expire(testKey);
          return areEnabled;
       };
 
@@ -347,9 +347,9 @@ var Barge = Barge || {};
        *
        * @type {boolean}
        */
-      Barge.Cookies.enabled = Barge.Cookies._areEnabled();
+      Bee.Cookies.enabled = Bee.Cookies._areEnabled();
 
-      return Barge.Cookies;
+      return Bee.Cookies;
    };
 
    var cookiesExport = (global && typeof global.document === 'object') ? factory(global) : factory;
@@ -368,10 +368,10 @@ var Barge = Barge || {};
          module.exports = cookiesExport;
       }
       // But always support CommonJS module 1.1.1 spec (`exports` cannot be a function)
-      exports.Barge.Cookies = cookiesExport;
+      exports.Bee.Cookies = cookiesExport;
    }
    else
    {
-      global.Barge.Cookies = cookiesExport;
+      global.Bee.Cookies = cookiesExport;
    }
-})(typeof window === 'undefined' ? this : window, Barge.utils);
+})(typeof window === 'undefined' ? this : window, Bee.utils);

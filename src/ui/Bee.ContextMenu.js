@@ -132,7 +132,7 @@
 
       //region hide and show
       //dealing with the cut menu item
-      if (!isEditableEl || (isEditableEl && Barge.CopyCat.getSelectedInputText(srcEl) == ""))
+      if (!isEditableEl || (isEditableEl && Bee.CopyCat.getSelectedInputText(srcEl) == ""))
       {
          document.getElementById("cutToCB").classList.add("disabledMenuItem");
 
@@ -172,8 +172,8 @@
       }
 
       //dealing with the copy menu item
-      if ((isEditableEl && Barge.CopyCat.getSelectedInputText(srcEl) == "") ||
-         (!isEditableEl && Barge.CopyCat.getSelectionText() == ""))
+      if ((isEditableEl && Bee.CopyCat.getSelectedInputText(srcEl) == "") ||
+          (!isEditableEl && Bee.CopyCat.getSelectionText() == ""))
       {
          document.getElementById("copyToCB").classList.add("disabledMenuItem");
       }
@@ -216,16 +216,16 @@
                {
                   if (srcEl.selectionStart != srcEl.selectionEnd)
                   {
-                     selectionBuffer = Barge.CopyCat.getSelectedInputText(srcEl);
-                     Barge.CopyCat.copySelectionText();
+                     selectionBuffer = Bee.CopyCat.getSelectedInputText(srcEl);
+                     Bee.CopyCat.copySelectionText();
                      //document.execCommand("copy");
                   }
                }
                else
                {
-                  selectionBuffer = Barge.CopyCat.getSelectionText();
+                  selectionBuffer = Bee.CopyCat.getSelectionText();
                   //console.log(selectionBuffer);
-                  Barge.CopyCat.copySelectionText();
+                  Bee.CopyCat.copySelectionText();
                   //document.execCommand("copy");
                }
             }
@@ -246,12 +246,12 @@
                                  document.body.getAttribute("data-theme") : "light";
                      if (theme == "dark")
                      {
-                        Barge.Dialog.darkConfirm("Sorry", "Pasting from System Clipboard is not allowed", "OK", false, false, false, "failure");
+                        Bee.Dialog.darkConfirm("Sorry", "Pasting from System Clipboard is not allowed", "OK", false, false, false, "failure");
                      }
                      else
                      {
-                        Barge.Dialog.lightConfirm("Sorry", "Pasting from System Clipboard is not allowed",
-                                                  "OK", false, false, false, "failure");
+                        Bee.Dialog.lightConfirm("Sorry", "Pasting from System Clipboard is not allowed",
+                                                "OK", false, false, false, "failure");
 
                      }
                   }
@@ -262,8 +262,8 @@
             {
                if (isEditableInputEl)
                {
-                  selectionBuffer = Barge.CopyCat.getSelectedInputText(srcEl);
-                  Barge.CopyCat.copySelectionText();
+                  selectionBuffer = Bee.CopyCat.getSelectedInputText(srcEl);
+                  Bee.CopyCat.copySelectionText();
                   Bu.deleteSelectedText(srcEl);
                }
             }
@@ -272,14 +272,14 @@
                if (isEditableInputEl)
                {
                   srcEl.select();
-                  Barge.CopyCat.selectALl();
+                  Bee.CopyCat.selectALl();
                }
             }
             else if (this.id == "clearText")
             {
                if (isEditableInputEl)
                {
-                  Barge.Input.clear(srcEl);
+                  Bee.Input.clear(srcEl);
                }
             }
          }
@@ -290,7 +290,7 @@
       }, false);
    }
 
-})(Barge.utils,Barge.Array,Barge.String,Barge.Dom);
+})(Bee.utils, Bee.Array, Bee.String, Bee.Dom);
 
 //TODO : showing submenus with js instead of css (requires dom recursive traversing)
 //TODO : issue with creating enough room for sub menus to show (on the opposite side of the menus)

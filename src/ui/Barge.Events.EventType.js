@@ -2,7 +2,7 @@
  * Created by arch on 03/05/17.
  */
 
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 /**
  * Returns a prefixed event name for the current browser.
@@ -11,10 +11,10 @@ var Barge = Barge || {};
  * @suppress {missingRequire|missingProvide}
  * @private
  */
-Barge.Event.getVendorPrefixedName_ = function(eventName)
+Bee.Event.getVendorPrefixedName_ = function(eventName)
 {
-   return Barge.userAgent.WEBKIT ? 'webkit' + eventName :
-          (Barge.userAgent.OPERA ? 'o' + eventName.toLowerCase() :
+   return Bee.userAgent.WEBKIT ? 'webkit' + eventName :
+          (Bee.userAgent.OPERA ? 'o' + eventName.toLowerCase() :
            eventName.toLowerCase());
 };
 
@@ -22,7 +22,7 @@ Barge.Event.getVendorPrefixedName_ = function(eventName)
  * Constants for event names.
  * @enum {string}
  */
-Barge.Event.Type = {
+Bee.Event.Type = {
    // Mouse events
    CLICK: 'click',
    RIGHTCLICK: 'rightclick',
@@ -59,8 +59,8 @@ Barge.Event.Type = {
    // The DOM Events Level 3 Draft deprecates DOMFocusIn in favor of focusin:
    //     http://dev.w3.org/2006/webapi/DOM-Level-3-Events/html/DOM3-Events.html
    // You can use FOCUS in Capture phase until implementations converge.
-   FOCUSIN: Barge.userAgent.IE ? 'focusin' : 'DOMFocusIn',
-   FOCUSOUT: Barge.userAgent.IE ? 'focusout' : 'DOMFocusOut',
+   FOCUSIN: Bee.userAgent.IE ? 'focusin' : 'DOMFocusIn',
+   FOCUSOUT: Bee.userAgent.IE ? 'focusout' : 'DOMFocusOut',
 
    // Forms
    CHANGE: 'change',
@@ -151,16 +151,16 @@ Barge.Event.Type = {
 
    // CSS animation events.
    /** @suppress {missingRequire} */
-   ANIMATIONSTART: Barge.Event.getVendorPrefixedName_('AnimationStart'),
+   ANIMATIONSTART: Bee.Event.getVendorPrefixedName_('AnimationStart'),
    /** @suppress {missingRequire} */
-   ANIMATIONEND: Barge.Event.getVendorPrefixedName_('AnimationEnd'),
+   ANIMATIONEND: Bee.Event.getVendorPrefixedName_('AnimationEnd'),
    /** @suppress {missingRequire} */
-   ANIMATIONITERATION: Barge.Event.getVendorPrefixedName_('AnimationIteration'),
+   ANIMATIONITERATION: Bee.Event.getVendorPrefixedName_('AnimationIteration'),
 
    // CSS transition events. Based on the browser support described at:
    // https://developer.mozilla.org/en/css/css_transitions#Browser_compatibility
    /** @suppress {missingRequire} */
-   TRANSITIONEND: Barge.Event.getVendorPrefixedName_('TransitionEnd'),
+   TRANSITIONEND: Bee.Event.getVendorPrefixedName_('TransitionEnd'),
 
    // W3C Pointer Events
    // http://www.w3.org/TR/pointerevents/
@@ -216,7 +216,7 @@ Barge.Event.Type = {
    UNRESPONSIVE: 'unresponsive',
 
    // HTML5 Page Visibility API.  See details at
-   // {@code Barge.labs.dom.PageVisibilityMonitor}.
+   // {@code Bee.labs.dom.PageVisibilityMonitor}.
    VISIBILITYCHANGE: 'visibilitychange',
 
    // LocalStorage event.

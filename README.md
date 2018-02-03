@@ -54,6 +54,10 @@ If your app makes use of UI components like:
  -  image file selector w/ preview
  -  image cropper
  -  input elements with some sweet perks and user-input restrictionz as needed.
+ - On Screen Keyboard
+
+#### Animation (Courtesy Green Sock)
+#### Reactive Components (Courtesy Vue js) 
  
  * The bumble-bee library, Made w/ :yellow_heart: @ BARGE Studios, Inc. by @archx3 and other contributers, is what you shd be using.
  

@@ -8,7 +8,7 @@
  @fileOverview An class allowing lists to dynamically expand and collapse
  */
 
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 /**
  * IICE Immidiately instantiated constructor expression
@@ -23,7 +23,7 @@ var Barge = Barge || {};
     * @param options {{doNotRecurse : Boolean}}
     * @constructor
     */
-   Barge.CollapsibleLists = function (listEl, options)
+   Bee.CollapsibleLists = function (listEl, options)
    {
       /**
        * @
@@ -48,14 +48,14 @@ var Barge = Barge || {};
        *
        * @type {Barge.Event.EventManager}
        */
-      this.Be = new Barge.Event.EventManager();
+      this.Be = new Bee.Event.EventManager();
 
       this.make(this.options.doNotRecurse)
    };
    /**Makes all lists with the class 'collapsibleList' collapsible.
     *@param doNotRecurse {boolean}- true if sub-lists should not be made collapsible
     */
-   Barge.CollapsibleLists.prototype.make = function (doNotRecurse)
+   Bee.CollapsibleLists.prototype.make = function (doNotRecurse)
    {
       // loop over the unordered lists
 
@@ -96,7 +96,7 @@ var Barge = Barge || {};
     *@param doNotRecurse {boolean}- true if sub-lists should not be made collapsible
     *@param addEvent {boolean}
     */
-   Barge.CollapsibleLists.prototype.applyTo = function (node, doNotRecurse, addEvent)
+   Bee.CollapsibleLists.prototype.applyTo = function (node, doNotRecurse, addEvent)
    {
 // loop over the list items within this node
       var lis = node.getElementsByTagName('li');
@@ -133,7 +133,7 @@ var Barge = Barge || {};
       }
    };
 
-   Barge.CollapsibleLists.prototype.toggleCollapseAll = function (node, doNotRecurse)
+   Bee.CollapsibleLists.prototype.toggleCollapseAll = function (node, doNotRecurse)
    {
 // loop over the unordered lists
       const uls = document.getElementsByTagName('ul');
@@ -230,7 +230,7 @@ var Barge = Barge || {};
          node.classList.add('collapsibleList' + (open ? 'Open' : 'Closed'));
       }
    }
-})(Barge.utils /*,Barge.String, Barge.Object, Barge.Dom*/);
+})(Bee.utils /*,Bee.String, Bee.Object, Bee.Dom*/);
 
 /*TODO ADD keyboard support for collapsing and expanding as well as cycling through list up and down*/
 

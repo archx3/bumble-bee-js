@@ -58,10 +58,10 @@
 {
    "use strict";
    //let's  create the namespace to house the observable array factory object
-   Barge = Barge || {};
-   Barge.Array = Barge.Array || {};
+   Bee = Bee || {};
+   Bee.Array = Bee.Array || {};
    //region protected globals
-   //let Bu = Barge.utils, Ba = Barge.Array;
+   //let Bu = Bee.utils, Ba = Bee.Array;
 
    //endregion
 
@@ -204,10 +204,10 @@
       /*Implement in the concrete observer*/
    };
 
-    Barge.Observable =  SubjectInterface;
+    Bee.Observable =  SubjectInterface;
 
    //public methods object
-   //Barge.Array.ObservableArray = {
+   //Bee.Array.ObservableArray = {
    //
    //};
    //going public whoop! whoop! lol

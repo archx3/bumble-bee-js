@@ -128,7 +128,7 @@
     *
     * @type {Barge.Event.EventManager}
     */
-   var Be = new Barge.Event.EventManager();
+   var Be = new Bee.Event.EventManager();
 
    /**
     *
@@ -148,7 +148,7 @@
          notNumericInput = inputTargetEl.getAttribute("data-type") !== "number,*";
 
          inputTargetEl = inputTargetEl ? inputTargetEl : document.body;
-         isEditableInputEl = !!(inputTargetEl.tagName.toLowerCase() === "textarea" ||
+         isEditableInputEl = /*!!*/(inputTargetEl.tagName.toLowerCase() === "textarea" ||
          ( inputTargetEl.tagName.toLowerCase() === "input" && inputTargetEl.type === "text"));
 
       });
@@ -479,7 +479,7 @@
       }
    });
 
-})(Barge.utils);
+})(Bee.utils);
 
 /*
  *TODO : Add support for multiple language kbd layouts {can be done by inserting layout HTML from Php}

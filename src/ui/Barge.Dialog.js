@@ -3,7 +3,7 @@
  * @Copyright (C) 2016 Barge Studios <bargestd@gmail.com>
  * @Version 1.7.2
  */
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 (function(Bu)
 {
@@ -11,7 +11,7 @@ var Barge = Barge || {};
     * @deprecated
     * @type {{t}}
     */
-   Barge.Dialog =
+   Bee.Dialog =
    {
       /**
        *this API creates a light themed confirm dialog that redirects to a certain page
@@ -533,7 +533,7 @@ var Barge = Barge || {};
       _renderLightOrDarkCss(lod);
       var msgBx = document.createElement("div");
       msgBx.id = "msgBx";
-      var dragObject1 = new Barge.Drag.Movable( msgBx);
+      var dragObject1 = new Bee.Drag.Movable(msgBx);
 
       msgBx.appendChild(_generateHeading(title));
       msgBx.appendChild(_generateFoot(lod, btn1Text, btn1Handler));
@@ -545,7 +545,7 @@ var Barge = Barge || {};
       _renderLightOrDarkCss(lod);
       var msgBx = document.createElement("div");
       msgBx.id = "msgBx";
-      var dragObject2 = new Barge.Drag.Movable( msgBx);
+      var dragObject2 = new Bee.Drag.Movable(msgBx);
 
       msgBx.appendChild(_generateHeading(title));
       msgBx.appendChild(_generateMsgContent(messageText, "prompt"));
@@ -559,7 +559,7 @@ var Barge = Barge || {};
       _renderLightOrDarkCss(lod);
       var msgBx = document.createElement("div");
       msgBx.id = "msgBx";
-      var dragObject3 = new Barge.Drag.Movable( msgBx);
+      var dragObject3 = new Bee.Drag.Movable(msgBx);
 
       msgBx.appendChild(_generateHeading(title));
       msgBx.appendChild(_generateMsgContent(messageText,false,icon,lod));
@@ -584,7 +584,7 @@ var Barge = Barge || {};
       _renderLightOrDarkCss(lod);
       var msgBx = document.createElement("div");
       msgBx.id = "msgBx";
-      var dragObject4 = new Barge.Drag.Movable( msgBx);
+      var dragObject4 = new Bee.Drag.Movable(msgBx);
       msgBx.appendChild(_generateHeading(title));
       msgBx.appendChild(_generateMsgContent(msg, false, icon));
       msgBx.appendChild(_generateFoot(lod, btn1Text, false, btn2Text, false, true, loc));
@@ -596,7 +596,7 @@ var Barge = Barge || {};
       _renderLightOrDarkCss(lod);
       var msgBx = document.createElement("div");
       msgBx.id = "msgBx";
-      var dragObject4 = new Barge.Drag.Movable( msgBx);
+      var dragObject4 = new Bee.Drag.Movable(msgBx);
       msgBx.appendChild(_generateHeading(title));
       msgBx.appendChild(_generateFoot(lod, btn1Text, false, btn2Text, false, true, loc));
 
@@ -647,7 +647,7 @@ var Barge = Barge || {};
       _closeDialogBox(btn);
 
 }
-})(Barge.utils);
+})(Bee.utils);
 
 //_makeDraggable("msgBx");
 

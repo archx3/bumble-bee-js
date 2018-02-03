@@ -3,10 +3,10 @@
  * Copyright (C) 2016,
  * Barge Studios Inc <bargestd@gmail.com>
  */
-var Barge = Barge || {};
+var Barge = Bee || {};
 (function ()
 {
-   Barge.Number = {
+   Bee.Number = {
 
    }
 })();

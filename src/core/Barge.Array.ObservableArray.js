@@ -60,8 +60,8 @@
    "use strict";
 
    //region protected globals
-   let Bu = Barge.utils,
-       Ba = Barge.Array;
+   let Bu = Bee.utils,
+       Ba = Bee.Array;
    //endregion
 
    /**
@@ -73,7 +73,7 @@
    function ObservableArray(array, options)
    {
       this.array = [];
-      this.array = Bu.extend(array, new Barge.Observable());
+      this.array = Bu.extend(array, new Bee.Observable());
 
       this.subscribers = options.subscribers;
       this.updateFn = function (val)
@@ -148,7 +148,7 @@
    ObservableArray.prototype.addSubscriber = function (subscriber, updateFn)
    {
       let self = this;
-      Bu.extend(subscriber, new Barge.Observable());
+      Bu.extend(subscriber, new Bee.Observable());
       self.array.subscribe(subscriber);
 
       //add the update callback fn to each of the subscribers
@@ -159,5 +159,5 @@
    };
 
    //going public whoop! whoop! lol
-   Barge.Array.ObservableArray = ObservableArray;
+   Bee.Array.ObservableArray = ObservableArray;
 });

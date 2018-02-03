@@ -60,10 +60,10 @@
    "use strict";
 
    //region protected globals
-   let Bu = Barge.utils,
-       Ba = Barge.Array,
-       Bs = Barge.String,
-       Bd = Barge.Dom;
+   let Bu = Bee.utils,
+       Ba = Bee.Array,
+       Bs = Bee.String,
+       Bd = Bee.Dom;
    //endregion
 
    /**
@@ -639,7 +639,7 @@
 
    DiceyDialog.prototype.makeDraggable = function ()
    {
-      let drg = new Barge.Drag.Movable(this.dialog);
+      let drg = new Bee.Drag.Movable(this.dialog);
    };
 
    DiceyDialog.prototype.dismiss = function ()
@@ -653,7 +653,7 @@
    let Dialog = new DiceyDialog({ buttonAlignment : "right" });
 
    //public methods object
-   Barge.DiceyDialog = {
+   Bee.DiceyDialog = {
       /**
        *
        * @param options {{title : String, t : String, b : String, affirm : fn, onAffirm : fn
@@ -708,7 +708,7 @@
    };
 
    //going public whoop! whoop! lol
-   return Barge.DiceyDialog;
+   return Bee.DiceyDialog;
 });
 
 /**

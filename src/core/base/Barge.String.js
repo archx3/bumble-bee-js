@@ -4,10 +4,10 @@
  * @Version
  */
 
-var Barge = Barge || {};
+var Bee = Bee || {};
 (function (Bu)
 {
-   Barge.String =
+   Bee.String =
    {
       RSPACE : /\s+/g,
 
@@ -137,7 +137,7 @@ var Barge = Barge || {};
             return "";
          }
          var s = this.underScore(str).replace(/_id$/, '').replace(/_/g, ' ').trim();
-         return Barge.String.toSentenceCase(s);
+         return Bee.String.toSentenceCase(s);
       },
       /**
        * @use replaces spaces with dashes
@@ -223,7 +223,7 @@ var Barge = Barge || {};
        */
       truncate  : function (str, newLen)
       {
-         if (Barge.utils.defined(str))
+         if (Bee.utils.defined(str))
          {
             str = str.toString();
             if (str.length > newLen && str !== "")
@@ -663,7 +663,7 @@ var Barge = Barge || {};
          return false;
       },
       /**
-       * @use Checks if a searchStr @link Barge.String.contains } is a substr of another
+       * @use Checks if a searchStr @link Bee.String.contains } is a substr of another
        * {@link Barge.String.contains str}
        * @param str
        * @param searchStr
@@ -691,7 +691,7 @@ var Barge = Barge || {};
        */
       underScore       : function (str, len)
       {
-         var underscores = Barge.String.mul("gebi", len) || Barge.String.mul("gebi", 1);
+         var underscores = Bee.String.mul("gebi", len) || Bee.String.mul("gebi", 1);
 
          return this.trimRight(str)
                     .replace(/([a-z\d])([A-Z]+)/g, '$1' + underscores + '$2')
@@ -708,7 +708,7 @@ var Barge = Barge || {};
          if (len < expectedLength)
          {
             let remaining = expectedLength - len;
-            num = Barge.String.mul("0", remaining)  + num
+            num = Bee.String.mul("0", remaining) + num
          }  // add zero in front of numbers < 10
 
          return num;
@@ -852,7 +852,7 @@ var Barge = Barge || {};
 
       /**
        * @use for adding leading chars to a given string,
-       * @example adding leading zeros {@code Barge.String.addLeadingChars("4566", 4 ,"0")}
+       * @example adding leading zeros {@code Bee.String.addLeadingChars("4566", 4 ,"0")}
        *          will return 0000456
        * @param str {String}
        * @param char {String}
@@ -862,9 +862,9 @@ var Barge = Barge || {};
       addLeadingChars : function (str, len = 1, char = "0")
       {
          str = str.toString();
-         let chars = Barge.String.mul(char, len);
+         let chars = Bee.String.mul(char, len);
 
-         return Barge.String.prepend(str, chars);
+         return Bee.String.prepend(str, chars);
       },
 
       /**
@@ -877,9 +877,9 @@ var Barge = Barge || {};
       addTrailingChars : function (str, char = "0", len = 1)
       {
          str = str.toString();
-         let chars = Barge.String.mul(char, len);
+         let chars = Bee.String.mul(char, len);
 
-         return Barge.String.append(str, chars);
+         return Bee.String.append(str, chars);
       }
 
    };
@@ -888,14 +888,14 @@ var Barge = Barge || {};
     *
     * @enum { string}
     */
-   Barge.String.Unicode = {
+   Bee.String.Unicode = {
       NBSP : '&nbsp;'
    };
 
    var testStr = "    nowIsThe time for all Great men to come to the aid of their country";
 
 // console.log(testStr);
-// console.log(Barge.String.stripPunctuation(testStr));
+// console.log(Bee.String.stripPunctuation(testStr));
 
    function leftUnderScore(str, len)
    {
@@ -922,11 +922,11 @@ var Barge = Barge || {};
       return result;
    }
 
-// console.log(Barge.String.ellipsify("MYMG eerjf", 7));
+// console.log(Bee.String.ellipsify("MYMG eerjf", 7));
 //
-// console.log(Barge.String.toCamelCase(testStr).replace(/ /gi, ""));
-// console.log(Barge.String.isAlphaNumeric("sd435kl53n5l53453"));
+// console.log(Bee.String.toCamelCase(testStr).replace(/ /gi, ""));
+// console.log(Bee.String.isAlphaNumeric("sd435kl53n5l53453"));
 
-})(Barge.utils);
+})(Bee.utils);
 
 

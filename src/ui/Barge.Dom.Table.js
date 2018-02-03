@@ -46,7 +46,7 @@
  * @namespace
  * @type {{}}
  */
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 (function (global, factory)
 {
@@ -73,11 +73,11 @@ var Barge = Barge || {};
 {
    "use strict";
 
-   let Bu = Barge.utils,
-       Ba = Barge.Array,
-       Bs = Barge.String, //NIU atm
-       Bm = Barge.Math,
-       Bd = Barge.Dom;
+   let Bu = Bee.utils,
+       Ba = Bee.Array,
+       Bs = Bee.String, //NIU atm
+       Bm = Bee.Math,
+       Bd = Bee.Dom;
 
 
    /**
@@ -146,11 +146,11 @@ var Barge = Barge || {};
       }
 
 
-      this.tableEl = Bu.isString(tableEl) ? Barge.Dom.getEl(tableEl) : tableEl;
+      this.tableEl = Bu.isString(tableEl) ? Bee.Dom.getEl(tableEl) : tableEl;
 
       //ensure that the table element is available
       Bu.assert(Bu.defined(this.tableEl),
-                '@param tableEl is missing; Barge.Dom.Table requires a table element to manage',
+                '@param tableEl is missing; Bee.Dom.Table requires a table element to manage',
                 function ()
                 {
                    for(let i in self)
@@ -249,15 +249,15 @@ var Barge = Barge || {};
 
       if (this.options.hasCheckboxes === true)
       {
-         var chBxMgr = new Barge.Input.Checkbox(this.options.manageCheckboxGroup);
+         var chBxMgr = new Bee.Input.Checkbox(this.options.manageCheckboxGroup);
 
          chBxMgr.manageCheckboxGroup(null, this.tableEl);
       }
 
       if(this.options.showOrHideCols)
       {
-         let Be = new Barge.Event.EventManager(),
-             showOrHideCols = Barge.Dom.getEl(".showOrHideCol", true);
+         let Be = new Bee.Event.EventManager(),
+             showOrHideCols = Bee.Dom.getEl(".showOrHideCol", true);
 
          Be.bindOnAll(showOrHideCols, "click", function (e)
          {
@@ -265,11 +265,11 @@ var Barge = Barge || {};
 
             if(checked)
             {
-               self.openCol(Barge.utils.pInt(this.value))
+               self.openCol(Bee.utils.pInt(this.value))
             }
             else
             {
-               self.closeCol(Barge.utils.pInt(this.value))
+               self.closeCol(Bee.utils.pInt(this.value))
             }
          });
       }
@@ -451,7 +451,7 @@ var Barge = Barge || {};
 
          Ba.forEach(self.rows, function (node, i)
          {
-            if (Barge.Math.isBetweenInclusive(i + 1, { min : startingRowId, max : self.rows.length }))
+            if (Bee.Math.isBetweenInclusive(i + 1, { min : startingRowId, max : self.rows.length }))
             {
                rowArray.push(node);
             }
@@ -462,7 +462,7 @@ var Barge = Barge || {};
       {
          Ba.forEach(self.rows, function (node, i)
          {
-            if (Barge.Math.isBetweenInclusive(i + 1, { min : startingRowId, max : endingRowId }))
+            if (Bee.Math.isBetweenInclusive(i + 1, { min : startingRowId, max : endingRowId }))
             {
                rowArray.push(node);
             }
@@ -857,10 +857,10 @@ var Barge = Barge || {};
 
    /**
     * @Use for setting the font size of the cells
-    * @example Barge.Table.setTextDensity("s")
-    * @example Barge.Table.setTextDensity("small")
-    * @example Barge.Table.setTextDensity("1")
-    * @example Barge.Table.setTextDensity(14)
+    * @example Bee.Table.setTextDensity("s")
+    * @example Bee.Table.setTextDensity("small")
+    * @example Bee.Table.setTextDensity("1")
+    * @example Bee.Table.setTextDensity(14)
     * @param density{String<Alpha|Number>|Number}
     * @returns {null|*|Element}
     */
@@ -905,7 +905,7 @@ var Barge = Barge || {};
    Table.prototype.makeRowsSortable = function ()
    {
       let self = this,
-          tSorter = new Barge.Dom.TableSorter(this.tableEl, {rowStepping : self.options.sortingRowStepping});
+          tSorter = new Bee.Dom.TableSorter(this.tableEl, {rowStepping : self.options.sortingRowStepping});
 
       tSorter.init();
    };
@@ -1296,7 +1296,7 @@ var Barge = Barge || {};
       this._setRowsPerView(rowsPerView);
       let canBePaged = this.rowsCount > this.pageRowsPerView;
       this.sets = Math.ceil(this.rowsCount / this.pageRowsPerView);
-      let lastPageRowsCount = Barge.Math.modulo(this.rowsCount, this.pageRowsPerView);
+      let lastPageRowsCount = Bee.Math.modulo(this.rowsCount, this.pageRowsPerView);
       let paginationHooks = [];
       this.pages = [];
 
@@ -1382,7 +1382,7 @@ var Barge = Barge || {};
    };
 
    //sadly we're going into the public domain (IPO), but thank God we're a lil safe. :-),
-   return Barge.Dom.Table = Table;
+   return Bee.Dom.Table = Table;
 });
 
 /**

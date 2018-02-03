@@ -2,8 +2,8 @@
  * Created by ARCH on 08/08/2016.
  * Copyright (C) 2016 Barge Studios <bargestd@gmail.com>
  */
-var Barge = Barge || {};
-Barge.Progress = Barge.Progress || {};
+var Bee = Bee || {};
+Bee.Progress = Bee.Progress || {};
 var spinnerCss = '.loader{height: 37px;width: auto;border: 1px solid #e6e3e3;padding: 5px;margin: 0 auto;'+
    'border-radius: 21px;box-shadow: 0 0 4px rgba(0, 0, 0, .2);position: absolute;left: calc(50% - 100px);' +
    'top: calc(50% - 15px);z-index: 60; background-color:#fff;}'+
@@ -19,7 +19,7 @@ var spinnerCss = '.loader{height: 37px;width: auto;border: 1px solid #e6e3e3;pad
  * @param duration {Number}
  * @param progress   {boolean}
  */
-Barge.Progress.spinner = function(loaderText, duration, progress)
+Bee.Progress.spinner = function(loaderText, duration, progress)
 {
 
    var loader = document.createElement("div");
@@ -30,11 +30,11 @@ Barge.Progress.spinner = function(loaderText, duration, progress)
    var loaderTextContainer = document.createElement("p");
    loaderTextContainer.innerHTML = loaderText ? loaderText : "Loading... Please Wait";
 
-   Barge.utils.insertDynamicCss(spinnerCss, "spinnerCss");
+   Bee.utils.insertDynamicCss(spinnerCss, "spinnerCss");
    loader.appendChild(spinner);
    loader.appendChild(loaderTextContainer);
 
-   if(!Barge.utils.gebi("spinner"))
+   if(!Bee.utils.gebi("spinner"))
    {
       document.body.appendChild(loader);
    }

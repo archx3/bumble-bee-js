@@ -1,10 +1,10 @@
 /**
  * Created by ARCH on 14/10/2016.
  */
-var Barge = Barge || {};
-Barge.Collection = Barge.Collection || {};
+var Bee = Bee || {};
+Bee.Collection = Bee.Collection || {};
 
-Barge.Collection.Dictionary = {
+Bee.Collection.Dictionary = {
    dataStore : new Array(),
    /**
     * @param key
@@ -170,7 +170,7 @@ Barge.Collection.Dictionary = {
 
 };
 
-Barge.Collection.DictionaryM = {
+Bee.Collection.DictionaryM = {
    dataStore : new Map(),
 
    /**
@@ -314,7 +314,7 @@ Barge.Collection.DictionaryM = {
 
 };
 
-var myDat = Barge.Collection.Dictionary;
+var myDat = Bee.Collection.Dictionary;
 
 myDat.add("name", "KOfi");
 myDat.add("Age", "23");

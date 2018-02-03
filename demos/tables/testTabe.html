@@ -698,29 +698,29 @@
 <script src="../../src/ui/Barge.Dom.Table.js"></script>
 
 <script>
-   var tb = new Barge.Dom.Table(Barge.Dom.getEl("#tb"),
-                                {
+   var tb = new Bee.Dom.Table(Bee.Dom.getEl("#tb"),
+                              {
                                    stickOnScroll       : true,
-                                   scrollableContainer : Barge.Dom.getEl(".scroll"),
+                                   scrollableContainer : Bee.Dom.getEl(".scroll"),
                                    hasCheckboxes : true,
                                    stickyHead : false
                                 });
 
-   let Be = new Barge.Event.EventManager();
+   let Be = new Bee.Event.EventManager();
 
 
-   var checkboxes    = Barge.Dom.getEl(".checkBx", true),
-       fatherCheckBx = Barge.Dom.getEl(".fatherCheckBx"),
-       showOrHideCols = Barge.Dom.getEl(".showOrHideCol", true);
+   var checkboxes    = Bee.Dom.getEl(".checkBx", true),
+       fatherCheckBx = Bee.Dom.getEl(".fatherCheckBx"),
+       showOrHideCols = Bee.Dom.getEl(".showOrHideCol", true);
 
 //   function highlight(tr)
 //   {
-//      Barge.Dom.css(tr, {transition: "background-color .6s", backgroundColor : "#eee399"})
+//      Bee.Dom.css(tr, {transition: "background-color .6s", backgroundColor : "#eee399"})
 //   }
 //
 //   function unHighlight(tr)
 //   {
-//      Barge.Dom.css(tr, {backgroundColor : "", transition: ""})
+//      Bee.Dom.css(tr, {backgroundColor : "", transition: ""})
 //   }
 //
 //   fatherCheckBx.addEventListener("click", function (e)
@@ -728,14 +728,14 @@
 //      let checked = this.checked,
 //      trs = tb.getRows();
 //
-//      Barge.utils.forEach(checkboxes, function (checkBox)
+//      Bee.utils.forEach(checkboxes, function (checkBox)
 //      {
 //         checkBox.checked = checked;
 //      });
 //
 //      if (checked)
 //      {
-//         Barge.utils.forEach(trs, function (checkBox)
+//         Bee.utils.forEach(trs, function (checkBox)
 //         {
 //            highlight(checkBox);
 ////            checkBox.style.backgroundColor = "#eee399";
@@ -743,27 +743,27 @@
 //      }
 //      else
 //      {
-//         Barge.utils.forEach(trs, function (checkBox)
+//         Bee.utils.forEach(trs, function (checkBox)
 //         {
 //            unHighlight(checkBox);
 ////            checkBox.style.backgroundColor = "";
 //         });
 //      }
 //
-//      if (checked && Barge.Dom.hasClass(this, "someChecked"))
+//      if (checked && Bee.Dom.hasClass(this, "someChecked"))
 //      {
-//         Barge.Dom.addClass(this, "allChecked");
-//         Barge.Dom.removeClass(this, ["someChecked", "noneChecked"]);
+//         Bee.Dom.addClass(this, "allChecked");
+//         Bee.Dom.removeClass(this, ["someChecked", "noneChecked"]);
 //      }
-//      else if (checked && Barge.Dom.hasClass(this, "noneChecked"))
+//      else if (checked && Bee.Dom.hasClass(this, "noneChecked"))
 //      {
-//         Barge.Dom.addClass(this, "allChecked");
-//         Barge.Dom.removeClass(this, ["someChecked", "noneChecked"]);
+//         Bee.Dom.addClass(this, "allChecked");
+//         Bee.Dom.removeClass(this, ["someChecked", "noneChecked"]);
 //      }
-//      else if (!checked && Barge.Dom.hasClass(this, "someChecked"))
+//      else if (!checked && Bee.Dom.hasClass(this, "someChecked"))
 //      {
-//         Barge.Dom.addClass(this, "noneChecked");
-//         Barge.Dom.removeClass(this, ["someChecked", "allChecked"]);
+//         Bee.Dom.addClass(this, "noneChecked");
+//         Bee.Dom.removeClass(this, ["someChecked", "allChecked"]);
 //      }
 //
 //      trs = checked = null;
@@ -791,32 +791,32 @@
 //
 ////      console.log(checkboxes);
 //
-//      checkboxes = Barge.Array.toArray(checkboxes);
+//      checkboxes = Bee.Array.toArray(checkboxes);
 //
-//      someChecked = Barge.Array.someOf(checkboxes, function (checkBox)
+//      someChecked = Bee.Array.someOf(checkboxes, function (checkBox)
 //      {
 //         return checkBox.checked === true;
 //      });
 //
-//      noneChecked = Barge.Array.someOf(checkboxes, function (checkBox)
+//      noneChecked = Bee.Array.someOf(checkboxes, function (checkBox)
 //      {
 //         return checkBox.checked === false;
 //      });
 //
-//      allChecked = Barge.Array.allOf(checkboxes, function (checkBox)
+//      allChecked = Bee.Array.allOf(checkboxes, function (checkBox)
 //      {
 //         return checkBox.checked === true;
 //      });
 //
 //      if (allChecked)
 //      {
-//         Barge.Dom.removeClass(fatherCheckBx, ["someChecked", "noneChecked"]);
-//         Barge.Dom.addClass(fatherCheckBx, "allChecked");
+//         Bee.Dom.removeClass(fatherCheckBx, ["someChecked", "noneChecked"]);
+//         Bee.Dom.addClass(fatherCheckBx, "allChecked");
 //      }
 //      else if (someChecked)
 //      {
-//         Barge.Dom.addClass(fatherCheckBx, "someChecked");
-//         Barge.Dom.removeClass(fatherCheckBx, ["allChecked", "noneChecked"]);
+//         Bee.Dom.addClass(fatherCheckBx, "someChecked");
+//         Bee.Dom.removeClass(fatherCheckBx, ["allChecked", "noneChecked"]);
 //
 //         if (fatherCheckBx.checked === false)
 //         {
@@ -825,8 +825,8 @@
 //      }
 //      else if (noneChecked)
 //      {
-//         Barge.Dom.removeClass(fatherCheckBx, ["someChecked", "allChecked"]);
-//         Barge.Dom.addClass(fatherCheckBx, "noneChecked");
+//         Bee.Dom.removeClass(fatherCheckBx, ["someChecked", "allChecked"]);
+//         Bee.Dom.addClass(fatherCheckBx, "noneChecked");
 //
 //         if (fatherCheckBx.checked === true)
 //         {
@@ -841,11 +841,11 @@
 
       if(checked)
       {
-         tb.openCol(Barge.utils.pInt(this.value))
+         tb.openCol(Bee.utils.pInt(this.value))
       }
       else
       {
-         tb.closeCol(Barge.utils.pInt(this.value))
+         tb.closeCol(Bee.utils.pInt(this.value))
       }
    });
 

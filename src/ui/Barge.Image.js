@@ -3,18 +3,18 @@
  */
 /**
  * Created by ARCH on 23/07/2016.
- * Copyright (C) 2016 Barge Studios <bargestd@gmail.com>
+ * Copyright (C) 2016 Bee Studios <bargestd@gmail.com>
  */
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 (function (Bu)
 {
    var theme = document.head.getAttribute("data-theme");
    theme = theme || 'light';
 
-   Barge.Image = Barge.Image || {};
+   Bee.Image = Bee.Image || {};
 
-   //Barge.Image.insertGenericAvatar = function (genericImageLoc, genericAvatarLoc )
+   //Bee.Image.insertGenericAvatar = function (genericImageLoc, genericAvatarLoc )
    //{
    //   //console.log("there are images on page"); //console.log(document.images[0]);
    //   var fnValidateImage = function (oImg)
@@ -49,7 +49,7 @@ var Barge = Barge || {};
     * @param imgPreviewEl  {Object}
     * @type {preview}
     */
-   Barge.Image.makePreviewable = function (imgInputEl, imgPreviewEl)
+   Bee.Image.makePreviewable = function (imgInputEl, imgPreviewEl)
    {
 
       let typeRegEx = /^([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.jpeg|.tiff|.gif|.ico|.svg)$/;
@@ -105,14 +105,14 @@ var Barge = Barge || {};
                   }
                   else
                   {
-                     Barge.DiceyDialog.confirm({t : 'Selected file type not supported', m: 'Please choose an image file.', i: 'f'});
+                     Bee.DiceyDialog.confirm({t : 'Selected file type not supported', m : 'Please choose an image file.', i : 'f'});
 
                   }
 
                }
                else
                {
-                  Barge.DiceyDialog.confirm({t : 'Selected file type not supported', m: 'Please choose an image file.', i: 'f'});
+                  Bee.DiceyDialog.confirm({t : 'Selected file type not supported', m : 'Please choose an image file.', i : 'f'});
 
                }
 
@@ -121,9 +121,9 @@ var Barge = Barge || {};
          }
          else
          {
-            Barge.DiceyDialog.confirm({ t : '...well this is embarrassing',
+            Bee.DiceyDialog.confirm({ t : '...well this is embarrassing',
                                       m : 'Your image has been loaded but previewing is not supported by your browser.',
-                                      i: 'w'});
+                                      i : 'w'});
          }
          //URL = uploadedImageURL = null;
       }
@@ -146,11 +146,11 @@ var Barge = Barge || {};
       {
          if (theme === "light")
          {
-            Barge.Dialog.lightConfirm('Selected file type not supported', 'Please choose an image file.', 'Ok', false, false, false, 'failure');
+            Bee.Dialog.lightConfirm('Selected file type not supported', 'Please choose an image file.', 'Ok', false, false, false, 'failure');
          }
          else
          {
-            Barge.Dialog.darkConfirm('Selected file type not supported', 'Please choose an image file.', 'Ok', false, false, false, 'failure');
+            Bee.Dialog.darkConfirm('Selected file type not supported', 'Please choose an image file.', 'Ok', false, false, false, 'failure');
          }
       }
 
@@ -215,15 +215,15 @@ var Barge = Barge || {};
          {
             if (theme === "light")
             {
-               Barge.Dialog.lightConfirm('...well this is embarrassing',
-                                         'Your image has been loaded but previewing is not supported by your browser.',
-                                         'Ok', false, 'Cancel', false, 'warning');
+               Bee.Dialog.lightConfirm('...well this is embarrassing',
+                                       'Your image has been loaded but previewing is not supported by your browser.',
+                                       'Ok', false, 'Cancel', false, 'warning');
             }
             else
             {
-               Barge.Dialog.darkConfirm('...well this is embarrassing',
-                                        'Your image has been loaded but previewing is not supported by your browser.',
-                                        'Ok', false, 'Cancel', false, 'warning');
+               Bee.Dialog.darkConfirm('...well this is embarrassing',
+                                      'Your image has been loaded but previewing is not supported by your browser.',
+                                      'Ok', false, 'Cancel', false, 'warning');
             }
          }
       }
@@ -234,4 +234,4 @@ var Barge = Barge || {};
 
    }
 
-})(Barge.utils);
+})(Bee.utils);

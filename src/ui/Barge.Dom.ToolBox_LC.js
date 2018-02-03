@@ -27,12 +27,12 @@
  *    A highly customised version of the menubar widget
  */
 
-var Barge = Barge || {};
+var Bee = Bee || {};
 (function (Bu, Bs, Bo, Bd)
 {
 
    //region protected globals
-   Barge.Dom = Barge.Dom || {};
+   Bee.Dom = Bee.Dom || {};
 
    /**
     *
@@ -68,7 +68,7 @@ var Barge = Barge || {};
     * @param dragOptions {{prevDef: boolean, moveParent: boolean, tolerance: number, floatingHeight: null, ShowOnLeft : Boolean}}
     * @constructor
     */
-   Barge.Dom.Toolbox = function (options, dragOptions)
+   Bee.Dom.Toolbox = function (options, dragOptions)
    {
       //ensure window exists else don't create
       Bu.assert(Bu.defined(window) && Bu.defined(document),
@@ -224,7 +224,7 @@ var Barge = Barge || {};
        *
        * @type {Barge.Event.EventManager}
        */
-      this.Be = new Barge.Event.EventManager();
+      this.Be = new Bee.Event.EventManager();
 
       /**
        * checks if a flyOut is open
@@ -239,7 +239,7 @@ var Barge = Barge || {};
    /**
     *
     */
-   Barge.Dom.Toolbox.prototype.addDynamicStyleSheet = function ()
+   Bee.Dom.Toolbox.prototype.addDynamicStyleSheet = function ()
    {
       this.dynamicStyleSheet = Bu.createEl('style', { id : 'toolboxDStyle' });
       this.expansionStyleSheet = Bu.createEl('style', { id : 'toolboxDxStyle' });
@@ -255,7 +255,7 @@ var Barge = Barge || {};
     * @param flyOutMenuItems
     * @param toolBoxItem
     */
-   Barge.Dom.Toolbox.prototype.swapIcons = function (li, flyOutMenuItems, toolBoxItem)
+   Bee.Dom.Toolbox.prototype.swapIcons = function (li, flyOutMenuItems, toolBoxItem)
    {
       let iconItem = li.children[0].children[0];
       let iconDugOut = li.parentElement.previousElementSibling.children[0];
@@ -377,7 +377,7 @@ var Barge = Barge || {};
     * @param toolBoxItems
     * @private
     */
-   Barge.Dom.Toolbox.prototype._closeAllFlyOuts = function (toolBoxItems)
+   Bee.Dom.Toolbox.prototype._closeAllFlyOuts = function (toolBoxItems)
    {
       if (this.toolBoxItems)
       {
@@ -400,7 +400,7 @@ var Barge = Barge || {};
     * @returns {boolean}
     * @private
     */
-   Barge.Dom.Toolbox.prototype._haveFlyOutOpen = function (toolBoxItem)
+   Bee.Dom.Toolbox.prototype._haveFlyOutOpen = function (toolBoxItem)
    {
       let flyOut    = toolBoxItem.children[1],
           HasFlyOut = flyOut && flyOut.tagName === "UL";
@@ -413,7 +413,7 @@ var Barge = Barge || {};
     * @param options
     * @private
     */
-   Barge.Dom.Toolbox.prototype._resetToolBoxSize = function (toolBox, options)
+   Bee.Dom.Toolbox.prototype._resetToolBoxSize = function (toolBox, options)
    {
       if (Bu.defined(options.floatingWidth))
       {
@@ -442,7 +442,7 @@ var Barge = Barge || {};
     * @return {number}
     * @private
     */
-   Barge.Dom.Toolbox.prototype._getDisplayState = function (el)
+   Bee.Dom.Toolbox.prototype._getDisplayState = function (el)
    {
       if (el.style.display === "none" || el.style.display === "")
       {
@@ -456,7 +456,7 @@ var Barge = Barge || {};
     * @param windowEl
     * @private
     */
-   Barge.Dom.Toolbox.prototype._openWin = function (windowEl)
+   Bee.Dom.Toolbox.prototype._openWin = function (windowEl)
    {
       if (Bu.getDisplayState(windowEl) === 0)
       {
@@ -469,7 +469,7 @@ var Barge = Barge || {};
     * @param removeEvs
     * @private
     */
-   Barge.Dom.Toolbox.prototype._insertCustomToolTip = function (removeEvs)
+   Bee.Dom.Toolbox.prototype._insertCustomToolTip = function (removeEvs)
    {
       const _this = this;
       //console.log(_this.toolBoxItems);
@@ -580,7 +580,7 @@ var Barge = Barge || {};
    /**
     *
     */
-   Barge.Dom.Toolbox.prototype.addClickEvent = function ()
+   Bee.Dom.Toolbox.prototype.addClickEvent = function ()
    {
       const self = this;
       let timer = null;
@@ -832,7 +832,7 @@ var Barge = Barge || {};
    /**
     *
     */
-   Barge.Dom.Toolbox.prototype.addMouseOutEvent = function ()
+   Bee.Dom.Toolbox.prototype.addMouseOutEvent = function ()
    {
       let _this = this;
       this.Be.bindOnAll(this.toolBoxItems, "mouseout", function ()
@@ -850,7 +850,7 @@ var Barge = Barge || {};
    /**
     *
     */
-   Barge.Dom.Toolbox.prototype.addMouseOverEvent = function ()
+   Bee.Dom.Toolbox.prototype.addMouseOverEvent = function ()
    {
       let _this = this;
       this.Be.bindOnAll(this.toolBoxItems, 'mouseover', function (e)
@@ -1127,7 +1127,7 @@ var Barge = Barge || {};
    /**
     *
     */
-   Barge.Dom.Toolbox.prototype.addCloseOutEventOnBodyClick = function ()
+   Bee.Dom.Toolbox.prototype.addCloseOutEventOnBodyClick = function ()
    {
       const self = this;
 
@@ -1173,7 +1173,7 @@ var Barge = Barge || {};
    /**
     *
     */
-   Barge.Dom.Toolbox.prototype.createThumb = function ()
+   Bee.Dom.Toolbox.prototype.createThumb = function ()
    {
       this.thumbGrip = Bu.createEl('div', { className : "hDockThumb" });
 
@@ -1201,7 +1201,7 @@ var Barge = Barge || {};
    /**
     *
     */
-   Barge.Dom.Toolbox.prototype.addClassNameToList = function ()
+   Bee.Dom.Toolbox.prototype.addClassNameToList = function ()
    {
       this.toolBoxItems = Bu.nodeListToArray(this.list.children);
       let self   = this;
@@ -1227,7 +1227,7 @@ var Barge = Barge || {};
    /**
     *
     */
-   Barge.Dom.Toolbox.prototype.dock = function ()
+   Bee.Dom.Toolbox.prototype.dock = function ()
    {
       Bu.css(this.toolBox, { top : 0, left : 0 });
       this.docked = true;
@@ -1241,7 +1241,7 @@ var Barge = Barge || {};
    /**
     *
     */
-   Barge.Dom.Toolbox.prototype.makeUnDockable = function ()
+   Bee.Dom.Toolbox.prototype.makeUnDockable = function ()
    {
       const _this = this;
 
@@ -1263,7 +1263,7 @@ var Barge = Barge || {};
          Bu.extend(dragOptions, dragOptions);
          self.moveParent = dragOptions.moveParent || null;
          //tolerance  = dragOptions.tolerance || null;
-         //let dBe = new Barge.Event.EventManager();
+         //let dBe = new Bee.Event.EventManager();
 
          self.toBeMoved = null;
 
@@ -1479,7 +1479,7 @@ var Barge = Barge || {};
                      if (Bu.defined(_this.options.elOnRight))
                      {
                         //_this.options.elOnRight = Bd.getEl('#'+_this.options.elOnRight);
-                        Barge.Dom.CSSSTYLE.setProperty('--toolBoxWith', '0px');
+                        Bee.Dom.CSSSTYLE.setProperty('--toolBoxWith', '0px');
 
                      }
                   }
@@ -1539,7 +1539,7 @@ var Barge = Barge || {};
    /**
     *
     */
-   Barge.Dom.Toolbox.prototype.makeStateful = function ()
+   Bee.Dom.Toolbox.prototype.makeStateful = function ()
    {
       const _this = this;
       //console.log(options.unDockable === true);
@@ -1610,7 +1610,7 @@ var Barge = Barge || {};
    /**
     *
     */
-   Barge.Dom.Toolbox.prototype.create = function ()
+   Bee.Dom.Toolbox.prototype.create = function ()
    {
       //var _this = this;
 
@@ -1765,40 +1765,40 @@ var Barge = Barge || {};
       }
    };
 
-   Barge.Dom.Toolbox.prototype.hide = function ()
+   Bee.Dom.Toolbox.prototype.hide = function ()
    {
       let _this = this;
       Bd.css(_this.toolBox, {display : "none"});
 
       if(this.docked === true)
       {
-         Barge.Dom.CSSSTYLE.setProperty('--toolBoxWith', '0px');
+         Bee.Dom.CSSSTYLE.setProperty('--toolBoxWith', '0px');
       }
    };
 
-   Barge.Dom.Toolbox.prototype.show = function ()
+   Bee.Dom.Toolbox.prototype.show = function ()
    {
       let _this = this;
 
       if(this.docked === true)
       {
-         Barge.Dom.CSSSTYLE.setProperty('--toolBoxWith', '40px');
+         Bee.Dom.CSSSTYLE.setProperty('--toolBoxWith', '40px');
       }
       Bd.css(_this.toolBox, {display : "block"});
    };
 
-   Barge.Dom.Toolbox.prototype.getToolBoxFlyOutIsOpen = function ()
+   Bee.Dom.Toolbox.prototype.getToolBoxFlyOutIsOpen = function ()
    {
       return this.aFlyOutIsOpen;
    };
 
    return {
-      ToolBox                : Barge.Dom.Toolbox,
-      getToolBoxFlyOutIsOpen : Barge.Dom.Toolbox.prototype.getToolBoxFlyOutIsOpen
+      ToolBox                : Bee.Dom.Toolbox,
+      getToolBoxFlyOutIsOpen : Bee.Dom.Toolbox.prototype.getToolBoxFlyOutIsOpen
 
    };
 
-})(Barge.utils, Barge.String, Barge.Object, Barge.Dom);
+})(Bee.utils, Bee.String, Bee.Object, Bee.Dom);
 
 /*
  * TODO ADD support for adjusting surrounding els

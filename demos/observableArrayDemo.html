@@ -42,7 +42,7 @@ OBSERVERS
 <script src="../js/core/base/Barge.Array.js"></script>
 <script src="../js/core/base/Barge.Observable.js"></script>
 <script src="../js/core/Barge.Array.ObservableArray.js"></script>
-<!--<script src="../core/Barge.Array.ObservableArray.js"></script>-->
+<!--<script src="../core/Bee.Array.ObservableArray.js"></script>-->
 
 <script>
 
@@ -51,20 +51,20 @@ OBSERVERS
       return document.getElementById(id)
    };
 
-   let Bu = Barge.utils, Ba = Barge.Array,
-       subj                 = gebi("subject"),
-       o1                   = gebi("observer1"),
-       o2                   = gebi("observer2"),
-       o3                   = gebi("observer3");
+   let Bu = Bee.utils, Ba = Bee.Array,
+       subj               = gebi("subject"),
+       o1                 = gebi("observer1"),
+       o2                 = gebi("observer2"),
+       o3                 = gebi("observer3");
 
    console.log(subj, o1);
 
    //      window.addEventListener("load", function (e)
    //      {
-   //         Bu.extend(subj, new Barge.Observable());
-   //         Bu.extend(o1, new Barge.Observable());
-   //         Bu.extend(o2, new Barge.Observable());
-   //         Bu.extend(o3, new Barge.Observable());
+   //         Bu.extend(subj, new Bee.Observable());
+   //         Bu.extend(o1, new Bee.Observable());
+   //         Bu.extend(o2, new Bee.Observable());
+   //         Bu.extend(o3, new Bee.Observable());
    //
    //         subj.addEventListener('keyup', function (e)
    //         {
@@ -105,7 +105,7 @@ OBSERVERS
    let arr1 = { x : "ul" }, arr2 = ["ht2"];
    let myArr = ["item 1", "item 2", "item 3", "item 4"];
 
-   let OmyArr = new Barge.Array.ObservableArray(myArr, {
+   let OmyArr = new Bee.Array.ObservableArray(myArr, {
       subscribers : [arr1, arr2],
       updateFn    : function (val)
       {
@@ -123,9 +123,9 @@ OBSERVERS
    //         console.log(id);
    //      }
    //
-   Bu.extend(myArr, new Barge.Observable());
-   Bu.extend(arr1, new Barge.Observable());
-   Bu.extend(arr2, new Barge.Observable());
+   Bu.extend(myArr, new Bee.Observable());
+   Bu.extend(arr1, new Bee.Observable());
+   Bu.extend(arr2, new Bee.Observable());
    //
    //      window.addEventListener("click", function (e)
    //      {

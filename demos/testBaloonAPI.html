@@ -60,11 +60,11 @@
 <!--<div>-->
 
 <!--</div>-->
-<button onclick="Barge.BubblyBalloon.stickyToolWindowBalloon('this is waht i want to say')">stickytwballoon</button>
-<button onclick="Barge.BubblyBalloon.toolWindowBalloon('ok so we are saying...')">twballoon</button>
-<button onclick="Barge.BubblyBalloon.stickyBalloon('What i want to say', 'No match found', 'failure');">sticky short balloon</button>
+<button onclick="Bee.BubblyBalloon.stickyToolWindowBalloon('this is waht i want to say')">stickytwballoon</button>
+<button onclick="Bee.BubblyBalloon.toolWindowBalloon('ok so we are saying...')">twballoon</button>
+<button onclick="Bee.BubblyBalloon.stickyBalloon('What i want to say', 'No match found', 'failure');">sticky short balloon</button>
 
-<button onclick="Barge.BubblyBalloon.balloon('What i want to say', 'No match found', 'failure');">Not too sticky balloon</button>
+<button onclick="Bee.BubblyBalloon.balloon('What i want to say', 'No match found', 'failure');">Not too sticky balloon</button>
 
 
 <button id="btn5">BTN 5</button>
@@ -89,16 +89,16 @@
    {
       Bd.getEl("#btn5").addEventListener("click", function (e)
       {
-         Barge.BubblyBalloon.balloon({message : "SHOW ME MY MESSAGE NOW  from a non auto Closing toast",});
+         Bee.BubblyBalloon.balloon({message : "SHOW ME MY MESSAGE NOW  from a non auto Closing toast",});
       });
 
       Bd.getEl("#btn6").addEventListener("click", function (e)
       {
-         Barge.BubblyBalloon.balloon({message : "SHOW ME MY MESSAGE NOW", autoClose : true});
+         Bee.BubblyBalloon.balloon({message : "SHOW ME MY MESSAGE NOW", autoClose : true});
       });
 
 
-   })(Barge.utils,  Barge.Dom);
+   })(Bee.utils, Bee.Dom);
 </script>
 </body>
 </html>

@@ -13,19 +13,19 @@
 // limitations under the License.
 
 /**
- * @fileoverview Utilities used by Barge.uLabs.userAgent tools. These functions
- * should not be used outside of Barge.uLabs.userAgent.*.
+ * @fileoverview Utilities used by Bee.uLabs.userAgent tools. These functions
+ * should not be used outside of Bee.uLabs.userAgent.*.
  *
  *
  * @author nnaze@Bargele.com (Nathan Naze)
  */
 
-// Barge.provide('Barge.uLabs.userAgent.util');
+// Bee.provide('Bee.uLabs.userAgent.util');
 //
-// Barge.require('Barge.string');
-Barge.uLabs = Barge.uLabs || {};
-Barge.uLabs.userAgent = Barge.uLabs.userAgent || {};
-Barge.uLabs.userAgent.util = Barge.uLabs.userAgent.util || {};
+// Bee.require('Bee.string');
+Bee.uLabs = Bee.uLabs || {};
+Bee.uLabs.userAgent = Bee.uLabs.userAgent || {};
+Bee.uLabs.userAgent.util = Bee.uLabs.userAgent.util || {};
 
 /**
  * Gets the native userAgent string from navigator if it exists.
@@ -34,8 +34,8 @@ Barge.uLabs.userAgent.util = Barge.uLabs.userAgent.util || {};
  * @return {string}
  * @private
  */
-Barge.uLabs.userAgent.util._getNativeUserAgentString = function() {
-  var navigator = Barge.uLabs.userAgent.util._getNavigator();
+Bee.uLabs.userAgent.util._getNativeUserAgentString = function() {
+  var navigator = Bee.uLabs.userAgent.util._getNavigator();
   if (navigator) {
     var userAgent = navigator.userAgent;
     if (userAgent) {
@@ -52,8 +52,8 @@ Barge.uLabs.userAgent.util._getNativeUserAgentString = function() {
  * @return {Navigator}
  * @private
  */
-Barge.uLabs.userAgent.util._getNavigator = function() {
-  return Barge.global.navigator;
+Bee.uLabs.userAgent.util._getNavigator = function() {
+  return Bee.global.navigator;
 };
 
 
@@ -62,8 +62,8 @@ Barge.uLabs.userAgent.util._getNavigator = function() {
  * navigator.userAgent but use a specified value for detection instead.
  * @private {string}
  */
-Barge.uLabs.userAgent.util.userAgent_ =
-    Barge.uLabs.userAgent.util._getNativeUserAgentString();
+Bee.uLabs.userAgent.util.userAgent_ =
+    Bee.uLabs.userAgent.util._getNativeUserAgentString();
 
 
 /**
@@ -72,17 +72,17 @@ Barge.uLabs.userAgent.util.userAgent_ =
  * browser object instead.
  * @param {?string=} opt_userAgent The User-Agent override.
  */
-Barge.uLabs.userAgent.util.setUserAgent = function(opt_userAgent) {
-  Barge.uLabs.userAgent.util.userAgent_ =
-      opt_userAgent || Barge.uLabs.userAgent.util._getNativeUserAgentString();
+Bee.uLabs.userAgent.util.setUserAgent = function(opt_userAgent) {
+  Bee.uLabs.userAgent.util.userAgent_ =
+     opt_userAgent || Bee.uLabs.userAgent.util._getNativeUserAgentString();
 };
 
 
 /**
  * @return {string} The user agent string.
  */
-Barge.uLabs.userAgent.util.getUserAgent = function() {
-  return Barge.uLabs.userAgent.util.userAgent_;
+Bee.uLabs.userAgent.util.getUserAgent = function() {
+  return Bee.uLabs.userAgent.util.userAgent_;
 };
 
 
@@ -91,9 +91,9 @@ Barge.uLabs.userAgent.util.getUserAgent = function() {
  * @return {boolean} Whether the user agent contains the given string, ignoring
  *     case.
  */
-Barge.uLabs.userAgent.util.matchUserAgent = function(str) {
-  var userAgent = Barge.uLabs.userAgent.util.getUserAgent();
-  return Barge.string.contains(userAgent, str);
+Bee.uLabs.userAgent.util.matchUserAgent = function(str) {
+  var userAgent = Bee.uLabs.userAgent.util.getUserAgent();
+  return Bee.string.contains(userAgent, str);
 };
 
 
@@ -101,9 +101,9 @@ Barge.uLabs.userAgent.util.matchUserAgent = function(str) {
  * @param {string} str
  * @return {boolean} Whether the user agent contains the given string.
  */
-Barge.uLabs.userAgent.util.matchUserAgentIgnoreCase = function(str) {
-  var userAgent = Barge.uLabs.userAgent.util.getUserAgent();
-  return Barge.string.caseInsensitiveContains(userAgent, str);
+Bee.uLabs.userAgent.util.matchUserAgentIgnoreCase = function(str) {
+  var userAgent = Bee.uLabs.userAgent.util.getUserAgent();
+  return Bee.string.caseInsensitiveContains(userAgent, str);
 };
 
 
@@ -113,7 +113,7 @@ Barge.uLabs.userAgent.util.matchUserAgentIgnoreCase = function(str) {
  * @return {!Array<!Array<string>>} Tuples of key, version, and the contents
  *     of the parenthetical.
  */
-Barge.uLabs.userAgent.util.extractVersionTuples = function(userAgent) {
+Bee.uLabs.userAgent.util.extractVersionTuples = function(userAgent) {
   // Matches each section of a user agent string.
   // Example UA:
   // Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us)

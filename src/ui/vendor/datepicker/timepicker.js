@@ -71,8 +71,8 @@
    "use strict";
 
    //region protected globals
-   let Bu   = Barge.utils,
-       Bd   = Barge.Dom,
+   let Bu   = Bee.utils,
+       Bd   = Bee.Dom,
        args = {
           // format: true,
           // minTime: '2:00 am',
@@ -547,14 +547,14 @@
 
 
    //going public whoop! whoop! lol
-   return Barge.TimePicker = Timepicker;
+   return Bee.TimePicker = Timepicker;
 });
 
 /*
  *  Create a new timepicker for our input and pass it our args
  */
 
-//let tpicker = new Barge.TimePicker(document.querySelector("input.timepicker"));
+//let tpicker = new Bee.TimePicker(document.querySelector("input.timepicker"));
 
 
 

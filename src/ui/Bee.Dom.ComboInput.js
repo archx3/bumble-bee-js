@@ -3,7 +3,7 @@
  */
 (function(Bu, Ba, Bs, Bd)
 {
-   var evt = new Barge.Event.EventManager();
+   var evt = new Bee.Event.EventManager();
 
    var comboBoxes = Bd.getEl('.comboBx', true);
    var allLists = document.querySelectorAll('.dropDownList');
@@ -71,4 +71,4 @@
          Bd.closeWin(myDropDownListDiv);
       });
    })
-})(Barge.utils, Barge.Array, Barge.String, Barge.Dom)
+})(Bee.utils, Bee.Array, Bee.String, Bee.Dom)

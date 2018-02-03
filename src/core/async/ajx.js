@@ -163,11 +163,11 @@
  * @Author       Created by arch on 05/06/17 using PhpStorm.
  * @Time         : 06:18
  * @Copyright (C) 2017
- * Barge Studios Inc, The $ Authors
+ * Bee Studios Inc, The $ Authors
  * <bargestd@gmail.com>
  * <bumble.bee@bargestd.com>
  *
- * @licence      Licensed under the Barge Studios Eula
+ * @licence      Licensed under the Bee Studios Eula
  *  you may not use this file except in compliance with the License.
  *
  * You may obtain a copy of the License at

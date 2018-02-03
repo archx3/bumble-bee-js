@@ -2,11 +2,11 @@
 {
 
    // Cache some selectors
-   let Bu = Barge.utils,
-       Ba = Barge.Array,
-       Bs = Barge.String,
-       Bm = Barge.Math,
-       Bd = Barge.Dom;
+   let Bu = Bee.utils,
+       Ba = Bee.Array,
+       Bs = Bee.String,
+       Bm = Bee.Math,
+       Bd = Bee.Dom;
 
    var clock       = Bd.getEl('#clock'),
        alarm       = clock.querySelector('.alarm'),
@@ -159,7 +159,7 @@
 
          //time_is_up.fadeIn();
          //Bd.openWin(time_is_up);
-         Barge.DiceyDialog.alert({
+         Bee.DiceyDialog.alert({
                                     t        : "Time is up",
                                     onAffirm : function ()
                                     {
@@ -218,7 +218,7 @@
       //dialog.trigger('show');
       //Bd.openWin(dialog);
       openDialog()
-      //Barge.DiceyDialog.alert({
+      //Bee.DiceyDialog.alert({
       //                           t        : "Time is up",
       //                           onAffirm : function ()
       //                           {

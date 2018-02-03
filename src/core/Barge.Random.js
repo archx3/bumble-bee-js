@@ -11,11 +11,11 @@
  * @Time         : 00:19
  * @Copyright (C) 2017
  * @version 2.3.5
- * Barge Studios Inc, The $ Authors
+ * Bee Studios Inc, The $ Authors
  * <bargestd@gmail.com>
  * <bumble.bee@bargestd.com>
  *
- * @licence      Licensed under the Barge Studios Eula
+ * @licence      Licensed under the Bee Studios Eula
  *  you may not use this file except in compliance with the License.
  *
  * You may obtain a copy of the License at
@@ -116,11 +116,11 @@
        BPF           = 53,        // Number of bits in a float
        RECIP_BPF     = 2 ** -BPF;
 
-   let Bu = Barge.utils,
-       Ba = Barge.Array,
-       Bo = Barge.Object,
-       //Bm = Barge.Math,
-       Bm = Barge.Math;
+   let Bu = Bee.utils,
+       Ba = Bee.Array,
+       Bo = Bee.Object,
+       //Bm = Bee.Math,
+       Bm = Bee.Math;
 
 
    //endregion
@@ -845,8 +845,8 @@
    let rand = new Random();
 
 //public methods object
-   Barge.Random = {};
+   Bee.Random = {};
 
 //going public whoop! whoop! lol
-   return Barge.Random;
+   return Bee.Random;
 });

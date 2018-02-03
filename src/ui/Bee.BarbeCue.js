@@ -2,7 +2,7 @@
  * Created by ARCH on 17/07/2016.
  * Copyright (C) 2016 Barge Studios Inc<bargestd@gmail.com>
  */
-var Barge = Barge || {};
+var Bee = Bee || {};
 
 var dXOffSet = 0,
     dYOffSet = 0;
@@ -12,7 +12,7 @@ var dXOffSet = 0,
        *
        * @type {Barge.Event.EventManager}
        */
-      let Be = new Barge.Event.EventManager();
+      let Be = new Bee.Event.EventManager();
 
       //region CSS
       /*function _insertDynamicCss()
@@ -87,8 +87,8 @@ var dXOffSet = 0,
          //console.log(Bu.getStyleValue(tTip.style.left));
       }
 
-      Barge.Barbecue = Barge.Barbecue || {};
-      Barge.Barbecue.hint = function ()
+      Bee.Barbecue = Bee.Barbecue || {};
+      Bee.Barbecue.hint = function ()
       {
          var hint = document.createElement("div");
          hint.id = "hTip";
@@ -117,7 +117,7 @@ var dXOffSet = 0,
        *
        * @param anchor {boolean}
        */
-      Barge.Barbecue.tip = function (anchor)
+      Bee.Barbecue.tip = function (anchor)
       {
          var tTip = document.createElement("div");
          tTip.id = "tTip";
@@ -174,7 +174,7 @@ var dXOffSet = 0,
        * @param xOffset
        * @param yOffset
        */
-      Barge.Barbecue.modernTip = function ()
+      Bee.Barbecue.modernTip = function ()
       {
          //document.body.appendChild(mTip);
 
@@ -250,7 +250,7 @@ var dXOffSet = 0,
       };
 
       /*return{
-       'Barge.Barbecue.modernTip' : Barge.Barbecue.modernTip()
+       'Bee.Barbecue.modernTip' : Bee.Barbecue.modernTip()
        }*/
 
-   })(Barge.utils, Barge.Array, Barge.Dom);
+   })(Bee.utils, Bee.Array, Bee.Dom);

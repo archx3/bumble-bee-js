@@ -36,17 +36,17 @@
  * @namespace
  * @type {{}}
  */
-var Barge = Barge || {}; //Declaring the Barge Namespace
+var Bee = Bee || {}; //Declaring the Bee Namespace
 
 (function (Bu, Ba, Bo) // don't litter the global scope
 {
    'use strict';
 
    /**
-    * Adding the event class to the Barge Namespace
+    * Adding the event class to the Bee Namespace
     * @type {{EventManager : fn}}
     */
-   Barge.Event = Barge.Event || {};
+   Bee.Event = Bee.Event || {};
 
    /**
     * resolving the event to IE or W3C event object
@@ -54,7 +54,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @return {Event}
     * @static
     */
-   Barge.Event.getEvent = function (e)
+   Bee.Event.getEvent = function (e)
    {
       return window.event ? window.event : e
    };
@@ -65,13 +65,13 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @return {* | Event<target>}
     * @static
     */
-   Barge.Event.getEventTarget = function (e)
+   Bee.Event.getEventTarget = function (e)
    {
       /**
        *
        * @type {Event}
        */
-      const evt = Barge.Event.getEvent(e);
+      const evt = Bee.Event.getEvent(e);
 
       return (evt.target) ? evt.target : evt.srcElement;
    };
@@ -82,7 +82,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param element {Element}
     * @constructor
     */
-   Barge.Event.EventElement = function (element)
+   Bee.Event.EventElement = function (element)
    {
       /**
        * @type {Element}
@@ -127,7 +127,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Barge.Event.EventElement.prototype.addEvent = function (el, evtType, handler, useCapture)
+   Bee.Event.EventElement.prototype.addEvent = function (el, evtType, handler, useCapture)
    {
       useCapture = useCapture || false;
       if (el)
@@ -156,7 +156,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Barge.Event.EventElement.prototype.removeEvent = function (el, evtType, handler, useCapture = false)
+   Bee.Event.EventElement.prototype.removeEvent = function (el, evtType, handler, useCapture = false)
    {
       //MSG uncomment the line below for backward compatibility
       //useCapture = useCapture || false;
@@ -186,7 +186,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Barge.Event.EventElement.prototype.bind = function (evtType, handler, useCapture = false)
+   Bee.Event.EventElement.prototype.bind = function (evtType, handler, useCapture = false)
    {
       if (!Bu.defined(this.events[evtType]))
       {
@@ -205,7 +205,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Barge.Event.EventElement.prototype.unbind = function (evtType, handler, useCapture = false)
+   Bee.Event.EventElement.prototype.unbind = function (evtType, handler, useCapture = false)
    {
       /**
        *
@@ -233,7 +233,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
    /**
     *@use unbinds all events in {@link Barge.Event.EventElement.events} from their elements
     */
-   Barge.Event.EventElement.prototype.unbindAll = function ()
+   Bee.Event.EventElement.prototype.unbindAll = function ()
    {
       for (let name in this.events)
       {
@@ -243,12 +243,12 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
 
    /**
     * @use instantiates an eventManager Object from the constructor
-    * @example var ev = new Barge.Event.EventManager();
+    * @example var ev = new Bee.Event.EventManager();
     * @example ev.bind(el, 'click', fn);
     *
     * @constructor
     */
-   Barge.Event.EventManager = function ()
+   Bee.Event.EventManager = function ()
    {
       /**
        * All els with bound Events that we are managing
@@ -263,9 +263,9 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param e {Event}
     * @return {Event}
     */
-   Barge.Event.EventManager.prototype.getEvent = function (e)
+   Bee.Event.EventManager.prototype.getEvent = function (e)
    {
-      return Barge.Event.getEvent(e);
+      return Bee.Event.getEvent(e);
    };
 
    /**
@@ -273,7 +273,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param e
     * @return {* | Event<target>}
     */
-   Barge.Event.EventManager.prototype.getEventTarget = function (e)
+   Bee.Event.EventManager.prototype.getEventTarget = function (e)
    {
       /**
        *
@@ -281,7 +281,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
        */
       const evt = this.getEvent(e);
 
-      return Barge.Event.getEventTarget(evt);
+      return Bee.Event.getEventTarget(evt);
    };
    /**
     *
@@ -290,21 +290,21 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @returns {{evEl: *, eventCount: (*|null)}}
     * @constructor
     */
-   Barge.Event.EventManager.prototype.EventElement = function (element, eventCount)
+   Bee.Event.EventManager.prototype.EventElement = function (element, eventCount)
    {
       let eventElement = this.EventElements.filter(function (EventElement)
                                                    {
                                                       /**
                                                        * @returns {Boolean}
                                                        */
-                                                      return Barge.Event.EventElement.element === element;
+                                                      return Bee.Event.EventElement.element === element;
 
                                                    })[0];
 
       if (!Bu.defined(eventElement))
       {
          //instantiating EventElement(element)
-         eventElement = new Barge.Event.EventElement(element);
+         eventElement = new Bee.Event.EventElement(element);
 
          //add this el to the els whose event we are managing
          this.EventElements.push(eventElement);
@@ -323,7 +323,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param handler {Function}
     * @param useCapture Boolean
     */
-   Barge.Event.EventManager.prototype.bind = function (element, evtType, handler, useCapture = false)
+   Bee.Event.EventManager.prototype.bind = function (element, evtType, handler, useCapture = false)
    {
       this.EventElement(element).evEl.bind(evtType, handler, useCapture);
    };
@@ -337,7 +337,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param useCapture {Boolean}
     * @Warning No side effects
     */
-   Barge.Event.EventManager.prototype.longClick = function (element, handler, duration = 600, once = false, useCapture = false)
+   Bee.Event.EventManager.prototype.longClick = function (element, handler, duration = 600, once = false, useCapture = false)
    {
       let timer = null;
 
@@ -419,7 +419,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Barge.Event.EventManager.prototype.bindOnAll = function (elsArr, evtType, handler, useCapture = false)
+   Bee.Event.EventManager.prototype.bindOnAll = function (elsArr, evtType, handler, useCapture = false)
    {
 
       if (Bu.isArray(elsArr) || Bu.isArrayLike(elsArr))
@@ -440,7 +440,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Barge.Event.EventManager.prototype.unbind = function (element, evtType, handler, useCapture = false)
+   Bee.Event.EventManager.prototype.unbind = function (element, evtType, handler, useCapture = false)
    {
       this.EventElement(element).evEl.unbind(evtType, handler, useCapture);
    };
@@ -452,7 +452,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Barge.Event.EventManager.prototype.unbindOnAll = function (element, evtType, handler, useCapture = false)
+   Bee.Event.EventManager.prototype.unbindOnAll = function (element, evtType, handler, useCapture = false)
    {
       var self = this;
       Ba.forEach(element, function (node) //crazy but works, Thanks Jehovah!
@@ -467,7 +467,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
    /**
     * @use Removes all events from from the event Object {@link Barge.Event.EventManager.EventElement}
     */
-   Barge.Event.EventManager.prototype.unbindAll = function ()
+   Bee.Event.EventManager.prototype.unbindAll = function ()
    {
       for (var i = 0; i < this.EventElements.length; i++)
       {
@@ -484,7 +484,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Barge.Event.EventManager.prototype.bindOnce = function (element, evtType, handler, useCapture = false)
+   Bee.Event.EventManager.prototype.bindOnce = function (element, evtType, handler, useCapture = false)
    {
       /**
        * event Element
@@ -514,7 +514,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Barge.Event.EventManager.prototype.bindOnceOnAll = function (elsArr, evtType, handler, useCapture = false)
+   Bee.Event.EventManager.prototype.bindOnceOnAll = function (elsArr, evtType, handler, useCapture = false)
    {
       if (Bu.isArray(elsArr) || Bu.isArrayLike(elsArr))
       {
@@ -541,7 +541,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param numberOfTimes {Number}
     * @param useCapture {Boolean}
     */
-   Barge.Event.EventManager.prototype.bindXTimes = function (element, evtType, handler, numberOfTimes = 1, useCapture = false)
+   Bee.Event.EventManager.prototype.bindXTimes = function (element, evtType, handler, numberOfTimes = 1, useCapture = false)
    {
       /**
        * event Element
@@ -580,7 +580,7 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * @param numberOfTimes {Number}
     * @param useCapture {Boolean}
     */
-   Barge.Event.EventManager.prototype.bindXTimesOnAll = function (elsArr, evtType, handler, numberOfTimes = 1, useCapture = false)
+   Bee.Event.EventManager.prototype.bindXTimesOnAll = function (elsArr, evtType, handler, numberOfTimes = 1, useCapture = false)
    { //fixme use of default param values may have to be changed for backward compatibility
 
       if (Bu.isArray(elsArr) || Bu.isArrayLike(elsArr))
@@ -602,18 +602,18 @@ var Barge = Barge || {}; //Declaring the Barge Namespace
     * same as {@see Barge.Event.EventManager.prototype.bindXTimes}
     * @type {Barge.Event.EventManager | any}
     */
-   Barge.Event.EventManager.prototype.bindNTimes = Barge.Event.EventManager.prototype.bindXTimes;
+   Bee.Event.EventManager.prototype.bindNTimes = Bee.Event.EventManager.prototype.bindXTimes;
 
    /**
     * same as {@see Barge.Event.EventManager.prototype.bindXTimesOnAll}
     * MSG xTimes only, before but nTimes seems more intuitive
     * @type {Barge.Event.EventManager | any}
     */
-   Barge.Event.EventManager.prototype.bindNTimesOnAll = Barge.Event.EventManager.prototype.bindXTimesOnAll;
+   Bee.Event.EventManager.prototype.bindNTimesOnAll = Bee.Event.EventManager.prototype.bindXTimesOnAll;
 
    /***********************************************************************************************/
 
-})(Barge.utils, Barge.Array, Barge.Object);
+})(Bee.utils, Bee.Array, Bee.Object);
 
 /**
  *

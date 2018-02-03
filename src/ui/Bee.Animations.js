@@ -37,7 +37,7 @@
  * @user msg: Some lines in this file use constructs from es6 or later
  */
 
-var Barge = Barge || {};
+var Bee = Bee || {};
 (function ()
 {
    /**
@@ -45,7 +45,7 @@ var Barge = Barge || {};
     * @type {Object}
     * @enum
     */
-   Barge.Animations = {
+   Bee.Animations = {
 
       slideDown : {
          translateY : '100%'

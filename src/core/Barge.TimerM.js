@@ -35,7 +35,7 @@
  * @namespace
  * @type {{}}
  */
-var Barge = Barge || {};
+var Barge = Bee || {};
 
 (function (/*Bu, Bs, Bo, Bd*/)
 {
@@ -54,7 +54,7 @@ var Barge = Barge || {};
     * @constructor
     */
    //TODO create an array of this
-   Barge.TimerID = function (id, props)
+   Bee.TimerID = function (id, props)
    {
       this.id = id;
       this.props = {};
@@ -68,7 +68,7 @@ var Barge = Barge || {};
    /**
     * @example
     * {@code
-    *    let timer = new Barge.Timer(function ()
+    *    let timer = new Bee.Timer(function ()
     *    {
     *       alert("Done!");
     *    }, 1000);
@@ -89,7 +89,7 @@ var Barge = Barge || {};
     */
 
 
-   Barge.Timer = function ()
+   Bee.Timer = function ()
    {
 
       /**
@@ -137,17 +137,17 @@ var Barge = Barge || {};
       this.init();
    };
 
-   Barge.Timer.prototype.getRemaining = function ()
+   Bee.Timer.prototype.getRemaining = function ()
    {
       return this.remaining -= new Date() - this.startTime;
    };
 
-   Barge.Timer.prototype.getElapsed = function ()
+   Bee.Timer.prototype.getElapsed = function ()
    {
       return this.remaining -= Math.abs(this.startTime - new Date());
    };
 
-   Barge.Timer.prototype.init = function ()
+   Bee.Timer.prototype.init = function ()
    {
       if(this.type === "timeout")
       {
@@ -171,7 +171,7 @@ var Barge = Barge || {};
     * starts the timer
     * and can be used to resume a paused timer
     */
-   Barge.Timer.prototype.play = function (callback, delay, type = "timeout", multiple,  autoStart = true)
+   Bee.Timer.prototype.play = function (callback, delay, type = "timeout", multiple, autoStart = true)
    {
       if(this.states.playing !== true )
       {
@@ -193,7 +193,7 @@ var Barge = Barge || {};
    /**
     * pauses the timer
     */
-   Barge.Timer.prototype.pause = function ()
+   Bee.Timer.prototype.pause = function ()
    {
       if(!this.states.paused)
       {
@@ -212,7 +212,7 @@ var Barge = Barge || {};
    /**
     *
     */
-   Barge.Timer.prototype.stop = function ()
+   Bee.Timer.prototype.stop = function ()
    {
       if(!this.states.stopped)
       {
@@ -235,7 +235,7 @@ var Barge = Barge || {};
     * and setting the instance up for garbage collection
     * @type {*}
     */
-   Barge.Timer.prototype.clear = function ()
+   Bee.Timer.prototype.clear = function ()
    {
       this.stop();
       this.destroy();
@@ -244,7 +244,7 @@ var Barge = Barge || {};
    /**
     * restarts the timing
     */
-   Barge.Timer.prototype.restart = function ()
+   Bee.Timer.prototype.restart = function ()
    {
       this.stop();
       this.play();
@@ -255,14 +255,14 @@ var Barge = Barge || {};
     * Alias for {@see Barge.Timer.restart}
     * @type {*}
     */
-   Barge.Timer.prototype.reset = Barge.Timer.prototype.restart;
+   Bee.Timer.prototype.reset = Bee.Timer.prototype.restart;
 
    /**
     * resumes a paused timer
     * works jus like the play method
     * @type {*}
     */
-   Barge.Timer.prototype.start = Barge.Timer.prototype.play;
+   Bee.Timer.prototype.start = Bee.Timer.prototype.play;
 
    /**
     * Alias for {@see Barge.Timer.play}
@@ -270,14 +270,14 @@ var Barge = Barge || {};
     * works jus like the play method
     * @type {*}
     */
-   Barge.Timer.prototype.resume = Barge.Timer.prototype.play;
+   Bee.Timer.prototype.resume = Bee.Timer.prototype.play;
 
    /**
     * Nullifies all properties
     * and sets them up for garbage collection
     * @Destructor
     */
-   Barge.Timer.prototype.destroy = function ()
+   Bee.Timer.prototype.destroy = function ()
    {
       this.timerId = null;
       this.startTime = null;
@@ -295,8 +295,8 @@ var Barge = Barge || {};
    };
 
    //we're going public :-) lol
-   return Timer = Barge.Timer;
-})(/*Barge.utils, Barge.String, Barge.Object, Barge.Dom*/);
+   return Timer = Bee.Timer;
+})(/*Bee.utils, Bee.String, Bee.Object, Bee.Dom*/);
 //TODO reveal other methods by returning an object
 //TODO make the params after callback properties of an options object
 

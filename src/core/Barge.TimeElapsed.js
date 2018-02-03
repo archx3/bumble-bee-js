@@ -26,7 +26,7 @@
  *    \      /
  *    @fileOverview contains instruction[code] for creating a $
  */
-var Barge = Barge || {};
+var Barge = Bee || {};
 !function (root, factory)
 {
    if (typeof module === 'object' && module.exports)
@@ -41,7 +41,7 @@ var Barge = Barge || {};
 }(typeof window !== 'undefined' ? window : this,
   function ()
   {
-     let Bu = Barge.utils;
+     let Bu = Bee.utils;
      var indexMapEn    = 'second_minute_hour_day_week_month_year'.split('_'),
          indexMapZh    = '秒_分钟_小时_天_周_月_年'.split('_'),
          indexMapTw    = 'par_sima_donhwiri_da_nawotwe_bosome_afi'.split('_'),
@@ -381,14 +381,14 @@ var Barge = Barge || {};
       * you.
       *
       * How to use it?
-      * var Barge.TimeElapsed = require('TimeElapsed.js');
-      * var TimeElapsed = Barge.TimeElapsed();
+      * var Bee.TimeElapsed = require('TimeElapsed.js');
+      * var TimeElapsed = Bee.TimeElapsed();
       *     all use default.
-      * var TimeElapsed = Barge.TimeElapsed('2016-09-10');
+      * var TimeElapsed = Bee.TimeElapsed('2016-09-10');
       *     the relative date is 2016-09-10, so the 2016-09-11 will be 1 day ago.
-      * var TimeElapsed = Barge.TimeElapsed(null, 'zh_CN');
+      * var TimeElapsed = Bee.TimeElapsed(null, 'zh_CN');
       *     set default locale is `zh_CN`.
-      * var TimeElapsed = Barge.TimeElapsed('2016-09-10', 'zh_CN');
+      * var TimeElapsed = Bee.TimeElapsed('2016-09-10', 'zh_CN');
       *     the relative date is 2016-09-10, and locale is zh_CN, so the
       * 2016-09-11 will be 1天前.
       *
@@ -397,7 +397,7 @@ var Barge = Barge || {};
       * @returns {TimeElapsed}
       */
 
-     Barge.TimeElapsed = function (nowDate, defaultLocale)
+     Bee.TimeElapsed = function (nowDate, defaultLocale)
      {
         return new TimeElapsed(nowDate, defaultLocale);
      };
@@ -408,17 +408,17 @@ var Barge = Barge || {};
       * - localeFunc: the locale process function
       *
       * How to use it?
-      * var Barge.TimeElapsed = require('TimeElapsed.src');
+      * var Bee.TimeElapsed = require('TimeElapsed.src');
       *
-      * Barge.TimeElapsed.register('the locale name', the_locale_func);
+      * Bee.TimeElapsed.register('the locale name', the_locale_func);
       * // or
-      * Barge.TimeElapsed.register('pl', require('TimeElapsed.src/locales/pl'));
+      * Bee.TimeElapsed.register('pl', require('TimeElapsed.src/locales/pl'));
       *
       *
       * @param locale
       * @param localeFunc
       */
-     Barge.TimeElapsed.register = function (locale, localeFunc)
+     Bee.TimeElapsed.register = function (locale, localeFunc)
      {
         locales[locale] = localeFunc;
      };
@@ -428,22 +428,22 @@ var Barge = Barge || {};
       *
       * How to use it?
       * For canceling all the timers:
-      * var Barge.TimeElapsed = require('TimeElapsed.src');
-      * var TimeElapsed = Barge.TimeElapsed();
+      * var Bee.TimeElapsed = require('TimeElapsed.src');
+      * var TimeElapsed = Bee.TimeElapsed();
       * TimeElapsed.render(document.querySelectorAll('.need_to_be_rendered'));
-      * Barge.TimeElapsed.cancel(); // will stop all the timers, stop render in real time.
+      * Bee.TimeElapsed.cancel(); // will stop all the timers, stop render in real time.
       *
       * For canceling single timer on specific node:
-      * var Barge.TimeElapsed = require('TimeElapsed.src');
-      * var TimeElapsed = Barge.TimeElapsed();
+      * var Bee.TimeElapsed = require('TimeElapsed.src');
+      * var TimeElapsed = Bee.TimeElapsed();
       * var nodes = document.querySelectorAll('.need_to_be_rendered');
       * TimeElapsed.render(nodes);
-      * Barge.TimeElapsed.cancel(nodes[0]); // will clear a timer attached to the first node, stop render in real time.
+      * Bee.TimeElapsed.cancel(nodes[0]); // will clear a timer attached to the first node, stop render in real time.
       *
       *
       * @param node
       */
-     Barge.TimeElapsed.cancel = function (node)
+     Bee.TimeElapsed.cancel = function (node)
      {
         let tid;
         // assigning in if statement to save space
@@ -466,7 +466,7 @@ var Barge = Barge || {};
         }
      };
 
-     Barge.TimeElapsed.iso8601 = function (date)
+     Bee.TimeElapsed.iso8601 = function (date)
      {
         return date.getUTCFullYear()
                + "-" + (date.getUTCMonth() + 1)
@@ -476,13 +476,13 @@ var Barge = Barge || {};
                + ":" + date.getUTCSeconds() + "Z";
      };
 
-     Barge.TimeElapsed.apply = function ()
+     Bee.TimeElapsed.apply = function ()
      {
-        document.querySelectorAll('.load_time').setAttribute('datetime', Barge.TimeElapsed.iso8601(new Date()));
-        var te = new Barge.TimeElapsed(null, 'tw');
-        //var te = new Barge.TimeElapsed(null, navigator.language.replace('-', '_'));
+        document.querySelectorAll('.load_time').setAttribute('datetime', Bee.TimeElapsed.iso8601(new Date()));
+        var te = new Bee.TimeElapsed(null, 'tw');
+        //var te = new Bee.TimeElapsed(null, navigator.language.replace('-', '_'));
         te.render(document.querySelectorAll('.timeago'));
      };
 
-     return Barge.TimeElapsed;
+     return Bee.TimeElapsed;
   });

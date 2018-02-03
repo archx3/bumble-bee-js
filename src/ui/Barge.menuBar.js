@@ -34,9 +34,9 @@
  */
 (function (Bu, Ba, Bd)
 {
-   Barge.Dom = Barge.Dom || {};
+   Bee.Dom = Bee.Dom || {};
 
-   Barge.Dom.MenuBar = function (options)
+   Bee.Dom.MenuBar = function (options)
    {
       /**
        *
@@ -58,7 +58,7 @@
        *
        * @type {Barge.Event.EventManager}
        */
-      this.Be = new Barge.Event.EventManager();
+      this.Be = new Bee.Event.EventManager();
 
       //this.list = document.getElementsByClassName(this.options.menuItemsClassName);
       /**
@@ -168,7 +168,7 @@
       this.aSubMenuIsOpen = this.menuItems.some(this._hasSubMenuOpen);
    };
 
-   Barge.Dom.MenuBar.prototype._openWin = function (windowEl)
+   Bee.Dom.MenuBar.prototype._openWin = function (windowEl)
    {
       if (this._getDisplayState(windowEl) === 0)
       {
@@ -197,7 +197,7 @@
     * @return {number}
     * @private
     */
-   Barge.Dom.MenuBar.prototype._getSlope = function (a, b)
+   Bee.Dom.MenuBar.prototype._getSlope = function (a, b)
    {
 
       var dY = (b.y ? b.y : b.top ? b.top : 0) - (a.y ? a.y : a.top ? a.top : 0),
@@ -212,7 +212,7 @@
     * @return {boolean}
     * @private
     */
-   Barge.Dom.MenuBar.prototype._disabled = function (item)
+   Bee.Dom.MenuBar.prototype._disabled = function (item)
    {
       return item.classList.contains('disabled');
    };
@@ -223,7 +223,7 @@
     * @return {boolean}
     * @private
     */
-   Barge.Dom.MenuBar.prototype._noHover = function (item)
+   Bee.Dom.MenuBar.prototype._noHover = function (item)
    {
       return item.classList.contains('noHov');
    };
@@ -234,7 +234,7 @@
     * @return {number}
     * @private
     */
-   Barge.Dom.MenuBar.prototype._getDisplayState = function (el)
+   Bee.Dom.MenuBar.prototype._getDisplayState = function (el)
    {
       if (el.style.display === "none" || el.style.display === "")
       {
@@ -249,7 +249,7 @@
     * @return {*|HTMLElement|boolean}
     * @private
     */
-   Barge.Dom.MenuBar.prototype._hasSubMenuOpen = function (menuItem)
+   Bee.Dom.MenuBar.prototype._hasSubMenuOpen = function (menuItem)
    {
       var subMenu    = menuItem.children[1],
           HasSubMenu = subMenu && subMenu.tagName === "UL";
@@ -264,7 +264,7 @@
     * @param innerRoot{Boolean}
     * @private
     */
-   Barge.Dom.MenuBar.prototype._closeAllSubMenus = function (menuItems, rootChild, innerRoot)
+   Bee.Dom.MenuBar.prototype._closeAllSubMenus = function (menuItems, rootChild, innerRoot)
    {
       var self = this;
       if (menuItems)
@@ -297,7 +297,7 @@
       }
    };
 
-   Barge.Dom.MenuBar.prototype._closeOpenSubMenus = function (menuItem)
+   Bee.Dom.MenuBar.prototype._closeOpenSubMenus = function (menuItem)
    {
       var self = this;
       if (Bu.defined(self.openSubMenu))
@@ -331,7 +331,7 @@
    // down the screen, we are looking for the slope between the
    // cursor and the upper right corner to decrease over time, not
    // increase (somewhat counter-intuitively).
-   Barge.Dom.MenuBar.prototype.addClickEvent = function ()
+   Bee.Dom.MenuBar.prototype.addClickEvent = function ()
    {
       var self = this;
 
@@ -429,7 +429,7 @@
     * @param items
     * @private
     */
-   Barge.Dom.MenuBar.prototype._collectAllMenuItems = function (items)
+   Bee.Dom.MenuBar.prototype._collectAllMenuItems = function (items)
    {
       const self = this;
       Ba.forEach(items, function (node, i)
@@ -455,12 +455,12 @@
       });
    };
 
-   Barge.Dom.MenuBar.prototype.getAllMenuItems = function ()
+   Bee.Dom.MenuBar.prototype.getAllMenuItems = function ()
    {
       return this.allItems;
    };
 
-   Barge.Dom.MenuBar.prototype.addMouseOverEvent = function ()
+   Bee.Dom.MenuBar.prototype.addMouseOverEvent = function ()
    {
       var self = this;
 
@@ -859,7 +859,7 @@
       });
    };
 
-   Barge.Dom.MenuBar.prototype.addMouseOutEvent = function ()
+   Bee.Dom.MenuBar.prototype.addMouseOutEvent = function ()
    {
       var self = this;
       this.Be.bindOnAll(self.menuItems, "mouseout", function ()
@@ -905,7 +905,7 @@
       }, false);
    };
 
-   Barge.Dom.MenuBar.prototype.addCloseOutEvent = function ()
+   Bee.Dom.MenuBar.prototype.addCloseOutEvent = function ()
    {
       var self = this;
 
@@ -947,7 +947,7 @@
       });
    };
 
-   Barge.Dom.MenuBar.prototype.create = function ()
+   Bee.Dom.MenuBar.prototype.create = function ()
    {
       let self = this;
       this._collectAllMenuItems(self.menuItems);
@@ -961,16 +961,16 @@
       this.addCloseOutEvent();
    };
 
-   return MenuBar = Barge.Dom.MenuBar;
+   return MenuBar = Bee.Dom.MenuBar;
 
-})(Barge.utils, Barge.Array, Barge.Dom);
+})(Bee.utils, Bee.Array, Bee.Dom);
 
-var menubar = new Barge.Dom.MenuBar();
+var menubar = new Bee.Dom.MenuBar();
 menubar.create();
 
 /*
 
- TODO : Make the {@link Barge.Dom.MenuBar} Constructor accept a config object that specifies a list menu items and sub-menu items
+ TODO : Make the {@link Bee.Dom.MenuBar} Constructor accept a config object that specifies a list menu items and sub-menu items
  TODO : Use MVC so the menubar DOM will be a visual rep'tn of the menubar data
  TODO : Add support for removing and adding menu item
  TODO :

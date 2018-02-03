@@ -54,10 +54,10 @@
    "use strict";
 
    //region protected globals
-   let Bu = Barge.utils,
-       Bs = Barge.String,
-       Bo = Barge.Object,
-       Bd = Barge.Dom;
+   let Bu = Bee.utils,
+       Bs = Bee.String,
+       Bo = Bee.Object,
+       Bd = Bee.Dom;
    //endregion
    /**
     *
@@ -265,7 +265,7 @@
                if (Bu.defined(_this.options.elOnRight))
                {
                   //_this.options.elOnRight = Bd.getEl('#'+_this.options.elOnRight);
-                  Barge.Dom.CSSSTYLE.setProperty('--toolBoxWith', '0px');
+                  Bee.Dom.CSSSTYLE.setProperty('--toolBoxWith', '0px');
 
                }
             }
@@ -305,7 +305,7 @@
          Bu.extend(dragOptions, dragOptions);
          self.moveParent = dragOptions.moveParent || null;
          //tolerance  = dragOptions.tolerance || null;
-         //let dBe = new Barge.Event.EventManager();
+         //let dBe = new Bee.Event.EventManager();
 
          self.toBeMoved = null;
 
@@ -434,5 +434,5 @@
    };
 
    //going public whoop! whoop! lol
-   return Barge.Dom.Propertybar = PropertyBar;
+   return Bee.Dom.Propertybar = PropertyBar;
 });

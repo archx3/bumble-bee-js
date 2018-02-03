@@ -2,13 +2,13 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 
 gulp.task('pack-js', function () {
-   return gulp.src(['src/core/base/Barge.Utils.js',
-                    'src/core/base/Barge.Observable.js',
-                    'src/core/base/Barge.Array.js',
-                    'src/core/base/Barge.Object.js',
-                    'src/core/base/Barge.String.js',
-                    'src/core/base/Barge.Math.js',
-                    'src/core/base/Barge.Timer.js'/*, 'assets/src/module*.src'*/])
+   return gulp.src(['src/core/base/Bee.Utils.js',
+                    'src/core/base/Bee.Observable.js',
+                    'src/core/base/Bee.Array.js',
+                    'src/core/base/Bee.Object.js',
+                    'src/core/base/Bee.String.js',
+                    'src/core/base/Bee.Math.js',
+                    'src/core/base/Bee.Timer.js'/*, 'assets/src/module*.src'*/])
               .pipe(concat('base.js'))
               .pipe(gulp.dest('build'));
 });

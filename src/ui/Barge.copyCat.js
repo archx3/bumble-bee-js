@@ -2,8 +2,8 @@
  * Created by ARCH on 10/09/2016.
  */
 
-var Barge = Barge || {};
-Barge.CopyCat =
+var Bee = Bee || {};
+Bee.CopyCat =
 {
    getSelectionText : function ()
    {

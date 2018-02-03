@@ -3,11 +3,11 @@
 /**
  * @Author Created by ARCH on 25/08/2016.
  * @Copyright (C) 2016
- * Barge Studios Inc, The Bumble-Bee Authors
+ * Bee Studios Inc, The Bumble-Bee Authors
  * <bargestd@gmail.com>
  * <bumble.bee@bargestd.com>
  *
- * @licence Licensed under the Barge Studios Eula
+ * @licence Licensed under the Bee Studios Eula
  * you may not use this file except in compliance with the License.
  *
  * You may obtain a copy of the License at
@@ -62,8 +62,8 @@
    }
 })(this, function ()
 {/*region*/
-   let Bu = Barge.utils,
-       Bd = Barge.Dom;
+   let Bu = Bee.utils,
+       Bd = Bee.Dom;
    /*endregion*/
    return (function (modules)
    { // webpackBootstrap
