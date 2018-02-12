@@ -40,7 +40,7 @@ var Barge = Bee || {};
  * Once initialized with a document, the activity monitor can be queried for
  * the current idle time.
  *
- * @param {Barge.Dom.DomHelper|Array<Barge.Dom.DomHelper>=} opt_domHelper
+ * @param {Barge.Widget.DomHelper|Array<Barge.Dom.DomHelper>=} opt_domHelper
  *     DomHelper which contains the document(s) to listen to.  If null, the
  *     default document is usedinstead.
  * @param {boolean=} opt_useBubble Whether to use the bubble phase to listen for
@@ -88,9 +88,9 @@ Bee.ActivityMonitor = function (opt_domHelper, opt_useBubble)
 
    if (!opt_domHelper)
    {
-      this.addDocument(Bee.Dom.getDomHelper().getDocument());
+      this.addDocument(Bee.Widget.getDomHelper().getDocument());
    }
-   else if (Bee.utils.isArray(opt_domHelper))
+   else if (Bee.Utils.isArray(opt_domHelper))
    {
       for (var i = 0; i < opt_domHelper.length; i++)
       {
@@ -107,7 +107,7 @@ Bee.ActivityMonitor = function (opt_domHelper, opt_useBubble)
     * @type {number}
     * @private
     */
-   this._lastEventTime = Bee.utils.now();
+   this._lastEventTime = Bee.Utils.now();
 
 };
 Bee.inherits(Bee.ActivityMonitor, Bee.events.EventTarget);
@@ -286,7 +286,7 @@ Bee.ActivityMonitor.prototype.handleEvent_ = function (e)
    if (update)
    {
       var type = Bee.asserts.assertString(e.type);
-      this.updateIdleTime(Bee.utils.now(), type);
+      this.updateIdleTime(Bee.Utils.now(), type);
    }
 };
 
@@ -296,7 +296,7 @@ Bee.ActivityMonitor.prototype.handleEvent_ = function (e)
  */
 Bee.ActivityMonitor.prototype.resetTimer = function ()
 {
-   this.updateIdleTime(Bee.utils.now(), 'manual');
+   this.updateIdleTime(Bee.Utils.now(), 'manual');
 };
 
 /**
@@ -329,7 +329,7 @@ Bee.ActivityMonitor.prototype.updateIdleTime = function (eventTime, eventType)
  */
 Bee.ActivityMonitor.prototype.getIdleTime = function (opt_now)
 {
-   var now = opt_now || Bee.utils.now();
+   var now = opt_now || Bee.Utils.now();
    return now - this._lastEventTime;
 };
 

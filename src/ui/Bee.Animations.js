@@ -5,11 +5,7 @@
  * <bargestd@gmail.com>
  * <bumble.bee@bargestd.com>
  *
- * @licence Licensed under the Barge Studios Eula
- *  you may not use this file except in compliance with the License.
- *
- * You may obtain a copy of the License at
- *     http://www.bargestudios.com/bumblebee/licence
+ * @licence MIT
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS-IS" BASIS,
@@ -24,7 +20,7 @@
  *   <-(____)->
  *    \      /
  * @fileOverview a map of animations objects for use in
- * {@link Barge.Dom.animate} styles param
+ * {@link Barge.Widget.animate} styles param
  * and methods for simpler animations
  * All of these depend on Velocity.js animation engine
  *

@@ -9,4 +9,4 @@ document.getElementById('demo_now').innerHTML = new Bee.TimeElapsed().format(new
 document.getElementById('demo_20160907').innerHTML = new Bee.TimeElapsed(null, 'zh_CN').format('2016-09-07');
 document.getElementById('demo_timestamp').innerHTML = new Bee.TimeElapsed().format(1473245023718);
 
-//Bee.utils.forEach();
+//Bee.Utils.forEach();

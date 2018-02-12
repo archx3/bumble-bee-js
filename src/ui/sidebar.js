@@ -26,7 +26,7 @@ var Barge = Bee || {};
 			if (element.style.display === "block")
 			{
 				element.style.display = "none";
-				Bee.utils.css(element.previousElementSibling, {
+				Bee.Utils.css(element.previousElementSibling, {
 					backgroundColor : ''
 				});
 
@@ -35,7 +35,7 @@ var Barge = Bee || {};
 				 elChil = element.previousElementSibling.children;
 				 Bee.Array.forEach(elChil, function (node)
 				 {
-				 Bee.utils.css(node,{ color : '' });
+				 Bee.Utils.css(node,{ color : '' });
 				 })
 				 }*/
 
@@ -48,7 +48,7 @@ var Barge = Bee || {};
 			else
 			{
 				// console.log("else part called");
-				Bee.utils.css(element.previousElementSibling, { backgroundColor : 'var(--menuItemHoverColor)' });
+				Bee.Utils.css(element.previousElementSibling, { backgroundColor : 'var(--menuItemHoverColor)' });
 				element.style.display = "block";
 
 				/*if(element.previousElementSibling.children)
@@ -56,7 +56,7 @@ var Barge = Bee || {};
 				 elChil = element.previousElementSibling.children;
 				 Bee.Array.forEach(elChil, function (node)
 				 {
-				 Bee.utils.css(node,{ color : 'var(--useInfoTextColor)' });
+				 Bee.Utils.css(node,{ color : 'var(--useInfoTextColor)' });
 				 })
 				 }*/
 				if (user)
@@ -65,7 +65,7 @@ var Barge = Bee || {};
 				}
 			}
 
-			if (Bee.utils.defined(Ps))
+			if (Bee.Utils.defined(Ps))
 			{
 				Ps.update(sb);
 				Ps.update(sb2);
@@ -85,13 +85,13 @@ var Barge = Bee || {};
 			if (user)
 			{
 				localStorage.setItem(user + "lastVisibleTooBox", "full");
-				//Bee.utils.setCookie(user + "lastVisibleTooBox", "full", 365*2);
+				//Bee.Utils.setCookie(user + "lastVisibleTooBox", "full", 365*2);
 			}
 
 			if (sb2.style.display == "block")
 			{
 				//tc.setAttribute("style", ' transition: all .4s');
-				Bee.utils.swapElsDisplay(sb, sb2);
+				Bee.Utils.swapElsDisplay(sb, sb2);
 				sb.setAttribute("style", "animation: grow 0.4s forwards;");
 				tc.setAttribute("style", 'width: calc(100% - 250px); margin-left: 250px;transition: all .4s');
 				if (tcRow[0] != undefined && tcRow[1] != undefined)
@@ -111,7 +111,7 @@ var Barge = Bee || {};
 				// return false;
 			}
 
-			if (Bee.utils.defined(Ps))
+			if (Bee.Utils.defined(Ps))
 			{
 				Ps.update(sb);
 			}
@@ -126,13 +126,13 @@ var Barge = Bee || {};
 			if (user)
 			{
 				localStorage.setItem(user + "lastVisibleTooBox", "mini");
-				//Bee.utils.setCookie(user + "lastVisibleTooBox", "mini", 365*2);
+				//Bee.Utils.setCookie(user + "lastVisibleTooBox", "mini", 365*2);
 			}
 			sb.style.animation = "none";
 
 			if (sb.style.display != "block")
 			{
-				Bee.utils.swapElsDisplay(sb, sb2);
+				Bee.Utils.swapElsDisplay(sb, sb2);
 				//tc.style.marginLeft = 100 + "px";transition: all .4s
 
 				/*if(justLoaded)
@@ -158,7 +158,7 @@ var Barge = Bee || {};
 			}
 			else
 			{
-				Bee.utils.swapElsDisplay(sb, sb2);
+				Bee.Utils.swapElsDisplay(sb, sb2);
 				tc.style.marginLeft = 100 + "px";
 				tc.setAttribute("style", 'width: calc(100% - 40px); margin-left: 40px;');
 				if (tcRow)
@@ -168,7 +168,7 @@ var Barge = Bee || {};
 				// return false;
 			}
 
-			if (Bee.utils.defined(Ps))
+			if (Bee.Utils.defined(Ps))
 			{
 				Ps.update(sb2);
 			}

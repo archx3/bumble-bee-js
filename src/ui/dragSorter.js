@@ -1544,12 +1544,12 @@
             };
          }
 
-         // Export utils
+         // Export Utils
          /**
           *
-          * @type {{on: *, off: *, css: _css, find: _find, is: DragSorter.utils.is, extend: Bee.utils.extend, throttle: _throttle, closest: _closest, toggleClass: _toggleClass, clone: Bee.Dom.cloneNode, index: Bee.Dom.index}}
+          * @type {{on: *, off: *, css: _css, find: _find, is: DragSorter.utils.is, extend: Bee.Utils.extend, throttle: _throttle, closest: _closest, toggleClass: _toggleClass, clone: Bee.Widget.cloneNode, index: Bee.Dom.index}}
           */
-         DragSorter.utils = {
+         DragSorter.Utils = {
             on          : Be.bind,
             off         : Be.unbind,
             css         : _css,
@@ -1580,4 +1580,4 @@
          DragSorter.version = '1.5.0-rc1';
          return DragSorter;
       });
-})(Bee.utils, Bee.Dom);
+})(Bee.Utils, Bee.Widget);

@@ -50,10 +50,10 @@ Commit messages should follow the [commit message convention](./COMMIT_CONVENTIO
 ### Commonly used NPM scripts
 
 ``` bash
-# watch and auto re-build dist/vue.js
+# watch and auto re-build dist/*
 $ npm run dev
 
-# watch and auto re-run unit tests in Chrome
+# watch and auto re-run unit tests in Firefox
 $ npm run dev:test
 
 # build all dist files, including npm packages

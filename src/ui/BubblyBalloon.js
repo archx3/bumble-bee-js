@@ -53,11 +53,11 @@
    "use strict";
 
    //region protected globals
-   let Bu = Bee.utils,
+   let Bu = Bee.Utils,
        Ba = Bee.Array,
        Bo = Bee.Object,
        Bs = Bee.String,
-       Bd = Bee.Dom;
+       Bd = Bee.Widget;
 
    let Be = new Bee.Event.EventManager();
    //endregion

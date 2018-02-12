@@ -301,7 +301,7 @@ Bee.events.EventTarget.prototype.getListener = function (type, listener, capture
 /** @override */
 Bee.events.EventTarget.prototype.hasListener = function (opt_type, opt_capture)
 {
-   var id = Bee.utils.defined(opt_type) ? String(opt_type) : undefined;
+   var id = Bee.Utils.defined(opt_type) ? String(opt_type) : undefined;
    return this.eventTargetListeners_.hasListener(id, opt_capture);
 };
 
@@ -345,7 +345,7 @@ Bee.events.EventTarget.dispatchEventInternal_ = function (target, e, opt_ancesto
 
    // If accepting a string or object, create a custom event object so that
    // preventDefault and stopPropagation work with the event.
-   if (Bee.utils.isString(e))
+   if (Bee.Utils.isString(e))
    {
       e = new Bee.events.Event(e, target);
    }

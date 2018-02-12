@@ -25,7 +25,7 @@
  *    \      /
  * @fileOverview constructor and associated methods for creating and managing
  * a tabbed view
- * @requires {@link Barge.utils, @link  Barge.String, @link  Barge.Object, @link  Barge.Dom<*>, @link Barge.Timer}
+ * @requires {@link Barge.Utils, @link  Barge.String, @link  Barge.Object, @link  Barge.Widget< @link Barge.Timer}
  *
  *
  * @user msg: Some lines in this file use constructs from es6 or later
@@ -168,7 +168,7 @@ var Barge = Bee || {};
 (function (Bu)
 {
 
-})(Bee.utils);
+})(Bee.Utils);
 
 
 

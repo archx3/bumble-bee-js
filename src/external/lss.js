@@ -775,7 +775,7 @@ var List = (function (modules)
                self.searchColumns = undefined;
                self.handlers = { 'updated' : [] };
                self.valueNames = [];
-               self.utils = {
+               self.Utils = {
                   getByClass   : getByClass,
                   extend       : extend,
                   indexOf      : indexOf,
@@ -787,7 +787,7 @@ var List = (function (modules)
                   toArray      : toArray
                };
 
-               self.utils.extend(self, options);
+               self.Utils.extend(self, options);
 
                self.listContainer = (typeof(id) === 'string') ? document.getElementById(id) : id;
                if (!self.listContainer)
@@ -1286,7 +1286,7 @@ var List = (function (modules)
             },
             setSearchString : function (s)
             {
-               s = list.utils.toString(s).toLowerCase();
+               s = list.Utils.toString(s).toLowerCase();
                s = s.replace(/[-[\]{}()*+?.,\\^$|#]/g, "\\$&"); // Escape regular expression characters
                searchString = s;
             },
@@ -1324,7 +1324,7 @@ var List = (function (modules)
             {
                if (values.hasOwnProperty(column))
                {
-                  text = list.utils.toString(values[column]).toLowerCase();
+                  text = list.Utils.toString(values[column]).toLowerCase();
                   if ((searchString !== "") && (text.search(searchString) > -1))
                   {
                      return true;
@@ -1373,7 +1373,7 @@ var List = (function (modules)
          list.handlers.searchStart = list.handlers.searchStart || [];
          list.handlers.searchComplete = list.handlers.searchComplete || [];
 
-         list.utils.events.bind(list.utils.getByClass(list.listContainer, list.searchClass), 'keyup', function (e)
+         list.Utils.events.bind(list.Utils.getByClass(list.listContainer, list.searchClass), 'keyup', function (e)
          {
             var target         = e.target || e.srcElement, // IE have srcElement
                 alreadyCleared = (target.value === "" && !list.searched);
@@ -1384,7 +1384,7 @@ var List = (function (modules)
          });
 
          // Used to detect click on HTML5 clear button
-         list.utils.events.bind(list.utils.getByClass(list.listContainer, list.searchClass), 'input', function (e)
+         list.Utils.events.bind(list.Utils.getByClass(list.listContainer, list.searchClass), 'input', function (e)
          {
             var target = e.target || e.srcElement;
             if (target.value === "")
@@ -1411,22 +1411,22 @@ var List = (function (modules)
             {
                for (var i = 0, il = buttons.els.length; i < il; i++)
                {
-                  list.utils.classes(buttons.els[i]).remove('asc');
-                  list.utils.classes(buttons.els[i]).remove('desc');
+                  list.Utils.classes(buttons.els[i]).remove('asc');
+                  list.Utils.classes(buttons.els[i]).remove('desc');
                }
             },
             getOrder       : function (btn)
             {
-               var predefinedOrder = list.utils.getAttribute(btn, 'data-order');
+               var predefinedOrder = list.Utils.getAttribute(btn, 'data-order');
                if (predefinedOrder == "asc" || predefinedOrder == "desc")
                {
                   return predefinedOrder;
                }
-               else if (list.utils.classes(btn).has('desc'))
+               else if (list.Utils.classes(btn).has('desc'))
                {
                   return "asc";
                }
-               else if (list.utils.classes(btn).has('asc'))
+               else if (list.Utils.classes(btn).has('asc'))
                {
                   return "desc";
                }
@@ -1437,7 +1437,7 @@ var List = (function (modules)
             },
             getInSensitive : function (btn, options)
             {
-               var insensitive = list.utils.getAttribute(btn, 'data-insensitive');
+               var insensitive = list.Utils.getAttribute(btn, 'data-insensitive');
                if (insensitive === "false")
                {
                   options.insensitive = false;
@@ -1452,21 +1452,21 @@ var List = (function (modules)
                for (var i = 0, il = buttons.els.length; i < il; i++)
                {
                   var btn = buttons.els[i];
-                  if (list.utils.getAttribute(btn, 'data-sort') !== options.valueName)
+                  if (list.Utils.getAttribute(btn, 'data-sort') !== options.valueName)
                   {
                      continue;
                   }
-                  var predefinedOrder = list.utils.getAttribute(btn, 'data-order');
+                  var predefinedOrder = list.Utils.getAttribute(btn, 'data-order');
                   if (predefinedOrder == "asc" || predefinedOrder == "desc")
                   {
                      if (predefinedOrder == options.order)
                      {
-                        list.utils.classes(btn).add(options.order);
+                        list.Utils.classes(btn).add(options.order);
                      }
                   }
                   else
                   {
-                     list.utils.classes(btn).add(options.order);
+                     list.Utils.classes(btn).add(options.order);
                   }
                }
             }
@@ -1481,7 +1481,7 @@ var List = (function (modules)
 
             if (target)
             {
-               options.valueName = list.utils.getAttribute(target, 'data-sort');
+               options.valueName = list.Utils.getAttribute(target, 'data-sort');
                buttons.getInSensitive(target, options);
                options.order = buttons.getOrder(target);
             }
@@ -1513,11 +1513,11 @@ var List = (function (modules)
             {
                sortFunction = function (itemA, itemB)
                {
-                  var sort = list.utils.naturalSort;
+                  var sort = list.Utils.naturalSort;
                   sort.alphabet = list.alphabet || options.alphabet || undefined;
                   if (!sort.alphabet && options.insensitive)
                   {
-                     sort = list.utils.naturalSort.caseInsensitive;
+                     sort = list.Utils.naturalSort.caseInsensitive;
                   }
                   return sort(itemA.values()[options.valueName], itemB.values()[options.valueName]) * multi;
                };
@@ -1532,8 +1532,8 @@ var List = (function (modules)
          list.handlers.sortStart = list.handlers.sortStart || [];
          list.handlers.sortComplete = list.handlers.sortComplete || [];
 
-         buttons.els = list.utils.getByClass(list.listContainer, list.sortClass);
-         list.utils.events.bind(buttons.els, 'click', sort);
+         buttons.els = list.Utils.getByClass(list.listContainer, list.sortClass);
+         list.Utils.events.bind(buttons.els, 'click', sort);
          list.on('searchStart', buttons.clear);
          list.on('filterStart', buttons.clear);
 
@@ -1574,7 +1574,7 @@ var List = (function (modules)
                }
                else if (valueNames[i].attr && valueNames[i].name)
                {
-                  elm = list.utils.getByClass(el, valueNames[i].name, true);
+                  elm = list.Utils.getByClass(el, valueNames[i].name, true);
                   if (elm)
                   {
                      elm.setAttribute(valueNames[i].attr, "");
@@ -1582,7 +1582,7 @@ var List = (function (modules)
                }
                else
                {
-                  elm = list.utils.getByClass(el, valueNames[i], true);
+                  elm = list.Utils.getByClass(el, valueNames[i], true);
                   if (elm)
                   {
                      elm.innerHTML = "";
@@ -1643,17 +1643,17 @@ var List = (function (modules)
                {
                   for (var j = 0, jl = valueNames[i].data.length; j < jl; j++)
                   {
-                     values[valueNames[i].data[j]] = list.utils.getAttribute(item.elm, 'data-' + valueNames[i].data[j]);
+                     values[valueNames[i].data[j]] = list.Utils.getAttribute(item.elm, 'data-' + valueNames[i].data[j]);
                   }
                }
                else if (valueNames[i].attr && valueNames[i].name)
                {
-                  elm = list.utils.getByClass(item.elm, valueNames[i].name, true);
-                  values[valueNames[i].name] = elm ? list.utils.getAttribute(elm, valueNames[i].attr) : "";
+                  elm = list.Utils.getByClass(item.elm, valueNames[i].name, true);
+                  values[valueNames[i].name] = elm ? list.Utils.getAttribute(elm, valueNames[i].attr) : "";
                }
                else
                {
-                  elm = list.utils.getByClass(item.elm, valueNames[i], true);
+                  elm = list.Utils.getByClass(item.elm, valueNames[i], true);
                   values[valueNames[i]] = elm ? elm.innerHTML : "";
                }
                elm = undefined;
@@ -1702,7 +1702,7 @@ var List = (function (modules)
                }
                else if (valueName.attr && valueName.name)
                {
-                  elm = list.utils.getByClass(item.elm, valueName.name, true);
+                  elm = list.Utils.getByClass(item.elm, valueName.name, true);
                   if (elm)
                   {
                      elm.setAttribute(valueName.attr, value);
@@ -1710,7 +1710,7 @@ var List = (function (modules)
                }
                else
                {
-                  elm = list.utils.getByClass(item.elm, valueName, true);
+                  elm = list.Utils.getByClass(item.elm, valueName, true);
                   if (elm)
                   {
                      elm.innerHTML = value;

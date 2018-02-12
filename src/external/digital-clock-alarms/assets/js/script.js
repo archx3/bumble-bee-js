@@ -2,11 +2,11 @@
 {
 
    // Cache some selectors
-   let Bu = Bee.utils,
+   let Bu = Bee.Utils,
        Ba = Bee.Array,
        Bs = Bee.String,
        Bm = Bee.Math,
-       Bd = Bee.Dom;
+       Bd = Bee.Widget;
 
    var clock       = Bd.getEl('#clock'),
        alarm       = clock.querySelector('.alarm'),

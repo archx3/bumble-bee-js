@@ -64,7 +64,7 @@
 
 <script>
 //    include(['core/Bee.Utils', 'core/Bee.Array', 'core/Bee.String',
-//             'core/Bee.Object', 'Bee.UserAgent.js', 'core/Bee.Dom', 'core/Bee.Events',
+//             'core/Bee.Object', 'Bee.UserAgent.js', 'core/Bee.Widget', 'core/Bee.Events',
 //             'core/Bee.Animations',  'external/velocity']);
 </script>
 
@@ -75,19 +75,19 @@
 
 
 //        console.log(e);
-        var el1 = Bee.utils.gebi("el1");
-        var el2 = Bee.utils.gebi("el2");
-        var el3 = Bee.utils.gebi("el3");
+        var el1 = Bee.Utils.gebi("el1");
+        var el2 = Bee.Utils.gebi("el2");
+        var el3 = Bee.Utils.gebi("el3");
 
-        var b = Bee.Dom;
+        var b = Bee.Widget;
 
         elsArr = [el2, el3];
         elsArr2 = [el1, el2, el3];
 
-//    Bee.Dom.centerToPage(elsArr2);
+//    Bee.Widget.centerToPage(elsArr2);
         b.alignLeft(el1, elsArr);
         b.anchorBottom(el1, elsArr);
-//    Bee.Dom.alignCentersHorizontally(el1, elsArr);
+//    Bee.Widget.alignCentersHorizontally(el1, elsArr);
 
 //    console.log(el1);
 //

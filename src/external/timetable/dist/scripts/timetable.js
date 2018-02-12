@@ -6,7 +6,7 @@
  *
  * @constructor
  */
-let Bu = Bee.utils,
+let Bu = Bee.Utils,
 Ba = Bee.Array,
     Bo = Bee.Object;
 

@@ -1278,7 +1278,7 @@ var Barge = Bee || {};
 
       });
    }
-})(Bee.utils, Bee.String, Bee.Dom);
+})(Bee.Utils, Bee.String, Bee.Widget);
 
 /*
  * TODO ADD support for adjusting surrounding els

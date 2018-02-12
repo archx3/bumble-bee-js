@@ -71,8 +71,8 @@
    "use strict";
 
    //region protected globals
-   let Bu   = Bee.utils,
-       Bd   = Bee.Dom,
+   let Bu   = Bee.Utils,
+       Bd   = Bee.Widget,
        args = {
           // format: true,
           // minTime: '2:00 am',

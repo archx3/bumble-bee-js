@@ -1800,7 +1800,7 @@ function _stopSpin()
    window.RenderCssCal = RenderCssCal;
 
    //}
-})(Bee.utils, Bee.Dom, Bee.Event);
+})(Bee.Utils, Bee.Widget, Bee.Event);
 
 /**
  * TODO externalise css

@@ -686,22 +686,22 @@
 </div>
 
 
-<script src="../../src/core/base/Barge.Utils.js"></script>
-<script src="../../src/core/base/Barge.Array.js"></script>
-<script src="../../src/core/base/Barge.String.js"></script>
-<script src="../../src/core/base/Barge.Math.js"></script>
+<script src="../../src/core/base/Bee.Utils.js"></script>
+<script src="../../src/core/base/Bee.Array.js"></script>
+<script src="../../src/core/base/Bee.String.js"></script>
+<script src="../../src/core/base/Bee.Math.js"></script>
 
-<script src="../../src/ui/Barge.DomCore.js"></script>
-<script src="../../src/ui/Barge.Events.js"></script>
-<script src="../../src/ui/Barge.Dom.TableSorter.js"></script>
-<script src="../../src/ui/Barge.Input.js"></script>
-<script src="../../src/ui/Barge.Dom.Table.js"></script>
+<script src="../../src/ui/Bee.Dom.js"></script>
+<script src="../../src/ui/Bee.Events.js"></script>
+<script src="../../src/ui/widgets/Bee.Widget.TableSorter.js"></script>
+<script src="../../src/ui/widgets/Bee.Widget.Input.js"></script>
+<script src="../../src/ui/widgets/Bee.Widget.Table.js"></script>
 
 <script>
-   var tb = new Bee.Dom.Table(Bee.Dom.getEl("#tb"),
-                              {
+   var tb = new Bee.Widget.Table(Bee.Widget.getEl("#tb"),
+                                 {
                                    stickOnScroll       : true,
-                                   scrollableContainer : Bee.Dom.getEl(".scroll"),
+                                   scrollableContainer : Bee.Widget.getEl(".scroll"),
                                    hasCheckboxes : true,
                                    stickyHead : false
                                 });
@@ -709,18 +709,18 @@
    let Be = new Bee.Event.EventManager();
 
 
-   var checkboxes    = Bee.Dom.getEl(".checkBx", true),
-       fatherCheckBx = Bee.Dom.getEl(".fatherCheckBx"),
-       showOrHideCols = Bee.Dom.getEl(".showOrHideCol", true);
+   var checkboxes    = Bee.Widget.getEl(".checkBx", true),
+       fatherCheckBx = Bee.Widget.getEl(".fatherCheckBx"),
+       showOrHideCols = Bee.Widget.getEl(".showOrHideCol", true);
 
 //   function highlight(tr)
 //   {
-//      Bee.Dom.css(tr, {transition: "background-color .6s", backgroundColor : "#eee399"})
+//      Bee.Widget.css(tr, {transition: "background-color .6s", backgroundColor : "#eee399"})
 //   }
 //
 //   function unHighlight(tr)
 //   {
-//      Bee.Dom.css(tr, {backgroundColor : "", transition: ""})
+//      Bee.Widget.css(tr, {backgroundColor : "", transition: ""})
 //   }
 //
 //   fatherCheckBx.addEventListener("click", function (e)
@@ -728,14 +728,14 @@
 //      let checked = this.checked,
 //      trs = tb.getRows();
 //
-//      Bee.utils.forEach(checkboxes, function (checkBox)
+//      Bee.Utils.forEach(checkboxes, function (checkBox)
 //      {
 //         checkBox.checked = checked;
 //      });
 //
 //      if (checked)
 //      {
-//         Bee.utils.forEach(trs, function (checkBox)
+//         Bee.Utils.forEach(trs, function (checkBox)
 //         {
 //            highlight(checkBox);
 ////            checkBox.style.backgroundColor = "#eee399";
@@ -743,27 +743,27 @@
 //      }
 //      else
 //      {
-//         Bee.utils.forEach(trs, function (checkBox)
+//         Bee.Utils.forEach(trs, function (checkBox)
 //         {
 //            unHighlight(checkBox);
 ////            checkBox.style.backgroundColor = "";
 //         });
 //      }
 //
-//      if (checked && Bee.Dom.hasClass(this, "someChecked"))
+//      if (checked && Bee.Widget.hasClass(this, "someChecked"))
 //      {
-//         Bee.Dom.addClass(this, "allChecked");
-//         Bee.Dom.removeClass(this, ["someChecked", "noneChecked"]);
+//         Bee.Widget.addClass(this, "allChecked");
+//         Bee.Widget.removeClass(this, ["someChecked", "noneChecked"]);
 //      }
-//      else if (checked && Bee.Dom.hasClass(this, "noneChecked"))
+//      else if (checked && Bee.Widget.hasClass(this, "noneChecked"))
 //      {
-//         Bee.Dom.addClass(this, "allChecked");
-//         Bee.Dom.removeClass(this, ["someChecked", "noneChecked"]);
+//         Bee.Widget.addClass(this, "allChecked");
+//         Bee.Widget.removeClass(this, ["someChecked", "noneChecked"]);
 //      }
-//      else if (!checked && Bee.Dom.hasClass(this, "someChecked"))
+//      else if (!checked && Bee.Widget.hasClass(this, "someChecked"))
 //      {
-//         Bee.Dom.addClass(this, "noneChecked");
-//         Bee.Dom.removeClass(this, ["someChecked", "allChecked"]);
+//         Bee.Widget.addClass(this, "noneChecked");
+//         Bee.Widget.removeClass(this, ["someChecked", "allChecked"]);
 //      }
 //
 //      trs = checked = null;
@@ -810,13 +810,13 @@
 //
 //      if (allChecked)
 //      {
-//         Bee.Dom.removeClass(fatherCheckBx, ["someChecked", "noneChecked"]);
-//         Bee.Dom.addClass(fatherCheckBx, "allChecked");
+//         Bee.Widget.removeClass(fatherCheckBx, ["someChecked", "noneChecked"]);
+//         Bee.Widget.addClass(fatherCheckBx, "allChecked");
 //      }
 //      else if (someChecked)
 //      {
-//         Bee.Dom.addClass(fatherCheckBx, "someChecked");
-//         Bee.Dom.removeClass(fatherCheckBx, ["allChecked", "noneChecked"]);
+//         Bee.Widget.addClass(fatherCheckBx, "someChecked");
+//         Bee.Widget.removeClass(fatherCheckBx, ["allChecked", "noneChecked"]);
 //
 //         if (fatherCheckBx.checked === false)
 //         {
@@ -825,8 +825,8 @@
 //      }
 //      else if (noneChecked)
 //      {
-//         Bee.Dom.removeClass(fatherCheckBx, ["someChecked", "allChecked"]);
-//         Bee.Dom.addClass(fatherCheckBx, "noneChecked");
+//         Bee.Widget.removeClass(fatherCheckBx, ["someChecked", "allChecked"]);
+//         Bee.Widget.addClass(fatherCheckBx, "noneChecked");
 //
 //         if (fatherCheckBx.checked === true)
 //         {
@@ -841,11 +841,11 @@
 
       if(checked)
       {
-         tb.openCol(Bee.utils.pInt(this.value))
+         tb.openCol(Bee.Utils.pInt(this.value))
       }
       else
       {
-         tb.closeCol(Bee.utils.pInt(this.value))
+         tb.closeCol(Bee.Utils.pInt(this.value))
       }
    });
 

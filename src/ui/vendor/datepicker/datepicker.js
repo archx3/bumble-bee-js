@@ -31,11 +31,11 @@
  * made monday the first day to appear
  * Enhanced to support calender changing while mouse is help down (this speeds up over time)
  *
- * @requires Barge.utils
+ * @requires Barge.Utils
  * @requires Barge.String
  * @requires Barge.Array
  * @requires Barge.Object
- * @requires Barge.Dom
+ * @requires Barge.Widget
  *
  *
  * @user MSG: Some lines in this file use constructs from es6 or later
@@ -62,8 +62,8 @@
    }
 })(this, function ()
 {/*region*/
-   let Bu = Bee.utils,
-       Bd = Bee.Dom;
+   let Bu = Bee.Utils,
+       Bd = Bee.Widget;
    /*endregion*/
    return (function (modules)
    { // webpackBootstrap
@@ -1651,7 +1651,7 @@
 
           function Dom()
           {
-             _classCallCheck(this, Dom);
+             _classCallCheck(this, Widget);
 
              this.input = null;
              this.root = null;
@@ -1666,7 +1666,7 @@
 
              Object.seal(this);
           }
-          exports.default = Dom;
+          exports.default = Widget;
 
        },
        /* 10 */

@@ -461,7 +461,7 @@
    /* Globalize Velocity onto the window, and assign its Utilities property. */
 
    window.Velocity = { Utilities : $ };
-})(window, Bee.utils);
+})(window, Bee.Utils);
 /******************
  Velocity.js
  ******************/

@@ -2,10 +2,10 @@
  * Created by arch on 1/4/17.
  */
 /* perfect-scrollbar v0.6.10 */
-var Bu = Bee.utils;
+var Bu = Bee.Utils;
 var Ba = Bee.Array;
 var Bo = Bee.Object;
-var Bd = Bee.Dom;
+var Bd = Bee.Widget;
 
 (function e(t, n, r)
 {

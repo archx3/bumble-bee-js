@@ -42,7 +42,7 @@
        var url = link +'?activePane=' + qStr || '';
        request.onreadystatechange = function()
        {
-          if(request.readyState === 4  && request.status == 200)
+          if(request.readyState === 4  && request.status === 200)
           {
           // console.log('?activePane=' + qStr);
           // console.log(url);
@@ -60,7 +60,7 @@
       {
          treeViewNodes[i].addEventListener("click", function(event)
          {
-            var nextPane = Bee.utils.gebi(this.getAttribute("data-pane").toString()),
+            var nextPane = Bee.Utils.gebi(this.getAttribute("data-pane").toString()),
                 link = this.getAttribute("data-href"),
                 activePane = document.querySelector(".activePane");
 
@@ -111,8 +111,8 @@
 
                   Bu.removeClass(paneHeading, 'pane');
                }
-               // console.log(Bee.Dom.getInnerText(this), this.innerText);
-               // console.log(Bee.Dom.getInnerText(this), this.innerHTML);
+               // console.log(Bee.Widget.getInnerText(this), this.innerText);
+               // console.log(Bee.Widget.getInnerText(this), this.innerHTML);
             }
             // event.stopPropagation();
          });
@@ -160,7 +160,7 @@
 
    // Bee.CollapsibleLists.toggleCollapseAll()
 
-})(Bee.utils, Bee.String, Bee.Dom);
+})(Bee.Utils, Bee.String, Bee.Widget);
 
 /*TODO make tree stateful by keeping open list in local storage and the opening all previously open list on-load
 * TODO make sure parent opens

@@ -46,7 +46,7 @@ var Barge = Bee || {};
 }(typeof window !== 'undefined' ? window : this,
   function ()
   {
-     let Bu = Bee.utils;
+     let Bu = Bee.Utils;
      var indexMapEn    = 'second_minute_hour_day_week_month_year'.split('_'),
          indexMapZh    = '秒_分钟_小时_天_周_月_年'.split('_'),
          // build-in locales: en & zh_CN

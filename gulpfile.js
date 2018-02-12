@@ -1,7 +1,8 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
+var closureCompiler = require('gulp-closure-compiler');
 
-gulp.task('pack-js', function () {
+gulp.task('concat-base-js', function () {
    return gulp.src(['src/core/base/Bee.Utils.js',
                     'src/core/base/Bee.Observable.js',
                     'src/core/base/Bee.Array.js',
@@ -11,12 +12,17 @@ gulp.task('pack-js', function () {
                     'src/core/base/Bee.Timer.js'/*, 'assets/src/module*.src'*/])
               .pipe(concat('base.js'))
               .pipe(gulp.dest('build'));
+
 });
 
-//gulp.task('pack-css', function () {
-//   return gulp.src(['assets/css/main.css', 'assets/css/custom.css'])
-//              .pipe(concat('stylesheet.css'))
-//              .pipe(gulp.dest('public/build/css'));
-//});
+gulp.task('minify-base-js', function () {
+   return gulp.src(['build/base.js'])
+              .pipe(closureCompiler({
+                                       compilerPath: '/home/arch/Downloads/Apps/closure-compiler-v20170626.jar',
+                                       fileName: 'base.min.js'
+                                    }))
+              .pipe(gulp.dest('dist'));
 
-gulp.task('default', ['pack-js'/*, 'pack-css'*/]);
+});
+
+gulp.task('default', ['concat-js'/*, 'pack-css'*/]);

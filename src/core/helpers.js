@@ -104,7 +104,7 @@ function consolidateTiles(tileRows)
       {
          console.log("true");
          tempRow = tileRows[0].children[0];
-         Bee.utils.removeEl(tileRows[0].children[0]);
+         Bee.Utils.removeEl(tileRows[0].children[0]);
          tileRows[0].insertBefore(tileRows[1].children[0], tileRows[0].children[0]);
          tileRows[1].insertBefore(tempRow, tileRows[1].children[0]);
          tempRow = null;
@@ -196,7 +196,7 @@ function fileUploadButtonManager(surrogateButton,fileInputEl,fileNameEl,progress
       var pTimer;
       if(progressBarEl && fileNameEl)
       {
-         if (Bee.utils.getDisplayState(progressBarEl) === 0)
+         if (Bee.Utils.getDisplayState(progressBarEl) === 0)
          {
             progressBarEl.style.display = "block";
             pTimer = window.setInterval(function ()

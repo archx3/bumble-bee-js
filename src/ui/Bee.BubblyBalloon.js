@@ -592,7 +592,7 @@ var Bee = Bee || {};
 
    window.TWB = Bee.BubblyBalloon.toolWindowBalloon;
    //window.BB = Bee.BubblyBalloon.ligtoolWindowBalloon;
-})(Bee.utils, Bee.Dom);
+})(Bee.Utils, Bee.Widget);
 
 /*TODO : Add Icon support for more informativeness
  * TODO : Add Link or action button and handler control support*/
