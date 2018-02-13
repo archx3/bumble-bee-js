@@ -25,22 +25,22 @@
  * user changes states, then you should use the IdleTimer class instead.
  *
  */
-var Barge = Barge || {};
+var Barge = Bee || {};
 
-// Barge.provide('Barge.ActivityMonitor');
+// Bee.provide('Bee.ActivityMonitor');
 //
-// Barge.require('Barge.array');
-// Barge.require('Barge.asserts');
-// Barge.require('Barge.dom');
-// Barge.require('Barge.events.EventHandler');
-// Barge.require('Barge.events.EventTarget');
-// Barge.require('Barge.events.EventType');
+// Bee.require('Bee.array');
+// Bee.require('Bee.asserts');
+// Bee.require('Bee.dom');
+// Bee.require('Bee.events.EventHandler');
+// Bee.require('Bee.events.EventTarget');
+// Bee.require('Bee.events.EventType');
 
 /**
  * Once initialized with a document, the activity monitor can be queried for
  * the current idle time.
  *
- * @param {Barge.Dom.DomHelper|Array<Barge.Dom.DomHelper>=} opt_domHelper
+ * @param {Barge.Widget.DomHelper|Array<Barge.Dom.DomHelper>=} opt_domHelper
  *     DomHelper which contains the document(s) to listen to.  If null, the
  *     default document is usedinstead.
  * @param {boolean=} opt_useBubble Whether to use the bubble phase to listen for
@@ -53,9 +53,9 @@ var Barge = Barge || {};
  * @extends {Barge.events.EventTarget}
  */
 
-Barge.ActivityMonitor = function (opt_domHelper, opt_useBubble)
+Bee.ActivityMonitor = function (opt_domHelper, opt_useBubble)
 {
-   Barge.events.EventTarget.call(this);
+   Bee.events.EventTarget.call(this);
 
    /**
     * Array of documents that are being listened to.
@@ -76,11 +76,11 @@ Barge.ActivityMonitor = function (opt_domHelper, opt_useBubble)
     * @type {Barge.events.EventHandler<!Barge.ActivityMonitor>}
     * @private
     */
-   this.eventHandler_ = new Barge.events.EventHandler(this);
+   this.eventHandler_ = new Bee.events.EventHandler(this);
 
    /**
     * Whether the current window is an iframe.
-    * TODO(user): Move to Barge.dom.
+    * TODO(user): Move to Bee.dom.
     * @type {boolean}
     * @private
     */
@@ -88,9 +88,9 @@ Barge.ActivityMonitor = function (opt_domHelper, opt_useBubble)
 
    if (!opt_domHelper)
    {
-      this.addDocument(Barge.Dom.getDomHelper().getDocument());
+      this.addDocument(Bee.Widget.getDomHelper().getDocument());
    }
-   else if (Barge.utils.isArray(opt_domHelper))
+   else if (Bee.Utils.isArray(opt_domHelper))
    {
       for (var i = 0; i < opt_domHelper.length; i++)
       {
@@ -107,55 +107,55 @@ Barge.ActivityMonitor = function (opt_domHelper, opt_useBubble)
     * @type {number}
     * @private
     */
-   this._lastEventTime = Barge.utils.now();
+   this._lastEventTime = Bee.Utils.now();
 
 };
-Barge.inherits(Barge.ActivityMonitor, Barge.events.EventTarget);
-Barge.tagUnsealableClass(Barge.ActivityMonitor);
+Bee.inherits(Bee.ActivityMonitor, Bee.events.EventTarget);
+Bee.tagUnsealableClass(Bee.ActivityMonitor);
 
 /**
  * The last event type that was detected.
  * @type {string}
  * @private
  */
-Barge.ActivityMonitor.prototype._lastEventType = '';
+Bee.ActivityMonitor.prototype._lastEventType = '';
 
 /**
  * The mouse x-position after the last user event.
  * @type {number}
  * @private
  */
-Barge.ActivityMonitor.prototype._lastMouseX;
+Bee.ActivityMonitor.prototype._lastMouseX;
 
 /**
  * The mouse y-position after the last user event.
  * @type {number}
  * @private
  */
-Barge.ActivityMonitor.prototype._lastMouseY;
+Bee.ActivityMonitor.prototype._lastMouseY;
 
 /**
  * The earliest time that another throttled ACTIVITY event will be dispatched
  * @type {number}
  * @private
  */
-Barge.ActivityMonitor.prototype._minEventTime = 0;
+Bee.ActivityMonitor.prototype._minEventTime = 0;
 
 /**
  * Minimum amount of time in ms between throttled ACTIVITY events
  * @type {number}
  */
-Barge.ActivityMonitor.MIN_EVENT_SPACING = 3 * 1000;
+Bee.ActivityMonitor.MIN_EVENT_SPACING = 3 * 1000;
 
 /**
  * If a user executes one of these events, s/he is considered not idle.
  * @type {Array<Barge.events.EventType>}
  * @private
  */
-Barge.ActivityMonitor.userEventTypesBody_ = [
-   Barge.events.EventType.CLICK, Barge.events.EventType.DBLCLICK,
-   Barge.events.EventType.MOUSEDOWN, Barge.events.EventType.MOUSEMOVE,
-   Barge.events.EventType.MOUSEUP
+Bee.ActivityMonitor.userEventTypesBody_ = [
+   Bee.events.EventType.CLICK, Bee.events.EventType.DBLCLICK,
+   Bee.events.EventType.MOUSEDOWN, Bee.events.EventType.MOUSEMOVE,
+   Bee.events.EventType.MOUSEUP
 ];
 
 /**
@@ -164,9 +164,9 @@ Barge.ActivityMonitor.userEventTypesBody_ = [
  * @type {Array<Barge.events.EventType>}
  * @private
  */
-Barge.ActivityMonitor.userTouchEventTypesBody_ = [
-   Barge.events.EventType.TOUCHEND, Barge.events.EventType.TOUCHMOVE,
-   Barge.events.EventType.TOUCHSTART
+Bee.ActivityMonitor.userTouchEventTypesBody_ = [
+   Bee.events.EventType.TOUCHEND, Bee.events.EventType.TOUCHMOVE,
+   Bee.events.EventType.TOUCHSTART
 ];
 
 /**
@@ -174,22 +174,22 @@ Barge.ActivityMonitor.userTouchEventTypesBody_ = [
  * @type {Array<Barge.events.EventType>}
  * @private
  */
-Barge.ActivityMonitor.userEventTypesDocuments_ =
-   [Barge.events.EventType.KEYDOWN, Barge.events.EventType.KEYUP];
+Bee.ActivityMonitor.userEventTypesDocuments_ =
+   [Bee.events.EventType.KEYDOWN, Bee.events.EventType.KEYUP];
 
 /**
  * Event constants for the activity monitor.
  * @enum {string}
  */
-Barge.ActivityMonitor.Event = {
+Bee.ActivityMonitor.Event = {
    /** Event fired when the user does something interactive */
    ACTIVITY : 'activity'
 };
 
 /** @override */
-Barge.ActivityMonitor.prototype.disposeInternal = function ()
+Bee.ActivityMonitor.prototype.disposeInternal = function ()
 {
-   Barge.ActivityMonitor.superClass_.disposeInternal.call(this);
+   Bee.ActivityMonitor.superClass_.disposeInternal.call(this);
    this.eventHandler_.dispose();
    this.eventHandler_ = null;
    delete this._documents;
@@ -200,18 +200,18 @@ Barge.ActivityMonitor.prototype.disposeInternal = function ()
  *
  * @param {Document} doc Document to monitor.
  */
-Barge.ActivityMonitor.prototype.addDocument = function (doc)
+Bee.ActivityMonitor.prototype.addDocument = function (doc)
 {
-   if (Barge.array.contains(this._documents, doc))
+   if (Bee.array.contains(this._documents, doc))
    {
       return;
    }
    this._documents.push(doc);
    var useCapture = !this._useBubble;
 
-   var eventsToListenTo = Barge.array.concat(
-      Barge.ActivityMonitor.userEventTypesDocuments_,
-      Barge.ActivityMonitor.userEventTypesBody_);
+   var eventsToListenTo = Bee.array.concat(
+      Bee.ActivityMonitor.userEventTypesDocuments_,
+      Bee.ActivityMonitor.userEventTypesBody_);
 
    if (!this._isIframe)
    {
@@ -220,8 +220,8 @@ Barge.ActivityMonitor.prototype.addDocument = function (doc)
       // so just ignore these events.
       // This shouldn't matter much given that a touchstart event followed by touchend event produces a click event,
       // which is being monitored correctly.
-      Barge.array.extend(
-         eventsToListenTo, Barge.ActivityMonitor.userTouchEventTypesBody_);
+      Bee.array.extend(
+         eventsToListenTo, Bee.ActivityMonitor.userTouchEventTypesBody_);
    }
 
    this.eventHandler_.listen(
@@ -233,24 +233,24 @@ Barge.ActivityMonitor.prototype.addDocument = function (doc)
  *
  * @param {Document} doc Document to monitor.
  */
-Barge.ActivityMonitor.prototype.removeDocument = function (doc)
+Bee.ActivityMonitor.prototype.removeDocument = function (doc)
 {
    if (this.isDisposed())
    {
       return;
    }
-   Barge.array.remove(this._documents, doc);
+   Bee.array.remove(this._documents, doc);
    var useCapture = !this._useBubble;
 
-   var eventsToUnlistenTo = Barge.array.concat(
-      Barge.ActivityMonitor.userEventTypesDocuments_,
-      Barge.ActivityMonitor.userEventTypesBody_);
+   var eventsToUnlistenTo = Bee.array.concat(
+      Bee.ActivityMonitor.userEventTypesDocuments_,
+      Bee.ActivityMonitor.userEventTypesBody_);
 
    if (!this._isIframe)
    {
       // See note above about monitoring touch events in iframe.
-      Barge.array.extend(
-         eventsToUnlistenTo, Barge.ActivityMonitor.userTouchEventTypesBody_);
+      Bee.array.extend(
+         eventsToUnlistenTo, Bee.ActivityMonitor.userTouchEventTypesBody_);
    }
 
    this.eventHandler_.unlisten(doc, eventsToUnlistenTo, this.handleEvent_, useCapture);
@@ -261,12 +261,12 @@ Barge.ActivityMonitor.prototype.removeDocument = function (doc)
  * @param {Barge.events.BrowserEvent} e Event object.
  * @private
  */
-Barge.ActivityMonitor.prototype.handleEvent_ = function (e)
+Bee.ActivityMonitor.prototype.handleEvent_ = function (e)
 {
    var update = false;
    switch (e.type)
    {
-      case Barge.events.EventType.MOUSEMOVE:
+      case Bee.events.EventType.MOUSEMOVE:
          // In FF 1.5, we get spurious mouseover and mouseout events when the UI
          // redraws. We only want to update the idle time if the mouse has moved.
          if (typeof this._lastMouseX === 'number' &&
@@ -285,8 +285,8 @@ Barge.ActivityMonitor.prototype.handleEvent_ = function (e)
 
    if (update)
    {
-      var type = Barge.asserts.assertString(e.type);
-      this.updateIdleTime(Barge.utils.now(), type);
+      var type = Bee.asserts.assertString(e.type);
+      this.updateIdleTime(Bee.Utils.now(), type);
    }
 };
 
@@ -294,9 +294,9 @@ Barge.ActivityMonitor.prototype.handleEvent_ = function (e)
  * Updates the last event time to be the present time, useful for non-DOM
  * events that should update idle time.
  */
-Barge.ActivityMonitor.prototype.resetTimer = function ()
+Bee.ActivityMonitor.prototype.resetTimer = function ()
 {
-   this.updateIdleTime(Barge.utils.now(), 'manual');
+   this.updateIdleTime(Bee.Utils.now(), 'manual');
 };
 
 /**
@@ -307,7 +307,7 @@ Barge.ActivityMonitor.prototype.resetTimer = function ()
  * @param {string} eventType Type of the event, used only for debugging.
  * @protected
  */
-Barge.ActivityMonitor.prototype.updateIdleTime = function (eventTime, eventType)
+Bee.ActivityMonitor.prototype.updateIdleTime = function (eventTime, eventType)
 {
    // update internal state noting whether the user was idle
    this._lastEventTime = eventTime;
@@ -316,8 +316,8 @@ Barge.ActivityMonitor.prototype.updateIdleTime = function (eventTime, eventType)
    // dispatch event
    if (eventTime > this._minEventTime)
    {
-      this.dispatchEvent(Barge.ActivityMonitor.Event.ACTIVITY);
-      this._minEventTime = eventTime + Barge.ActivityMonitor.MIN_EVENT_SPACING;
+      this.dispatchEvent(Bee.ActivityMonitor.Event.ACTIVITY);
+      this._minEventTime = eventTime + Bee.ActivityMonitor.MIN_EVENT_SPACING;
    }
 };
 
@@ -327,9 +327,9 @@ Barge.ActivityMonitor.prototype.updateIdleTime = function (eventTime, eventType)
  *     computation to avoid an extra Date allocation.
  * @return {number} The amount of time in ms that the user has been idle.
  */
-Barge.ActivityMonitor.prototype.getIdleTime = function (opt_now)
+Bee.ActivityMonitor.prototype.getIdleTime = function (opt_now)
 {
-   var now = opt_now || Barge.utils.now();
+   var now = opt_now || Bee.Utils.now();
    return now - this._lastEventTime;
 };
 
@@ -337,7 +337,7 @@ Barge.ActivityMonitor.prototype.getIdleTime = function (opt_now)
  * Returns the type of the last user event.
  * @return {string} event type.
  */
-Barge.ActivityMonitor.prototype.getLastEventType = function ()
+Bee.ActivityMonitor.prototype.getLastEventType = function ()
 {
    return this._lastEventType;
 };
@@ -346,7 +346,7 @@ Barge.ActivityMonitor.prototype.getLastEventType = function ()
  * Returns the time of the last event
  * @return {number} last event time.
  */
-Barge.ActivityMonitor.prototype.getLastEventTime = function ()
+Bee.ActivityMonitor.prototype.getLastEventTime = function ()
 {
    return this._lastEventTime;
 };

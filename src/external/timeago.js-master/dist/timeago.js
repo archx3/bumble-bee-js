@@ -31,7 +31,7 @@
  * https://github.com/hustcc/timeago.js
  */
 /* jshint expr: true */
-var Barge = Barge || {};
+var Barge = Bee || {};
 !function (root, factory)
 {
    if (typeof module === 'object' && module.exports)
@@ -46,7 +46,7 @@ var Barge = Barge || {};
 }(typeof window !== 'undefined' ? window : this,
   function ()
   {
-     let Bu = Barge.utils;
+     let Bu = Bee.Utils;
      var indexMapEn    = 'second_minute_hour_day_week_month_year'.split('_'),
          indexMapZh    = '秒_分钟_小时_天_周_月_年'.split('_'),
          // build-in locales: en & zh_CN
@@ -358,11 +358,11 @@ var Barge = Barge || {};
       * you.
       *
       * How to use it?
-      * var Barge.TimeElapsed = require('timeago.js');
-      * var timeago = Barge.TimeElapsed(); // all use default.
-      * var timeago = Barge.TimeElapsed('2016-09-10'); // the relative date is 2016-09-10, so the 2016-09-11 will be 1 day ago.
-      * var timeago = Barge.TimeElapsed(null, 'zh_CN'); // set default locale is `zh_CN`.
-      * var timeago = Barge.TimeElapsed('2016-09-10', 'zh_CN'); // the relative date is 2016-09-10, and locale is zh_CN, so the
+      * var Bee.TimeElapsed = require('timeago.js');
+      * var timeago = Bee.TimeElapsed(); // all use default.
+      * var timeago = Bee.TimeElapsed('2016-09-10'); // the relative date is 2016-09-10, so the 2016-09-11 will be 1 day ago.
+      * var timeago = Bee.TimeElapsed(null, 'zh_CN'); // set default locale is `zh_CN`.
+      * var timeago = Bee.TimeElapsed('2016-09-10', 'zh_CN'); // the relative date is 2016-09-10, and locale is zh_CN, so the
       * 2016-09-11 will be 1天前.
       *
       * @param nowDate
@@ -370,7 +370,7 @@ var Barge = Barge || {};
       * @returns {TimeElapsed}
       */
 
-     Barge.TimeElapsed = function (nowDate, defaultLocale)
+     Bee.TimeElapsed = function (nowDate, defaultLocale)
      {
         return new TimeElapsed(nowDate, defaultLocale);
      };
@@ -381,17 +381,17 @@ var Barge = Barge || {};
       * - localeFunc: the locale process function
       *
       * How to use it?
-      * var Barge.TimeElapsed = require('timeago.js');
+      * var Bee.TimeElapsed = require('timeago.js');
       *
-      * Barge.TimeElapsed.register('the locale name', the_locale_func);
+      * Bee.TimeElapsed.register('the locale name', the_locale_func);
       * // or
-      * Barge.TimeElapsed.register('pl', require('timeago.js/locales/pl'));
+      * Bee.TimeElapsed.register('pl', require('timeago.js/locales/pl'));
       *
       *
       * @param locale
       * @param localeFunc
       */
-     Barge.TimeElapsed.register = function (locale, localeFunc)
+     Bee.TimeElapsed.register = function (locale, localeFunc)
      {
         locales[locale] = localeFunc;
      };
@@ -401,22 +401,22 @@ var Barge = Barge || {};
       *
       * How to use it?
       * For canceling all the timers:
-      * var Barge.TimeElapsed = require('timeago.js');
-      * var timeago = Barge.TimeElapsed();
+      * var Bee.TimeElapsed = require('timeago.js');
+      * var timeago = Bee.TimeElapsed();
       * timeago.render(document.querySelectorAll('.need_to_be_rendered'));
-      * Barge.TimeElapsed.cancel(); // will stop all the timers, stop render in real time.
+      * Bee.TimeElapsed.cancel(); // will stop all the timers, stop render in real time.
       *
       * For canceling single timer on specific node:
-      * var Barge.TimeElapsed = require('timeago.js');
-      * var timeago = Barge.TimeElapsed();
+      * var Bee.TimeElapsed = require('timeago.js');
+      * var timeago = Bee.TimeElapsed();
       * var nodes = document.querySelectorAll('.need_to_be_rendered');
       * timeago.render(nodes);
-      * Barge.TimeElapsed.cancel(nodes[0]); // will clear a timer attached to the first node, stop render in real time.
+      * Bee.TimeElapsed.cancel(nodes[0]); // will clear a timer attached to the first node, stop render in real time.
       *
       *
       * @param node
       */
-     Barge.TimeElapsed.cancel = function (node)
+     Bee.TimeElapsed.cancel = function (node)
      {
         let tid;
         // assigning in if statement to save space
@@ -439,7 +439,7 @@ var Barge = Barge || {};
         }
      };
 
-     Barge.TimeElapsed.iso8601 = function (date)
+     Bee.TimeElapsed.iso8601 = function (date)
      {
         return date.getUTCFullYear()
                + "-" + (date.getUTCMonth() + 1)
@@ -449,5 +449,5 @@ var Barge = Barge || {};
                + ":" + date.getUTCSeconds() + "Z";
      };
 
-     return Barge.TimeElapsed;
+     return Bee.TimeElapsed;
   });

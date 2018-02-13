@@ -16,68 +16,68 @@
  * @fileoverview Closure user agent platform detection.
  * @see <a href="http://www.useragentstring.com/">User agent strings</a>
  * For more information on browser brand, rendering engine, or device see the
- * other sub-namespaces in Barge.uLabs.userAgent (browser, engine, and device
+ * other sub-namespaces in Bee.uLabs.userAgent (browser, engine, and device
  * respectively).
  *
  */
 
-// goog.provide('Barge.uLabs.userAgent.platform');
+// goog.provide('Bee.uLabs.userAgent.platform');
 //
-// goog.require('Barge.uLabs.userAgent.util');
+// goog.require('Bee.uLabs.userAgent.util');
 // goog.require('goog.string');
-Barge.uLabs = Barge.uLabs || {};
-Barge.uLabs.userAgent = Barge.uLabs.userAgent || {};
-Barge.uLabs.userAgent.platform = Barge.uLabs.userAgent.platform || {};
+Bee.uLabs = Bee.uLabs || {};
+Bee.uLabs.userAgent = Bee.uLabs.userAgent || {};
+Bee.uLabs.userAgent.platform = Bee.uLabs.userAgent.platform || {};
 
 /**
  * @return {boolean} Whether the platform is Android.
  */
-Barge.uLabs.userAgent.platform.isAndroid = function() {
-  return Barge.uLabs.userAgent.util.matchUserAgent('Android');
+Bee.uLabs.userAgent.platform.isAndroid = function() {
+  return Bee.uLabs.userAgent.util.matchUserAgent('Android');
 };
 
 
 /**
  * @return {boolean} Whether the platform is iPod.
  */
-Barge.uLabs.userAgent.platform.isIpod = function() {
-  return Barge.uLabs.userAgent.util.matchUserAgent('iPod');
+Bee.uLabs.userAgent.platform.isIpod = function() {
+  return Bee.uLabs.userAgent.util.matchUserAgent('iPod');
 };
 
 
 /**
  * @return {boolean} Whether the platform is iPhone.
  */
-Barge.uLabs.userAgent.platform.isIphone = function() {
-  return Barge.uLabs.userAgent.util.matchUserAgent('iPhone') &&
-      !Barge.uLabs.userAgent.util.matchUserAgent('iPod') &&
-      !Barge.uLabs.userAgent.util.matchUserAgent('iPad');
+Bee.uLabs.userAgent.platform.isIphone = function() {
+  return Bee.uLabs.userAgent.util.matchUserAgent('iPhone') &&
+         !Bee.uLabs.userAgent.util.matchUserAgent('iPod') &&
+         !Bee.uLabs.userAgent.util.matchUserAgent('iPad');
 };
 
 
 /**
  * @return {boolean} Whether the platform is iPad.
  */
-Barge.uLabs.userAgent.platform.isIpad = function() {
-  return Barge.uLabs.userAgent.util.matchUserAgent('iPad');
+Bee.uLabs.userAgent.platform.isIpad = function() {
+  return Bee.uLabs.userAgent.util.matchUserAgent('iPad');
 };
 
 
 /**
  * @return {boolean} Whether the platform is iOS.
  */
-Barge.uLabs.userAgent.platform.isIos = function() {
-  return Barge.uLabs.userAgent.platform.isIphone() ||
-      Barge.uLabs.userAgent.platform.isIpad() ||
-      Barge.uLabs.userAgent.platform.isIpod();
+Bee.uLabs.userAgent.platform.isIos = function() {
+  return Bee.uLabs.userAgent.platform.isIphone() ||
+         Bee.uLabs.userAgent.platform.isIpad() ||
+         Bee.uLabs.userAgent.platform.isIpod();
 };
 
 
 /**
  * @return {boolean} Whether the platform is Mac.
  */
-Barge.uLabs.userAgent.platform.isMacintosh = function() {
-  return Barge.uLabs.userAgent.util.matchUserAgent('Macintosh');
+Bee.uLabs.userAgent.platform.isMacintosh = function() {
+  return Bee.uLabs.userAgent.util.matchUserAgent('Macintosh');
 };
 
 
@@ -86,24 +86,24 @@ Barge.uLabs.userAgent.platform.isMacintosh = function() {
  * as Linux in the user agent string.
  * @return {boolean} Whether the platform is Linux.
  */
-Barge.uLabs.userAgent.platform.isLinux = function() {
-  return Barge.uLabs.userAgent.util.matchUserAgent('Linux');
+Bee.uLabs.userAgent.platform.isLinux = function() {
+  return Bee.uLabs.userAgent.util.matchUserAgent('Linux');
 };
 
 
 /**
  * @return {boolean} Whether the platform is Windows.
  */
-Barge.uLabs.userAgent.platform.isWindows = function() {
-  return Barge.uLabs.userAgent.util.matchUserAgent('Windows');
+Bee.uLabs.userAgent.platform.isWindows = function() {
+  return Bee.uLabs.userAgent.util.matchUserAgent('Windows');
 };
 
 
 /**
  * @return {boolean} Whether the platform is ChromeOS.
  */
-Barge.uLabs.userAgent.platform.isChromeOS = function() {
-  return Barge.uLabs.userAgent.util.matchUserAgent('CrOS');
+Bee.uLabs.userAgent.platform.isChromeOS = function() {
+  return Bee.uLabs.userAgent.util.matchUserAgent('CrOS');
 };
 
 
@@ -116,10 +116,10 @@ Barge.uLabs.userAgent.platform.isChromeOS = function() {
  * @return {string} The platform version or empty string if version cannot be
  *     determined.
  */
-Barge.uLabs.userAgent.platform.getVersion = function() {
-  var userAgentString = Barge.uLabs.userAgent.util.getUserAgent();
+Bee.uLabs.userAgent.platform.getVersion = function() {
+  var userAgentString = Bee.uLabs.userAgent.util.getUserAgent();
   var version = '', re;
-  if (Barge.uLabs.userAgent.platform.isWindows()) {
+  if (Bee.uLabs.userAgent.platform.isWindows()) {
     re = /Windows (?:NT|Phone) ([0-9.]+)/;
     var match = re.exec(userAgentString);
     if (match) {
@@ -127,22 +127,22 @@ Barge.uLabs.userAgent.platform.getVersion = function() {
     } else {
       version = '0.0';
     }
-  } else if (Barge.uLabs.userAgent.platform.isIos()) {
+  } else if (Bee.uLabs.userAgent.platform.isIos()) {
     re = /(?:iPhone|iPod|iPad|CPU)\s+OS\s+(\S+)/;
     var match = re.exec(userAgentString);
     // Report the version as x.y.z and not x_y_z
     version = match && match[1].replace(/_/g, '.');
-  } else if (Barge.uLabs.userAgent.platform.isMacintosh()) {
+  } else if (Bee.uLabs.userAgent.platform.isMacintosh()) {
     re = /Mac OS X ([0-9_.]+)/;
     var match = re.exec(userAgentString);
     // Note: some old versions of Camino do not report an OSX version.
     // Default to 10.
     version = match ? match[1].replace(/_/g, '.') : '10';
-  } else if (Barge.uLabs.userAgent.platform.isAndroid()) {
+  } else if (Bee.uLabs.userAgent.platform.isAndroid()) {
     re = /Android\s+([^\);]+)(\)|;)/;
     var match = re.exec(userAgentString);
     version = match && match[1];
-  } else if (Barge.uLabs.userAgent.platform.isChromeOS()) {
+  } else if (Bee.uLabs.userAgent.platform.isChromeOS()) {
     re = /(?:CrOS\s+(?:i686|x86_64)\s+([0-9.]+))/;
     var match = re.exec(userAgentString);
     version = match && match[1];
@@ -156,7 +156,7 @@ Barge.uLabs.userAgent.platform.getVersion = function() {
  * @return {boolean} Whether the browser version is higher or the same as the
  *     given version.
  */
-Barge.uLabs.userAgent.platform.isVersionOrHigher = function(version) {
+Bee.uLabs.userAgent.platform.isVersionOrHigher = function(version) {
   return goog.string.compareVersions(
-        Barge.uLabs.userAgent.platform.getVersion(), version) >= 0;
+     Bee.uLabs.userAgent.platform.getVersion(), version) >= 0;
 };

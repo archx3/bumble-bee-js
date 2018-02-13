@@ -16,22 +16,22 @@
  * @fileoverview Closure user agent detection (Browser).
  * @see <a href="http://www.useragentstring.com/">User agent strings</a>
  * For more information on rendering engine, platform, or device see the other
- * sub-namespaces in Barge.uLabs.userAgent, Barge.uLabs.userAgent.platform,
- * Barge.uLabs.userAgent.device respectively.)
+ * sub-namespaces in Bee.uLabs.userAgent, Bee.uLabs.userAgent.platform,
+ * Bee.uLabs.userAgent.device respectively.)
  *
  * @author martone@Bargele.com (Andy Martone)
  */
 
-// Barge.provide('Barge.uLabs.userAgent.browser');
+// Bee.provide('Bee.uLabs.userAgent.browser');
 //
-// Barge.require('Barge.array');
-// Barge.require('Barge.uLabs.userAgent.util');
-// Barge.require('Barge.object');
-// Barge.require('Barge.string');
+// Bee.require('Bee.array');
+// Bee.require('Bee.uLabs.userAgent.util');
+// Bee.require('Bee.object');
+// Bee.require('Bee.string');
 
-Barge.uLabs = Barge.uLabs || {};
-Barge.uLabs.userAgent = Barge.uLabs.userAgent || {};
-Barge.uLabs.userAgent.browser = Barge.uLabs.userAgent.browser || {};
+Bee.uLabs = Bee.uLabs || {};
+Bee.uLabs.userAgent = Bee.uLabs.userAgent || {};
+Bee.uLabs.userAgent.browser = Bee.uLabs.userAgent.browser || {};
 
 // TODO(nnaze): Refactor to remove excessive exclusion logic in matching
 // functions.
@@ -42,51 +42,51 @@ Barge.uLabs.userAgent.browser = Barge.uLabs.userAgent.browser || {};
  *     special casing.
  * @private
  */
-Barge.uLabs.userAgent.browser.matchOpera_ = function ()
+Bee.uLabs.userAgent.browser.matchOpera_ = function ()
 {
-   return Barge.uLabs.userAgent.util.matchUserAgent('Opera');
+   return Bee.uLabs.userAgent.util.matchUserAgent('Opera');
 };
 
 /**
  * @return {boolean} Whether the user's browser is IE.
  * @private
  */
-Barge.uLabs.userAgent.browser.matchIE_ = function ()
+Bee.uLabs.userAgent.browser.matchIE_ = function ()
 {
-   return Barge.uLabs.userAgent.util.matchUserAgent('Trident') ||
-      Barge.uLabs.userAgent.util.matchUserAgent('MSIE');
+   return Bee.uLabs.userAgent.util.matchUserAgent('Trident') ||
+          Bee.uLabs.userAgent.util.matchUserAgent('MSIE');
 };
 
 /**
  * @return {boolean} Whether the user's browser is Edge.
  * @private
  */
-Barge.uLabs.userAgent.browser.matchEdge_ = function ()
+Bee.uLabs.userAgent.browser.matchEdge_ = function ()
 {
-   return Barge.uLabs.userAgent.util.matchUserAgent('Edge');
+   return Bee.uLabs.userAgent.util.matchUserAgent('Edge');
 };
 
 /**
  * @return {boolean} Whether the user's browser is Firefox.
  * @private
  */
-Barge.uLabs.userAgent.browser.matchFirefox_ = function ()
+Bee.uLabs.userAgent.browser.matchFirefox_ = function ()
 {
-   return Barge.uLabs.userAgent.util.matchUserAgent('Firefox');
+   return Bee.uLabs.userAgent.util.matchUserAgent('Firefox');
 };
 
 /**
  * @return {boolean} Whether the user's browser is Safari.
  * @private
  */
-Barge.uLabs.userAgent.browser.matchSafari_ = function ()
+Bee.uLabs.userAgent.browser.matchSafari_ = function ()
 {
-   return Barge.uLabs.userAgent.util.matchUserAgent('Safari') && !(Barge.uLabs.userAgent.browser.matchChrome_() ||
-      Barge.uLabs.userAgent.browser.matchCoast_() ||
-      Barge.uLabs.userAgent.browser.matchOpera_() ||
-      Barge.uLabs.userAgent.browser.matchEdge_() ||
-      Barge.uLabs.userAgent.browser.isSilk() ||
-      Barge.uLabs.userAgent.util.matchUserAgent('Android'));
+   return Bee.uLabs.userAgent.util.matchUserAgent('Safari') && !(Bee.uLabs.userAgent.browser.matchChrome_() ||
+                                                                 Bee.uLabs.userAgent.browser.matchCoast_() ||
+                                                                 Bee.uLabs.userAgent.browser.matchOpera_() ||
+                                                                 Bee.uLabs.userAgent.browser.matchEdge_() ||
+                                                                 Bee.uLabs.userAgent.browser.isSilk() ||
+                                                                 Bee.uLabs.userAgent.util.matchUserAgent('Android'));
 };
 
 /**
@@ -94,105 +94,105 @@ Barge.uLabs.userAgent.browser.matchSafari_ = function ()
  *     iOS browser).
  * @private
  */
-Barge.uLabs.userAgent.browser.matchCoast_ = function ()
+Bee.uLabs.userAgent.browser.matchCoast_ = function ()
 {
-   return Barge.uLabs.userAgent.util.matchUserAgent('Coast');
+   return Bee.uLabs.userAgent.util.matchUserAgent('Coast');
 };
 
 /**
  * @return {boolean} Whether the user's browser is iOS Webview.
  * @private
  */
-Barge.uLabs.userAgent.browser.matchIosWebview_ = function ()
+Bee.uLabs.userAgent.browser.matchIosWebview_ = function ()
 {
    // iOS Webview does not show up as Chrome or Safari. Also check for Opera's
    // WebKit-based iOS browser, Coast.
-   return (Barge.uLabs.userAgent.util.matchUserAgent('iPad') ||
-      Barge.uLabs.userAgent.util.matchUserAgent('iPhone')) && !Barge.uLabs.userAgent.browser.matchSafari_() && !Barge.uLabs.userAgent.browser.matchChrome_() && !Barge.uLabs.userAgent.browser.matchCoast_() &&
-      Barge.uLabs.userAgent.util.matchUserAgent('AppleWebKit');
+   return (Bee.uLabs.userAgent.util.matchUserAgent('iPad') ||
+           Bee.uLabs.userAgent.util.matchUserAgent('iPhone')) && !Bee.uLabs.userAgent.browser.matchSafari_() && !Bee.uLabs.userAgent.browser.matchChrome_() && !Bee.uLabs.userAgent.browser.matchCoast_() &&
+          Bee.uLabs.userAgent.util.matchUserAgent('AppleWebKit');
 };
 
 /**
  * @return {boolean} Whether the user's browser is Chrome.
  * @private
  */
-Barge.uLabs.userAgent.browser.matchChrome_ = function ()
+Bee.uLabs.userAgent.browser.matchChrome_ = function ()
 {
-   return (Barge.uLabs.userAgent.util.matchUserAgent('Chrome') ||
-      Barge.uLabs.userAgent.util.matchUserAgent('CriOS')) && !Barge.uLabs.userAgent.browser.matchEdge_();
+   return (Bee.uLabs.userAgent.util.matchUserAgent('Chrome') ||
+           Bee.uLabs.userAgent.util.matchUserAgent('CriOS')) && !Bee.uLabs.userAgent.browser.matchEdge_();
 };
 
 /**
  * @return {boolean} Whether the user's browser is the Android browser.
  * @private
  */
-Barge.uLabs.userAgent.browser.matchAndroidBrowser_ = function ()
+Bee.uLabs.userAgent.browser.matchAndroidBrowser_ = function ()
 {
    // Android can appear in the user agent string for Chrome on Android.
    // This is not the Android standalone browser if it does.
-   return Barge.uLabs.userAgent.util.matchUserAgent('Android') && !(Barge.uLabs.userAgent.browser.isChrome() ||
-      Barge.uLabs.userAgent.browser.isFirefox() ||
-      Barge.uLabs.userAgent.browser.isOpera() ||
-      Barge.uLabs.userAgent.browser.isSilk());
+   return Bee.uLabs.userAgent.util.matchUserAgent('Android') && !(Bee.uLabs.userAgent.browser.isChrome() ||
+                                                                  Bee.uLabs.userAgent.browser.isFirefox() ||
+                                                                  Bee.uLabs.userAgent.browser.isOpera() ||
+                                                                  Bee.uLabs.userAgent.browser.isSilk());
 };
 
 /**
  * @return {boolean} Whether the user's browser is Opera.
  */
-Barge.uLabs.userAgent.browser.isOpera = Barge.uLabs.userAgent.browser.matchOpera_;
+Bee.uLabs.userAgent.browser.isOpera = Bee.uLabs.userAgent.browser.matchOpera_;
 
 /**
  * @return {boolean} Whether the user's browser is IE.
  */
-Barge.uLabs.userAgent.browser.isIE = Barge.uLabs.userAgent.browser.matchIE_;
+Bee.uLabs.userAgent.browser.isIE = Bee.uLabs.userAgent.browser.matchIE_;
 
 /**
  * @return {boolean} Whether the user's browser is Edge.
  */
-Barge.uLabs.userAgent.browser.isEdge = Barge.uLabs.userAgent.browser.matchEdge_;
+Bee.uLabs.userAgent.browser.isEdge = Bee.uLabs.userAgent.browser.matchEdge_;
 
 /**
  * @return {boolean} Whether the user's browser is Firefox.
  */
-Barge.uLabs.userAgent.browser.isFirefox =
-   Barge.uLabs.userAgent.browser.matchFirefox_;
+Bee.uLabs.userAgent.browser.isFirefox =
+   Bee.uLabs.userAgent.browser.matchFirefox_;
 
 /**
  * @return {boolean} Whether the user's browser is Safari.
  */
-Barge.uLabs.userAgent.browser.isSafari = Barge.uLabs.userAgent.browser.matchSafari_;
+Bee.uLabs.userAgent.browser.isSafari = Bee.uLabs.userAgent.browser.matchSafari_;
 
 /**
  * @return {boolean} Whether the user's browser is Coast (Opera's Webkit-based
  *     iOS browser).
  */
-Barge.uLabs.userAgent.browser.isCoast = Barge.uLabs.userAgent.browser.matchCoast_;
+Bee.uLabs.userAgent.browser.isCoast = Bee.uLabs.userAgent.browser.matchCoast_;
 
 /**
  * @return {boolean} Whether the user's browser is iOS Webview.
  */
-Barge.uLabs.userAgent.browser.isIosWebview =
-   Barge.uLabs.userAgent.browser.matchIosWebview_;
+Bee.uLabs.userAgent.browser.isIosWebview =
+   Bee.uLabs.userAgent.browser.matchIosWebview_;
 
 /**
  * @return {boolean} Whether the user's browser is Chrome.
  */
-Barge.uLabs.userAgent.browser.isChrome = Barge.uLabs.userAgent.browser.matchChrome_;
+Bee.uLabs.userAgent.browser.isChrome = Bee.uLabs.userAgent.browser.matchChrome_;
 
 /**
  * @return {boolean} Whether the user's browser is the Android browser.
  */
-Barge.uLabs.userAgent.browser.isAndroidBrowser =
-   Barge.uLabs.userAgent.browser.matchAndroidBrowser_;
+Bee.uLabs.userAgent.browser.isAndroidBrowser =
+   Bee.uLabs.userAgent.browser.matchAndroidBrowser_;
 
 /**
  * For more information, see:
  * http://docs.aws.amazon.com/silk/latest/developerguide/user-agent.html
  * @return {boolean} Whether the user's browser is Silk.
  */
-Barge.uLabs.userAgent.browser.isSilk = function ()
+Bee.uLabs.userAgent.browser.isSilk = function ()
 {
-   return Barge.uLabs.userAgent.util.matchUserAgent('Silk');
+   return Bee.uLabs.userAgent.util.matchUserAgent('Silk');
 };
 
 /**
@@ -204,22 +204,22 @@ Barge.uLabs.userAgent.browser.isSilk = function ()
  *     http://msdn.microsoft.com/en-us/library/cc196988(v=vs.85).aspx for more
  *     details.)
  */
-Barge.uLabs.userAgent.browser.getVersion = function ()
+Bee.uLabs.userAgent.browser.getVersion = function ()
 {
-   var userAgentString = Barge.uLabs.userAgent.util.getUserAgent();
+   var userAgentString = Bee.uLabs.userAgent.util.getUserAgent();
    // Special case IE since IE's version is inside the parenthesis and
    // without the '/'.
-   if (Barge.uLabs.userAgent.browser.isIE())
+   if (Bee.uLabs.userAgent.browser.isIE())
    {
-      return Barge.uLabs.userAgent.browser.getIEVersion_(userAgentString);
+      return Bee.uLabs.userAgent.browser.getIEVersion_(userAgentString);
    }
 
    var versionTuples =
-          Barge.uLabs.userAgent.util.extractVersionTuples(userAgentString);
+          Bee.uLabs.userAgent.util.extractVersionTuples(userAgentString);
 
    // Construct a map for easy lookup.
    var versionMap = {};
-   Barge.array.forEach(versionTuples, function (tuple)
+   Bee.array.forEach(versionTuples, function (tuple)
    {
       // Note that the tuple is of length three, but we only care about the
       // first two.
@@ -228,19 +228,19 @@ Barge.uLabs.userAgent.browser.getVersion = function ()
       versionMap[key] = value;
    });
 
-   var versionMapHasKey = Barge.partial(Barge.object.containsKey, versionMap);
+   var versionMapHasKey = Bee.partial(Bee.object.containsKey, versionMap);
 
    // Gives the value with the first key it finds, otherwise empty string.
    function lookUpValueWithKeys(keys)
    {
-      var key = Barge.array.find(keys, versionMapHasKey);
+      var key = Bee.array.find(keys, versionMapHasKey);
       return versionMap[key] || '';
    }
 
    // Check Opera before Chrome since Opera 15+ has "Chrome" in the string.
    // See
    // http://my.opera.com/ODIN/blog/2013/07/15/opera-user-agent-strings-opera-15-and-beyond
-   if (Barge.uLabs.userAgent.browser.isOpera())
+   if (Bee.uLabs.userAgent.browser.isOpera())
    {
       // Opera 10 has Version/10.0 but Opera/9.8, so look for "Version" first.
       // Opera uses 'OPR' for more recent UAs.
@@ -248,12 +248,12 @@ Barge.uLabs.userAgent.browser.getVersion = function ()
    }
 
    // Check Edge before Chrome since it has Chrome in the string.
-   if (Barge.uLabs.userAgent.browser.isEdge())
+   if (Bee.uLabs.userAgent.browser.isEdge())
    {
       return lookUpValueWithKeys(['Edge']);
    }
 
-   if (Barge.uLabs.userAgent.browser.isChrome())
+   if (Bee.uLabs.userAgent.browser.isChrome())
    {
       return lookUpValueWithKeys(['Chrome', 'CriOS']);
    }
@@ -269,10 +269,10 @@ Barge.uLabs.userAgent.browser.getVersion = function ()
  * @return {boolean} Whether the browser version is higher or the same as the
  *     given version.
  */
-Barge.uLabs.userAgent.browser.isVersionOrHigher = function (version)
+Bee.uLabs.userAgent.browser.isVersionOrHigher = function (version)
 {
-   return Barge.string.compareVersions(
-         Barge.uLabs.userAgent.browser.getVersion(), version) >= 0;
+   return Bee.string.compareVersions(
+      Bee.uLabs.userAgent.browser.getVersion(), version) >= 0;
 };
 
 /**
@@ -286,7 +286,7 @@ Barge.uLabs.userAgent.browser.isVersionOrHigher = function (version)
  * @return {string}
  * @private
  */
-Barge.uLabs.userAgent.browser.getIEVersion_ = function (userAgent)
+Bee.uLabs.userAgent.browser.getIEVersion_ = function (userAgent)
 {
    // IE11 may identify itself as MSIE 9.0 or MSIE 10.0 due to an IE 11 upgrade
    // bug. Example UA:

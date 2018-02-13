@@ -15,25 +15,25 @@
 /**
  * @fileoverview A disposable implementation of a custom
  * listenable/event target. See also: documentation for
- * {@code Barge.events.Listenable}.
+ * {@code Bee.events.Listenable}.
  *
  * @author arv@Bargele.com (Erik Arvidsson) [Original implementation]
  * @see ../demos/eventtarget.html
  * @see Barge.events.Listenable
  */
 
-// Barge.provide('Barge.events.EventTarget');
+// Bee.provide('Bee.events.EventTarget');
 //
-// Barge.require('Barge.Disposable');
-// // Barge.require('Barge.asserts');
-// Barge.require('Barge.events');
-// Barge.require('Barge.events.Event');
-// Barge.require('Barge.events.Listenable');
-// Barge.require('Barge.events.ListenerMap');
-// Barge.require('Barge.Object');
+// Bee.require('Bee.Disposable');
+// // Bee.require('Bee.asserts');
+// Bee.require('Bee.events');
+// Bee.require('Bee.events.Event');
+// Bee.require('Bee.events.Listenable');
+// Bee.require('Bee.events.ListenerMap');
+// Bee.require('Bee.Object');
 
 /**
- * An implementation of {@code Barge.events.Listenable} with full W3C
+ * An implementation of {@code Bee.events.Listenable} with full W3C
  * EventTarget-like support (capture/bubble mechanism, stopping event
  * propagation, preventing default actions).
  *
@@ -47,32 +47,32 @@
  *
  * Example usage:
  * <pre>
- *   var source = new Barge.events.EventTarget();
+ *   var source = new Bee.events.EventTarget();
  *   function handleEvent(e) {
  *     alert('Type: ' + e.type + '; Target: ' + e.target);
  *   }
  *   source.listen('foo', handleEvent);
- *   // Or: Barge.events.listen(source, 'foo', handleEvent);
+ *   // Or: Bee.events.listen(source, 'foo', handleEvent);
  *   ...
  *   source.dispatchEvent('foo');  // will call handleEvent
  *   ...
  *   source.unlisten('foo', handleEvent);
- *   // Or: Barge.events.unlisten(source, 'foo', handleEvent);
+ *   // Or: Bee.events.unlisten(source, 'foo', handleEvent);
  * </pre>
  *
  * @constructor
  * @extends {Barge.Disposable}
  * @implements {Barge.events.Listenable}
  */
-Barge.events.EventTarget = function ()
+Bee.events.EventTarget = function ()
 {
-   // Barge.Disposable.call(this); //IMHERE FIXME
+   // Bee.Disposable.call(this); //IMHERE FIXME
 
    /**
     * Maps of event type to an array of listeners.
-    * @private {!Barge.events.ListenerMap}
+    * @private {!Bee.events.ListenerMap}
     */
-   this.eventTargetListeners_ = new Barge.events.ListenerMap(this);
+   this.eventTargetListeners_ = new Bee.events.ListenerMap(this);
 
    /**
     * The object to use for event.target. Useful when mixing in an
@@ -84,16 +84,16 @@ Barge.events.EventTarget = function ()
    /**
     * Parent event target, used during event bubbling.
     *
-    * TODO(chrishenry): Change this to Barge.events.Listenable. This
+    * TODO(chrishenry): Change this to Bee.events.Listenable. This
     * currently breaks people who expect getParentEventTarget to return
-    * Barge.events.EventTarget.
+    * Bee.events.EventTarget.
     *
-    * @private {Barge.events.EventTarget}
+    * @private {Bee.events.EventTarget}
     */
    this.parentEventTarget_ = null;
 };
-Barge.inherits(Barge.events.EventTarget, Barge.Disposable);
-Barge.events.Listenable.addImplementation(Barge.events.EventTarget);
+Bee.inherits(Bee.events.EventTarget, Bee.Disposable);
+Bee.events.Listenable.addImplementation(Bee.events.EventTarget);
 
 /**
  * An artificial cap on the number of ancestors you can have. This is mainly
@@ -101,7 +101,7 @@ Barge.events.Listenable.addImplementation(Barge.events.EventTarget);
  * @const {number}
  * @private
  */
-Barge.events.EventTarget.MAX_ANCESTORS_ = 1000;
+Bee.events.EventTarget.MAX_ANCESTORS_ = 1000;
 
 /**
  * Returns the parent of this event target to use for bubbling.
@@ -110,7 +110,7 @@ Barge.events.EventTarget.MAX_ANCESTORS_ = 1000;
  *     there is no parent.
  * @override
  */
-Barge.events.EventTarget.prototype.getParentEventTarget = function ()
+Bee.events.EventTarget.prototype.getParentEventTarget = function ()
 {
    return this.parentEventTarget_;
 };
@@ -120,7 +120,7 @@ Barge.events.EventTarget.prototype.getParentEventTarget = function ()
  * mechanism.
  * @param {Barge.events.EventTarget} parent Parent listenable (null if none).
  */
-Barge.events.EventTarget.prototype.setParentEventTarget = function (parent)
+Bee.events.EventTarget.prototype.setParentEventTarget = function (parent)
 {
    this.parentEventTarget_ = parent;
 };
@@ -141,12 +141,12 @@ Barge.events.EventTarget.prototype.setParentEventTarget = function (parent)
  * @param {Object=} opt_handlerScope Object in whose scope to call
  *     the listener.
  * @deprecated Use {@code #listen} instead, when possible. Otherwise, use
- *     {@code Barge.events.listen} if you are passing Object
+ *     {@code Bee.events.listen} if you are passing Object
  *     (instead of Function) as handler.
  */
-Barge.events.EventTarget.prototype.addEventListener = function (type, handler, opt_capture, opt_handlerScope)
+Bee.events.EventTarget.prototype.addEventListener = function (type, handler, opt_capture, opt_handlerScope)
 {
-   Barge.events.listen(this, type, handler, opt_capture, opt_handlerScope);
+   Bee.events.listen(this, type, handler, opt_capture, opt_handlerScope);
 };
 
 /**
@@ -164,16 +164,16 @@ Barge.events.EventTarget.prototype.addEventListener = function (type, handler, o
  * @param {Object=} opt_handlerScope Object in whose scope to call
  *     the listener.
  * @deprecated Use {@code #unlisten} instead, when possible. Otherwise, use
- *     {@code Barge.events.unlisten} if you are passing Object
+ *     {@code Bee.events.unlisten} if you are passing Object
  *     (instead of Function) as handler.
  */
-Barge.events.EventTarget.prototype.removeEventListener = function (type, handler, opt_capture, opt_handlerScope)
+Bee.events.EventTarget.prototype.removeEventListener = function (type, handler, opt_capture, opt_handlerScope)
 {
-   Barge.events.unlisten(this, type, handler, opt_capture, opt_handlerScope);
+   Bee.events.unlisten(this, type, handler, opt_capture, opt_handlerScope);
 };
 
 /** @override */
-Barge.events.EventTarget.prototype.dispatchEvent = function (e)
+Bee.events.EventTarget.prototype.dispatchEvent = function (e)
 {
    // this.assertInitialized_();
 
@@ -185,11 +185,11 @@ Barge.events.EventTarget.prototype.dispatchEvent = function (e)
       for (; ancestor; ancestor = ancestor.getParentEventTarget())
       {
          ancestorsTree.push(ancestor);
-         // Barge.asserts.assert((++ancestorCount < Barge.events.EventTarget.MAX_ANCESTORS_), 'infinite loop');
+         // Bee.asserts.assert((++ancestorCount < Bee.events.EventTarget.MAX_ANCESTORS_), 'infinite loop');
       }
    }
 
-   return Barge.events.EventTarget.dispatchEventInternal_(
+   return Bee.events.EventTarget.dispatchEventInternal_(
       this.actualEventTarget_, e, ancestorsTree);
 };
 
@@ -199,16 +199,16 @@ Barge.events.EventTarget.prototype.dispatchEvent = function (e)
  * and additional listeners.
  * @override
  */
-Barge.events.EventTarget.prototype.disposeInternal = function ()
+Bee.events.EventTarget.prototype.disposeInternal = function ()
 {
-   Barge.events.EventTarget.superClass_.disposeInternal.call(this);
+   Bee.events.EventTarget.superClass_.disposeInternal.call(this);
 
    this.removeAllListeners();
    this.parentEventTarget_ = null;
 };
 
 /** @override */
-Barge.events.EventTarget.prototype.listen = function (type, listener, opt_useCapture, opt_listenerScope)
+Bee.events.EventTarget.prototype.listen = function (type, listener, opt_useCapture, opt_listenerScope)
 {
    // this.assertInitialized_();
    return this.eventTargetListeners_.add(
@@ -217,7 +217,7 @@ Barge.events.EventTarget.prototype.listen = function (type, listener, opt_useCap
 };
 
 /** @override */
-Barge.events.EventTarget.prototype.listenOnce = function (type, listener, opt_useCapture, opt_listenerScope)
+Bee.events.EventTarget.prototype.listenOnce = function (type, listener, opt_useCapture, opt_listenerScope)
 {
    return this.eventTargetListeners_.add(
       String(type), listener, true /* callOnce */, opt_useCapture,
@@ -225,20 +225,20 @@ Barge.events.EventTarget.prototype.listenOnce = function (type, listener, opt_us
 };
 
 /** @override */
-Barge.events.EventTarget.prototype.unlisten = function (type, listener, opt_useCapture, opt_listenerScope)
+Bee.events.EventTarget.prototype.unlisten = function (type, listener, opt_useCapture, opt_listenerScope)
 {
    return this.eventTargetListeners_.remove(
       String(type), listener, opt_useCapture, opt_listenerScope);
 };
 
 /** @override */
-Barge.events.EventTarget.prototype.unlistenByKey = function (key)
+Bee.events.EventTarget.prototype.unlistenByKey = function (key)
 {
    return this.eventTargetListeners_.removeByKey(key);
 };
 
 /** @override */
-Barge.events.EventTarget.prototype.removeAllListeners = function (opt_type)
+Bee.events.EventTarget.prototype.removeAllListeners = function (opt_type)
 {
    // TODO(chrishenry): Previously, removeAllListeners can be called on
    // uninitialized EventTarget, so we preserve that behavior. We
@@ -251,7 +251,7 @@ Barge.events.EventTarget.prototype.removeAllListeners = function (opt_type)
 };
 
 /** @override */
-Barge.events.EventTarget.prototype.fireListeners = function (type, capture, eventObject)
+Bee.events.EventTarget.prototype.fireListeners = function (type, capture, eventObject)
 {
    // TODO(chrishenry): Original code avoids array creation when there
    // is no listener, so we do the same. If this optimization turns
@@ -286,32 +286,32 @@ Barge.events.EventTarget.prototype.fireListeners = function (type, capture, even
 };
 
 /** @override */
-Barge.events.EventTarget.prototype.getListeners = function (type, capture)
+Bee.events.EventTarget.prototype.getListeners = function (type, capture)
 {
    return this.eventTargetListeners_.getListeners(String(type), capture);
 };
 
 /** @override */
-Barge.events.EventTarget.prototype.getListener = function (type, listener, capture, opt_listenerScope)
+Bee.events.EventTarget.prototype.getListener = function (type, listener, capture, opt_listenerScope)
 {
    return this.eventTargetListeners_.getListener(
       String(type), listener, capture, opt_listenerScope);
 };
 
 /** @override */
-Barge.events.EventTarget.prototype.hasListener = function (opt_type, opt_capture)
+Bee.events.EventTarget.prototype.hasListener = function (opt_type, opt_capture)
 {
-   var id = Barge.utils.defined(opt_type) ? String(opt_type) : undefined;
+   var id = Bee.Utils.defined(opt_type) ? String(opt_type) : undefined;
    return this.eventTargetListeners_.hasListener(id, opt_capture);
 };
 
 /**
  * Sets the target to be used for {@code event.target} when firing
  * event. Mainly used for testing. For example, see
- * {@code Barge.testing.events.mixinListenable}.
+ * {@code Bee.testing.events.mixinListenable}.
  * @param {!Object} target The target.
  */
-Barge.events.EventTarget.prototype.setTargetForTesting = function (target)
+Bee.events.EventTarget.prototype.setTargetForTesting = function (target)
 {
    this.actualEventTarget_ = target;
 };
@@ -320,11 +320,11 @@ Barge.events.EventTarget.prototype.setTargetForTesting = function (target)
  * Asserts that the event target instance is initialized properly.
  * @private
  */
-Barge.events.EventTarget.prototype.assertInitialized_ = function ()
+Bee.events.EventTarget.prototype.assertInitialized_ = function ()
 {
-   Barge.asserts.assert(this.eventTargetListeners_,
+   Bee.asserts.assert(this.eventTargetListeners_,
       'Event target is not initialized. Did you call the superclass ' +
-      '(Barge.events.EventTarget) constructor?');
+      '(Bee.events.EventTarget) constructor?');
 };
 
 /**
@@ -339,21 +339,21 @@ Barge.events.EventTarget.prototype.assertInitialized_ = function ()
  *     if any of the listeners returns false) this will also return false.
  * @private
  */
-Barge.events.EventTarget.dispatchEventInternal_ = function (target, e, opt_ancestorsTree)
+Bee.events.EventTarget.dispatchEventInternal_ = function (target, e, opt_ancestorsTree)
 {
    var type = e.type || /** @type {string} */ (e);
 
    // If accepting a string or object, create a custom event object so that
    // preventDefault and stopPropagation work with the event.
-   if (Barge.utils.isString(e))
+   if (Bee.Utils.isString(e))
    {
-      e = new Barge.events.Event(e, target);
+      e = new Bee.events.Event(e, target);
    }
-   else if (!(e instanceof Barge.events.Event))
+   else if (!(e instanceof Bee.events.Event))
    {
       var oldEvent = e;
-      e = new Barge.events.Event(type, target);
-      Barge.Object.extend(e, oldEvent);
+      e = new Bee.events.Event(type, target);
+      Bee.Object.extend(e, oldEvent);
    }
    else
    {

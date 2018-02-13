@@ -4,7 +4,7 @@
 (function (Bu, Bs, Bd)
 {
 
-   Barge.CollapsibleLists.apply(false);
+   Bee.CollapsibleLists.apply(false);
    var treeViewNodes = document.querySelectorAll(".treeViewNode"),
        treeViewRoots = document.querySelectorAll(".treeViewRoot"),
        paneHeading = document.getElementById('paneHeading'),
@@ -42,7 +42,7 @@
        var url = link +'?activePane=' + qStr || '';
        request.onreadystatechange = function()
        {
-          if(request.readyState === 4  && request.status == 200)
+          if(request.readyState === 4  && request.status === 200)
           {
           // console.log('?activePane=' + qStr);
           // console.log(url);
@@ -60,7 +60,7 @@
       {
          treeViewNodes[i].addEventListener("click", function(event)
          {
-            var nextPane = Barge.utils.gebi(this.getAttribute("data-pane").toString()),
+            var nextPane = Bee.Utils.gebi(this.getAttribute("data-pane").toString()),
                 link = this.getAttribute("data-href"),
                 activePane = document.querySelector(".activePane");
 
@@ -111,8 +111,8 @@
 
                   Bu.removeClass(paneHeading, 'pane');
                }
-               // console.log(Barge.Dom.getInnerText(this), this.innerText);
-               // console.log(Barge.Dom.getInnerText(this), this.innerHTML);
+               // console.log(Bee.Widget.getInnerText(this), this.innerText);
+               // console.log(Bee.Widget.getInnerText(this), this.innerHTML);
             }
             // event.stopPropagation();
          });
@@ -140,7 +140,7 @@
    {
       if(!Bs.isEmpty(this.value.toString()))
       {
-         Barge.CollapsibleLists.toggleCollapseAll();
+         Bee.CollapsibleLists.toggleCollapseAll();
 
          Bd.filterList(filterInput, tree, true);
       }
@@ -152,15 +152,15 @@
          {
             lis[i].style.display = "";
          }
-         Barge.CollapsibleLists.toggleCollapseAll();
+         Bee.CollapsibleLists.toggleCollapseAll();
 
       }
    });
 
 
-   // Barge.CollapsibleLists.toggleCollapseAll()
+   // Bee.CollapsibleLists.toggleCollapseAll()
 
-})(Barge.utils, Barge.String, Barge.Dom);
+})(Bee.Utils, Bee.String, Bee.Widget);
 
 /*TODO make tree stateful by keeping open list in local storage and the opening all previously open list on-load
 * TODO make sure parent opens

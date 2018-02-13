@@ -1,7 +1,7 @@
 ﻿/*(function ()
 {*/
 
-var Barge = Barge || {};
+var Barge = Bee || {};
 (function ()
 {
 	"use strict";
@@ -15,8 +15,8 @@ var Barge = Barge || {};
 	var sc = document.querySelectorAll("#desktop .scrollableContainer .teacherSubjectList");
 
 
-	//Barge.toolBox = Barge.toolBox || {};
-	Barge.toolBoxMenu = {
+	//Bee.toolBox = Bee.toolBox || {};
+	Bee.toolBoxMenu = {
 		show : function (element, user, id)
 		{
 			id = id || element.id;
@@ -26,16 +26,16 @@ var Barge = Barge || {};
 			if (element.style.display === "block")
 			{
 				element.style.display = "none";
-				Barge.utils.css(element.previousElementSibling, {
+				Bee.Utils.css(element.previousElementSibling, {
 					backgroundColor : ''
 				});
 
 				/*if(element.previousElementSibling.children)
 				 {
 				 elChil = element.previousElementSibling.children;
-				 Barge.Array.forEach(elChil, function (node)
+				 Bee.Array.forEach(elChil, function (node)
 				 {
-				 Barge.utils.css(node,{ color : '' });
+				 Bee.Utils.css(node,{ color : '' });
 				 })
 				 }*/
 
@@ -48,15 +48,15 @@ var Barge = Barge || {};
 			else
 			{
 				// console.log("else part called");
-				Barge.utils.css(element.previousElementSibling, { backgroundColor : 'var(--menuItemHoverColor)' });
+				Bee.Utils.css(element.previousElementSibling, { backgroundColor : 'var(--menuItemHoverColor)' });
 				element.style.display = "block";
 
 				/*if(element.previousElementSibling.children)
 				 {
 				 elChil = element.previousElementSibling.children;
-				 Barge.Array.forEach(elChil, function (node)
+				 Bee.Array.forEach(elChil, function (node)
 				 {
-				 Barge.utils.css(node,{ color : 'var(--useInfoTextColor)' });
+				 Bee.Utils.css(node,{ color : 'var(--useInfoTextColor)' });
 				 })
 				 }*/
 				if (user)
@@ -65,7 +65,7 @@ var Barge = Barge || {};
 				}
 			}
 
-			if (Barge.utils.defined(Ps))
+			if (Bee.Utils.defined(Ps))
 			{
 				Ps.update(sb);
 				Ps.update(sb2);
@@ -85,13 +85,13 @@ var Barge = Barge || {};
 			if (user)
 			{
 				localStorage.setItem(user + "lastVisibleTooBox", "full");
-				//Barge.utils.setCookie(user + "lastVisibleTooBox", "full", 365*2);
+				//Bee.Utils.setCookie(user + "lastVisibleTooBox", "full", 365*2);
 			}
 
 			if (sb2.style.display == "block")
 			{
 				//tc.setAttribute("style", ' transition: all .4s');
-				Barge.utils.swapElsDisplay(sb, sb2);
+				Bee.Utils.swapElsDisplay(sb, sb2);
 				sb.setAttribute("style", "animation: grow 0.4s forwards;");
 				tc.setAttribute("style", 'width: calc(100% - 250px); margin-left: 250px;transition: all .4s');
 				if (tcRow[0] != undefined && tcRow[1] != undefined)
@@ -111,7 +111,7 @@ var Barge = Barge || {};
 				// return false;
 			}
 
-			if (Barge.utils.defined(Ps))
+			if (Bee.Utils.defined(Ps))
 			{
 				Ps.update(sb);
 			}
@@ -119,20 +119,20 @@ var Barge = Barge || {};
 
 		toggleMini : function (user)
 		{
-			// myVar =  new Barge.Barbecue.modernTip(200);
+			// myVar =  new Bee.Barbecue.modernTip(200);
 
 			//dXOffSet = 200;
 
 			if (user)
 			{
 				localStorage.setItem(user + "lastVisibleTooBox", "mini");
-				//Barge.utils.setCookie(user + "lastVisibleTooBox", "mini", 365*2);
+				//Bee.Utils.setCookie(user + "lastVisibleTooBox", "mini", 365*2);
 			}
 			sb.style.animation = "none";
 
 			if (sb.style.display != "block")
 			{
-				Barge.utils.swapElsDisplay(sb, sb2);
+				Bee.Utils.swapElsDisplay(sb, sb2);
 				//tc.style.marginLeft = 100 + "px";transition: all .4s
 
 				/*if(justLoaded)
@@ -158,7 +158,7 @@ var Barge = Barge || {};
 			}
 			else
 			{
-				Barge.utils.swapElsDisplay(sb, sb2);
+				Bee.Utils.swapElsDisplay(sb, sb2);
 				tc.style.marginLeft = 100 + "px";
 				tc.setAttribute("style", 'width: calc(100% - 40px); margin-left: 40px;');
 				if (tcRow)
@@ -168,7 +168,7 @@ var Barge = Barge || {};
 				// return false;
 			}
 
-			if (Barge.utils.defined(Ps))
+			if (Bee.Utils.defined(Ps))
 			{
 				Ps.update(sb2);
 			}
@@ -196,4 +196,4 @@ var Barge = Barge || {};
 // Ps.initialize(sb2);
 //})()
 
-var tm = Barge.toolBoxMenu;
+var tm = Bee.toolBoxMenu;

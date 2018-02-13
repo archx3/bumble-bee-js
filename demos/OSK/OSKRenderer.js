@@ -2,9 +2,9 @@
  * Created by arch on 10/26/16.
  */
 
-var Barge = Barge || {};
-Barge.OSK = Barge.OSK || {};
-Barge.OSK.createLayout = function ()
+var Barge = Bee || {};
+Bee.OSK = Bee.OSK || {};
+Bee.OSK.createLayout = function ()
 {
    this.layoutKeys = latinQwerty
 

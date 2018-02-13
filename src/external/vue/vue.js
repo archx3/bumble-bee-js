@@ -7489,7 +7489,7 @@ var platformComponents = {
 
 /*  */
 
-// install platform specific utils
+// install platform specific Utils
 Vue$3.config.mustUseProp = mustUseProp;
 Vue$3.config.isReservedTag = isReservedTag;
 Vue$3.config.isReservedAttr = isReservedAttr;
@@ -7521,7 +7521,7 @@ setTimeout(function () {
     } else if ("development" !== 'production' && isChrome) {
       console[console.info ? 'info' : 'log'](
         'Download the Vue Devtools extension for a better development experience:\n' +
-        'https://github.com/vuejs/vue-devtools'
+        'https://.github.com/vuejs/vue-devtools'
       );
     }
   }

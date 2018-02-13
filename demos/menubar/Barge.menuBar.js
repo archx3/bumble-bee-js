@@ -25,7 +25,7 @@
  *    \      /
  *
  *    @fileOverview This file helps to manage a navigation bar as a menu bar aka file menu
- *    @requires {@link Barge.utils, @link Barge.Array, @link Barge.Dom (DOM_CORE)}
+ *    @requires {@link Barge.Utils, @link Barge.Array, @link Barge.Widget (DOM_CORE)}
  *
  *    @version 3.15
  */
@@ -59,10 +59,10 @@
    "use strict";
 
    //region protected globals
-   let Bu = Barge.utils,
-       Ba  = Barge.Array,
-       Bo  = Barge.Object,
-       Bd  = Barge.Dom;
+   let Bu = Bee.Utils,
+       Ba  = Bee.Array,
+       Bo  = Bee.Object,
+       Bd  = Bee.Widget;
    //endregion
 
    //idk why this is here but I'm not removing it yet
@@ -113,7 +113,7 @@
        *
        * @type {Barge.Event.EventManager}
        */
-      this.Be = new Barge.Event.EventManager();
+      this.Be = new Bee.Event.EventManager();
 
       //this.list = document.getElementsByClassName(this.options.menuItemsClassName);
       /**
@@ -1045,21 +1045,21 @@
       this.addCloseOutEvent();
    };
 
-   Barge.Dom.MenuBar = new MenuBar();
-   Barge.Dom.MenuBar.create();
+   Bee.Widget.MenuBar = new MenuBar();
+   Bee.Widget.MenuBar.create();
 
    //public methods object
-   //Barge..Dom.MenuBar = {
+   //Bee..Widget.MenuBar = {
    //
    //};
    //going public whoop! whoop! lol
-   return Barge.Dom.MenuBar;
+   return Bee.Widget.MenuBar;
 });
 
 
 /*
 
- TODO : Make the {@link Barge.Dom.MenuBar} Constructor accept a config object that specifies a list menu items and sub-menu items
+ TODO : Make the {@link Bee.Widget.MenuBar} Constructor accept a config object that specifies a list menu items and sub-menu items
  TODO : Use MVC so the menubar DOM will be a visual rep'tn of the menubar data
  TODO : Add support for removing and adding menu item
  TODO :

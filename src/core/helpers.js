@@ -104,7 +104,7 @@ function consolidateTiles(tileRows)
       {
          console.log("true");
          tempRow = tileRows[0].children[0];
-         Barge.utils.removeEl(tileRows[0].children[0]);
+         Bee.Utils.removeEl(tileRows[0].children[0]);
          tileRows[0].insertBefore(tileRows[1].children[0], tileRows[0].children[0]);
          tileRows[1].insertBefore(tempRow, tileRows[1].children[0]);
          tempRow = null;
@@ -112,7 +112,7 @@ function consolidateTiles(tileRows)
    }
    else if(tileRows[0].children.length === 3  && tileRows[1].children.length === 3)
    {
-      tempRow = Barge.String.trim(tileRows[0].innerHTML) + "\n"+ Barge.String.trim(tileRows[1].innerHTML);
+      tempRow = Bee.String.trim(tileRows[0].innerHTML) + "\n" + Bee.String.trim(tileRows[1].innerHTML);
 
       tileRows[0].innerHTML = tileRows[0].innerHTML = "";
       tileRows[0].innerHTML = tempRow;
@@ -196,7 +196,7 @@ function fileUploadButtonManager(surrogateButton,fileInputEl,fileNameEl,progress
       var pTimer;
       if(progressBarEl && fileNameEl)
       {
-         if (Barge.utils.getDisplayState(progressBarEl) === 0)
+         if (Bee.Utils.getDisplayState(progressBarEl) === 0)
          {
             progressBarEl.style.display = "block";
             pTimer = window.setInterval(function ()
@@ -209,16 +209,16 @@ function fileUploadButtonManager(surrogateButton,fileInputEl,fileNameEl,progress
                {
                   clearInterval(pTimer);
                   fileNameEl.setAttribute("data-tooltip", txt);
-                  fileNameEl.innerHTML = Barge.String.ellipsify(txt, 19);
+                  fileNameEl.innerHTML = Bee.String.ellipsify(txt, 19);
                   if(fileInputEl.value !== null)
                   {
                      if(surrogateButton.tagName.toLowerCase() === "input")
                      {
-                        surrogateButton.value = Barge.String.ellipsify(txt, 9);
+                        surrogateButton.value = Bee.String.ellipsify(txt, 9);
                      }
                      else
                      {
-                        surrogateButton.innerHTML = Barge.String.ellipsify(txt, 9);
+                        surrogateButton.innerHTML = Bee.String.ellipsify(txt, 9);
                      }
                   }
                   if (txt.indexOf("Not an image") >= 0)
@@ -248,16 +248,16 @@ function fileUploadButtonManager(surrogateButton,fileInputEl,fileNameEl,progress
                {
                   clearInterval(pTimer);
                   fileNameEl.setAttribute("data-tooltip", txt);
-                  fileNameEl.innerHTML = Barge.String.ellipsify(txt, 19);
+                  fileNameEl.innerHTML = Bee.String.ellipsify(txt, 19);
                   if(fileInputEl.value !== null)
                   {
                      if(surrogateButton.tagName.toLowerCase() === "input")
                      {
-                        surrogateButton.value = Barge.String.ellipsify(txt, 10);
+                        surrogateButton.value = Bee.String.ellipsify(txt, 10);
                      }
                      else
                      {
-                        surrogateButton.innerHTML = Barge.String.ellipsify(txt, 10);
+                        surrogateButton.innerHTML = Bee.String.ellipsify(txt, 10);
                      }
                   }
                   if (txt.indexOf("Not an image") >= 0)
@@ -278,17 +278,17 @@ function fileUploadButtonManager(surrogateButton,fileInputEl,fileNameEl,progress
       else if(fileNameEl && !progressBarEl)
       {
          fileNameEl.setAttribute("title", txt);
-         fileNameEl.innerHTML = Barge.String.ellipsify(txt, 19);
+         fileNameEl.innerHTML = Bee.String.ellipsify(txt, 19);
          if(fileInputEl.value !== null)
          {
             surrogateButton.setAttribute("title", txt);
             if(surrogateButton.tagName.toLowerCase() === "input")
             {
-               surrogateButton.value = Barge.String.ellipsify(txt, 15);
+               surrogateButton.value = Bee.String.ellipsify(txt, 15);
             }
             else
             {
-               surrogateButton.innerHTML = Barge.String.ellipsify(txt, 15);
+               surrogateButton.innerHTML = Bee.String.ellipsify(txt, 15);
             }
          }
 
@@ -323,8 +323,8 @@ function filterList(inputID,ul)
       for (i = 0; i < li.length; i++)
       {
          a = li[i].getElementsByTagName("a")[0].innerHTML + " " +
-            Barge.String.trim(li[i].getElementsByTagName("a")[1].innerHTML) + " " +
-            Barge.String.trim(li[i].getElementsByTagName("a")[2].innerHTML);
+             Bee.String.trim(li[i].getElementsByTagName("a")[1].innerHTML) + " " +
+             Bee.String.trim(li[i].getElementsByTagName("a")[2].innerHTML);
 
          if (a.toUpperCase().indexOf(filter) > -1)
          {
@@ -389,11 +389,11 @@ function uploadIntoTable(targetTableBodyID, fileInputID)
       {
          if(UITheme === "dark")
          {
-            Barge.Dialog.darkAlert("This Browser does not support file reading.");
+            Bee.Dialog.darkAlert("This Browser does not support file reading.");
          }
          else
          {
-            Barge.Dialog.lightAlert("This Browser does not support file reading.");
+            Bee.Dialog.lightAlert("This Browser does not support file reading.");
          }
       }
    }
@@ -402,11 +402,11 @@ function uploadIntoTable(targetTableBodyID, fileInputID)
       console.log(UITheme);
       if(UITheme == "dark")
       {
-         Barge.Dialog.darkAlert("Please upload a valid CSV file.");
+         Bee.Dialog.darkAlert("Please upload a valid CSV file.");
       }
       else
       {
-         Barge.Dialog.lightAlert("Please upload a valid CSV file.");
+         Bee.Dialog.lightAlert("Please upload a valid CSV file.");
       }
    }
 }

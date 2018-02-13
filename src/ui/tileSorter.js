@@ -1463,8 +1463,8 @@
        return dst;
     }
 
-    // Export utils
-    Sortable.utils = {
+    // Export Utils
+    Sortable.Utils = {
        on          : _on,
        off         : _off,
        css         : _css,

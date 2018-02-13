@@ -4,8 +4,8 @@
 "use strict";
 
 
-var Barge = Barge || {};
-Barge.Drag = Barge.Drag || {};
+var Bee = Bee || {};
+Bee.Drag = Bee.Drag || {};
 /**
  *
  * @param el {Element}
@@ -19,7 +19,7 @@ Barge.Drag = Barge.Drag || {};
  * @param maxHeight {number}
  * @constructor
  */
-Barge.Drag.Resizeable = function (el, minElWidth, minElHeight, resizeRight, resizeBottom, resizeLeft, resizeTop, maxWidth, maxHeight)
+Bee.Drag.Resizeable = function (el, minElWidth, minElHeight, resizeRight, resizeBottom, resizeLeft, resizeTop, maxWidth, maxHeight)
 {
    this.el = el;
    this.minElWidth = minElWidth;
@@ -206,4 +206,4 @@ Barge.Drag.Resizeable = function (el, minElWidth, minElHeight, resizeRight, resi
 };
 
 var pane = document.getElementById('pane');
-var rsbl = new Barge.Drag.Resizeable(pane, 250, 60, true);
+var rsbl = new Bee.Drag.Resizeable(pane, 250, 60, true);

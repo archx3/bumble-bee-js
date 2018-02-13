@@ -6,9 +6,9 @@
  *
  * @constructor
  */
-let Bu = Barge.utils,
-Ba = Barge.Array,
-    Bo = Barge.Object;
+let Bu = Bee.Utils,
+Ba = Bee.Array,
+    Bo = Bee.Object;
 
 /**
  *

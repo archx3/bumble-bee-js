@@ -25,12 +25,12 @@
  *    \      /
  * @fileOverview constructor and associated methods for creating and managing
  * a tabbed view
- * @requires {@link Barge.utils, @link  Barge.String, @link  Barge.Object, @link  Barge.Dom<*>, @link Barge.Timer}
+ * @requires {@link Barge.Utils, @link  Barge.String, @link  Barge.Object, @link  Barge.Widget< @link Barge.Timer}
  *
  *
  * @user msg: Some lines in this file use constructs from es6 or later
  */
-var Barge = Barge || {};
+var Barge = Bee || {};
 
 (function (global, factory)
 {
@@ -61,13 +61,13 @@ var Barge = Barge || {};
     *
     * @type {{}}
     */
-   Barge.Ajax = Barge.Ajax || {};
+   Bee.Ajax = Bee.Ajax || {};
 
    /**
     *
     * @returns {XMLHttpRequest}
     */
-   Barge.Ajax.createXHR = function ()
+   Bee.Ajax.createXHR = function ()
    {
       let xhr = null;
 
@@ -96,9 +96,9 @@ var Barge = Barge || {};
     * @param fn {fn}
     * @static
     */
-   Barge.Ajax.insertHTML = function (options, fn)
+   Bee.Ajax.insertHTML = function (options, fn)
    {
-      let request = Barge.Ajax.createXHR();
+      let request = Bee.Ajax.createXHR();
 
       request.onreadystatechange = function ()
       {
@@ -162,13 +162,13 @@ var Barge = Barge || {};
     */
 
    //going public whoop! whoop! lol
-   return Barge.Ajax;
+   return Bee.Ajax;
 });
 
 (function (Bu)
 {
 
-})(Barge.utils);
+})(Bee.Utils);
 
 
 

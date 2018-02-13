@@ -16,63 +16,63 @@
  * @fileoverview Closure user agent detection.
  * @see http://en.wikipedia.org/wiki/User_agent
  * For more information on browser brand, platform, or device see the other
- * sub-namespaces in Barge.uLabs.userAgent (browser, platform, and device).
+ * sub-namespaces in Bee.uLabs.userAgent (browser, platform, and device).
  *
  */
 
-// goog.provide('Barge.uLabs.userAgent.engine');
+// goog.provide('Bee.uLabs.userAgent.engine');
 //
 // goog.require('goog.array');
-// goog.require('Barge.uLabs.userAgent.util');
+// goog.require('Bee.uLabs.userAgent.util');
 // goog.require('goog.string');
-var Barge = Barge || {};
-Barge.uLabs = Barge.uLabs || {};
-Barge.uLabs.userAgent = Barge.uLabs.userAgent || {};
-Barge.uLabs.userAgent.engine = Barge.uLabs.userAgent.engine || {};
+var Barge = Bee || {};
+Bee.uLabs = Bee.uLabs || {};
+Bee.uLabs.userAgent = Bee.uLabs.userAgent || {};
+Bee.uLabs.userAgent.engine = Bee.uLabs.userAgent.engine || {};
 
 /**
  * @return {boolean} Whether the rendering engine is Presto.
  */
-Barge.uLabs.userAgent.engine.isPresto = function() {
-  return Barge.uLabs.userAgent.util.matchUserAgent('Presto');
+Bee.uLabs.userAgent.engine.isPresto = function() {
+  return Bee.uLabs.userAgent.util.matchUserAgent('Presto');
 };
 
 
 /**
  * @return {boolean} Whether the rendering engine is Trident.
  */
-Barge.uLabs.userAgent.engine.isTrident = function() {
+Bee.uLabs.userAgent.engine.isTrident = function() {
   // IE only started including the Trident token in IE8.
-  return Barge.uLabs.userAgent.util.matchUserAgent('Trident') ||
-      Barge.uLabs.userAgent.util.matchUserAgent('MSIE');
+  return Bee.uLabs.userAgent.util.matchUserAgent('Trident') ||
+         Bee.uLabs.userAgent.util.matchUserAgent('MSIE');
 };
 
 
 /**
  * @return {boolean} Whether the rendering engine is Edge.
  */
-Barge.uLabs.userAgent.engine.isEdge = function() {
-  return Barge.uLabs.userAgent.util.matchUserAgent('Edge');
+Bee.uLabs.userAgent.engine.isEdge = function() {
+  return Bee.uLabs.userAgent.util.matchUserAgent('Edge');
 };
 
 
 /**
  * @return {boolean} Whether the rendering engine is WebKit.
  */
-Barge.uLabs.userAgent.engine.isWebKit = function() {
-  return Barge.uLabs.userAgent.util.matchUserAgentIgnoreCase('WebKit') &&
-      !Barge.uLabs.userAgent.engine.isEdge();
+Bee.uLabs.userAgent.engine.isWebKit = function() {
+  return Bee.uLabs.userAgent.util.matchUserAgentIgnoreCase('WebKit') &&
+         !Bee.uLabs.userAgent.engine.isEdge();
 };
 
 
 /**
  * @return {boolean} Whether the rendering engine is Gecko.
  */
-Barge.uLabs.userAgent.engine.isGecko = function() {
-  return Barge.uLabs.userAgent.util.matchUserAgent('Gecko') &&
-      !Barge.uLabs.userAgent.engine.isWebKit() &&
-      !Barge.uLabs.userAgent.engine.isTrident() &&
-      !Barge.uLabs.userAgent.engine.isEdge();
+Bee.uLabs.userAgent.engine.isGecko = function() {
+  return Bee.uLabs.userAgent.util.matchUserAgent('Gecko') &&
+         !Bee.uLabs.userAgent.engine.isWebKit() &&
+         !Bee.uLabs.userAgent.engine.isTrident() &&
+         !Bee.uLabs.userAgent.engine.isEdge();
 };
 
 
@@ -80,18 +80,18 @@ Barge.uLabs.userAgent.engine.isGecko = function() {
  * @return {string} The rendering engine's version or empty string if version
  *     can't be determined.
  */
-Barge.uLabs.userAgent.engine.getVersion = function() {
-  var userAgentString = Barge.uLabs.userAgent.util.getUserAgent();
+Bee.uLabs.userAgent.engine.getVersion = function() {
+  var userAgentString = Bee.uLabs.userAgent.util.getUserAgent();
   if (userAgentString) {
-    var tuples = Barge.uLabs.userAgent.util.extractVersionTuples(userAgentString);
+    var tuples = Bee.uLabs.userAgent.util.extractVersionTuples(userAgentString);
 
-    var engineTuple = Barge.uLabs.userAgent.engine.getEngineTuple_(tuples);
+    var engineTuple = Bee.uLabs.userAgent.engine.getEngineTuple_(tuples);
     if (engineTuple) {
       // In Gecko, the version string is either in the browser info or the
       // Firefox version.  See Gecko user agent string reference:
       // http://goo.gl/mULqa
       if (engineTuple[0] == 'Gecko') {
-        return Barge.uLabs.userAgent.engine.getVersionForKey_(tuples, 'Firefox');
+        return Bee.uLabs.userAgent.engine.getVersionForKey_(tuples, 'Firefox');
       }
 
       return engineTuple[1];
@@ -119,8 +119,8 @@ Barge.uLabs.userAgent.engine.getVersion = function() {
  *     found.
  * @private
  */
-Barge.uLabs.userAgent.engine.getEngineTuple_ = function(tuples) {
-  if (!Barge.uLabs.userAgent.engine.isEdge()) {
+Bee.uLabs.userAgent.engine.getEngineTuple_ = function(tuples) {
+  if (!Bee.uLabs.userAgent.engine.isEdge()) {
     return tuples[1];
   }
   for (var i = 0; i < tuples.length; i++) {
@@ -137,9 +137,9 @@ Barge.uLabs.userAgent.engine.getEngineTuple_ = function(tuples) {
  * @return {boolean} Whether the rendering engine version is higher or the same
  *     as the given version.
  */
-Barge.uLabs.userAgent.engine.isVersionOrHigher = function(version) {
+Bee.uLabs.userAgent.engine.isVersionOrHigher = function(version) {
   return goog.string.compareVersions(
-        Barge.uLabs.userAgent.engine.getVersion(), version) >= 0;
+     Bee.uLabs.userAgent.engine.getVersion(), version) >= 0;
 };
 
 
@@ -150,7 +150,7 @@ Barge.uLabs.userAgent.engine.isVersionOrHigher = function(version) {
  *     Otherwise, the empty string.
  * @private
  */
-Barge.uLabs.userAgent.engine.getVersionForKey_ = function(tuples, key) {
+Bee.uLabs.userAgent.engine.getVersionForKey_ = function(tuples, key) {
   // TODO(nnaze): Move to util if useful elsewhere.
 
   var pair = goog.array.find(tuples, function(pair) { return key == pair[0]; });

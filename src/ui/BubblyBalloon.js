@@ -53,13 +53,13 @@
    "use strict";
 
    //region protected globals
-   let Bu = Barge.utils,
-       Ba = Barge.Array,
-       Bo = Barge.Object,
-       Bs = Barge.String,
-       Bd = Barge.Dom;
+   let Bu = Bee.Utils,
+       Ba = Bee.Array,
+       Bo = Bee.Object,
+       Bs = Bee.String,
+       Bd = Bee.Widget;
 
-   let Be = new Barge.Event.EventManager();
+   let Be = new Bee.Event.EventManager();
    //endregion
 
    /**
@@ -246,7 +246,7 @@
       options.balloonEl.setAttribute("data-tid", tid);
 
       //console.log(timer);
-      this.balloonTimers[tid] = new Barge.Timer(function ()
+      this.balloonTimers[tid] = new Bee.Timer(function ()
                                                 {
                                                    Bo.remove(self.balloonTimers, tid);
                                                    self.dismiss(options);
@@ -442,7 +442,7 @@
 
    let Balloonies = new BubblyBalloon();
 
-   Barge.BubblyBalloon = {
+   Bee.BubblyBalloon = {
    /**
     *
     * @param options {{type : String, message : String, autoClose : Boolean,  delay : Number, icon : String, onDismiss : fn}}
@@ -458,5 +458,5 @@
    };
 
    //going public whoop! whoop! lol
-   return Barge.BubblyBalloon;
+   return Bee.BubblyBalloon;
 });

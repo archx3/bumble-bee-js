@@ -461,7 +461,7 @@
    /* Globalize Velocity onto the window, and assign its Utilities property. */
 
    window.Velocity = { Utilities : $ };
-})(window, Barge.utils);
+})(window, Bee.Utils);
 /******************
  Velocity.js
  ******************/
@@ -5066,7 +5066,7 @@
 
         if (greaterSemver(requiredVersion, velocityVersion))
         {
-           var abortError = "Velocity UI Pack: You need to update Velocity (velocity.js) to a newer version. Visit http://github.com/julianshapiro/velocity.";
+           var abortError = "Velocity UI Pack: You need to update Velocity (velocity.js) to a newer version. Visit http://.github.com/julianshapiro/velocity.";
            alert(abortError);
            throw new Error(abortError);
         }

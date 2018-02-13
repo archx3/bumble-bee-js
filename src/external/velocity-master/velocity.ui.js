@@ -76,7 +76,7 @@
 
         if (greaterSemver(requiredVersion, velocityVersion))
         {
-           var abortError = "Velocity UI Pack: You need to update Velocity (velocity.js) to a newer version. Visit http://github.com/julianshapiro/velocity.";
+           var abortError = "Velocity UI Pack: You need to update Velocity (velocity.js) to a newer version. Visit http://.github.com/julianshapiro/velocity.";
            alert(abortError);
            throw new Error(abortError);
         }
