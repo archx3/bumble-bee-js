@@ -2,7 +2,7 @@
 
 Hi! I’m really excited that you are interested in contributing to Bumble-Bee (Bee) Js. Before submitting your contribution though, please make sure to take a moment and read through the following guidelines.
 
-- [Code of Conduct](https://github.com/#/.github/CODE_OF_CONDUCT.md)
+- [Code of Conduct](https://github.com/archX3/bumble-bee-js/blob/master/.github/code-of-conduct.md)
 - [Issue Reporting Guidelines](#issue-reporting-guidelines)
 - [Pull Request Guidelines](#pull-request-guidelines)
 - [Development Setup](#development-setup)
@@ -45,7 +45,7 @@ $ npm install # or yarn
 
 ### Committing Changes
 
-Commit messages should follow the [commit message convention](./COMMIT_CONVENTION.md) so that changelogs can be automatically generated. Commit messages will be automatically validated upon commit. If you are not familiar with the commit message convention, you can use `npm run commit` instead of `git commit`, which provides an interactive CLI for generating proper commit messages.
+Commit messages should follow the [commit message convention](https://github.com/archX3/bumble-bee-js/blob/master/.github/COMMIT_CONVENTION.md) so that changelogs can be automatically generated. Commit messages will be automatically validated upon commit. If you are not familiar with the commit message convention, you can use `npm run commit` instead of `git commit`, which provides an interactive CLI for generating proper commit messages.
 
 ### Commonly used NPM scripts
 
