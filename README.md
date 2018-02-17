@@ -1,7 +1,10 @@
 # bumble-bee-js
-A UI Framework for building and managing User Interfaces by creating robust, composable components.
-It comes with a decoupled, environment-agnostic base utility library which ships with tonnes of methods 
+A UI Framework for building and managing User Interfaces by creating robust, composable widgets and components.
+It comes with a decouplable, environment-agnostic base utility library which ships with tonnes of methods 
 to help reduce repetitive tasks.
+
+
+
 
 If your app makes use of UI components like:
 ------------------------------ 

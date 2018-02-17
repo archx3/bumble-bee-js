@@ -176,7 +176,7 @@ var Bd = Bee.Widget;
                this.element = element;
                this.events = {};
             };
-            EventElement.prototype.bind = function (eventName, handler)
+            eventElement.prototype.bind = function (eventName, handler)
             {
                if (typeof this.events[eventName] === 'undefined')
                {
@@ -185,7 +185,7 @@ var Bd = Bee.Widget;
                this.events[eventName].push(handler);
                this.element.addEventListener(eventName, handler, false);
             };
-            EventElement.prototype.unbind = function (eventName, handler)
+            eventElement.prototype.unbind = function (eventName, handler)
             {
                var isHandlerProvided = (typeof handler !== 'undefined');
                this.events[eventName] = this.events[eventName].filter(function (hdlr)
@@ -198,7 +198,7 @@ var Bd = Bee.Widget;
                    return false;
                 }, this);
             };
-            EventElement.prototype.unbindAll = function ()
+            eventElement.prototype.unbindAll = function ()
             {
                for (var name in this.events)
                {
@@ -217,7 +217,7 @@ var Bd = Bee.Widget;
               }) [0];
                if (typeof ee === 'undefined')
                {
-                  ee = new EventElement(element);
+                  ee = new eventElement(element);
                   this.eventElements.push(ee);
                }
                return ee;

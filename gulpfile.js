@@ -4,12 +4,12 @@ var closureCompiler = require('gulp-closure-compiler');
 
 gulp.task('concat-base-js', function () {
    return gulp.src(['src/core/base/Bee.Utils.js',
-                    'src/core/base/Bee.Observable.js',
-                    'src/core/base/Bee.Array.js',
-                    'src/core/base/Bee.Object.js',
-                    'src/core/base/Bee.String.js',
-                    'src/core/base/Bee.Math.js',
-                    'src/core/base/Bee.Timer.js'/*, 'assets/src/module*.src'*/])
+                    'src/core/base/Observable.js',
+                    'src/core/base/Array.js',
+                    'src/core/base/Object.js',
+                    'src/core/base/String.js',
+                    'src/core/base/Math.js',
+                    'src/core/base/Timer.js'/*, 'assets/src/module*.src'*/])
               .pipe(concat('base.js'))
               .pipe(gulp.dest('build'));
 

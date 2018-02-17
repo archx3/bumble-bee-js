@@ -64,6 +64,10 @@
    //endregion
 
    class Container {
+      /**
+       * @constructor
+       * @param config
+       */
       constructor(config = {})
       {
          this.options = {
@@ -113,7 +117,7 @@
 
       renderChrome()
       {
-         this.chrome = Bd.createEl("div",)
+         this.chrome = Bd.createEl("div",{});
 
       }
 
@@ -174,3 +178,31 @@
    //going public whoop! whoop! lol
    return Bee.Widget.Container;
 });
+/*
+<div class="fpv pdtb10">
+                  <div class="bdr2 bb0 fph h40 clr14 bg-clr20 bd-clr14 pdl10 rctl6 rctr6">
+                     <span class="rc50p mtb10 mlr5 hw15 bg-clr4 iblk"></span>
+                     <span class="rc50p mtb10 mr5 hw15 bg-clr14 iblk"></span>
+                     <span class="rc50p mtb10 hw15 bg-clr27 iblk"></span>
+                     <h3 class="fph-75 fr ctr m0a uc pd5 bld7 ltsp3 slogan ellipsify">SOFTWARE ENGINEERING</h3>
+                  </div>
+                  <div class="bdr2 fph fpv-40 clr14 bg-clr20 bd-clr14 pd10">
+                     <p class="cmd clr22 bld4 fts20">
+                        <span class="prompt"><span class="clr28">arch@kobina</span>:<span class="clr3">~</span>$</span>
+                        <span class="td-u">#Frontend developer </span>
+                     </p>
+
+                     <p class="cmd clr22 bld4 fts20">
+                        <span class="prompt"><span class="clr28">arch@kobina</span>:<span class="clr3">~</span>$</span>
+                        <span class="td-u">#Backend developer </span>
+                     </p>
+                     <p class="cmd clr22 bld4 fts20">
+                        <span class="prompt"><span class="clr28">arch@kobina</span>:<span class="clr3">~</span>$</span>
+                        <span class="blinking-cursor">|</span>
+                     </p>
+                  </div>
+               </div>
+
+
+seo optimizer and suggester
+*/

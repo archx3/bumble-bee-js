@@ -15,7 +15,10 @@
     "handle-callback-err": "warn",
     "require-jsdoc": "warn",
     "no-array-constructor": "error",
+    "no-global-assign": "error",
     "new-cap": "error",
+    "no-loop-func":"warn",
+//    "valid-jsdoc": [1],
     "no-confusing-arrow": "warn"
   }
 }

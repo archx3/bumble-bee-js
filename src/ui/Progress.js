@@ -2,8 +2,7 @@
  * Created by ARCH on 08/08/2016.
  * Copyright (C) 2016 Barge Studios <bargestd@gmail.com>
  */
-var Bee = Bee || {};
-Bee.Progress = Bee.Progress || {};
+var Bee = Bee || {};Bee.Progress = Bee.Progress || {};
 var spinnerCss = '.loader{height: 37px;width: auto;border: 1px solid #e6e3e3;padding: 5px;margin: 0 auto;'+
    'border-radius: 21px;box-shadow: 0 0 4px rgba(0, 0, 0, .2);position: absolute;left: calc(50% - 100px);' +
    'top: calc(50% - 15px);z-index: 60; background-color:#fff;}'+

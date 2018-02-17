@@ -67,7 +67,7 @@ const BODY = document ? document.body : null;
       posY              : 0,
       /**
        * Cached default DOM helper.
-       * @type {!Barge.Widget.DomHelper |undefined}
+       * @type {!Bee.Widget.DomHelper |undefined}
        * @private
        */
       _defaultDomHelper : null,
@@ -86,15 +86,15 @@ const BODY = document ? document.body : null;
          {
             if (query.match(/^#(\S*)/))
             {
-               return document.getElementById(query)
+               return document.getElementById(query);
             }
             else if (query.match(/^\.(\S*)/) && single)
             {
-               return document.querySelector(query)
+               return document.querySelector(query);
             }
             else
             {
-               return document.querySelectorAll(query)
+               return document.querySelectorAll(query);
             }
          }
          else if (!Bu.defined(query))
@@ -132,7 +132,7 @@ const BODY = document ? document.body : null;
          return {
             x : self.posX,
             y : self.posY
-         }
+         };
       },
       /**
        * @use Jquery-lyk el(s) selector
@@ -330,7 +330,7 @@ const BODY = document ? document.body : null;
 
             if (isWin)
             {
-               if (el && self.getDisplayState(el) == 1)
+               if (el && self.getDisplayState(el) === 1)
                {
                   self.closeWin(el, rem, fade, delay);
 
@@ -359,7 +359,7 @@ const BODY = document ? document.body : null;
             //we loop through the child's pEls till we hit the specified pEl from form the child el
             //thanks to Stack overflow community [Asaph and GitaarLab]
             var node = descendantEl.parentElement;
-            while (node != null)
+            while (node !== null)
             {
                if (node === parentEl)
                {
@@ -372,7 +372,7 @@ const BODY = document ? document.body : null;
          }
          else
          {
-            return parentEl.contains(descendantEl)
+            return parentEl.contains(descendantEl);
          }
 
       },
@@ -380,7 +380,7 @@ const BODY = document ? document.body : null;
       isDescendantNodeOf : function (child, parent)
       {
          var node = child.parentNode;
-         while (node != null)
+         while (node !== null)
          {
             if (node === parent)
             {
@@ -401,6 +401,11 @@ const BODY = document ? document.body : null;
          return (node === document.body) ? false : document.body.contains(node);
       },
 
+      /**
+       *
+       * @param el
+       * @returns {*|boolean}
+       */
       hasChildren : function (el)
       {
          return Bu.defined(el.children[0]);
@@ -432,6 +437,7 @@ const BODY = document ? document.body : null;
       },
 
       /**
+       * @deprecated
        * @param el {Element}
        * @param speed {Number}
        * @param rem {boolean}
@@ -476,7 +482,7 @@ const BODY = document ? document.body : null;
          }
          else
          {
-            throw new Error(winEl + " cannot be removed")
+            throw new Error(winEl + " cannot be removed");
          }
       },
 
@@ -510,7 +516,7 @@ const BODY = document ? document.body : null;
          {
             return 0;
          }
-         return 1
+         return 1;
       },
       /**
        * @use used to set the display of an HTML element
@@ -697,7 +703,7 @@ const BODY = document ? document.body : null;
                {
                   el.classList.add(className);
                }
-            })
+            });
          }
          return el;
       },
@@ -727,7 +733,7 @@ const BODY = document ? document.body : null;
                {
                   el.classList.remove(className);
                }
-            })
+            });
          }
 
          return el;
@@ -785,7 +791,7 @@ const BODY = document ? document.body : null;
          }
          else
          {
-            return el.className.search(/\bsortable\b/) !== -1
+            return el.className.search(/\bsortable\b/) !== -1;
          }
       },
 
@@ -803,7 +809,7 @@ const BODY = document ? document.body : null;
          }
          else
          {
-            return el.className.search(/\bsortable\b/) !== -1
+            return el.className.search(/\bsortable\b/) !== -1;
          }
       },
 
@@ -830,7 +836,7 @@ const BODY = document ? document.body : null;
          }
          else
          {
-            throw new Error("$_GET method is unable to determine URL ")
+            throw new Error("$_GET method is unable to determine URL ");
          }
       },
 
@@ -1115,7 +1121,7 @@ const BODY = document ? document.body : null;
       /**
        * creates a dom element w/ or w/o properties and/or styles
        * @param {String} tag  tagName
-       * @param {{classList : Array<String> | Object<String>, className : String}} [properties] or attributes
+       * @param {{classList : Array<String> | Object<String>|String, className : String}} [properties] or attributes
        * @param {Object} [styles] cssStyles
        * @returns {Element}
        * @static
@@ -1165,7 +1171,7 @@ const BODY = document ? document.body : null;
          }
          else
          {
-            throw new Error('createEl method expects at least a tag')
+            throw new Error('createEl method expects at least a tag');
          }
       },
       /**
@@ -1206,7 +1212,7 @@ const BODY = document ? document.body : null;
             }
             else
             {
-               html += item.id // No submenu
+               html += item.id; // No submenu
             }
             html += '</li>';
          });
@@ -1406,10 +1412,10 @@ const BODY = document ? document.body : null;
                   {
                      return node.value.replace(/^\s+|\s+$/g, '');
                   }
+                  break;
                case 4:
                   return node.nodeValue.replace(/^\s+|\s+$/g, '');
-                  break;
-               case 1:
+               //case 1:
                case 11:
                   var innerText = '';
                   for (var i = 0; i < node.childNodes.length; i++)
@@ -1417,7 +1423,7 @@ const BODY = document ? document.body : null;
                      innerText += sortable.getInnerText(node.childNodes[i]);
                   }
                   return innerText.replace(/^\s+|\s+$/g, '');
-                  break;
+                  //break;
                default:
                   return '';
             }
@@ -1481,11 +1487,7 @@ const BODY = document ? document.body : null;
                   a = a.split(" ")[0];
                   //}
 
-                  console.log("---------------------------------------------------------------");
 
-                  console.log(a.toUpperCase());
-                  console.log(filter);
-                  console.log(a.toUpperCase().indexOf(filter) > -1);
 
                   if (a.toUpperCase().indexOf(filter) > -1)
                   {
@@ -1514,7 +1516,7 @@ const BODY = document ? document.body : null;
                         {
                            if ((ptagName === 'LI' || ptagName === "UL") && (parentLi.style.display === "none"))
                            {
-                              Bu.setDisplayState(parentLi, '')
+                              Bu.setDisplayState(parentLi, '');
                            }
                            if (parentLi.classList.contains('collapsibleListClosed'))
                            {
@@ -1529,7 +1531,7 @@ const BODY = document ? document.body : null;
                         {
                            if ((gPtagName === 'LI' || gPtagName === "UL") && (grandParentLi.style.display === "none"))
                            {
-                              Bu.setDisplayState(grandParentLi, '')
+                              Bu.setDisplayState(grandParentLi, '');
                            }
 
                            if (grandParentLi.classList.contains('collapsibleListClosed'))
@@ -2688,7 +2690,6 @@ const BODY = document ? document.body : null;
 
                if (useContent)
                {
-                  ;
                }
 
                tr.appendChild(td);

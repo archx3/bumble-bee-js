@@ -70,6 +70,11 @@ Bee.Utils = {
       return obj !== undefined && obj !== null; //legacy check
    },
 
+   init : function()
+   {
+
+   },
+
    /**
     * Removes all key value pairs from the object/map/hash.
     *

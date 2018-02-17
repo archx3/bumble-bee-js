@@ -10,8 +10,14 @@
     "bumblebee-css": "https://github.com/archX3/bumble-bee-css.git"
   },
   "files": [
-    "js",
-    "demos"
+    ".gitbub", "build",
+    "demos", "dist",
+    "scripts", "shared",
+    "src", "tests",
+    ".babelrc", ".eslintrc",
+    "gulpfile.js", "package.json",
+    "README.md", "package-lock.json"
+
   ],
   "devDependencies": {
     "eslint": "^4.17.0",

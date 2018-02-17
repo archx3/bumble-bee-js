@@ -33,7 +33,7 @@
  */
 
    //Declaring the Bee Namespace
-var Barge = Bee || {};
+let Bee = Bee || {};
 
 (function (global, factory)// don't litter the global scope
 {
@@ -229,14 +229,14 @@ var Barge = Bee || {};
          }
 
          //this.parent.appendChild(tabbedView)
-         Bd.insertChildAt(this.parent, tabbedView, this.INDEX)
+         Bd.insertChildAt(this.parent, tabbedView, this.INDEX);
       }
 
       /**
        *
        * @type {NodeList}
        */
-      var tabHeads = document.querySelectorAll(".tabbedView .tabHead");
+      let tabHeads = document.querySelectorAll(".tabbedView .tabHead");
 
       //let's add the click event that switches the tabs
       this._addClickEvent();
@@ -246,14 +246,14 @@ var Barge = Bee || {};
       {
          if (Bu.defined(self.options.tabbedViewID) && !Bs.isEmpty(self.options.tabbedViewID))
          {
-            //var lastActive      = localStorage.getItem(self.options.tabbedViewID)
-            var lastActive = localStorage.getItem(self.options.tabbedViewID);
+            //let lastActive      = localStorage.getItem(self.options.tabbedViewID)
+            let lastActive = localStorage.getItem(self.options.tabbedViewID);
 
-            var lastTabHead = Bd.getElementsByAttribute("data-pane", lastActive, true);
+            let lastTabHead = Bd.getElementsByAttribute("data-pane", lastActive, true);
 
             //console.log(lastActive);
-            /*var nextPane = Bee.Utils.gebi(this.getAttribute("data-pane").toString());
-             var activePane = document.querySelector(".activePane");
+            /*let nextPane = Bee.Utils.gebi(this.getAttribute("data-pane").toString());
+             let activePane = document.querySelector(".activePane");
 
              self._setActive(this, "tabHead", "activeTabHead");
              self._setActive(nextPane, "pane", "activePane");*/
@@ -282,8 +282,8 @@ var Barge = Bee || {};
          }
          else
          {
-            var nextPane = Bee.Utils.gebi(target.getAttribute("data-pane").toString());
-            var activePane = document.querySelector(".activePane");
+            let nextPane = Bee.Utils.gebi(target.getAttribute("data-pane").toString());
+            let activePane = document.querySelector(".activePane");
 
             self._setActive(target, "tabHead", "activeTabHead");
             self.activeTab = target;
@@ -292,7 +292,7 @@ var Barge = Bee || {};
 
             if (self.options.keepState === true)
             {
-               localStorage.setItem(self.options.tabbedViewID, target.getAttribute("data-pane").toString())
+               localStorage.setItem(self.options.tabbedViewID, target.getAttribute("data-pane").toString());
             }
             target = nextPane = activePane = null;
          }
@@ -309,7 +309,7 @@ var Barge = Bee || {};
    {
       if (Bu.defined(window.DragSorter))
       {
-         var self = this;
+         let self = this;
 
          self.sortable = null;
          /**
@@ -325,12 +325,12 @@ var Barge = Bee || {};
                                            store       : self.options.keepSortHeadsState === true ? {
                                               get : function (sortable)
                                               {
-                                                 var order = localStorage.getItem("tv" + sortable.options.group);
+                                                 let order = localStorage.getItem("tv" + sortable.options.group);
                                                  return order ? order.split('|') : [];
                                               },
                                               set : function (sortable)
                                               {
-                                                 var order = sortable.toArray();
+                                                 let order = sortable.toArray();
                                                  localStorage.setItem("tv" + sortable.options.group, order.join('|'));
                                               }
                                            } : null
@@ -405,8 +405,8 @@ var Barge = Bee || {};
     */
    TabbedView.prototype._renderTabHeads = function ()
    {
-      //var tabHeadsDiv = Bd.createEl("div", {className : "tabHeads"});
-      var self = this;
+      //let tabHeadsDiv = Bd.createEl("div", {className : "tabHeads"});
+      let self = this;
 
       this.tabsHost = Bd.createEl("div", { className : "tabHeads" });
 
@@ -452,13 +452,13 @@ var Barge = Bee || {};
       }
       else if (Bu.isObject(self.tabHeadNames))
       {
-         var i = 0;
+         let i = 0;
          Bo.forEach(self.tabHeadNames, function (node)
          {
             i++;
             let activeTab = Bu.defined(node.activeTab) && node.activeTab === true ? ' activeTabHead' : '';
 
-            self.createTab(i, node.tabName, activeTab, false, Bu.defined(node.icon) ? node.icon : null)
+            self.createTab(i, node.tabName, activeTab, false, Bu.defined(node.icon) ? node.icon : null);
          });
       }
 
@@ -576,7 +576,7 @@ var Barge = Bee || {};
     */
    TabbedView.prototype._renderPanes = function ()
    {
-      //var panesDiv = Bd.createEl("div", { className : "panes" }),
+      //let panesDiv = Bd.createEl("div", { className : "panes" }),
       let self = this;
       this.panesHost = Bd.createEl("div", { className : "panes" },
                                    Bu.defined(self.options.panesHostStyle) ? self.options.panesHostStyle : null );
@@ -639,11 +639,11 @@ var Barge = Bee || {};
 
       if (newActiveEL && !newActiveEL.classList.contains(activeClassName))
       {
-         var pel = newActiveEL.parentNode; // returns single entity (container of the tabs)
+         let pel = newActiveEL.parentNode; // returns single entity (container of the tabs)
 
-         var pelChin = pel.children; //array(node list)
+         let pelChin = pel.children; //array(node list)
 
-         for (var i = 0, len = pelChin.length; i < len; i++)
+         for (let i = 0, len = pelChin.length; i < len; i++)
          {
             pelChin[i].className = classDeactivate;
 
@@ -667,9 +667,10 @@ var Barge = Bee || {};
          //self._createSorter();
          //console.log(this.sortable);
          //}
+         pel = pelChin = null;
       }
 
-      pel = pelChin = i = len = null;
+
    };
 
    TabbedView.prototype.addTab = function (tabName)
