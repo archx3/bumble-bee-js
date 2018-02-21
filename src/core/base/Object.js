@@ -28,19 +28,36 @@
  * Shout outs to Erik Arvidsson aka arvomatic
  *
  * @requires Bee.Utils
+ * @requires Bee.Array
  *
  * @user MSG: Some lines in this file use constructs from es6 or later
  * to make it es5 compatible check for es6+ or #es6+ in comments
  */
 
-(function (Bu)
+(function ()
 {
+   //localising references speeds up identifier look up time
+   let Bu  = Bee.Utils,
+       Ba  = Bee.Array,
+       Boa = Bee.ObservableArray;
+
    //cr8n the Bee.Object object
    /**
     * @static
     * @type {{}}
     */
    Bee.Object = Bee.Object || {};
+
+   /**
+    * The names of the fields that are defined on Object.prototype.
+    * @type {Array<string>}
+    * @private
+    */
+   Bee.Object.PROTOTYPE_FIELDS = [
+      'constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable',
+      'toLocaleString', 'toString', 'valueOf'
+   ];
+
    /**
     * Whether two values are not observably distinguishable. This
     * correctly detects that 0 is not the same as -0 and two NaNs are
@@ -203,9 +220,9 @@
    {
       if (key in  obj)
       {
-         return obj[key]
+         return obj[key];
       }
-      return null
+      return null;
    };
 
    /**
@@ -235,10 +252,12 @@
     */
    Bee.Object.getAnyKey = function (obj)
    {
-      for (var key in obj)
+      let keys = [];
+      for (let key in obj)
       {
-         return key;
+         keys.push(key);
       }
+      return keys[Math.random() * keys.length];
    };
 
    /**
@@ -252,10 +271,12 @@
     */
    Bee.Object.getAnyValue = function (obj)
    {
-      for (var key in obj)
+      let vals = [];
+      for (let key in obj)
       {
-         return obj[key];
+         vals.push(obj[key]);
       }
+      return vals[Math.random() * vals.length];
    };
 
    /**
@@ -451,8 +472,6 @@
          delete obj[i];
       }
    };
-
-
 
    /**
     * Removes a key-value pair based on the key.
@@ -667,16 +686,6 @@
    };
 
    /**
-    * The names of the fields that are defined on Object.prototype.
-    * @type {Array<string>}
-    * @private
-    */
-   Bee.Object.PROTOTYPE_FIELDS_ = [
-      'constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable',
-      'toLocaleString', 'toString', 'valueOf'
-   ];
-
-   /**
     * Extends an object with another object.
     * This operates 'in-place'; it does not create a new Object.
     *
@@ -687,8 +696,7 @@
     * Bee.Object.extend(o, {b: 2, c: 3});
     * o; // {a: 0, b: 2, c: 3}
     *
-    * @param {Object} target The object to modify. Existing properties will be
-    *     overwritten if they are also present in one of the objects in
+    * @param {Object} target
     *     {@code var_args}.
     * @param {...Object} var_args The objects from which values will be copied.
     * @deprecated use{@link Bee.Object.extend | @link Bee.Utils.extend } instead
@@ -710,9 +718,9 @@
          // extend String and change 'replace' (not that it is common for anyone to
          // extend anything except Object).
 
-         for (var j = 0; j < Bee.Object.PROTOTYPE_FIELDS_.length; j++)
+         for (var j = 0; j < Bee.Object.PROTOTYPE_FIELDS.length; j++)
          {
-            key = Bee.Object.PROTOTYPE_FIELDS_[j];
+            key = Bee.Object.PROTOTYPE_FIELDS[j];
             if (Object.prototype.hasOwnProperty.call(source, key))
             {
                target[key] = source[key];
@@ -721,7 +729,56 @@
       }
    };
 
-   Bee.Object.extend = Bu.extend;
+   /**
+    * Extend an object with the members of another
+    * This copying is done in place
+    * Example:
+    * var o = {};
+    * Bee.Object.extend(o, {a: 0, b: 1});
+    * o; // {a: 0, b: 1}
+    * Bee.Object.extend(o, {b: 2, c: 3});
+    * o; // {a: 0, b: 2, c: 3}
+    * @param dest {Object} The object to modify. Existing properties will be
+    *     overwritten if they are also present in one of the objects in
+    *     If the dest is a falsie value the method will return the src object
+    * @param src {Object|Array<Object>} The object or array of objects from which values will be copied.
+    * @param {Boolean} [strict]
+    * @returns {*}
+    */
+   Bee.Object.extend = function (dest, src, strict)
+   {
+      //var key;
+      if (!dest)
+      {
+         dest = {};
+      }
+      let copySrcToDest = function(dest, src)
+      {
+         for (let key in src)
+         {
+            if (strict)
+            {
+               if (src.hasOwnProperty(key))
+               { dest[key] = src[key]; }
+            }
+            else
+            {
+               dest[key] = src[key];
+            }
+         }
+      };
+
+      if(!(Bu.isArray(src))){
+         copySrcToDest(dest, src);
+      }
+      else{
+         Ba.forEach(src, function(src){
+            copySrcToDest(dest, src);
+         });
+      }
+      copySrcToDest = null;
+      return dest;
+   };
 
    /*Bee.Object.extendClone = function (a, b)FIXME
    {
@@ -831,4 +888,4 @@
       return Object.isFrozen && Object.isFrozen(obj);
    };
 
-})(Bee.Utils);
+})();

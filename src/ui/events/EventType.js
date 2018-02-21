@@ -2,21 +2,6 @@
  * Created by arch on 03/05/17.
  */
 
-var Bee = Bee || {};
-
-/**
- * Returns a prefixed event name for the current browser.
- * @param {string} eventName The name of the event.
- * @return {string} The prefixed event name.
- * @suppress {missingRequire|missingProvide}
- * @private
- */
-Bee.Event.getVendorPrefixedName_ = function(eventName)
-{
-   return Bee.userAgent.WEBKIT ? 'webkit' + eventName :
-          (Bee.userAgent.OPERA ? 'o' + eventName.toLowerCase() :
-           eventName.toLowerCase());
-};
 
 /**
  * Constants for event names.

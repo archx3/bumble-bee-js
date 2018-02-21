@@ -36,45 +36,11 @@
  * @namespace
  * @type {{}}
  */
-var Bee = Bee || {}; //Declaring the Bee Namespace
+//var Bee = Bee || {}; //Declaring the Bee Namespace
 
 (function (Bu, Ba, Bo) // don't litter the global scope
 {
    'use strict';
-
-   /**
-    * Adding the event class to the Bee Namespace
-    * @type {{EventManager : fn}}
-    */
-   Bee.Event = Bee.Event || {};
-
-   /**
-    * resolving the event to IE or W3C event object
-    * @param e {Event}
-    * @return {Event}
-    * @static
-    */
-   Bee.Event.getEvent = function (e)
-   {
-      return window.event ? window.event : e
-   };
-
-   /**
-    * resolving the event target to IE or W3C event object target
-    * @param e {Event}
-    * @return {* | Event<target>}
-    * @static
-    */
-   Bee.Event.getEventTarget = function (e)
-   {
-      /**
-       *
-       * @type {Event}
-       */
-      const evt = Bee.Event.getEvent(e);
-
-      return (evt.target) ? evt.target : evt.srcElement;
-   };
 
    /**
     * An object that has an element and an object
@@ -82,7 +48,7 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param element {Element}
     * @constructor
     */
-   Bee.Event.EventElement = function (element)
+   function EventElement(element)
    {
       /**
        * @type {Element}
@@ -93,32 +59,9 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
        * @type {{}}
        */
       this.events = {};
-   };
+   }
 
-   //old ie event must be dealt with specially, lol
-   //they're jst nt regular
-   let ieEvent = function (evtType, handler)
-   {
-      if (window.attachEvent) //thanks to DHTML CookBook for this fix
-      {
-         addEve = el.attachEvent("on" + evtType, handler);
-      }
-   };
 
-   //let's do this just once and speed up our stuff :-)
-   //init time branching
-   let addEve = (function (evtType, handler)
-   {
-      if (window.addEventListener)
-      {
-         addEve = window.addEventListener;
-      }
-      else if (window.attachEvent)
-      {
-         // Handle old IE implementation
-         addEve = window.attachEvent;
-      }
-   }());
 
    /**
     *
@@ -127,7 +70,7 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Bee.Event.EventElement.prototype.addEvent = function (el, evtType, handler, useCapture)
+   EventElement.prototype.addEvent = function (el, evtType, handler, useCapture)
    {
       useCapture = useCapture || false;
       if (el)
@@ -138,16 +81,13 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
 
             // Handle old IE implementation
          }
-         else if (el.attachEvent) //thanks to DHTML CookBook for this fix
+         else if (el.attachEvent)
          {
-
             el.attachEvent("on" + evtType, handler);
          }
       }
 
    };
-
-   //
 
    /**
     *
@@ -156,7 +96,7 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Bee.Event.EventElement.prototype.removeEvent = function (el, evtType, handler, useCapture = false)
+   EventElement.prototype.removeEvent = function (el, evtType, handler, useCapture = false)
    {
       //MSG uncomment the line below for backward compatibility
       //useCapture = useCapture || false;
@@ -167,9 +107,8 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
 
          // Handle old IE implementation
       }
-      else if (el.detachEvent) //thanks to DHTML CookBook
+      else if (el.detachEvent)
       {
-
          el.detachEvent("on" + evtType, handler);
       }
       else
@@ -186,7 +125,7 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Bee.Event.EventElement.prototype.bind = function (evtType, handler, useCapture = false)
+   EventElement.prototype.bind = function (evtType, handler, useCapture = false)
    {
       if (!Bu.defined(this.events[evtType]))
       {
@@ -200,12 +139,12 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
    };
 
    /**
-    * @use unbinds an event in {@link Barge.Event.EventElement.events} from an elements
+    * @use unbinds an event in {@link EventElement.events} from an elements
     * @param evtType {Event | String}
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Bee.Event.EventElement.prototype.unbind = function (evtType, handler, useCapture = false)
+   EventElement.prototype.unbind = function (evtType, handler, useCapture = false)
    {
       /**
        *
@@ -215,15 +154,15 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
 
       if (evtType in this.events)
       {
-         this.events[evtType] = this.events[evtType].filter(function (hdlr)
+         this.events[evtType] = this.events[evtType].filter(function (hndlr)
                                                             {
-                                                               if (handlerProvided && hdlr !== handler)
+                                                               if (handlerProvided && hndlr !== handler)
                                                                {
                                                                   return true;
                                                                }
 
-                                                               this.removeEvent(this.element, evtType, hdlr, useCapture);
-                                                               //this.element.removeEventListener(evtType, hdlr, false);
+                                                               this.removeEvent(this.element, evtType, hndlr, useCapture);
+                                                               //this.element.removeEventListener(evtType, hndlr, false);
                                                                return false;
 
                                                             }, this);
@@ -231,9 +170,9 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
    };
 
    /**
-    *@use unbinds all events in {@link Barge.Event.EventElement.events} from their elements
+    *@use unbinds all events in {@link EventElement.events} from their elements
     */
-   Bee.Event.EventElement.prototype.unbindAll = function ()
+   EventElement.prototype.unbindAll = function ()
    {
       for (let name in this.events)
       {
@@ -243,29 +182,29 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
 
    /**
     * @use instantiates an eventManager Object from the constructor
-    * @example var ev = new Bee.Event.EventManager();
+    * @example var ev = new EventManager();
     * @example ev.bind(el, 'click', fn);
     *
     * @constructor
     */
-   Bee.Event.EventManager = function ()
+   function EventManager()
    {
       /**
        * All els with bound Events that we are managing
        * @type {Array}
        */
-      this.EventElements = [];
+      this.eventElements = [];
 
-   };
+   }
 
    /**
     * @use resolves IE and w3C browser incompatibility for event object
     * @param e {Event}
     * @return {Event}
     */
-   Bee.Event.EventManager.prototype.getEvent = function (e)
+   EventManager.prototype.getEvent = function (e)
    {
-      return Bee.Event.getEvent(e);
+      return Event.getEvent(e);
    };
 
    /**
@@ -273,7 +212,7 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param e
     * @return {* | Event<target>}
     */
-   Bee.Event.EventManager.prototype.getEventTarget = function (e)
+   EventManager.prototype.getEventTarget = function (e)
    {
       /**
        *
@@ -281,7 +220,7 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
        */
       const evt = this.getEvent(e);
 
-      return Bee.Event.getEventTarget(evt);
+      return Event.getEventTarget(evt);
    };
    /**
     *
@@ -290,24 +229,24 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @returns {{evEl: *, eventCount: (*|null)}}
     * @constructor
     */
-   Bee.Event.EventManager.prototype.EventElement = function (element, eventCount)
+   EventManager.prototype.eventElement = function (element, eventCount)
    {
-      let eventElement = this.EventElements.filter(function (EventElement)
+      let eventElement = this.eventElements.filter(function (eventElement)
                                                    {
                                                       /**
                                                        * @returns {Boolean}
                                                        */
-                                                      return Bee.Event.EventElement.element === element;
+                                                      return eventElement.element === element;
 
                                                    })[0];
 
       if (!Bu.defined(eventElement))
       {
-         //instantiating EventElement(element)
-         eventElement = new Bee.Event.EventElement(element);
+         //instantiating eventElement(element)
+         eventElement = new EventElement(element);
 
          //add this el to the els whose event we are managing
-         this.EventElements.push(eventElement);
+         this.eventElements.push(eventElement);
       }
 
       return {
@@ -323,9 +262,9 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param handler {Function}
     * @param useCapture Boolean
     */
-   Bee.Event.EventManager.prototype.bind = function (element, evtType, handler, useCapture = false)
+   EventManager.prototype.bind = function (element, evtType, handler, useCapture = false)
    {
-      this.EventElement(element).evEl.bind(evtType, handler, useCapture);
+      this.eventElement(element).evEl.bind(evtType, handler, useCapture);
    };
 
    /**
@@ -337,7 +276,7 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param useCapture {Boolean}
     * @Warning No side effects
     */
-   Bee.Event.EventManager.prototype.longClick = function (element, handler, duration = 600, once = false, useCapture = false)
+   EventManager.prototype.longClick = function (element, handler, duration = 600, once = false, useCapture = false)
    {
       let timer = null;
 
@@ -419,7 +358,7 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Bee.Event.EventManager.prototype.bindOnAll = function (elsArr, evtType, handler, useCapture = false)
+   EventManager.prototype.bindOnAll = function (elsArr, evtType, handler, useCapture = false)
    {
 
       if (Bu.isArray(elsArr) || Bu.isArrayLike(elsArr))
@@ -440,9 +379,11 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Bee.Event.EventManager.prototype.unbind = function (element, evtType, handler, useCapture = false)
+   EventManager.prototype.unbind = function (element, evtType, handler, useCapture = false)
    {
-      this.EventElement(element).evEl.unbind(evtType, handler, useCapture);
+      this.eventElement(element)
+          .evEl //get the evEl prop from the element if it exists in the event elements array
+          .unbind(evtType, handler, useCapture);
    };
 
    /**
@@ -452,9 +393,9 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Bee.Event.EventManager.prototype.unbindOnAll = function (element, evtType, handler, useCapture = false)
+   EventManager.prototype.unbindOnAll = function (element, evtType, handler, useCapture = false)
    {
-      var self = this;
+      const self = this;
       Ba.forEach(element, function (node) //crazy but works, Thanks Jehovah!
       {
          self.unbind(node, evtType, handler, useCapture);
@@ -465,13 +406,13 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
    };
 
    /**
-    * @use Removes all events from from the event Object {@link Barge.Event.EventManager.EventElement}
+    * @use Removes all events from from the event Object {@link Barge.EventManager.eventElement}
     */
-   Bee.Event.EventManager.prototype.unbindAll = function ()
+   EventManager.prototype.unbindAll = function ()
    {
-      for (var i = 0; i < this.EventElements.length; i++)
+      for (let i = 0; i < this.eventElements.length; i++)
       {
-         this.EventElements[i].unbindAll();
+         this.eventElements[i].unbindAll();
       }
    };
 
@@ -484,19 +425,19 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Bee.Event.EventManager.prototype.bindOnce = function (element, evtType, handler, useCapture = false)
+   EventManager.prototype.bindOnce = function (element, evtType, handler, useCapture = false)
    {
       /**
        * event Element
        * @type {*|Element}
        */
-      var ee = this.EventElement(element).evEl;
+      let ee = this.eventElement(element).evEl;
 
       /**
        * executes event handler and removes events from el
        * @param e {Event | String}
        */
-      var onceHandler = function (e)
+      let onceHandler = function (e)
       {
          handler(e);
          ee.unbind(evtType, onceHandler, useCapture);
@@ -514,15 +455,15 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param handler {Function}
     * @param useCapture {Boolean}
     */
-   Bee.Event.EventManager.prototype.bindOnceOnAll = function (elsArr, evtType, handler, useCapture = false)
+   EventManager.prototype.bindOnceOnAll = function (elsArr, evtType, handler, useCapture = false)
    {
       if (Bu.isArray(elsArr) || Bu.isArrayLike(elsArr))
       {
          /**
           * workaround for wrong this binding
-          * @type {Barge.Event.EventManager}
+          * @type {Barge.EventManager}
           */
-         var self = this;
+         let self = this;
          Ba.forEach(elsArr, function (node) //crazy but works, Thanks Jehovah!
          {
             //issue #01
@@ -534,26 +475,26 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
 
    /**
     * @use Attaches en event to an el and removes it after the handler has executed a numberOfTimes
-    * same as {@see Barge.Event.EventManager.prototype.bindNTimes}
+    * same as {@see Barge.EventManager.prototype.bindNTimes}
     * @param element {Element}
     * @param evtType {Event | String}
     * @param handler {Function}
     * @param numberOfTimes {Number}
     * @param useCapture {Boolean}
     */
-   Bee.Event.EventManager.prototype.bindXTimes = function (element, evtType, handler, numberOfTimes = 1, useCapture = false)
+   EventManager.prototype.bindXTimes = function (element, evtType, handler, numberOfTimes = 1, useCapture = false)
    {
       /**
        * event Element
        * @type {*|Element}
        */
-      var ee = this.EventElement(element).evEl,
-          ec = this.EventElement(element).eventCount || 0;
+      let ee = this.eventElement(element).evEl,
+          ec = this.eventElement(element).eventCount || 0;
       /**
        * executes event handler and removes events from el
        * @param e {Event | String}
        */
-      var xTimesHandler = function (e)
+      let xTimesHandler = function (e)
       {
          ec++;
          if (ec === numberOfTimes)
@@ -570,7 +511,7 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
    /**
     * @use Attaches en event to an array or a list of els and
     * removes it after their handler has executed a numberOfTimes
-    * same as {@see Barge.Event.EventManager.prototype.bindNTimesOnAll}
+    * same as {@see Barge.EventManager.prototype.bindNTimesOnAll}
     * MSG #01 makes this bind to {@code window} so use {@link Barge.Event.getEventTarget}
     * to get target instead
     * MSG which is a lil fool proof
@@ -580,14 +521,14 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
     * @param numberOfTimes {Number}
     * @param useCapture {Boolean}
     */
-   Bee.Event.EventManager.prototype.bindXTimesOnAll = function (elsArr, evtType, handler, numberOfTimes = 1, useCapture = false)
-   { //fixme use of default param values may have to be changed for backward compatibility
-
+   EventManager.prototype.bindXTimesOnAll = function (elsArr, evtType, handler, numberOfTimes = 1, useCapture = false)
+   { //fixme use of default param values may have to be changed for backward compatibility if not transpiled
+      let self = this;
       if (Bu.isArray(elsArr) || Bu.isArrayLike(elsArr))
       {
          if (Bu.isNumber(numberOfTimes) && numberOfTimes > 0)
          {
-            var self = this;
+
             Ba.forEach(elsArr, function (node) //crazy but works, Thanks Jehovah!
             {
                //issue #01
@@ -596,22 +537,28 @@ var Bee = Bee || {}; //Declaring the Bee Namespace
             });
          }
       }
+      self = null;
    };
 
    /**
-    * same as {@see Barge.Event.EventManager.prototype.bindXTimes}
-    * @type {Barge.Event.EventManager | any}
+    * same as {@see Barge.EventManager.prototype.bindXTimes}
+    * @type {Barge.EventManager | any}
     */
-   Bee.Event.EventManager.prototype.bindNTimes = Bee.Event.EventManager.prototype.bindXTimes;
+   EventManager.prototype.bindNTimes = EventManager.prototype.bindXTimes;
 
    /**
-    * same as {@see Barge.Event.EventManager.prototype.bindXTimesOnAll}
+    * same as {@see Barge.EventManager.prototype.bindXTimesOnAll}
     * MSG xTimes only, before but nTimes seems more intuitive
-    * @type {Barge.Event.EventManager | any}
+    * @type {Barge.EventManager | any}
     */
-   Bee.Event.EventManager.prototype.bindNTimesOnAll = Bee.Event.EventManager.prototype.bindXTimesOnAll;
+   EventManager.prototype.bindNTimesOnAll = EventManager.prototype.bindXTimesOnAll;
 
    /***********************************************************************************************/
+
+
+
+
+   Bee.Event.EventManager = EventManager;
 
 })(Bee.Utils, Bee.Array, Bee.Object);
 

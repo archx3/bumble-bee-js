@@ -270,7 +270,7 @@
                 self.parent.style.cursor = options.cursor;
 
                 // Cache the initial sizes of the pair.
-                calculateSizes.call(self)
+                calculateSizes.call(self);
              },
 
              // stopDragging is very similar to startDragging in reverse.
@@ -387,7 +387,7 @@
                 // in this callback.
                 if (options.onDrag)
                 {
-                   options.onDrag()
+                   options.onDrag();
                 }
              },
 

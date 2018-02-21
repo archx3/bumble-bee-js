@@ -100,11 +100,11 @@
    let Bm      = Bee.Math,
 
        //region protected globals
-       __all__ = ["Random", "seed", "random", "uniform", "randint", "choice",
-                  "sample", "randrange", "shuffle", "normalvariate", "lognormvariate",
+       __all__ = ["Random", "seed", "random", "uniform", "randInt", "choice",
+                  "sample", "randRange", "shuffle", "normalvariate", "lognormvariate",
                   "expovariate", "vonmisesvariate", "gammavariate", "triangular",
                   "gauss", "betavariate", "paretovariate", "weibullvariate",
-                  "getstate", "setstate", "getrandbits", "SystemRandom"];
+                  "getState", "setState", "getrandbits", "SystemRandom"];
 
    const NV_MAGICCONST = 4 * Math.exp(-0.5) / Math.sqrt(2.0),
          TWOPI         = 2.0 * Math.PI,
@@ -197,7 +197,7 @@
    {//Choose a random element from a non-empty sequence.//
       try
    :
-      i = this._randbelow(len(seq));
+      i = this._randBelow(len(seq));
       except
       ValueError : raise
       IndexError('Cannot choose from an empty sequence');
@@ -214,7 +214,7 @@
       //
 
       if random === null :
-      randbelow = this._randbelow
+      randbelow = this._randBelow
       for i in reversed(range(1, len(x))):
       // pick an element in x[:i+1] with which to exchange x[i]
       j = randbelow(i + 1)
@@ -250,7 +250,7 @@
       if not isinstance(population, _Sequence)
       raise
       TypeError("Population must be a sequence || set.  For dicts, use list(d).")
-      randbelow = this._randbelow
+      randbelow = this._randBelow
       n = len(population)
       if not 0 <= k <= n
    :

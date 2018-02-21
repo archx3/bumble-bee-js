@@ -24,7 +24,7 @@
  *     ( ____)
  *   <-(____)->
  *    \      /
- *    @fileOverview contains instruction[code] for creating ToolWindow Balloon and a toast ballonn $
+ *    @fileOverview contains instruction[code] for creating ToolWindow Balloon and a toasts or message balloons $
  */
 
 (function (global, factory)
@@ -152,7 +152,7 @@
    };
 
    /**
-    *
+    * Pass the balloon cr8tn process through this pip
     * @param options {{type : String, message : String, autoClose : Boolean,  delay : Number, icon : String, onDismiss : fn}}
     */
    BubblyBalloon.prototype.render = function (options)
@@ -193,7 +193,7 @@
 
          if(self.options.dragToClose === true)
          {
-            this.makeClosableOnSlide(options)
+            this.makeClosableOnSlide(options);
          }
 
          Bd.appendToWindow(balloonDiv);
@@ -268,7 +268,6 @@
        * @param dragOptions {{prevDef : Boolean, tolerance : Number }}
        * @constructor
        */
-
       function DraggableToast (el, dragOptions = {})
       {
          var self = this;
@@ -439,6 +438,7 @@
 
 
    BubblyBalloon.prototype.twb = BubblyBalloon.toolWindowBalloon;
+
 
    let Balloonies = new BubblyBalloon();
 
