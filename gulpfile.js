@@ -3,13 +3,15 @@ var concat = require('gulp-concat');
 var closureCompiler = require('gulp-closure-compiler');
 
 gulp.task('concat-base-js', function () {
-   return gulp.src(['src/core/base/Bee.Utils.js',
+   return gulp.src(['src/core/base/Utils.js',
                     'src/core/base/Observable.js',
                     'src/core/base/Array.js',
                     'src/core/base/Object.js',
-                    'src/core/base/String.js',
+                    'src/core/base/string/escape.js',
+                    'src/core/base/string/unicode.js',
+                    'src/core/base/string/String.js',
                     'src/core/base/Math.js',
-                    'src/core/base/Timer.js'/*, 'assets/src/module*.src'*/])
+                    'src/core/base/Timer.js'])/*, 'assets/src/module*.src'*/
               .pipe(concat('base.js'))
               .pipe(gulp.dest('build'));
 

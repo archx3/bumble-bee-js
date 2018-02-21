@@ -36,11 +36,17 @@ Bee.Utils = {
          return this._current;
       }
    },
+
+   /**
+    * the default css unit of measurement
+    * @type  {String}
+    */
+   DEFAULT_UNIT : "px",
    /**
     *
     * @param val {Number|String<Number>}
     * @param radix {Number}|magnitude
-    * @returns {Integer}
+    * @returns {INT}
     */
    pInt   : function (val, radix)
    {
@@ -72,7 +78,7 @@ Bee.Utils = {
 
    init : function()
    {
-
+      //don't know what to do with this
    },
 
    /**
@@ -82,10 +88,9 @@ Bee.Utils = {
     */
    destroy : function (obj)
    {
-      for (let i in obj)
-      {
-         delete obj[i];
-      }
+      //for (let i in obj)
+      //{   delete obj[i];}
+      obj = null; //set it up for garbage collection
    },
 
    /**

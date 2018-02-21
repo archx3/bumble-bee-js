@@ -36,7 +36,7 @@
  * @namespace
  * @type {{}}
  */
-var Bee = Bee || {}; //Declaring the Bee Namespace
+//var Bee = Bee || {}; //Declaring the Bee Namespace
 
 (function (Bu, Ba, Bo) // don't litter the global scope
 {

@@ -35,8 +35,6 @@
  * to make it es5 compatible check for es6+ or #es6+ in comments
  */
 
-var Bee = Bee || {};
-
 /**
  * @type {Element}
  * the head el of the document if exists
@@ -51,8 +49,15 @@ const HEAD = document ? document.head : null;
  */
 const BODY = document ? document.body : null;
 
-(function (Bu, Bs, Ba, Bo)
+(function ()
 {
+   //region protected globals
+   let Bu  = Bee.Utils,
+       Ba  = Bee.Array,
+       Boa = Bee.ObservableArray,
+       Bo  = Bee.Object,
+       Bs  = Bee.String;
+   console.log(Bs);
    /**
     *@object
     *
@@ -67,7 +72,7 @@ const BODY = document ? document.body : null;
       posY              : 0,
       /**
        * Cached default DOM helper.
-       * @type {!Bee.Widget.DomHelper |undefined}
+       * @type {!Bee.Dom.DomHelper |undefined}
        * @private
        */
       _defaultDomHelper : null,
@@ -932,11 +937,11 @@ const BODY = document ? document.body : null;
 
                   return el;
                }
-               return Bu.extend(el.style, styles);
+               return Bo.extend(el.style, styles);
             }
             else
             {
-               throw new Error('method css expects a styles object or a string to return the value of')
+               throw new Error('method css expects a styles object or a string to return the value of');
             }
          }
          else
@@ -958,7 +963,7 @@ const BODY = document ? document.body : null;
 
             if (Bu.defined(posX))
             {
-               Bee.Widget.css(el, {
+               Bee.Dom.css(el, {
                   backgroundPositionX : Bu.isNumber(Number(posX)) ? posX + "px" : posX,
                   backgroundPositionY : Bu.isNumber(Number(posY)) ? posY + "px" : posY
                });
@@ -968,7 +973,7 @@ const BODY = document ? document.body : null;
          {//is FFx
             if (Bu.defined(posX))
             {
-               Bee.Widget.css(el, {
+               Bee.Dom.css(el, {
                   backgroundPosition : (Bu.isNumber(Number(posX)) ? posX + "px" : posX) + " " +
                                        (Bu.isNumber(Number(posY)) ? posY + "px" : posY)
                });
@@ -1155,7 +1160,7 @@ const BODY = document ? document.body : null;
                   delete properties['classList'];
                }
 
-               Bee.Utils.extend(el, properties);
+               Bo.extend(el, properties);
             }
             if (styles && typeof styles === "object")
             {
@@ -1208,7 +1213,7 @@ const BODY = document ? document.body : null;
                   html += item.id; // Submenu found, but top level list item.
                }
                // Submenu found. Calling recursively same method (and wrapping it in a div)
-               html += Bee.Widget.createItems(item.sub, true);
+               html += Bee.Dom.createItems(item.sub, true);
             }
             else
             {
@@ -1522,7 +1527,7 @@ const BODY = document ? document.body : null;
                            {
                               // Bu.removeClass(parentLi, 'collapsibleListClosed');
                               // Bu.addClass(parentLi, 'collapsibleListOpen');
-                              Bu.toggleClass(parentLi, 'collapsibleListClosed', 'collapsibleListOpen')
+                              Bu.toggleClass(parentLi, 'collapsibleListClosed', 'collapsibleListOpen');
 
                            }
                         }
@@ -1539,7 +1544,7 @@ const BODY = document ? document.body : null;
                               // Bu.removeClass(grandParentLi, 'collapsibleListClosed');
                               // Bu.addClass(grandParentLi, 'collapsibleListOpen');
 
-                              Bu.toggleClass(grandParentLi, 'collapsibleListClosed', 'collapsibleListOpen')
+                              Bu.toggleClass(grandParentLi, 'collapsibleListClosed', 'collapsibleListOpen');
                            }
                         }
                      }
@@ -1622,27 +1627,27 @@ const BODY = document ? document.body : null;
          }
          else if (isFfox)
          {
-            return "isFfox"
+            return "isFfox";
          }
          else if (isIE)
          {
-            return "isIE"
+            return "isIE";
          }
          else if (isSafari)
          {
-            return "isSafari"
+            return "isSafari";
          }
          else if (isChrome)
          {
-            return "isChrome"
+            return "isChrome";
          }
          else if (isEdge)
          {
-            return "isEdge"
+            return "isEdge";
          }
          else if (isBlink)
          {
-            return "isBlink"
+            return "isBlink";
          }
          else
          {
@@ -1715,7 +1720,7 @@ const BODY = document ? document.body : null;
        */
       setTop : function (el, val)
       {
-         Bee.Widget.css(el, { top : val });
+         Bee.Dom.css(el, { top : val });
       },
 
       /**
@@ -1754,7 +1759,7 @@ const BODY = document ? document.body : null;
        */
       setLeft : function (el, val)
       {
-         Bee.Widget.css(el, { left : val });
+         Bee.Dom.css(el, { left : val });
       },
 
       /**
@@ -1784,9 +1789,9 @@ const BODY = document ? document.body : null;
       getTopRight : function (el)
       {
          return {
-            top   : Bee.Widget.getTop(el),
-            right : Bee.Widget.getRight(el)
-         }
+            top   : Bee.Dom.getTop(el),
+            right : Bee.Dom.getRight(el)
+         };
       },
 
       /**
@@ -1797,9 +1802,9 @@ const BODY = document ? document.body : null;
       getBottomRight : function (el)
       {
          return {
-            bottom : Bee.Widget.getBottom(el),
-            right  : Bee.Widget.getRight(el)
-         }
+            bottom : Bee.Dom.getBottom(el),
+            right  : Bee.Dom.getRight(el)
+         };
       },
 
       /**
@@ -1810,9 +1815,9 @@ const BODY = document ? document.body : null;
       getTopLeft : function (el)
       {
          return {
-            top  : Bee.Widget.getTop(el),
-            left : Bee.Widget.getLeft(el)
-         }
+            top  : Bee.Dom.getTop(el),
+            left : Bee.Dom.getLeft(el)
+         };
       },
 
       /**
@@ -1823,9 +1828,9 @@ const BODY = document ? document.body : null;
       getBottomLeft : function (el)
       {
          return {
-            bottom : Bee.Widget.getBottom(el),
-            left   : Bee.Widget.getLeft(el)
-         }
+            bottom : Bee.Dom.getBottom(el),
+            left   : Bee.Dom.getLeft(el)
+         };
       },
 
       /**
@@ -1872,7 +1877,7 @@ const BODY = document ? document.body : null;
 
          if (spaceLeftY < 3)
          {
-            Bu.css(el, { top : ((el.offsetTop - el.offsetHeight) + offset.x) + "px" })
+            Bu.css(el, { top : ((el.offsetTop - el.offsetHeight) + offset.x) + "px" });
          }
 
          if (spaceLeftX < 3)
@@ -1909,7 +1914,7 @@ const BODY = document ? document.body : null;
             {
                elsWidthDifference = node.offsetWidth - el1.offsetWidth;
                Bd.css(node, { left : (el1.offsetLeft - (elsWidthDifference / 2)) + 'px' });
-            })
+            });
          }
          else
          {
@@ -1934,7 +1939,7 @@ const BODY = document ? document.body : null;
             {
                elsHeightDifference = node.offsetHeight - el1.offsetHeight;
                Bu.css(node, { top : (el1.offsetTop - (elsHeightDifference / 2)) + 'px' });
-            })
+            });
          }
          else
          {
@@ -1960,7 +1965,7 @@ const BODY = document ? document.body : null;
             Ba.forEach(el2, function (node)
             {
                Bu.css(node, { left : (leftAnchorPoint + Bu.pInt(offset)) + 'px' });
-            })
+            });
          }
          else
          {
@@ -1984,7 +1989,7 @@ const BODY = document ? document.body : null;
             {
                leftAnchorPoint = el1.offsetLeft - node.offsetWidth;
                Bu.css(node, { left : leftAnchorPoint + 'px' });
-            })
+            });
          }
          else
          {
@@ -2010,7 +2015,7 @@ const BODY = document ? document.body : null;
                rightAnchorPoint = (el1.offsetLeft - (node.offsetWidth - el1.offsetWidth));
                Bu.css(node, { left : rightAnchorPoint + 'px' });
                //console.log(node);
-            })
+            });
          }
          else
          {
@@ -2037,7 +2042,7 @@ const BODY = document ? document.body : null;
                rightAnchorPoint = (el1.offsetLeft + el1.offsetWidth);
                Bu.css(node, { left : rightAnchorPoint + 'px' });
                // console.log(node);
-            })
+            });
          }
          else
          {
@@ -2060,7 +2065,7 @@ const BODY = document ? document.body : null;
             Ba.forEach(el2, function (node)
             {
                Bu.css(node, { top : rightAnchorPoint + 'px' });
-            })
+            });
          }
          else
          {
@@ -2083,7 +2088,7 @@ const BODY = document ? document.body : null;
             {
                rightAnchorPoint = (el1.offsetTop - node.offsetHeight);
                Bu.css(node, { top : rightAnchorPoint + 'px' });
-            })
+            });
          }
          else
          {
@@ -2108,7 +2113,7 @@ const BODY = document ? document.body : null;
                rightAnchorPoint = (el1.offsetTop - (node.offsetHeight - el1.offsetHeight)) + offset;
                Bu.css(node, { top : rightAnchorPoint + 'px' });
                console.log(node);
-            })
+            });
          }
          else
          {
@@ -2135,7 +2140,7 @@ const BODY = document ? document.body : null;
                rightAnchorPoint = (el1.offsetTop + el1.offsetHeight + Bu.pInt(offset));
                Bu.css(node, { top : rightAnchorPoint + 'px' });
                console.log(node);
-            })
+            });
          }
          else
          {
@@ -2163,7 +2168,7 @@ const BODY = document ? document.body : null;
                horMid = ((window.innerWidth / 2) - (node.offsetHeight) / 2);
                Bu.css(node, { left : horMid + 'px' });
                console.log(node);
-            })
+            });
          }
          else
          {
@@ -2199,7 +2204,7 @@ const BODY = document ? document.body : null;
                //Bu.css(node, { top : verMid + 'px' });
 
                self.setCss(node, 'top', verMid + 'px');
-            })
+            });
          }
          else
          {
@@ -2363,7 +2368,7 @@ const BODY = document ? document.body : null;
             {
                self.css(el, { "-webkit-transform" : 'rotate(' + 0 + 'deg)' });
                self.css(el, { '-moz-transform' : 'rotate(' + 0 + 'deg)' });
-            })
+            });
          }
 
       },
@@ -2379,7 +2384,7 @@ const BODY = document ? document.body : null;
          Bu.assert(node, 'Node cannot be null or undefined.');
 
          /** @type {!Document} */
-         return (node.nodeType == Bee.Widget.NodeType.DOCUMENT ?
+         return (node.nodeType == Bee.Dom.NodeType.DOCUMENT ?
                  node : node.ownerDocument || node.document);
       },
 
@@ -2393,13 +2398,14 @@ const BODY = document ? document.body : null;
       {
          if (Bu.defined(Velocity))
          {
+            let velocity = Velocity;
             var animations = {};
             if (Bu.isArray(styles))
             {
                //#es6+
                for (let i = 0, len = styles.length; i < len; i++)
                {
-                  Bu.extend(animations, styles[i])
+                  Bo.extend(animations, styles[i]);
                }
                styles = null;
             }
@@ -2409,7 +2415,7 @@ const BODY = document ? document.body : null;
                styles = null;
             }
 
-            Velocity(el,
+            velocity(el,
                      animations,
                      Bu.defined(options) ? {
                         loop     : options.loop ? options.loop : null,
@@ -2424,7 +2430,7 @@ const BODY = document ? document.body : null;
                let dur = options.reverse.duration ? this.resolveToMilliSeconds(options.reverse.duration) :
                          options.duration ? this.resolveToMilliSeconds(options.duration) : 1000;
 
-               Velocity(el, 'reverse', { duration : dur });
+               velocity(el, 'reverse', { duration : dur });
             }
          }
       },
@@ -2488,7 +2494,7 @@ const BODY = document ? document.body : null;
          var sheet = document.getElementById(sheetId) || document.createElement('style');
 
          sheet.id = sheetId;
-         var className = "pseudoStyle"/* + Bee.Widget.UID.getNew()*/;
+         var className = "pseudoStyle"/* + Bee.Dom.UID.getNew()*/;
          //_this.className += " " + className;
 
          this.addClass(element, className);
@@ -2507,7 +2513,7 @@ const BODY = document ? document.body : null;
        */
       isElement : function (obj)
       {
-         return Bu.isObject(obj) && obj.nodeType === Bee.Widget.NodeType.ELEMENT;
+         return Bu.isObject(obj) && obj.nodeType === Bee.Dom.NodeType.ELEMENT;
       },
 
       /**
@@ -2527,7 +2533,7 @@ const BODY = document ? document.body : null;
          // Fall back to manually filtering the element's child nodes.
          return Bee.Array.filter(element.childNodes, function (node)
          {
-            return node.nodeType === Bee.Widget.NodeType.ELEMENT;
+            return node.nodeType === Bee.Dom.NodeType.ELEMENT;
          });
       },
 
@@ -2544,7 +2550,7 @@ const BODY = document ? document.body : null;
                Bu.forEach(el, function (node)
                {
                   document.body.appendChild(node);
-               })
+               });
             }
             else
             {
@@ -2566,7 +2572,7 @@ const BODY = document ? document.body : null;
                Bu.forEach(el, function (node)
                {
                   document.head.appendChild(node);
-               })
+               });
             }
             else
             {
@@ -2584,8 +2590,8 @@ const BODY = document ? document.body : null;
       appendOverlay : function (properties, styles)
       {
          var self    = this,
-             overlay = Bee.Widget.createEl('section', { className : 'overlay' });
-         Bee.Widget.css(overlay, {
+             overlay = Bee.Dom.createEl('section', { className : 'overlay' });
+         Bee.Dom.css(overlay, {
             zIndex          : 200,
             position        : 'absolute',
             top             : 0,
@@ -2600,7 +2606,7 @@ const BODY = document ? document.body : null;
 
          if (properties)
          {
-            Bu.extend(overlay, properties);
+            Bo.extend(overlay, properties);
          }
 
          if (styles)
@@ -2608,7 +2614,7 @@ const BODY = document ? document.body : null;
             self.css(overlay, styles);
          }
 
-         Bee.Widget.appendToWindow(overlay);
+         Bee.Dom.appendToWindow(overlay);
 
          return overlay;
       },
@@ -2643,7 +2649,7 @@ const BODY = document ? document.body : null;
             Ba.forEach(children, function (child)
             {
                parent.appendChild(child);
-            })
+            });
          }
       },
 
@@ -2685,7 +2691,7 @@ const BODY = document ? document.body : null;
                // same DOM tree is returned on all browsers.
                if (fillWithNBSP)
                {
-                  Bee.Widget.setTextContent(td, Bee.String.Unicode.NBSP);
+                  Bee.Dom.setTextContent(td, Bee.String.Unicode.NBSP);
                }
 
                if (useContent)
@@ -2712,11 +2718,11 @@ const BODY = document ? document.body : null;
          {
             node.textContent = text;
          }
-         else if (node.nodeType === Bee.Widget.NodeType.TEXT)
+         else if (node.nodeType === Bee.Dom.NodeType.TEXT)
          {
             node.data = text;
          }
-         else if (node.firstChild && node.firstChild.nodeType === Bee.Widget.NodeType.TEXT)
+         else if (node.firstChild && node.firstChild.nodeType === Bee.Dom.NodeType.TEXT)
          {
             // If the first child is a text node we just change its data and remove the
             // rest of the children.
@@ -2728,9 +2734,9 @@ const BODY = document ? document.body : null;
          }
          else
          {
-            Bee.Widget.removeChildren(node);
+            Bee.Dom.removeChildren(node);
 
-            var doc = Bee.Widget.getOwnerDocument(node);
+            var doc = Bee.Dom.getOwnerDocument(node);
 
             node.appendChild(doc.createTextNode(String(text)));
          }
@@ -2906,7 +2912,7 @@ const BODY = document ? document.body : null;
          {
             fns = [];
             loaded ? setTimeout(fn, 0) : fns.push(fn);
-         }
+         };
       }
    };
 
@@ -2925,7 +2931,7 @@ const BODY = document ? document.body : null;
     */
    Bee.Dom.setRootStyle = function (PropertyName, value)
    {
-      return Bee.Widget.CSSSTYLE.setProperty(PropertyName, value);
+      return Bee.Dom.CSSSTYLE.setProperty(PropertyName, value);
    };
 
    /**
@@ -2935,7 +2941,7 @@ const BODY = document ? document.body : null;
     */
    Bee.Dom.getRootStyle = function (PropertyName)
    {
-      return Bee.Widget.CSSSTYLE.getPropertyValue(PropertyName);
+      return Bee.Dom.CSSSTYLE.getPropertyValue(PropertyName);
    };
 
    /**
@@ -2951,7 +2957,7 @@ const BODY = document ? document.body : null;
    var i = 0, len = 0;
    Bee.Dom.surrogateButton = function ()
    {
-      var sBtns = Bee.Widget.getElementsByAttribute("data-sbtn");
+      var sBtns = Bee.Dom.getElementsByAttribute("data-sbtn");
       // console.log(sBtns);
       if (sBtns)
       {
@@ -2961,11 +2967,11 @@ const BODY = document ? document.body : null;
             {
                sBtn.addEventListener("click", function (e)
                {
-                  let actualBtn = Bee.Widget.getEl('#' + e.target.getAttribute("data-sbtn"));
+                  let actualBtn = Bee.Dom.getEl('#' + e.target.getAttribute("data-sbtn"));
 
                   if (Bu.defined(actualBtn))
                   {
-                     if ((!Bee.Widget.disabled(actualBtn)))
+                     if ((!Bee.Dom.disabled(actualBtn)))
                      {
                         actualBtn.click();
                         if (actualBtn.classList.contains('reload'))
@@ -2989,7 +2995,7 @@ const BODY = document ? document.body : null;
                //console.log(window.opener)
                if (this.getAttribute("data-sbtn") && !Bs.isEmpty(this.getAttribute("data-sbtn")))
                {
-                  var actualBtn = Bee.Widget.getEl('#' + this.getAttribute("data-sbtn"));
+                  var actualBtn = Bee.Dom.getEl('#' + this.getAttribute("data-sbtn"));
                   // console.log(actualBtn);
 
                   if (actualBtn)
@@ -2997,7 +3003,7 @@ const BODY = document ? document.body : null;
                      console.log(actualBtn);
 
                      console.log(actualBtn.classList.contains("disabled"));
-                     if ((!Bee.Widget.disabled(actualBtn)))
+                     if ((!Bee.Dom.disabled(actualBtn)))
                      {
                         actualBtn.click();
                         if (actualBtn.classList.contains('reload'))
@@ -3062,7 +3068,7 @@ const BODY = document ? document.body : null;
        * Enum of browser capabilities.
        * @enum {boolean}
        */
-      Bee.Widget.BrowserFeature = {
+      Bee.Dom.BrowserFeature = {
          /**
           * Whether attributes 'name' and 'type' can be added to an element after it's
           * created. False in Internet Explorer prior to version 9.
@@ -3105,7 +3111,7 @@ const BODY = document ? document.body : null;
    }
 
    //endregion
-})(Bee.Utils, Bee.String, Bee.Array, Bee.Object);
+}());
 
 /*issue #01 the display state of grandParent lis and uls don't change for filter list
  * */

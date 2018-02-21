@@ -34,6 +34,7 @@
  * @type {{BACKSPACE : string, FORM_FEED : string, NEWLINE : string, CARRIAGE_RETURN : string, HORIZONTAL_TABULATOR : string,
  *    VERTICAL_TABULATOR : string}}
  */
+Bee.String = Bee.String || {};
 Bee.String.Escape = {
    BACKSPACE            : '\b',
    FORM_FEED            : '\f',

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Container</title>
+</head>
+<body>
+<script src="../src/ui/dom/zen/ZenParser.js"></script>
+<script src="../build/base.js"></script>
+<script src="../src/ui/events/Event.js"></script>
+<script src="../src/ui/events/EventsManager.js"></script>
+<script src="../src/ui/dom/Dom.js"></script>
+<script src="../src/ui/widgets/widget/Widget.js"></script>
+<script src="../src/ui/widgets/Container.js"></script>
+<script src="../src/ui/widgets/Overlay.js"></script>
+
+
+<script >
+   let zenHtml = "div.granny>div#pop1.pops>span.child{schoold_chiiiillllddddd}";
+   console.log(ZenParser.toHTML(zenHtml));
+
+   console.log(Bee.Widget);
+   let overlay = new Bee.Widget.Overlay({dismissOnClick:true}).hide().show().hide();
+   //overlay.hide();
+</script>
+
+
+</body>
+</html>

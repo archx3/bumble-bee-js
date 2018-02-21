@@ -57,7 +57,8 @@
    //region protected globals
    //let's do this just once and speed up our stuff :-)
    //init time branching
-   let addEve = (function (evtType, handler)
+   let addEve;
+   addEve = (function (evtType, handler)
    {
       if (window.addEventListener)
       {

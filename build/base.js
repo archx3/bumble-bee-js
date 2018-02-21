@@ -36,11 +36,17 @@ Bee.Utils = {
          return this._current;
       }
    },
+
+   /**
+    * the default css unit of measurement
+    * @type  {String}
+    */
+   DEFAULT_UNIT : "px",
    /**
     *
     * @param val {Number|String<Number>}
     * @param radix {Number}|magnitude
-    * @returns {Integer}
+    * @returns {INT}
     */
    pInt   : function (val, radix)
    {
@@ -70,6 +76,11 @@ Bee.Utils = {
       return obj !== undefined && obj !== null; //legacy check
    },
 
+   init : function()
+   {
+      //don't know what to do with this
+   },
+
    /**
     * Removes all key value pairs from the object/map/hash.
     *
@@ -77,10 +88,14 @@ Bee.Utils = {
     */
    destroy : function (obj)
    {
-      for (let i in obj)
-      {
-         delete obj[i];
-      }
+      //console.log("called");
+      //for (let i in obj)
+      //{
+      //   console.log(obj[i]);
+      //   delete obj[i];
+      //}
+      obj = null; //set it up for garbage collection
+      console.log(obj);
    },
 
    /**
@@ -2111,19 +2126,36 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
  * Shout outs to Erik Arvidsson aka arvomatic
  *
  * @requires Bee.Utils
+ * @requires Bee.Array
  *
  * @user MSG: Some lines in this file use constructs from es6 or later
  * to make it es5 compatible check for es6+ or #es6+ in comments
  */
 
-(function (Bu)
+(function ()
 {
+   //localising references speeds up identifier look up time
+   let Bu  = Bee.Utils,
+       Ba  = Bee.Array,
+       Boa = Bee.ObservableArray;
+
    //cr8n the Bee.Object object
    /**
     * @static
     * @type {{}}
     */
    Bee.Object = Bee.Object || {};
+
+   /**
+    * The names of the fields that are defined on Object.prototype.
+    * @type {Array<string>}
+    * @private
+    */
+   Bee.Object.PROTOTYPE_FIELDS = [
+      'constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable',
+      'toLocaleString', 'toString', 'valueOf'
+   ];
+
    /**
     * Whether two values are not observably distinguishable. This
     * correctly detects that 0 is not the same as -0 and two NaNs are
@@ -2286,9 +2318,9 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
    {
       if (key in  obj)
       {
-         return obj[key]
+         return obj[key];
       }
-      return null
+      return null;
    };
 
    /**
@@ -2318,10 +2350,12 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
     */
    Bee.Object.getAnyKey = function (obj)
    {
-      for (var key in obj)
+      let keys = [];
+      for (let key in obj)
       {
-         return key;
+         keys.push(key);
       }
+      return keys[Math.random() * keys.length];
    };
 
    /**
@@ -2335,10 +2369,12 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
     */
    Bee.Object.getAnyValue = function (obj)
    {
-      for (var key in obj)
+      let vals = [];
+      for (let key in obj)
       {
-         return obj[key];
+         vals.push(obj[key]);
       }
+      return vals[Math.random() * vals.length];
    };
 
    /**
@@ -2534,8 +2570,6 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
          delete obj[i];
       }
    };
-
-
 
    /**
     * Removes a key-value pair based on the key.
@@ -2750,16 +2784,6 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
    };
 
    /**
-    * The names of the fields that are defined on Object.prototype.
-    * @type {Array<string>}
-    * @private
-    */
-   Bee.Object.PROTOTYPE_FIELDS_ = [
-      'constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable',
-      'toLocaleString', 'toString', 'valueOf'
-   ];
-
-   /**
     * Extends an object with another object.
     * This operates 'in-place'; it does not create a new Object.
     *
@@ -2770,8 +2794,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
     * Bee.Object.extend(o, {b: 2, c: 3});
     * o; // {a: 0, b: 2, c: 3}
     *
-    * @param {Object} target The object to modify. Existing properties will be
-    *     overwritten if they are also present in one of the objects in
+    * @param {Object} target
     *     {@code var_args}.
     * @param {...Object} var_args The objects from which values will be copied.
     * @deprecated use{@link Bee.Object.extend | @link Bee.Utils.extend } instead
@@ -2793,9 +2816,9 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
          // extend String and change 'replace' (not that it is common for anyone to
          // extend anything except Object).
 
-         for (var j = 0; j < Bee.Object.PROTOTYPE_FIELDS_.length; j++)
+         for (var j = 0; j < Bee.Object.PROTOTYPE_FIELDS.length; j++)
          {
-            key = Bee.Object.PROTOTYPE_FIELDS_[j];
+            key = Bee.Object.PROTOTYPE_FIELDS[j];
             if (Object.prototype.hasOwnProperty.call(source, key))
             {
                target[key] = source[key];
@@ -2804,7 +2827,56 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
       }
    };
 
-   Bee.Object.extend = Bu.extend;
+   /**
+    * Extend an object with the members of another
+    * This copying is done in place
+    * Example:
+    * var o = {};
+    * Bee.Object.extend(o, {a: 0, b: 1});
+    * o; // {a: 0, b: 1}
+    * Bee.Object.extend(o, {b: 2, c: 3});
+    * o; // {a: 0, b: 2, c: 3}
+    * @param dest {Object} The object to modify. Existing properties will be
+    *     overwritten if they are also present in one of the objects in
+    *     If the dest is a falsie value the method will return the src object
+    * @param src {Object|Array<Object>} The object or array of objects from which values will be copied.
+    * @param {Boolean} [strict]
+    * @returns {*}
+    */
+   Bee.Object.extend = function (dest, src, strict)
+   {
+      //var key;
+      if (!dest)
+      {
+         dest = {};
+      }
+      let copySrcToDest = function(dest, src)
+      {
+         for (let key in src)
+         {
+            if (strict)
+            {
+               if (src.hasOwnProperty(key))
+               { dest[key] = src[key]; }
+            }
+            else
+            {
+               dest[key] = src[key];
+            }
+         }
+      };
+
+      if(!(Bu.isArray(src))){
+         copySrcToDest(dest, src);
+      }
+      else{
+         Ba.forEach(src, function(src){
+            copySrcToDest(dest, src);
+         });
+      }
+      copySrcToDest = null;
+      return dest;
+   };
 
    /*Bee.Object.extendClone = function (a, b)FIXME
    {
@@ -2914,11 +2986,125 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
       return Object.isFrozen && Object.isFrozen(obj);
    };
 
-})(Bee.Utils);
+})();
 /**
- * Created by arch on 6/18/16.
- * Copyright (C) 2016 Barge Studios <bargestd@gmail.com>
- * @Version
+ *
+ * @Author       Created by ${USER} on 29/06/17 using ${DATE}.
+ * @Time         : 00:19
+ * @Copyright (C) 2018
+ * @version 2.3.5
+ * Barge Studios Inc, The $ Authors
+ * <bargestd@gmail.com>
+ * <bumble.bee@bargestd.com>
+ *
+ * @licence MIT
+ *
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *       \____/
+ *      ( -_- )
+ *     (   ___)
+ *     ( _____)
+ *     (_____)
+ *
+ * @fileOverview contains instruction[code] for creating  this
+ *
+ * @requires {@link }
+ *
+ */
+
+/**
+ * @enum
+ * @type {{BACKSPACE : string, FORM_FEED : string, NEWLINE : string, CARRIAGE_RETURN : string, HORIZONTAL_TABULATOR : string,
+ *    VERTICAL_TABULATOR : string}}
+ */
+Bee.String = Bee.String || {};
+Bee.String.Escape = {
+   BACKSPACE            : '\b',
+   FORM_FEED            : '\f',
+   NEWLINE              : '\n',
+   CARRIAGE_RETURN      : '\r',
+   HORIZONTAL_TABULATOR : '\t',
+   VERTICAL_TABULATOR   : '\v',
+   SINGLE_QUOTE         : '\'',
+   DOUBLE_QUOTE         : '\"',
+   BACKSLASH            : '\\',
+};
+
+
+/**
+ *
+ * @Author       Created by ${USER} on 29/06/17 using ${DATE}.
+ * @Time         : 00:19
+ * @Copyright (C) 2018
+ * @version 2.3.5
+ * Barge Studios Inc, The $ Authors
+ * <bargestd@gmail.com>
+ * <bumble.bee@bargestd.com>
+ *
+ * @licence MIT
+ *
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *       \____/
+ *      ( -_- )
+ *     (   ___)
+ *     ( _____)
+ *     (_____)
+ *
+ * @fileOverview contains instruction[code] for creating  this
+ *
+ * @requires {@link Bee.String}
+ *
+ */
+
+/**
+ *
+ * @enum { string}
+ */
+Bee.String = Bee.String || {};
+Bee.String.Unicode = {
+   NBSP : '&nbsp;',
+};
+/**
+ *
+ * @Author       Created by ${USER} on ${DATE}.
+ * @Time         : 00:19
+ * @Copyright (C) 2016
+ * @version 2.3.5
+ * Barge Studios Inc, The $ Authors
+ * <bargestd@gmail.com>
+ * <bumble.bee@bargestd.com>
+ *
+ * @licence MIT
+ *
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *       \____/
+ *      ( -_- )
+ *     (   ___)
+ *     ( _____)
+ *     (_____)
+ *
+ * @fileOverview contains instruction[code] for creating  this
+ *
+ * @requires {@link }
+ *
  */
 
 (function (Bu)
@@ -2928,20 +3114,21 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
       RSPACE : /\s+/g,
 
       /**
-       * @use for genrating random strings of a certain length
-       * @param length
+       * @use for generating random strings of a certain length (default 5)
+       * @param length {Number} how how many characters should be returned
+       * @param spaces {Boolean}
        * @returns {string}
        */
-      rand : function (length = 5)
+      rand : function (length = 5, spaces = false)
       {
          if(!Bu.isNumber(length) || length < 1)
-         { throw new Error("rand expects an integer greater than 0") }
+         { throw new Error("rand expects an integer greater than 0"); }
 
          let text = "";
          let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
          let len = possible.length;
 
-         for (var i = 0; i < length; i++)
+         for (let i = 0; i < length; i++)
          {
             text += possible.charAt(Math.floor(Math.random() * len));
          }
@@ -2971,11 +3158,11 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
       {
          str = str.toString();
          str = str.toLowerCase();
-         var strArr = str.split(" ");
+         let strArr = str.split(" ");
          str = "";
-         for (var i = 0; i < strArr.length; i++)
+         for (let i = 0; i < strArr.length; i++)
          {
-            var tsc = this.toSentenceCase(strArr[i].toString());
+            let tsc = this.toSentenceCase(strArr[i].toString());
             str += tsc + " ";
          }
          return str;
@@ -2990,13 +3177,13 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
       {
          str = str.toString();
          str = str.toLowerCase();
-         var strArr = str.split(" ");
-         var space = !strict ? " " : "";
+         let strArr = str.split(" ");
+         let space = !strict ? " " : "";
          str = "";
          str += strArr[0].toString();
-         for (var i = 1; i < strArr.length; i++)
+         for (let i = 1; i < strArr.length; i++)
          {
-            var tsc = this.toSentenceCase(strArr[i].toString());
+            let tsc = this.toSentenceCase(strArr[i].toString());
             str += tsc + space;
          }
          return str;
@@ -3012,13 +3199,13 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
          str = str.toString();
          str = str.toLowerCase();
 
-         var strArr = str.split(" ");
-         var space = !strict ? " " : "";
+         let strArr = str.split(" ");
+         let space = !strict ? " " : "";
          str = "";
 
-         for (var i = 0; i < strArr.length; i++)
+         for (let i = 0; i < strArr.length; i++)
          {
-            var tsc = this.toSentenceCase(strArr[i].toString());
+            let tsc = this.toSentenceCase(strArr[i].toString());
             str += tsc + space;
          }
          space = strArr = null;
@@ -3032,14 +3219,14 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
       toggleCase     : function (str) // randomised capitalisation of strings
       {
          str = str.toString();
-         var strArr = str.split(" ");
+         let strArr = str.split(" ");
          str = "";
-         for (var i = 0; i < strArr.length; i += (Math.floor(Math.random() * 4)))
+         for (let i = 0; i < strArr.length; i += (Math.floor(Math.random() * 4)))
          {
             strArr[i] = this.toSentenceCase(strArr[i]);
          }
          str = strArr.concat().toString();
-         return str.replace(/,/g, " ")
+         return str.replace(/,/g, " ");
       },
       /**
        *@use breaks sentence into individual words(can only breaks camelcase words) and make sentence case
@@ -3052,7 +3239,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
          {
             return "";
          }
-         var s = this.underScore(str).replace(/_id$/, '').replace(/_/g, ' ').trim();
+         let s = this.underScore(str).replace(/_id$/, '').replace(/_/g, ' ').trim();
          return Bee.String.toSentenceCase(s);
       },
       /**
@@ -3062,7 +3249,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        */
       dasherise      : function (str)
       {
-         var s = this.trim(str);
+         let s = this.trim(str);
          s.replace(/[_\s]+/g, '-').replace(/([A-Z])/g, '-$1').replace(/-+/g, '-').toLowerCase();
          return s;
       },
@@ -3084,7 +3271,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
          }
          else
          {
-            return (this.truncate(str, maxLen - 3) + "...")
+            return (this.truncate(str, maxLen - 3) + "...");
          }
       },
 
@@ -3107,7 +3294,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        */
       stripChars : function (str, charsArray, replaceWith = "")
       {
-         for (var i = 0, len = charsArray.length; i < len; i++)
+         for (let i = 0, len = charsArray.length; i < len; i++)
          {
             str = str.replace(new RegExp(charsArray[i], 'ig'), replaceWith);
          }
@@ -3160,9 +3347,9 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
       {
          if (typeof(str) !== undefined)
          {
-            var uStr = str.toString(); // initial value yo string
-            var fStr = "";// final value
-            for (var i = 0; i < times; i++)
+            let uStr = str.toString(); // initial value yo string
+            let fStr = "";// final value
+            for (let i = 0; i < times; i++)
             {
                fStr += uStr;
             }
@@ -3188,8 +3375,8 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
             return str;
          }
          len = len - str.length;
-         var left = new Array(Math.ceil(len / 2) + 1).join(char);
-         var right = new Array(Math.floor(len / 2) + 1).join(char);
+         let left = new Array(Math.ceil(len / 2) + 1).join(char);
+         let right = new Array(Math.floor(len / 2) + 1).join(char);
          return left + str + right;
       },
 
@@ -3268,7 +3455,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        */
       isEmpty        : function (str)
       {
-         return str === null || str === undefined ? true : /^[\s\xa0]*$/.test(str)
+         return str === null || str === undefined ? true : /^[\s\xa0]*$/.test(str);
       },
 
       /**
@@ -3327,12 +3514,12 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        */
       between        : function (str, left, right)
       {
-         var s = str;
-         var startPos = s.indexOf(left);
-         var endPos = s.indexOf(right, startPos + left.length);
+         let s = str;
+         let startPos = s.indexOf(left);
+         let endPos = s.indexOf(right, startPos + left.length);
          if (endPos === -1 && right !== null)
          {
-            return new this.constructor('')
+            return new this.constructor('');
          }
          else if (endPos === -1 && right === null)
          {
@@ -3350,7 +3537,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        */
       stripTags      : function (str)
       {
-         var s = str, args = arguments.length > 1 ? arguments : [''];
+         let s = str, args = arguments.length > 1 ? arguments : [''];
 
          Bu.forEach(args, function (tag)
          {
@@ -3365,7 +3552,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        */
       countSubString : function (str)
       {
-         var s = str.toString().split(" ");
+         let s = str.toString().split(" ");
          return s.length;
       },
       /** Function that count occurrences of a substring in a string;
@@ -3383,7 +3570,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
             return (sourceString.length + 1);
          }
 
-         var n    = 0,
+         let n    = 0,
              pos  = 0,
              step = allowOverlapping ? 1 : key.length;
 
@@ -3420,20 +3607,20 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
             qualifier = '"';
          }
 
-         var i                   = 0,
+         let i                   = 0,
              fieldBuffer         = [],
              fields              = [],
              len                 = csvStr.length,
              inField             = false,
              inUnqualifiedString = false;
 
-         var ca = function (i)
+         let ca = function (i)
          {
-            return csvStr.charAt(i)
+            return csvStr.charAt(i);
          };
          if (typeof lineDelimiter !== 'undefined')
          {
-            var rows = [];
+            let rows = [];
          }
 
          if (!qualifier)
@@ -3443,7 +3630,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
 
          while (i < len)
          {
-            var current = ca(i);
+            let current = ca(i);
 
             switch (current)
             {
@@ -3458,6 +3645,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
                   {
                      break;
                   }
+                  break; //may nee to be commented to allow it to work
                case qualifier:
                   inField = !inField;
                   break;
@@ -3545,8 +3733,8 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        */
       startsWith : function (str, prefix)
       {
-         var prefixes = Array.prototype.slice.call(arguments, 1);
-         for (var i = 0; i < prefixes.length; ++i)
+         let prefixes = Array.prototype.slice.call(arguments, 1);
+         for (let i = 0; i < prefixes.length; ++i)
          {
             if (str.lastIndexOf(prefixes[i], 0) === 0)
             {
@@ -3567,10 +3755,10 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        */
       endsWith         : function (str, suffix)
       {
-         var suffixes = Array.prototype.slice.call(arguments, 1);
-         for (var i = 0; i < suffixes.length; ++i)
+         let suffixes = Array.prototype.slice.call(arguments, 1);
+         for (let i = 0; i < suffixes.length; ++i)
          {
-            var l = str.length - suffixes[i].length;
+            let l = str.length - suffixes[i].length;
             if (l >= 0 && str.indexOf(suffixes[i], l) === l)
             {
                return true;
@@ -3596,7 +3784,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        */
       stripPunctuation : function (str)
       {
-         var s = str[0];
+         let s = str[0];
          return s + str.replace(/[\.,-\\/#!$%\^&\*;:{}=\-_`~()\?]/g, "");
       },
       /**
@@ -3607,7 +3795,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        */
       underScore       : function (str, len)
       {
-         var underscores = Bee.String.mul("gebi", len) || Bee.String.mul("gebi", 1);
+         let underscores = Bee.String.mul("gebi", len) || Bee.String.mul("gebi", 1);
 
          return this.trimRight(str)
                     .replace(/([a-z\d])([A-Z]+)/g, '$1' + underscores + '$2')
@@ -3624,21 +3812,10 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
          if (len < expectedLength)
          {
             let remaining = expectedLength - len;
-            num = Bee.String.mul("0", remaining) + num
+            num = Bee.String.mul("0", remaining) + num;
          }  // add zero in front of numbers < 10
 
          return num;
-      },
-
-      /**
-       * @use returns the keyCode of a keyboard key
-       * @param e
-       * @returns {Number}
-       */
-      checkKey         : function (e)
-      {
-         var event = window.event ? window.event : e;
-         return event.keyCode
       },
 
       /**
@@ -3649,37 +3826,37 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        */
       compareVersions         : function (version1, version2)
       {
-         var order = 0;
+         let order = 0;
          // Trim leading and trailing whitespace and split the versions into
          // subversions.
-         var v1Subs = this.trim(String(version1)).split('.');
-         var v2Subs = this.trim(String(version2)).split('.');
-         var subCount = Math.max(v1Subs.length, v2Subs.length);
+         let v1Subs = this.trim(String(version1)).split('.');
+         let v2Subs = this.trim(String(version2)).split('.');
+         let subCount = Math.max(v1Subs.length, v2Subs.length);
 
          // Iterate over the subversions, as long as they appear to be equivalent.
-         for (var subIdx = 0; order == 0 && subIdx < subCount; subIdx++)
+         for (let subIdx = 0; order === 0 && subIdx < subCount; subIdx++)
          {
-            var v1Sub = v1Subs[subIdx] || '';
-            var v2Sub = v2Subs[subIdx] || '';
+            let v1Sub = v1Subs[subIdx] || '';
+            let v2Sub = v2Subs[subIdx] || '';
 
             // Split the subversions into pairs of numbers and qualifiers (like 'b').
             // Two different RegExp objects are needed because they are both using
             // the 'g' flag.
-            var v1CompParser = new RegExp('(\\d*)(\\D*)', 'g');
-            var v2CompParser = new RegExp('(\\d*)(\\D*)', 'g');
+            let v1CompParser = new RegExp('(\\d*)(\\D*)', 'g');
+            let v2CompParser = new RegExp('(\\d*)(\\D*)', 'g');
             do {
-               var v1Comp = v1CompParser.exec(v1Sub) || ['', '', ''];
-               var v2Comp = v2CompParser.exec(v2Sub) || ['', '', ''];
+               let v1Comp = v1CompParser.exec(v1Sub) || ['', '', ''];
+               let v2Comp = v2CompParser.exec(v2Sub) || ['', '', ''];
                // Break if there are no more matches.
-               if (v1Comp[0].length == 0 && v2Comp[0].length == 0)
+               if (v1Comp[0].length === 0 && v2Comp[0].length === 0)
                {
                   break;
                }
 
                // Parse the numeric part of the subversion. A missing number is
                // equivalent to 0.
-               var v1CompNum = v1Comp[1].length == 0 ? 0 : parseInt(v1Comp[1], 10);
-               var v2CompNum = v2Comp[1].length == 0 ? 0 : parseInt(v2Comp[1], 10);
+               let v1CompNum = v1Comp[1].length === 0 ? 0 : parseInt(v1Comp[1], 10);
+               let v2CompNum = v2Comp[1].length === 0 ? 0 : parseInt(v2Comp[1], 10);
 
                // Compare the subversion components. The number has the highest
                // precedence. Next, if the numbers are equal, a subversion without any
@@ -3687,11 +3864,11 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
                // the qualifiers are compared as strings.
                order = this._compareElements(v1CompNum, v2CompNum) ||
                        this._compareElements(
-                          v1Comp[2].length == 0, v2Comp[2].length == 0) ||
+                          v1Comp[2].length === 0, v2Comp[2].length === 0) ||
                        this._compareElements(v1Comp[2], v2Comp[2]);
                // Stop as soon as an inequality is discovered.
             }
-            while (order == 0);
+            while (order === 0);
          }
 
          return order;
@@ -3732,7 +3909,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        */
       replaceNode : function (newNode, oldNode)
       {
-         var parent = oldNode.parentNode;
+         let parent = oldNode.parentNode;
          if (parent)
          {
             parent.replaceChild(newNode, oldNode);
@@ -3799,49 +3976,6 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
       }
 
    };
-
-   /**
-    *
-    * @enum { string}
-    */
-   Bee.String.Unicode = {
-      NBSP : '&nbsp;'
-   };
-
-   var testStr = "    nowIsThe time for all Great men to come to the aid of their country";
-
-// console.log(testStr);
-// console.log(Bee.String.stripPunctuation(testStr));
-
-   function leftUnderScore(str, len)
-   {
-
-   }
-
-   function rightUnderScore(str, len)
-   {
-
-   }
-
-//from sugar.js
-   function _multiArgs(args, fn)
-   {
-      var result = [], i;
-      for (i = 0; i < args.length; i++)
-      {
-         result.push(args[i]);
-         if (fn)
-         {
-            fn.call(args, args[i], i);
-         }
-      }
-      return result;
-   }
-
-// console.log(Bee.String.ellipsify("MYMG eerjf", 7));
-//
-// console.log(Bee.String.toCamelCase(testStr).replace(/ /gi, ""));
-// console.log(Bee.String.isAlphaNumeric("sd435kl53n5l53453"));
 
 })(Bee.Utils);
 

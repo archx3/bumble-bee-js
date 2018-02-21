@@ -63,15 +63,27 @@
 
    //endregion
 
-   class Container {
+   class Container extends Widget {
       /**
        * @constructor
        * @param config
+       *
+       * @type {{srcNode : null,
+       * formFactor : {type : string, bezel : number,
+       * chrome : {controls : {close : boolean, minimise : boolean, maximise :
+       * boolean}, controlsLocation : string, theme : string,
+       * style : {color : string, textAlign : string, backgroundColor :
+       * string}}}, style : {width : string, height : string},
+       * resizable : boolean, draggable : boolean}}
+       *
        */
       constructor(config = {})
       {
+         //call the super class
+         super(config);
+
          this.options = {
-            el         : null,
+            srcNode    : null,
             formFactor : {
                //the default form factor is just a container
                type   : "default", //can be of type window (in which case it comes w/ a chrome)
@@ -92,7 +104,6 @@
                      textAlign       : "center", //the style for the title + ellipses
                      backgroundColor : "#000",
                   },
-
                }
             },
             style      : {
@@ -103,8 +114,11 @@
             draggable  : false
          };
 
-         this.options = Bo.extend(this.options, config);
-
+         //msg this is being handled by the
+         //console.log(this.options);
+         //the copy operation is done in place and does not require reassignment
+         /*this.options = */Bo.extend(this.options, config);
+         console.log(this.options);
          this.chrome = null;
          this.content = null;
 
@@ -117,11 +131,12 @@
 
       renderChrome()
       {
-         this.chrome = Bd.createEl("div",{});
+         this.chrome = Bd.createEl("div", {});
 
       }
 
-      render(){
+      render()
+      {
 
       }
 
@@ -164,14 +179,14 @@
 
       }
 
-      destroy(newContent)
+      destroy()
       {
-
+         super.destroy();
+         Bd.removeEl(this.boundingBox);
       }
    }
 
-   let c = new Container();
-
+   let c = new Container({ draggable : true });
    //public methods object
    Bee.Widget.Container = {};
 

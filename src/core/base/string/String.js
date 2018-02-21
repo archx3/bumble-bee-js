@@ -35,8 +35,6 @@
    {
       RSPACE : /\s+/g,
 
-
-
       /**
        * @use for generating random strings of a certain length (default 5)
        * @param length {Number} how how many characters should be returned

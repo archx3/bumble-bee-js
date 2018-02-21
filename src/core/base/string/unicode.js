@@ -33,6 +33,7 @@
  *
  * @enum { string}
  */
+Bee.String = Bee.String || {};
 Bee.String.Unicode = {
    NBSP : '&nbsp;',
 };
