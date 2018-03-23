@@ -5,9 +5,16 @@
 PRE: takes the element to be made draggable
      whether the default effect of the event should be appiled or not
 **/
-var Bee = Bee || {};
-(function (Bu)
+//var Bee = Bee || {};
+(function ()
 {
+   let Bu  = Bee.Utils,
+       Ba  = Bee.Array,
+       Boa = Bee.ObservableArray,
+       Bo  = Bee.Object,
+       Bs  = Bee.String,
+       Bd  = Bee.Dom;
+
    Bee.Drag = Bee.Drag || {};
    /**
     * @param el {Element}
@@ -24,7 +31,8 @@ var Bee = Bee || {};
       this.prevDef = prevDef;
       this.el.classList.add("draggable");
       var self = this;
-      var gsv = Bu.getStyleValue;
+      //console.log(Bd);
+      var gsv = Bd.getStyleValue;
 
       /*the following method implements the movement of an element to a new position
        * it doesn't have to be called explicitly
@@ -45,7 +53,7 @@ var Bee = Bee || {};
          var originalLeft = parseInt(window.getComputedStyle(this).left);
          var originalTop = parseInt(window.getComputedStyle(this).top);
 
-         if(event.target == self.el)
+         if(event.target === self.el)
          {
             var mouseDownX = event.clientX;
             var mouseDownY = event.clientY;
@@ -220,5 +228,5 @@ var Bee = Bee || {};
       document.onmousemove = _dragIt;
       document.onmouseup = _dropIt;
    };
-})(Bee.Utils);
+})();
 

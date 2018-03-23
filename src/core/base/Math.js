@@ -248,15 +248,15 @@
        */
       sign : function (x)
       {
-            if (x > 0)
-            {
-               return 1;
-            }
-            if (x < 0)
-            {
-               return -1;
-            }
-            return x;  // Preserves signed zeros and NaN.
+         if (x > 0)
+         {
+            return 1;
+         }
+         if (x < 0)
+         {
+            return -1;
+         }
+         return x;  // Preserves signed zeros and NaN.
       },
 
       /**
@@ -284,14 +284,14 @@
          var i = 0, j = 0;
 
          var compare = opt_compareFn || function (a, b)
-            {
-               return a === b;
-            };
+         {
+            return a === b;
+         };
 
          var collect = opt_collectorFn || function (i1, i2)
-            {
-               return array1[i1];
-            };
+         {
+            return array1[i1];
+         };
 
          var length1 = array1.length;
          var length2 = array2.length;
@@ -352,7 +352,7 @@
                }
             }
          }
-         
+
          return result;
       },
 
@@ -427,9 +427,9 @@
          var variance;
 
          return variance = this.sum.apply(null, Ba.map(arguments, function (val)
-            {
-               return Math.pow(val - mean, 2);
-            })) / (sampleSize - 1);
+         {
+            return Math.pow(val - mean, 2);
+         })) / (sampleSize - 1);
       },
 
       /**
@@ -548,7 +548,7 @@
        */
       isBetween : function (num, range)
       {
-         return num > range.min && num < range.max
+         return num > range.min && num < range.max;
       },
 
       /**
@@ -559,7 +559,7 @@
        */
       isBetweenInclusive : function (num, range)
       {
-         return num >= range.min && num <= range.max
+         return num >= range.min && num <= range.max;
       },
 
       /**
@@ -590,9 +590,21 @@
             n = n - 1;
          }
          return this.result;
+      },
+
+      /**
+       * Fix JS round off float errors
+       * @param {Number} num
+       * @param {Number} [precision]
+       */
+      correctFloat : function (num, precision)
+      {
+         return parseFloat(
+            num.toPrecision(precision || 14)
+         );
       }
 
-   }
+   };
 })(Bee.Utils, Bee.Array);
 
 //console.log(Bee.Math.rank([79, 5, 18, 5, 32, 1, 16, 1, 82, 13]));

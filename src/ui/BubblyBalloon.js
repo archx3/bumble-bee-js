@@ -57,7 +57,7 @@
        Ba = Bee.Array,
        Bo = Bee.Object,
        Bs = Bee.String,
-       Bd = Bee.Widget;
+       Bd = Bee.Dom;
 
    let Be = new Bee.Event.EventManager();
    //endregion
@@ -85,7 +85,7 @@
 
       if(Bu.defined(options))
       {
-         this.options = Bu.extend(this.options, options);
+         this.options = Bo.extend(this.options, options);
       }
 
       this.balloons = [];
@@ -273,7 +273,7 @@
          var self = this;
          this.dragOptions = {};
 
-         Bu.extend(this.dragOptions, dragOptions); //self.toBeMoved = null;
+         Bo.extend(this.dragOptions, dragOptions); //self.toBeMoved = null;
 
          self.toBeMoved = el;
          Bd.addClass(self.toBeMoved, "draggable"); //Bd.css(self.toBeMoved, {});
@@ -322,7 +322,7 @@
                document.removeEventListener("mouseup", dropMe, false);
             }
 
-            if (event.target == el)
+            if (event.target === el)
             {
                document.addEventListener("mouseup", dropMe, false);
                document.addEventListener("mousemove", dragMe, false);
@@ -357,7 +357,7 @@
             //MSG magic reduction formula (options.balloonSpace - (options.balSpace/4)) cr8s an offset
             let nextPosition = cr.height + (self.options.balloonSpace );
 
-            Bd.css(balloon, {bottom: (Bu.getStyleValue("bottom",balloon) - nextPosition) + "px"});
+            Bd.css(balloon, {bottom: (Bd.getStyleValue("bottom",balloon) - nextPosition) + "px"});
             balloon.setAttribute("data-id", IthBalloonId - 1);
 
          }

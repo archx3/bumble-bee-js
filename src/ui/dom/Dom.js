@@ -57,7 +57,6 @@ const BODY = document ? document.body : null;
        Boa = Bee.ObservableArray,
        Bo  = Bee.Object,
        Bs  = Bee.String;
-   console.log(Bs);
    /**
     *@object
     *
@@ -184,6 +183,16 @@ const BODY = document ? document.body : null;
       },
 
       /**
+       *
+       * @param id {String}
+       * @returns {HTMLElement | null}
+       */
+      gebi : function(id)
+      {
+         return document.getElementById(id);
+      },
+
+      /**
        * @use returns an array of all elements with the specified attribute Name or
        * an array of all elements with the specified attribute Name with a specified value or
        * a single element with the specified attribute Name and val
@@ -192,7 +201,7 @@ const BODY = document ? document.body : null;
        * this can be used the get all els with a single id
        *
        * @param attribute {String}
-       * @param value {String}
+       * @param value {String | Boolean |null}
        * @param single {Boolean}
        * @param ignoreList {Array<String>}
        * @returns {Array | Element}
@@ -992,12 +1001,27 @@ const BODY = document ? document.body : null;
          return window.getComputedStyle(element)[styleName];
       },
 
+
       /**
        *
        * @param elRule {Element.style}
+       * @param el {Element}
        * @returns {Number}
        */
-      getStyleValue : Bu.getStyleValue,
+      getStyleValue            : function (elRule, el)
+      {
+         var self = this;
+         if (Bee.Utils.isString(elRule) && el)
+         {
+            return Bee.Utils.pInt(el.style[elRule].toString().replace(/px|%|pt|em/gi, ""));
+         }
+
+         if (elRule.toString().indexOf(/px|%|pt|em/gi) > -1)
+         {
+            return Bee.Utils.pInt(elRule.toString().replace(/px|%|pt|em/gi, ""));
+         }
+         return Bee.Utils.pInt(elRule.toString());
+      },
 
       /**
        *
@@ -1701,6 +1725,22 @@ const BODY = document ? document.body : null;
          {
             el.style.left = 0;
          }
+      },
+
+      /**
+       * Get the element's offset position, corrected by overflow:auto.
+       * @param el
+       * @returns {{top : number, left : number}}
+       */
+      offset : function (el)
+      {
+         let docElem = doc.documentElement,
+             box     = el.getBoundingClientRect();
+
+         return {
+            top  : box.top + (win.pageYOffset || docElem.scrollTop) - (docElem.clientTop || 0),
+            left : box.left + (win.pageXOffset || docElem.scrollLeft) - (docElem.clientLeft || 0)
+         };
       },
 
       /**

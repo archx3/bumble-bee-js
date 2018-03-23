@@ -76,7 +76,14 @@
      //endregion
      /**
        * @constructor
-       * @param config
+       * @param config {{
+           opacity : Number<Float>,
+           backgroundColor : String,
+           dismissOnClick : Boolean,
+           scrollX : Boolean,
+           scrollY : Boolean,
+           style : {}<StyleObject>
+           }}
        */
      constructor(config = {})
      {
@@ -87,12 +94,16 @@
            opacity : 0.8,
            backgroundColor : '#000',
            dismissOnClick : false,
+           dismissCallback : null,
+           scrollX : false,
+           scrollY : false,
            style : {
               zIndex          : 200,
               position        : 'absolute',
               top             : 0,
               left            : 0,
-              overflow        : 'hidden',
+              overflowX        : this.options.scrollX === true ? "auto" : 'hidden',
+              overflowY        : this.options.scrollY === true ? "auto" : 'hidden',
               display         : 'block',
               width           : '100%',
               height          : '100%'
@@ -131,7 +142,7 @@
        */
       renderUI()
       {
-         this.boundingBox =  Bee.Dom.createEl('section', { className : 'overlay' });
+         this.boundingBox =  Bee.Dom.createEl('section', { className : 'bee-overlay overlay' });
          Bd.css(this.boundingBox, this.options.style);
          if(this.options.opacity === "transparent")
          {
@@ -171,6 +182,10 @@
                if(!this.disabled)
                {
                   self.dismiss();
+                  if(self.options.dismissCallback && Bu.isFunction(self.options.dismissCallback))
+                  {
+                     self.options.dismissCallback();
+                  }
                }
             });
          }

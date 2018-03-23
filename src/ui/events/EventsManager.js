@@ -112,8 +112,7 @@
          el.detachEvent("on" + evtType, handler);
       }
       else
-      {
-         // for IE/Mac, NN4, and older
+      {  // for IE/Mac, NN4, and older
          el["on" + evtType] = null;
       }
 

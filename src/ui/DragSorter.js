@@ -5,8 +5,15 @@
  * @license MIT
  */
 
-(function (Bu, Bd)
+(function ()
 {
+   let Bu  = Bee.Utils,
+       Ba  = Bee.Array,
+       Boa = Bee.ObservableArray,
+       Bo  = Bee.Object,
+       Bs  = Bee.String,
+       Bd  = Bee.Dom;
+   
    (function sortableModule(factory)
    {
       "use strict";
@@ -259,7 +266,7 @@
             }
 
             this.el = el; // root element
-            this.options = options = Bu.extend({}, options, true);
+            this.options = options = Bo.extend({}, options, true);
 
             // Export instance
             el[expando] = this;
@@ -1287,7 +1294,7 @@
                ctx = ctx || document;
 
                do {
-                  if ((selector === '>*' && el.parentNode === ctx) || Bu.matches(el, selector))
+                  if ((selector === '>*' && el.parentNode === ctx) || Bd.matches(el, selector))
                   {
                      return el;
                   }
@@ -1558,7 +1565,7 @@
             {
                return !!_closest(el, selector, el);
             },
-            extend      : Bu.extend,
+            extend      : Bo.extend,
             throttle    : _throttle,
             closest     : _closest,
             toggleClass : _toggleClass,
@@ -1580,4 +1587,4 @@
          DragSorter.version = '1.5.0-rc1';
          return DragSorter;
       });
-})(Bee.Utils, Bee.Widget);
+})();

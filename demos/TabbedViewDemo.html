@@ -40,14 +40,15 @@
 <div id="c2" class="child fp"></div>
 
 
-<script src="../src/core/base/Bee.Utils.min.js"></script>
-<script src="../src/core/base/Bee.Array.min.js"></script>
-<script src="../src/core/base/Bee.Object.min.js"></script>
-<script src="../src/core/base/Bee.String.min.js"></script>
+<!--<script src="../src/core/base/Bee.Utils.min.js"></script>-->
+<!--<script src="../src/core/base/Bee.Array.min.js"></script>-->
+<!--<script src="../src/core/base/Bee.Object.min.js"></script>-->
+<script src="../build/base.js"></script>
 
-<script src="../src/ui/Bee.Dom.min.js"></script>
-<script src="../src/ui/Bee.Events.min.js"></script>
-<script src="../src/ui/DragSorter.js"></script>
+<script src="../src/ui/dom/Dom.js"></script>
+<script src="../build/event.js"></script>
+
+<!--<script src="../src/ui/DragSorter.js"></script>-->
 
 <script src="../src/ui/widgets/TabbedView.js"></script>
 
@@ -69,7 +70,8 @@
                               closeButtons           : true,
                               canAddTab              : true,
                               canRemoveTab           : true,
-                              showTabsList : true
+                              showTabsList : true,
+                              //sortHeads : true
                            })
 </script>
 </body>

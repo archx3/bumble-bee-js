@@ -33,7 +33,6 @@
  */
 
    //Declaring the Bee Namespace
-let Bee = Bee || {};
 
 (function (global, factory)// don't litter the global scope
 {
@@ -61,17 +60,17 @@ let Bee = Bee || {};
 
    "use strict";
 
+   //endregion
+   let Bu = Bee.Utils,
+       Bs = Bee.String,
+       Bo = Bee.Object,
+       Bd = Bee.Dom;
+
    //region protected globals
    Bee.Widget = Bee.Widget || {};
 
-   let Bu = Bee.Utils,
-       Bs = Bee.String,
-       Bd = Bee.Widget,
-       Bo = Bee.Object;
-
    let Be = new Bee.Event.EventManager();
-   //endregion
-   
+
    /**
     *
     * @param parent {String<css> | Element}
@@ -187,7 +186,7 @@ let Bee = Bee || {};
       //replace the default options w/ the user set ones if any is available
       if (options)
       {
-         this.options = Bu.extend(this.options, options);
+         this.options = Bo.extend(this.options, options);
       }
 
       //check if the auto create option is set to true and create the view component if so
@@ -252,7 +251,7 @@ let Bee = Bee || {};
             let lastTabHead = Bd.getElementsByAttribute("data-pane", lastActive, true);
 
             //console.log(lastActive);
-            /*let nextPane = Bee.Utils.gebi(this.getAttribute("data-pane").toString());
+            /*let nextPane = Bd.gebi(this.getAttribute("data-pane").toString());
              let activePane = document.querySelector(".activePane");
 
              self._setActive(this, "tabHead", "activeTabHead");
@@ -282,7 +281,7 @@ let Bee = Bee || {};
          }
          else
          {
-            let nextPane = Bee.Utils.gebi(target.getAttribute("data-pane").toString());
+            let nextPane = Bd.gebi(target.getAttribute("data-pane").toString());
             let activePane = document.querySelector(".activePane");
 
             self._setActive(target, "tabHead", "activeTabHead");
@@ -690,7 +689,7 @@ let Bee = Bee || {};
    TabbedView.prototype.closeTab = function (target)
    {
       const self = this;
-      let paneToClose = Bee.Utils.gebi(target.parentElement.getAttribute("data-pane").toString());
+      let paneToClose = Bd.gebi(target.parentElement.getAttribute("data-pane").toString());
 
       //if the tab is the current active tab
       if (target.parentElement.classList.contains("activeTabHead"))
@@ -759,7 +758,7 @@ let Bee = Bee || {};
     if((parseInt(this.parentElement.getAttribute("data-count"))- parseInt(tabHeads[d].getAttribute("data-count"))) == 1)
     {
     Bee.Utils.setActive(tabHeads[d], "tabHead", "activeTabHead");
-    var nextActivePane = Bee.Utils.gebi(tabHeads[d].getAttribute("data-pane").toString());
+    var nextActivePane = Bd.gebi(tabHeads[d].getAttribute("data-pane").toString());
     Bee.Utils.setActive(nextActivePane, "pane", "activePane");
     break;
     }
@@ -780,14 +779,14 @@ let Bee = Bee || {};
     console.log("tabHead " + tabHeads[d].parentElement);
 
     Bee.Utils.setActive(tabHeads[d], "tabHead", "activeTabHead");
-    var nextActivePane2 = Bee.Utils.gebi(tabHeads[d].getAttribute("data-pane").toString());
+    var nextActivePane2 = Bd.gebi(tabHeads[d].getAttribute("data-pane").toString());
     Bee.Utils.setActive(nextActivePane2, "pane", "activePane");
     //break;
     }
     }
     }
     }
-    var toBeDeletedPane = Bee.Utils.gebi(this.parentElement.getAttribute("data-pane").toString());
+    var toBeDeletedPane = Bd.gebi(this.parentElement.getAttribute("data-pane").toString());
 
     Bee.Utils.closeWin(pel, "remove", true);
     Bee.Utils.closeWin(toBeDeletedPane, "remove", true);
@@ -898,7 +897,7 @@ let Bee = Bee || {};
 
     Be.bindOnAll(tabHeads, "click", function (event)
     {
-    var nextPane = Bee.Utils.gebi(this.getAttribute("data-pane").toString());
+    var nextPane = Bd.gebi(this.getAttribute("data-pane").toString());
     var activePane = document.querySelector(".activePane");
 
     _setActive(this, "tabHead", "activeTabHead");

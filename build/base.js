@@ -88,14 +88,9 @@ Bee.Utils = {
     */
    destroy : function (obj)
    {
-      //console.log("called");
       //for (let i in obj)
-      //{
-      //   console.log(obj[i]);
-      //   delete obj[i];
-      //}
+      //{   delete obj[i];}
       obj = null; //set it up for garbage collection
-      console.log(obj);
    },
 
    /**
@@ -492,7 +487,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
     */
    Observable.prototype.getObj = function (index)
    {
-      return this.observerArray[index]
+      return this.observerArray[index];
    };
 
    /**
@@ -551,7 +546,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
      {
         //msg the update method will be implemented on any observer object created
         // the new
-      this.observers.getObj(i).update(ctx)
+      this.observers.getObj(i).update(ctx);
      }
    };
 
@@ -2093,6 +2088,51 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
       inArray : function (obj, arr)
       {
          return arr.indexOf(obj) > -1;
+      },
+
+      /**
+       * Non-recursive method to find the lowest member of an array. Math.min raises a maximum
+       * call stack size exceeded error in Chrome when trying to apply more than 150.000 points. This
+       * method is slightly slower, but safe.
+       * @param data
+       * @returns {*}
+       */
+      min : function (data)
+   {
+      var i   = data.length,
+          min = data[0];
+
+      while (i--)
+      {
+         if (data[i] < min)
+         {
+            min = data[i];
+         }
+      }
+      return min;
+   },
+
+      /**
+       * Non-recursive method to find the lowest member of an array. Math.min raises a maximum
+       * call stack size exceeded error in Chrome when trying to apply more than 150.000 points. This
+       * method is slightly slower, but safe.
+       *
+       * @param data
+       * @returns {*}
+       */
+      max : function (data)
+      {
+         var i   = data.length,
+             max = data[0];
+
+         while (i--)
+         {
+            if (data[i] > max)
+            {
+               max = data[i];
+            }
+         }
+         return max;
       }
    };
 })(Bee.Utils);
@@ -2316,7 +2356,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
     */
    Bee.Object.get = function (obj, key)
    {
-      if (key in  obj)
+      if (key in obj)
       {
          return obj[key];
       }
@@ -2850,7 +2890,7 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
       {
          dest = {};
       }
-      let copySrcToDest = function(dest, src)
+      let copySrcToDest = function (dest, src)
       {
          for (let key in src)
          {
@@ -2866,16 +2906,187 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
          }
       };
 
-      if(!(Bu.isArray(src))){
+      if (!(Bu.isArray(src)))
+      {
          copySrcToDest(dest, src);
       }
-      else{
-         Ba.forEach(src, function(src){
+      else
+      {
+         Ba.forEach(src, function (src)
+         {
             copySrcToDest(dest, src);
          });
       }
       copySrcToDest = null;
       return dest;
+   };
+
+   /**
+    * Deep merge two or more objects and return a third object. If the first argument is
+    * true, the contents of the second object is copied into the first object.
+    * Previously this function redirected to jQuery.extend(true), but this had two limitations.
+    * First, it deep merged arrays, which lead to workarounds in {@link Highcharts}. Second,
+    * it copied properties from extended prototypes.
+    * @param var_args<Object>
+    */
+   Bee.Object.merge = function (var_args)
+   {
+      let i,
+          args   = arguments,
+          len,
+          ret    = {},
+          doCopy = function (copy, original)
+          {
+             var value, key;
+
+             // An object is replacing a primitive
+             if (typeof copy !== 'object')
+             {
+                copy = {};
+             }
+
+             for (key in original)
+             {
+                if (original.hasOwnProperty(key))
+                {
+                   value = original[key];
+
+                   // Copy the contents of objects, but not arrays or DOM nodes
+                   if (Bu.isObject(value, true) &&
+                       key !== 'renderTo' && typeof value.nodeType !== 'number')
+                   {
+                      copy[key] = doCopy(copy[key] || {}, value);
+
+                      // Primitives and arrays are copied over directly
+                   }
+                   else
+                   {
+                      copy[key] = original[key];
+                   }
+                }
+             }
+             return copy;
+          };
+
+      // If first argument is true, copy into the existing object. Used in setOptions.
+      if (args[0] === true)
+      {
+         ret = args[1];
+         args = Array.prototype.slice.call(args, 2);
+      }
+
+      // For each argument, extend the return
+      len = args.length;
+      for (i = 0; i < len; i++)
+      {
+         ret = doCopy(ret, args[i]);
+      }
+
+      return ret;
+   };
+
+   Bee.Object.deepMerge = function (target, source, optionsArgument)
+   {
+
+      /**
+       *
+       * @param val
+       * @returns {*|boolean}
+       */
+      function isMergeableObject(val)
+      {
+         let nonNullObject = val && typeof val === 'object';
+
+         return nonNullObject
+                && Object.prototype.toString.call(val) !== '[object RegExp]'
+                && Object.prototype.toString.call(val) !== '[object Date]';
+      }
+
+      /**
+       *
+       * @param val
+       * @returns {*}
+       */
+      function emptyTarget(val)
+      {
+         return Array.isArray(val) ? [] : {};
+      }
+
+      /**
+       *
+       * @param value
+       * @param optionsArgument
+       * @returns {*}
+       */
+      function cloneIfNecessary(value, optionsArgument)
+      {
+         var clone = optionsArgument && optionsArgument.clone === true;
+         return (clone && isMergeableObject(value)) ? Bee.Object.deepMerge(emptyTarget(value), value, optionsArgument) : value;
+      }
+
+      /**
+       *
+       * @param target
+       * @param source
+       * @param optionsArgument
+       */
+      function defaultArrayMerge(target, source, optionsArgument)
+      {
+         var destination = target.slice();
+         source.forEach(function (e, i)
+                        {
+                           if (typeof destination[i] === 'undefined')
+                           {
+                              destination[i] = cloneIfNecessary(e, optionsArgument);
+                           }
+                           else if (isMergeableObject(e))
+                           {
+                              destination[i] = Bee.Object.deepMerge(target[i], e, optionsArgument);
+                           }
+                           else if (target.indexOf(e) === -1)
+                           {
+                              destination.push(cloneIfNecessary(e, optionsArgument));
+                           }
+                        });
+         return destination;
+      }
+
+      function mergeObject(target, source, optionsArgument)
+      {
+         var destination = {};
+         if (isMergeableObject(target))
+         {
+            Object.keys(target).forEach(function (key)
+                                        {
+                                           destination[key] = cloneIfNecessary(target[key], optionsArgument);
+                                        });
+         }
+         Object.keys(source).forEach(function (key)
+                                     {
+                                        if (!isMergeableObject(source[key]) || !target[key])
+                                        {
+                                           destination[key] = cloneIfNecessary(source[key], optionsArgument);
+                                        }
+                                        else
+                                        {
+                                           destination[key] = Bee.Object.deepMerge(target[key], source[key], optionsArgument);
+                                        }
+                                     });
+         return destination;
+      }
+
+      var array = Array.isArray(source);
+      var options = optionsArgument || { arrayMerge : defaultArrayMerge };
+      var arrayMerge = options.arrayMerge || defaultArrayMerge;
+
+      if (array)
+      {
+         return Array.isArray(target) ? arrayMerge(target, source, optionsArgument) : cloneIfNecessary(source, optionsArgument);
+      }
+      else
+      {
+         return mergeObject(target, source, optionsArgument);
+      }
    };
 
    /*Bee.Object.extendClone = function (a, b)FIXME
@@ -2925,7 +3136,9 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
        *
        * @constructor
        */
-      function Creator() {}
+      function Creator()
+      {}
+
       Creator.prototype = prototype;
       return new Creator();
    };
@@ -3107,642 +3320,682 @@ Bee.String.Unicode = {
  *
  */
 
-(function (Bu)
+(function ()
 {
+   let Bu  = Bee.Utils,
+       Ba  = Bee.Array,
+       Boa = Bee.ObservableArray,
+       Bo  = Bee.Object;
    Bee.String =
-   {
-      RSPACE : /\s+/g,
-
-      /**
-       * @use for generating random strings of a certain length (default 5)
-       * @param length {Number} how how many characters should be returned
-       * @param spaces {Boolean}
-       * @returns {string}
-       */
-      rand : function (length = 5, spaces = false)
       {
-         if(!Bu.isNumber(length) || length < 1)
-         { throw new Error("rand expects an integer greater than 0"); }
+         RSPACE : /\s+/g,
 
-         let text = "";
-         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-         let len = possible.length;
-
-         for (let i = 0; i < length; i++)
+         /**
+          * @use for generating random strings of a certain length (default 5)
+          * @param options{{
+       length : Number,
+        spaces : Boolean,
+         digits : Boolean,
+          alphabets : Boolean,
+          smallCaps : Boolean,
+          caps : Boolean }}
+          *  length {Number} how how many characters should be returned
+          *  spaces {Boolean}
+          * @returns {string}
+          */
+         rand : function (options = {})
          {
-            text += possible.charAt(Math.floor(Math.random() * len));
-         }
+            let config = { length : 5,
+               digits : true,
+               smallCaps : true,
+               caps : true,
+               spaces : false,
+            };
 
-         len = possible = null;
-         return text;
-      },
+            if (!Bu.isNumber(config.length) || config.length < 1)
+            {
+               //throw new Error("rand expects an integer greater than 0");
+            }
+            console.log(config, "b");
+            Bo.extend(config, options);
+            console.log(config, "a");
 
-      /**
-       *@use for converting a string to sentence case
-       * @param str {string}
-       * @returns {string}
-       */
-      toSentenceCase : function (str)
-      {
-         str = str.toString();
-         str = str.toLowerCase();
-         return str = str[0].toUpperCase() + str.substring(1, str.length);
-      },
+            let charSets = {
+               spaces : " ",
+               caps      : "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+               smallCaps : "abcdefghijklmnopqrstuvwxyz",
+               digits   : "0123456789"
+            };
 
-      /**
-       *@use for capitalising a string
-       * @param str {string}
-       * @returns {string}
-       */
-      capitalise     : function (str)
-      {
-         str = str.toString();
-         str = str.toLowerCase();
-         let strArr = str.split(" ");
-         str = "";
-         for (let i = 0; i < strArr.length; i++)
-         {
-            let tsc = this.toSentenceCase(strArr[i].toString());
-            str += tsc + " ";
-         }
-         return str;
-      },
-      /**
-       *@use for converting a string to camel case
-       * @param str {string}
-       * @param strict {Boolean}
-       * @returns {string}
-       */
-      toCamelCase    : function (str, strict)
-      {
-         str = str.toString();
-         str = str.toLowerCase();
-         let strArr = str.split(" ");
-         let space = !strict ? " " : "";
-         str = "";
-         str += strArr[0].toString();
-         for (let i = 1; i < strArr.length; i++)
-         {
-            let tsc = this.toSentenceCase(strArr[i].toString());
-            str += tsc + space;
-         }
-         return str;
-      },
-      /**
-       *@use for converting a string to pascal case
-       * @param str {string}
-       * @param strict {Boolean}
-       * @returns {string}
-       */
-      toPascalCase   : function (str, strict)
-      {
-         str = str.toString();
-         str = str.toLowerCase();
+            let text = "";
+            let possible = "";
 
-         let strArr = str.split(" ");
-         let space = !strict ? " " : "";
-         str = "";
+            for(let key in config)
+            {
+               if(config[key] === true && key !== "length")
+               {
+                  possible += charSets[key];
+               }
+               console.log(possible);
+            }
 
-         for (let i = 0; i < strArr.length; i++)
-         {
-            let tsc = this.toSentenceCase(strArr[i].toString());
-            str += tsc + space;
-         }
-         space = strArr = null;
-         return str;
-      },
-      /**
-       *@use for randomising the case of the words in a string
-       * @param str {string}
-       * @returns {string}
-       */
-      toggleCase     : function (str) // randomised capitalisation of strings
-      {
-         str = str.toString();
-         let strArr = str.split(" ");
-         str = "";
-         for (let i = 0; i < strArr.length; i += (Math.floor(Math.random() * 4)))
-         {
-            strArr[i] = this.toSentenceCase(strArr[i]);
-         }
-         str = strArr.concat().toString();
-         return str.replace(/,/g, " ");
-      },
-      /**
-       *@use breaks sentence into individual words(can only breaks camelcase words) and make sentence case
-       * @param str
-       * @returns {string|*}
-       */
-      humanize       : function (str) //
-      {
-         if (str === null || str === undefined)
-         {
-            return "";
-         }
-         let s = this.underScore(str).replace(/_id$/, '').replace(/_/g, ' ').trim();
-         return Bee.String.toSentenceCase(s);
-      },
-      /**
-       * @use replaces spaces with dashes
-       * @param str
-       * @returns {*|string}
-       */
-      dasherise      : function (str)
-      {
-         let s = this.trim(str);
-         s.replace(/[_\s]+/g, '-').replace(/([A-Z])/g, '-$1').replace(/-+/g, '-').toLowerCase();
-         return s;
-      },
-      /**
-       * @use for ellipsifying text if longer than the maxLen  ellipses
-       * @param str
-       * @param maxLen
-       * @returns {*}
-       */
-      ellipsify      : function (str, maxLen)
-      {
-         if (str === null || str === undefined)
-         {
-            return "";
-         }
-         if (str.length === maxLen)
-         {
-            return str;
-         }
-         else
-         {
-            return (this.truncate(str, maxLen - 3) + "...");
-         }
-      },
+            let len = possible.length;
 
-      /**
-       *@use for removing beginning and trailing space chars in a string
-       * @param str {string}
-       * @returns {string}
-       */
-      trim : function (str) //remove space chars from the beginning and end of a string
-      {
-         return str.replace(/^\s*|\s*$/gm, '');
-      },
+            for (let i = 0; i < config.length; i++)
+            {
+               text += possible.charAt(Math.floor(Math.random() * len));
+            }
 
-      /**
-       *
-       * @param str {String}
-       * @param charsArray {Array<String>}
-       * @param replaceWith
-       * @returns {String | *}
-       */
-      stripChars : function (str, charsArray, replaceWith = "")
-      {
-         for (let i = 0, len = charsArray.length; i < len; i++)
-         {
-            str = str.replace(new RegExp(charsArray[i], 'ig'), replaceWith);
-         }
-         return str;
-      },
+            len = possible = null;
+            return text;
+         },
 
-      /** @use for removing any white space that starts a string
-       * @param str {string}
-       * returns {string}
-       * */
-      trimLeft  : function (str) //remove space chars from the beginning and end of a string
-      {
-         return str.replace(/^\s*/gm, '');
-      },
-      /**
-       * @use remove space chars from the beginning and end of a string
-       * @param str
-       * @returns {void|XML|string}
-       */
-      trimRight : function (str)
-      {
-         return str.replace(/\s*$/gm, '');
-      },
-      /**
-       *@use for reducing a string to a number of chars
-       * @param str {string}
-       * @param newLen {number}
-       * @returns {string|String|*}
-       */
-      truncate  : function (str, newLen)
-      {
-         if (Bee.Utils.defined(str))
+         /**
+          *@use for converting a string to sentence case
+          * @param str {string}
+          * @returns {string}
+          */
+         toSentenceCase : function (str)
          {
             str = str.toString();
-            if (str.length > newLen && str !== "")
+            str = str.toLowerCase();
+            return str = str[0].toUpperCase() + str.substring(1, str.length);
+         },
+
+         /**
+          *@use for capitalising a string
+          * @param str {string}
+          * @returns {string}
+          */
+         capitalise   : function (str)
+         {
+            str = str.toString();
+            str = str.toLowerCase();
+            let strArr = str.split(" ");
+            str = "";
+            for (let i = 0; i < strArr.length; i++)
             {
-               str = str.substr(0, newLen);
+               let tsc = this.toSentenceCase(strArr[i].toString());
+               str += tsc + " ";
             }
             return str;
-         }
-      },
-      /*
-       *@use multiplies strings | takes a string value and and returns the string times, "times"
-       * A javaScript implementation of python's string multiplication
-       * @param str {string}
-       * @param times {number}
-       * @returns {string}
-       */
-      mul       : function (str, times)
-      {
-         if (typeof(str) !== undefined)
+         },
+         /**
+          *@use for converting a string to camel case
+          * @param str {string}
+          * @param strict {Boolean}
+          * @returns {string}
+          */
+         toCamelCase  : function (str, strict)
          {
-            let uStr = str.toString(); // initial value yo string
-            let fStr = "";// final value
-            for (let i = 0; i < times; i++)
+            str = str.toString();
+            str = str.toLowerCase();
+            let strArr = str.split(" ");
+            let space = !strict ? " " : "";
+            str = "";
+            str += strArr[0].toString();
+            for (let i = 1; i < strArr.length; i++)
             {
-               fStr += uStr;
+               let tsc = this.toSentenceCase(strArr[i].toString());
+               str += tsc + space;
             }
-         }
-         return fStr;
-      },
-
-      /**
-       * @use  opp of trim
-       * @param str {string}
-       * @param len {number}
-       * @param char {string}
-       * @returns {*}
-       */
-      pad       : function (str, len, char)
-      {
-         if (char === null)
-         {
-            char = ' ';
-         }
-         if (str.length >= len)
-         {
             return str;
-         }
-         len = len - str.length;
-         let left = new Array(Math.ceil(len / 2) + 1).join(char);
-         let right = new Array(Math.floor(len / 2) + 1).join(char);
-         return left + str + right;
-      },
-
-      /**
-       * @use  opp of trim left
-       * @param str {string}
-       * @param len {number}
-       * @param char {string}
-       * @returns {*}
-       */
-      padLeft   : function (str, len, char)
-      {
-         if (char === null)
+         },
+         /**
+          *@use for converting a string to pascal case
+          * @param str {string}
+          * @param strict {Boolean}
+          * @returns {string}
+          */
+         toPascalCase : function (str, strict)
          {
-            char = ' ';
-         }
-         if (str.length >= len)
-         {
-            return str;
-         }
-         return new Array(len - str.length + 1).join(char) + str;
-      },
+            str = str.toString();
+            str = str.toLowerCase();
 
-      /**
-       * @use  opp of trim right
-       * @param str {string}
-       * @param len {number}
-       * @param char {string}
-       * @returns {*}
-       */
-      padRight  : function (str, len, char)
-      {
-         if (char === null)
-         {
-            char = ' ';
-         }
-         if (str.length >= str)
-         {
-            return str;
-         }
-         return str + Array(len - str.length + 1).join(char);
-      },
-      /**
-       * @use for checking if a string value contains only alphabets
-       * @param str
-       * @returns {boolean}
-       */
-      isAlpha   : function (str)//predicate
-      {
-         return !/[^a-z\xDF-\xFF]|^$/.test(str.toLowerCase());
-      },
-      /**
-       * @use for checking if a string value contains only numbers
-       * @param str
-       * @returns {boolean}
-       */
-      isNumeric : function (str)
-      {
-         return !/[^0-9]/.test(str);
-      },
+            let strArr = str.split(" ");
+            let space = !strict ? " " : "";
+            str = "";
 
-      /**
-       * predicate fn to check if a char is whitespace
-       * @param ch
-       * @returns {boolean}
-       */
-      isWhiteSpace : function (ch)
-      {
-         return (ch === 'u0009') || (ch === ' ') || (ch === 'u00A0');
-      },
-
-      /**
-       * @use for checking if a string value is empty
-       * @param str
-       * @returns {boolean}
-       */
-      isEmpty        : function (str)
-      {
-         return str === null || str === undefined ? true : /^[\s\xa0]*$/.test(str);
-      },
-
-      /**
-       * @use for checking if two string values are equal
-       * @param str1
-       * @param str2
-       * @returns {boolean}
-       */
-      isEqual        : function (str1, str2)
-      {
-         return str1 === str2;
-      },
-      /**
-       * @use for checking if a string value contains alphabets and numbers
-       * @param str
-       * @returns {boolean}
-       */
-      isAlphaNumeric : function (str)
-      {
-         return !/[^0-9a-z\xDF-\xFF]/.test(str.toLowerCase());
-      },
-
-      /**
-       * @use for checking if a string value is upper case
-       * @param str
-       * @returns {boolean}
-       */
-      isLower        : function (str)
-      {
-         return this.isAlpha(str) && str.toLowerCase() === str;
-      },
-      /**
-       * @use for checking if a string value is lower case
-       * @param str
-       * @returns {boolean}
-       */
-      isUpper        : function (str)
-      {
-         return this.isAlpha(str) && str.toUpperCase() === str;
-      },
-
-      /**
-       * @use returns an array with the lines in a string (split on new lin char)
-       * @returns {Array}
-       */
-      lines          : function (str)//
-      {
-         return str.replaceAll('\r\n', '\n').split('\n');
-      },
-      /**
-       * @use extracts string b/n left and right
-       * @param str {string}
-       * @param left {string}
-       * @param right {string}
-       * @returns {string|*}
-       */
-      between        : function (str, left, right)
-      {
-         let s = str;
-         let startPos = s.indexOf(left);
-         let endPos = s.indexOf(right, startPos + left.length);
-         if (endPos === -1 && right !== null)
-         {
-            return new this.constructor('');
-         }
-         else if (endPos === -1 && right === null)
-         {
-            return s.substring(startPos + left.length);
-         }
-         else
-         {
-            return s.slice(startPos + left.length, endPos);
-         }
-      },
-
-      /**
-       * @param str {string}
-       * @returns {*}
-       */
-      stripTags      : function (str)
-      {
-         let s = str, args = arguments.length > 1 ? arguments : [''];
-
-         Bu.forEach(args, function (tag)
-         {
-            s = s.replace(RegExp('<\/?[^<>]*>', 'gi'), '');
-         });
-         return s;
-      },
-      /**
-       * @use returns the number of sub strings in a string
-       * @param str
-       * @returns {Number}
-       */
-      countSubString : function (str)
-      {
-         let s = str.toString().split(" ");
-         return s.length;
-      },
-      /** Function that count occurrences of a substring in a string;
-       * @param {String} sourceString               The string
-       * @param {String} key            The sub string to search for
-       * @param {Boolean} [allowOverlapping]  Optional. (Default:false)
-       * @author Vitim.us http://stackoverflow.com/questions/4009756/how-to-count-string-occurrence-in-string/7924240#7924240
-       */
-      getFrequency   : function (sourceString, key, allowOverlapping)
-      {
-         sourceString += "";
-         key += "";
-         if (key.length <= 0)
-         {
-            return (sourceString.length + 1);
-         }
-
-         let n    = 0,
-             pos  = 0,
-             step = allowOverlapping ? 1 : key.length;
-
-         while (true)
-         {
-            pos = sourceString.indexOf(key, pos);
-            if (pos >= 0)
+            for (let i = 0; i < strArr.length; i++)
             {
-               ++n;
-               pos += step;
+               let tsc = this.toSentenceCase(strArr[i].toString());
+               str += tsc + space;
+            }
+            space = strArr = null;
+            return str;
+         },
+         /**
+          *@use for randomising the case of the words in a string
+          * @param str {string}
+          * @returns {string}
+          */
+         toggleCase   : function (str) // randomised capitalisation of strings
+         {
+            str = str.toString();
+            let strArr = str.split(" ");
+            str = "";
+            for (let i = 0; i < strArr.length; i += (Math.floor(Math.random() * 4)))
+            {
+               strArr[i] = this.toSentenceCase(strArr[i]);
+            }
+            str = strArr.concat().toString();
+            return str.replace(/,/g, " ");
+         },
+         /**
+          *@use breaks sentence into individual words(can only breaks camelcase words) and make sentence case
+          * @param str
+          * @returns {string|*}
+          */
+         humanize     : function (str) //
+         {
+            if (str === null || str === undefined)
+            {
+               return "";
+            }
+            let s = this.underScore(str).replace(/_id$/, '').replace(/_/g, ' ').trim();
+            return Bee.String.toSentenceCase(s);
+         },
+         /**
+          * @use replaces spaces with dashes
+          * @param str
+          * @returns {*|string}
+          */
+         dasherise    : function (str)
+         {
+            let s = this.trim(str);
+            s.replace(/[_\s]+/g, '-').replace(/([A-Z])/g, '-$1').replace(/-+/g, '-').toLowerCase();
+            return s;
+         },
+         /**
+          * @use for ellipsifying text if longer than the maxLen  ellipses
+          * @param str
+          * @param maxLen
+          * @returns {*}
+          */
+         ellipsify    : function (str, maxLen)
+         {
+            if (str === null || str === undefined)
+            {
+               return "";
+            }
+            if (str.length === maxLen)
+            {
+               return str;
             }
             else
             {
-               break;
+               return (this.truncate(str, maxLen - 3) + "...");
             }
-         }
-         return n;
-      },
-      /**
-       * @use for parsing a CSV string
-       * @param csvStr
-       * @param delimiter
-       * @param qualifier
-       * @param escape
-       * @param lineDelimiter
-       * @returns {Array}
-       */
-      parseCSV       : function (csvStr, delimiter, qualifier, escape, lineDelimiter)
-      { //try to parse no matter what
-         delimiter = delimiter || ',';
-         escape = escape || '\\';
-         if (typeof qualifier === 'undefined')
-         {
-            qualifier = '"';
-         }
+         },
 
-         let i                   = 0,
-             fieldBuffer         = [],
-             fields              = [],
-             len                 = csvStr.length,
-             inField             = false,
-             inUnqualifiedString = false;
-
-         let ca = function (i)
+         /**
+          *@use for removing beginning and trailing space chars in a string
+          * @param str {string}
+          * @returns {string}
+          */
+         trim : function (str) //remove space chars from the beginning and end of a string
          {
-            return csvStr.charAt(i);
-         };
-         if (typeof lineDelimiter !== 'undefined')
-         {
-            let rows = [];
-         }
+            return str.replace(/^\s*|\s*$/gm, '');
+         },
 
-         if (!qualifier)
+         /**
+          *
+          * @param str {String}
+          * @param charsArray {Array<String>}
+          * @param replaceWith
+          * @returns {String | *}
+          */
+         stripChars : function (str, charsArray, replaceWith = "")
          {
-            inField = true;
-         }
-
-         while (i < len)
-         {
-            let current = ca(i);
-
-            switch (current)
+            for (let i = 0, len = charsArray.length; i < len; i++)
             {
-               case escape:
-                  if (inField && ((escape !== qualifier) || ca(i + 1) === qualifier))
-                  {
-                     i += 1;
-                     fieldBuffer.push(ca(i));
-                     break;
-                  }
-                  if (escape !== qualifier)
-                  {
-                     break;
-                  }
-                  break; //may nee to be commented to allow it to work
-               case qualifier:
-                  inField = !inField;
+               str = str.replace(new RegExp(charsArray[i], 'ig'), replaceWith);
+            }
+            return str;
+         },
+
+         /** @use for removing any white space that starts a string
+          * @param str {string}
+          * returns {string}
+          * */
+         trimLeft  : function (str) //remove space chars from the beginning and end of a string
+         {
+            return str.replace(/^\s*/gm, '');
+         },
+         /**
+          * @use remove space chars from the beginning and end of a string
+          * @param str
+          * @returns {void|XML|string}
+          */
+         trimRight : function (str)
+         {
+            return str.replace(/\s*$/gm, '');
+         },
+         /**
+          *@use for reducing a string to a number of chars
+          * @param str {string}
+          * @param newLen {number}
+          * @returns {string|String|*}
+          */
+         truncate  : function (str, newLen)
+         {
+            if (Bee.Utils.defined(str))
+            {
+               str = str.toString();
+               if (str.length > newLen && str !== "")
+               {
+                  str = str.substr(0, newLen);
+               }
+               return str;
+            }
+         },
+         /*
+          *@use multiplies strings | takes a string value and and returns the string times, "times"
+          * A javaScript implementation of python's string multiplication
+          * @param str {string}
+          * @param times {number}
+          * @returns {string}
+          */
+         mul       : function (str, times)
+         {
+            if (typeof(str) !== undefined)
+            {
+               let uStr = str.toString(); // initial value yo string
+               let fStr = "";// final value
+               for (let i = 0; i < times; i++)
+               {
+                  fStr += uStr;
+               }
+            }
+            return fStr;
+         },
+
+         /**
+          * @use  opp of trim
+          * @param str {string}
+          * @param len {number}
+          * @param char {string}
+          * @returns {*}
+          */
+         pad : function (str, len, char)
+         {
+            if (char === null)
+            {
+               char = ' ';
+            }
+            if (str.length >= len)
+            {
+               return str;
+            }
+            len = len - str.length;
+            let left = new Array(Math.ceil(len / 2) + 1).join(char);
+            let right = new Array(Math.floor(len / 2) + 1).join(char);
+            return left + str + right;
+         },
+
+         /**
+          * @use  opp of trim left
+          * @param str {string}
+          * @param len {number}
+          * @param char {string}
+          * @returns {*}
+          */
+         padLeft : function (str, len, char)
+         {
+            if (char === null)
+            {
+               char = ' ';
+            }
+            if (str.length >= len)
+            {
+               return str;
+            }
+            return new Array(len - str.length + 1).join(char) + str;
+         },
+
+         /**
+          * @use  opp of trim right
+          * @param str {string}
+          * @param len {number}
+          * @param char {string}
+          * @returns {*}
+          */
+         padRight  : function (str, len, char)
+         {
+            if (char === null)
+            {
+               char = ' ';
+            }
+            if (str.length >= str)
+            {
+               return str;
+            }
+            return str + Array(len - str.length + 1).join(char);
+         },
+         /**
+          * @use for checking if a string value contains only alphabets
+          * @param str
+          * @returns {boolean}
+          */
+         isAlpha   : function (str)//predicate
+         {
+            return !/[^a-z\xDF-\xFF]|^$/.test(str.toLowerCase());
+         },
+         /**
+          * @use for checking if a string value contains only numbers
+          * @param str
+          * @returns {boolean}
+          */
+         isNumeric : function (str)
+         {
+            return !/[^0-9]/.test(str);
+         },
+
+         /**
+          * predicate fn to check if a char is whitespace
+          * @param ch
+          * @returns {boolean}
+          */
+         isWhiteSpace : function (ch)
+         {
+            return (ch === 'u0009') || (ch === ' ') || (ch === 'u00A0');
+         },
+
+         /**
+          * @use for checking if a string value is empty
+          * @param str
+          * @returns {boolean}
+          */
+         isEmpty : function (str)
+         {
+            return str === null || str === undefined ? true : /^[\s\xa0]*$/.test(str);
+         },
+
+         /**
+          * @use for checking if two string values are equal
+          * @param str1
+          * @param str2
+          * @returns {boolean}
+          */
+         isEqual        : function (str1, str2)
+         {
+            return str1 === str2;
+         },
+         /**
+          * @use for checking if a string value contains alphabets and numbers
+          * @param str
+          * @returns {boolean}
+          */
+         isAlphaNumeric : function (str)
+         {
+            return !/[^0-9a-z\xDF-\xFF]/.test(str.toLowerCase());
+         },
+
+         /**
+          * @use for checking if a string value is upper case
+          * @param str
+          * @returns {boolean}
+          */
+         isLower : function (str)
+         {
+            return this.isAlpha(str) && str.toLowerCase() === str;
+         },
+         /**
+          * @use for checking if a string value is lower case
+          * @param str
+          * @returns {boolean}
+          */
+         isUpper : function (str)
+         {
+            return this.isAlpha(str) && str.toUpperCase() === str;
+         },
+
+         /**
+          * @use returns an array with the lines in a string (split on new lin char)
+          * @returns {Array}
+          */
+         lines   : function (str)//
+         {
+            return str.replaceAll('\r\n', '\n').split('\n');
+         },
+         /**
+          * @use extracts string b/n left and right
+          * @param str {string}
+          * @param left {string}
+          * @param right {string}
+          * @returns {string|*}
+          */
+         between : function (str, left, right)
+         {
+            let s = str;
+            let startPos = s.indexOf(left);
+            let endPos = s.indexOf(right, startPos + left.length);
+            if (endPos === -1 && right !== null)
+            {
+               return new this.constructor('');
+            }
+            else if (endPos === -1 && right === null)
+            {
+               return s.substring(startPos + left.length);
+            }
+            else
+            {
+               return s.slice(startPos + left.length, endPos);
+            }
+         },
+
+         /**
+          * @param str {string}
+          * @returns {*}
+          */
+         stripTags      : function (str)
+         {
+            let s = str, args = arguments.length > 1 ? arguments : [''];
+
+            Bu.forEach(args, function (tag)
+            {
+               s = s.replace(RegExp('<\/?[^<>]*>', 'gi'), '');
+            });
+            return s;
+         },
+         /**
+          * @use returns the number of sub strings in a string
+          * @param str
+          * @returns {Number}
+          */
+         countSubString : function (str)
+         {
+            let s = str.toString().split(" ");
+            return s.length;
+         },
+         /** Function that count occurrences of a substring in a string;
+          * @param {String} sourceString               The string
+          * @param {String} key            The sub string to search for
+          * @param {Boolean} [allowOverlapping]  Optional. (Default:false)
+          * @author Vitim.us http://stackoverflow.com/questions/4009756/how-to-count-string-occurrence-in-string/7924240#7924240
+          */
+         getFrequency   : function (sourceString, key, allowOverlapping)
+         {
+            sourceString += "";
+            key += "";
+            if (key.length <= 0)
+            {
+               return (sourceString.length + 1);
+            }
+
+            let n    = 0,
+                pos  = 0,
+                step = allowOverlapping ? 1 : key.length;
+
+            while (true)
+            {
+               pos = sourceString.indexOf(key, pos);
+               if (pos >= 0)
+               {
+                  ++n;
+                  pos += step;
+               }
+               else
+               {
                   break;
-               case delimiter:
-                  if (inUnqualifiedString)
-                  {
-                     inField = false;
-                     inUnqualifiedString = false;
-                  }
-                  if (inField && qualifier)
-                  {
-                     fieldBuffer.push(current);
-                  }
-                  else
-                  {
-                     fields.push(fieldBuffer.join(''));
-                     fieldBuffer.length = 0;
-                  }
-                  break;
-               case lineDelimiter:
-                  if (inUnqualifiedString)
-                  {
-                     inField = false;
-                     inUnqualifiedString = false;
-                     fields.push(fieldBuffer.join(''));
-                     rows.push(fields);
-                     fields = [];
-                     fieldBuffer.length = 0;
-                  }
-                  else if (inField)
-                  {
-                     fieldBuffer.push(current);
-                  }
-                  else
-                  {
-                     if (rows)
+               }
+            }
+            return n;
+         },
+         /**
+          * @use for parsing a CSV string
+          * @param csvStr
+          * @param delimiter
+          * @param qualifier
+          * @param escape
+          * @param lineDelimiter
+          * @returns {Array}
+          */
+         parseCSV       : function (csvStr, delimiter, qualifier, escape, lineDelimiter)
+         { //try to parse no matter what
+            delimiter = delimiter || ',';
+            escape = escape || '\\';
+            if (typeof qualifier === 'undefined')
+            {
+               qualifier = '"';
+            }
+
+            let i                   = 0,
+                fieldBuffer         = [],
+                fields              = [],
+                len                 = csvStr.length,
+                inField             = false,
+                inUnqualifiedString = false;
+
+            let ca = function (i)
+            {
+               return csvStr.charAt(i);
+            };
+            if (typeof lineDelimiter !== 'undefined')
+            {
+               let rows = [];
+            }
+
+            if (!qualifier)
+            {
+               inField = true;
+            }
+
+            while (i < len)
+            {
+               let current = ca(i);
+
+               switch (current)
+               {
+                  case escape:
+                     if (inField && ((escape !== qualifier) || ca(i + 1) === qualifier))
                      {
+                        i += 1;
+                        fieldBuffer.push(ca(i));
+                        break;
+                     }
+                     if (escape !== qualifier)
+                     {
+                        break;
+                     }
+                     break; //may nee to be commented to allow it to work
+                  case qualifier:
+                     inField = !inField;
+                     break;
+                  case delimiter:
+                     if (inUnqualifiedString)
+                     {
+                        inField = false;
+                        inUnqualifiedString = false;
+                     }
+                     if (inField && qualifier)
+                     {
+                        fieldBuffer.push(current);
+                     }
+                     else
+                     {
+                        fields.push(fieldBuffer.join(''));
+                        fieldBuffer.length = 0;
+                     }
+                     break;
+                  case lineDelimiter:
+                     if (inUnqualifiedString)
+                     {
+                        inField = false;
+                        inUnqualifiedString = false;
                         fields.push(fieldBuffer.join(''));
                         rows.push(fields);
                         fields = [];
                         fieldBuffer.length = 0;
                      }
-                  }
-                  break;
-               case ' ':
-                  if (inField)
-                  {
-                     fieldBuffer.push(current);
-                  }
-                  break;
-               default:
-                  if (inField)
-                  {
-                     fieldBuffer.push(current);
-                  }
-                  else if (current !== qualifier)
-                  {
-                     fieldBuffer.push(current);
-                     inField = true;
-                     inUnqualifiedString = true;
-                  }
-                  break;
+                     else if (inField)
+                     {
+                        fieldBuffer.push(current);
+                     }
+                     else
+                     {
+                        if (rows)
+                        {
+                           fields.push(fieldBuffer.join(''));
+                           rows.push(fields);
+                           fields = [];
+                           fieldBuffer.length = 0;
+                        }
+                     }
+                     break;
+                  case ' ':
+                     if (inField)
+                     {
+                        fieldBuffer.push(current);
+                     }
+                     break;
+                  default:
+                     if (inField)
+                     {
+                        fieldBuffer.push(current);
+                     }
+                     else if (current !== qualifier)
+                     {
+                        fieldBuffer.push(current);
+                        inField = true;
+                        inUnqualifiedString = true;
+                     }
+                     break;
+               }
+               i += 1;
             }
-            i += 1;
-         }
 
-         fields.push(fieldBuffer.join(''));
-         if (rows)
-         {
-            rows.push(fields);
-            return rows;
-         }
-         return fields;
-      },
-
-      /*   toCSV: function(str)
-       {
-
-       },*/
-      /**
-       *
-       * @param str
-       * @param prefix {string|Array}
-       * @returns {boolean}
-       */
-      startsWith : function (str, prefix)
-      {
-         let prefixes = Array.prototype.slice.call(arguments, 1);
-         for (let i = 0; i < prefixes.length; ++i)
-         {
-            if (str.lastIndexOf(prefixes[i], 0) === 0)
+            fields.push(fieldBuffer.join(''));
+            if (rows)
             {
-               return true;
+               rows.push(fields);
+               return rows;
             }
-         }
-         return false;
-      },
+            return fields;
+         },
+
+         /*   toCSV: function(str)
+          {
+
+          },*/
+         /**
+          *
+          * @param str
+          * @param prefix {string|Array}
+          * @returns {boolean}
+          */
+         startsWith : function (str, prefix)
+         {
+            let prefixes = Array.prototype.slice.call(arguments, 1);
+            for (let i = 0; i < prefixes.length; ++i)
+            {
+               if (str.lastIndexOf(prefixes[i], 0) === 0)
+               {
+                  return true;
+               }
+            }
+            return false;
+         },
 
 //testStr = ".dSdjjj is? a/ s,oftware? engineer.";
 //console.log(startsWith(testStr, "JP"));
@@ -3753,7 +4006,7 @@ Bee.String.Unicode = {
        * @param suffix
        * @returns {boolean}
        */
-      endsWith         : function (str, suffix)
+      endsWith : function (str, suffix)
       {
          let suffixes = Array.prototype.slice.call(arguments, 1);
          for (let i = 0; i < suffixes.length; ++i)
@@ -3773,11 +4026,11 @@ Bee.String.Unicode = {
        * @param searchStr
        * @return {boolean}
        */
-      contains         : function (str, searchStr)
+      contains : function (str, searchStr)
       {
          return str.indexOf(searchStr) > -1;
       },
-      
+
       /**@use for removing any punctuation marks in a string
        *@param str {string}
        * @returns {string}
@@ -3807,7 +4060,7 @@ Bee.String.Unicode = {
       {
          num = num.toString();
          let self = this,
-             len = num.length;
+             len  = num.length;
 
          if (len < expectedLength)
          {
@@ -3844,7 +4097,8 @@ Bee.String.Unicode = {
             // the 'g' flag.
             let v1CompParser = new RegExp('(\\d*)(\\D*)', 'g');
             let v2CompParser = new RegExp('(\\d*)(\\D*)', 'g');
-            do {
+            do
+            {
                let v1Comp = v1CompParser.exec(v1Sub) || ['', '', ''];
                let v2Comp = v2CompParser.exec(v2Sub) || ['', '', ''];
                // Break if there are no more matches.
@@ -3977,7 +4231,7 @@ Bee.String.Unicode = {
 
    };
 
-})(Bee.Utils);
+})();
 
 
 
@@ -4231,15 +4485,15 @@ Bee.String.Unicode = {
        */
       sign : function (x)
       {
-            if (x > 0)
-            {
-               return 1;
-            }
-            if (x < 0)
-            {
-               return -1;
-            }
-            return x;  // Preserves signed zeros and NaN.
+         if (x > 0)
+         {
+            return 1;
+         }
+         if (x < 0)
+         {
+            return -1;
+         }
+         return x;  // Preserves signed zeros and NaN.
       },
 
       /**
@@ -4267,14 +4521,14 @@ Bee.String.Unicode = {
          var i = 0, j = 0;
 
          var compare = opt_compareFn || function (a, b)
-            {
-               return a === b;
-            };
+         {
+            return a === b;
+         };
 
          var collect = opt_collectorFn || function (i1, i2)
-            {
-               return array1[i1];
-            };
+         {
+            return array1[i1];
+         };
 
          var length1 = array1.length;
          var length2 = array2.length;
@@ -4335,7 +4589,7 @@ Bee.String.Unicode = {
                }
             }
          }
-         
+
          return result;
       },
 
@@ -4410,9 +4664,9 @@ Bee.String.Unicode = {
          var variance;
 
          return variance = this.sum.apply(null, Ba.map(arguments, function (val)
-            {
-               return Math.pow(val - mean, 2);
-            })) / (sampleSize - 1);
+         {
+            return Math.pow(val - mean, 2);
+         })) / (sampleSize - 1);
       },
 
       /**
@@ -4531,7 +4785,7 @@ Bee.String.Unicode = {
        */
       isBetween : function (num, range)
       {
-         return num > range.min && num < range.max
+         return num > range.min && num < range.max;
       },
 
       /**
@@ -4542,7 +4796,7 @@ Bee.String.Unicode = {
        */
       isBetweenInclusive : function (num, range)
       {
-         return num >= range.min && num <= range.max
+         return num >= range.min && num <= range.max;
       },
 
       /**
@@ -4573,289 +4827,22 @@ Bee.String.Unicode = {
             n = n - 1;
          }
          return this.result;
+      },
+
+      /**
+       * Fix JS round off float errors
+       * @param {Number} num
+       * @param {Number} [precision]
+       */
+      correctFloat : function (num, precision)
+      {
+         return parseFloat(
+            num.toPrecision(precision || 14)
+         );
       }
 
-   }
+   };
 })(Bee.Utils, Bee.Array);
 
 //console.log(Bee.Math.rank([79, 5, 18, 5, 32, 1, 16, 1, 82, 13]));
-
-
-/**
- * @Author Created by Arch on 26/04/2017.
- * @Copyright (C) 2017
- * Barge Studios Inc, The Bumble-Bee Authors
- * <bargestd@gmail.com>
- * <bumble.bee@bargestd.com>
- *
- * @licence Licensed under the Barge Studios Eula
- *  you may not use this file except in compliance with the License.
- *
- * You may obtain a copy of the License at
- *     http://www.bargestudios.com/bumblebee/licence
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS-IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- *        \__/
- *    \  (-_-)  /
- *    \-( ___)-/
- *     ( ____)
- *   <-(____)->
- *    \      /
- * @fileOverview contains instruction[code] for creating and manging a Timer
- * with pause and resume, restart ans stop capability, can be ;
- * MUST NOT be confused with a generator function
- * @Version 1.3.0
- * @Version 1.3.7
- * @requires {@link window.document}
- */
-
-/**
- * @namespace
- * @type {{}}
- */
-
-(function (/*Bu, Bs, Bo, Bd*/)
-{
-   /**
-    * @example
-    * {@code
-    *    let timer = new Bee.Timer(function ()
-    *    {
-    *       alert("Done!");
-    *    }, 1000);
-    *    timer.pause();
-    *    // Do some stuff...
-    *    timer.play();
-    *}
-    * @Note: Currently supports timeout only
-    *        Starts automatically
-    *
-    *
-    * @since
-    * @param callback {fn}
-    * @param delay {Number} [milliseconds]
-    * the timeout delay or interval delay
-    * @param autoStart {Boolean}
-    * @param type {String} [timeout|interval]
-    * @constructor
-    */
-   Bee.Timer = function (callback, delay, type = "timeout", autoStart = true)
-   {
-      /**
-       *
-       * @type {String}
-       */
-      this.type = type;
-      /**
-       * @type {null|Object}
-       * @private
-       */
-      this.timerId = null;
-      /**
-       * @type {Null|Date}
-       * @private
-       */
-      this.startTime = null;
-      /**
-       *
-       * @type {Number}
-       */
-      this.delay = delay;
-      /**
-       *
-       * @type {Number}
-       * @private
-       */
-      this.remaining = delay;
-      /**
-       *
-       * @type {fn}
-       */
-      this.callback = callback;
-
-      this.autoStart = autoStart;
-      //this.play = function () {};
-
-      this.states = {
-        started : false,
-        playing : false,
-        paused : false,
-        stopped : false,
-      };
-
-      this.init();
-   };
-
-   Bee.Timer.prototype.init = function ()
-   {
-      if(this.type === "timeout")
-      {
-         /**
-          * @type {Date}
-          * @private
-          */
-         this.startTime = new Date();
-      }
-
-      if(this.autoStart)
-      {
-         /**
-          * AUTO START THE TIMER
-          */
-         this.play();
-      }
-   };
-
-   Bee.Timer.prototype.getRemaining = function ()
-   {
-      return this.remaining -= new Date() - this.startTime;
-   };
-
-   Bee.Timer.prototype.getElapsed = function ()
-   {
-      return this.remaining -= Math.abs(this.startTime - new Date());
-   };
-
-   /**
-    * starts the timer
-    * and can be used to resume a paused timer
-    */
-   Bee.Timer.prototype.play = function ()
-   {
-      if(this.states.playing !== true )
-      {
-         this.stop();
-
-         if(this.type === "timeout")
-         {
-            this.timerId = setTimeout(this.callback, this.remaining);
-         }
-         else
-         {
-            this.timerId = setInterval(this.callback, this.delay);
-         }
-         this.states.stopped = false;
-         this.states.paused = false;
-      }
-   };
-
-   /**
-    * pauses the timer
-    */
-   Bee.Timer.prototype.pause = function ()
-   {
-      if(!this.states.paused)
-      {
-         this.stop();
-
-         if(this.type === "timeout")
-         {
-            this.remaining -= new Date() - this.startTime;
-         }
-
-         this.states.paused = true;
-         this.states.playing = false;
-      }
-   };
-
-   /**
-    *
-    */
-   Bee.Timer.prototype.stop = function ()
-   {
-      if(!this.states.stopped)
-      {
-         if(this.type === "timeout")
-         {
-            window.clearTimeout(this.timerId);
-         }
-         else
-         {
-            window.clearInterval(this.timerId);
-         }
-         this.states.stopped = true;
-         this.states.playing = false;
-      }
-   };
-
-   /**
-    * Alias for {@see Barge.Timer.stop}
-    * Goes beyond stopping to destroying
-    * and setting the instance up for garbage collection
-    * @type {*}
-    */
-   Bee.Timer.prototype.clear = function ()
-   {
-      this.stop();
-      this.destroy();
-   };
-
-   /**
-    * restarts the timing
-    */
-   Bee.Timer.prototype.restart = function ()
-   {
-      this.stop();
-      this.play();
-   };
-
-   /**
-    * Alias for {@see Barge.Timer.restart}
-    * @type {*}
-    */
-   Bee.Timer.prototype.reset = Bee.Timer.prototype.restart;
-
-   /**
-    * resumes a paused timer
-    * works jus like the play method
-    * @type {*}
-    */
-   Bee.Timer.prototype.start = Bee.Timer.prototype.play;
-
-   /**
-    * Alias for {@see Barge.Timer.play}
-    * resumes a paused timer
-    * works jus like the play method
-    * @type {*}
-    */
-   Bee.Timer.prototype.resume = Bee.Timer.prototype.play;
-
-   /**
-    * Nullifies all properties
-    * and sets them up for garbage collection
-    * @Destructor
-    */
-   Bee.Timer.prototype.destroy = function ()
-   {
-      this.timerId = null;
-      this.startTime = null;
-      this.delay = null;
-      this.remaining = null;
-      this.callback = null;
-      
-      this.pause = null;
-      this.play = null;
-      this.stop = null;
-      this.resume = null;
-      this.restart = null;
-      this.reset = null;
-      //this.constructor = null;
-   };
-
-   Bee.Timer.TimerManager = function ()
-   {
-      this.timers = [];
-   };
-   
-   //we're going public :-) lol
-   return Timer = Bee.Timer;
-})(/*Bee.Utils, Bee.String, Bee.Object, Bee.Widget*/);
-
-//TODO reveal other methods by returning an object
-//TODO make the params after callback properties of an options object
 

@@ -195,7 +195,7 @@ var Barge = Bee || {};
     */
    Bee.Timer.prototype.pause = function ()
    {
-      if(!this.states.paused)
+      if(!(this.states.paused))
       {
          this.stop();
 
@@ -214,7 +214,7 @@ var Barge = Bee || {};
     */
    Bee.Timer.prototype.stop = function ()
    {
-      if(!this.states.stopped)
+      if(!(this.states.stopped))
       {
          if(this.type === "timeout")
          {

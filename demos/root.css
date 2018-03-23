@@ -1,0 +1,103 @@
+/*TODO rewrite the var using sass*/
+/*whiteTheme*/
+:root
+{
+
+  /*declaring color vars*/
+  --themeBase : #fff;
+  --normalBgColor : #fff;
+  --menuItemHoverColor : #efefef;
+  --menuTextColor : #393f4c;
+  --useInfoTextColor : #000;
+  --checkBoxBg : #f4f4f4;
+  --checkBoxCheckBg : #ccc;
+  --checkGreen :  #04ec1f;
+  --abacusBlue : #0078ff;
+  --mestBlue : #5577ba;
+  --dividerColor: #d7e0e0;
+  --shortCutColor: #888f8e;
+  --subMenuBorderColor: #ccc;
+  /*--subMenuShadowColor : rgba(0,0,0,.2);*/
+  /*--subMenuShadowColor : rgba(0, 0, 0, 0.63);*/
+  --themeHighlightColor: rgba(218, 38, 255, 0.26);
+  --themeHighlightComplement: #f1f1f1;
+
+  /*declaring color vars*/
+  --workSpaceBgColor : #f1f1f1;
+  /*--workSpaceBgColor : #f1f7fb;alt*/
+
+  /*--menuTextColor : #d4d4d4;space gray text color*/
+  --inputBg : rgba(255, 255, 255, 0.45);
+  --inputFg : #000;
+  --subMenuShadowColor : rgba(0,0,0,.2);
+  --dialogFootColor : #fcfcfc;
+  --tabHoverColor:#23ff8c;
+
+  --tileTagColor : #0095ff;
+
+  --tintColor: rgba(255, 255, 255, 0.67);
+
+
+  --disabledBg :#eee !important;
+  --disabledFg : #d4d4d4 !important;
+  --disabledBorderColor : #e2e3e4 !important;
+  --disabledTextShadow : 1px 1px 0 #fff;
+
+  --formLabelColor: #9ba4af;
+  --formLabelColor2: #9ba4af;
+
+  --halfTint : rgba(255, 255, 255, .5);
+  --halfTint2 : rgba(255, 255, 255, .7);
+
+  --tableBgColor: #fff;
+  --rowDividerColor : var(--dividerColor);
+  --rowHighLightColor : var(--themeHighlightColor);
+
+  --thBgColor : #fff;
+  --thTextColor :  #000;
+  --theadBorderBtm : 1px solid var(--dividerColor);
+
+  /*region msgBox*/
+--dialogDivider : #ccc;
+--dialogBorder : #e6e6e6;
+--msgBoxInputBg : #f5f5f5;
+/*endregion*/
+
+  --treeListBg : #f4f4f4;
+}
+
+:root
+{
+  /*declaring color vars*/
+  --normalBgColor : #fff;
+  --menuItemHoverColor : #efefef;
+  --menuTextColor : #393f4c;
+  --useInfoTextColor : #000;
+  --checkBoxBg : rgba(58, 58, 58, 0.39);
+  --checkBoxCheckBg : #ccc;
+  --checkGreen :  #04ec1f;
+  --abacusBlue : #0078ff;
+  --dividerColor: #d7e0e0;
+  --shortCutColor: #888f8e;
+  --subMenuBorderColor: #ccc;
+  /*--subMenuShadowColor : rgba(0,0,0,.2);*/
+  --subMenuShadowColor : rgba(0, 0, 0, 0.63);
+  --themeHighlightColor: rgba(218, 38, 255, 0.26);
+
+}
+
+.disabled, a[class="disabled"]
+{
+  background-color: var(--disabledBg) !important;
+  color:  var(--disabledFg) !important;
+  cursor: not-allowed !important;
+  border-color: var(--disabledBorderColor) !important;
+  min-width:initial !important;
+  text-shadow: var(--disabledTextShadow) !important;
+  pointer-events: none !important;
+}
+.disabledText, label.disabledText
+{
+  color: var(--disabledFg) !important;
+  text-shadow: var(--disabledTextShadow) !important;
+}

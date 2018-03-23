@@ -1,8 +1,12 @@
 /*
 A fairly direct port of the Python `random` module to JavaScript
 */
-let BaseRandom, BuiltinRandom, HighQualityRandom, LOG2E, NotImplementedError, POW_32, POW_NEG_32, Random, acos, bind, cos, exp,
-    exports, extend, floor, lg, log, mod, pow, sqrt,
+let BaseRandom, BuiltinRandom, HighQualityRandom,
+    LOG2E, NotImplementedError, POW_32,
+    POW_NEG_32, Random, acos,
+    bind, cos, exp,
+    exports, extend, floor,
+    lg, log, mod, pow, sqrt,
     indexOf          = [].indexOf,
     boundMethodCheck = function (instance, Constructor)
     {

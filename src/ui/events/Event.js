@@ -75,6 +75,7 @@
 
    /**
     * Utility class to help resolve cross browser issues
+    * @class
     */
    class Event {
       /**
