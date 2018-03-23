@@ -1,0 +1,103 @@
+$colors : #000,
+#fff,
+#2598ff,
+#ff486b,
+#e4d354,
+#62ecbe,
+#2b908f,
+#91e8e1,
+#f45b5b,
+#434348,
+#f7a35c,
+#8085e9,
+#fee22d,
+#ffcf02,
+#f6911e,
+#91e8e1,
+#9d4f36,
+#90ed7d,
+#f15c80,
+#181b27,
+#3e3d3e,
+#1aee14,
+#001097,
+#000531,
+#ff1e17,
+#ff0000,
+#15b910,
+#37f33b,
+#b8f335,
+'transparent';
+
+$orangeColor : #ffcf02;
+//$orangeColor : #ffb200;
+$turquoise : #57ff82;
+$t-dark-blue : #181b27;
+$darkBlue : #091c55;
+//$darkBlue : #000531;
+$darkBlue2 : #0b2369;
+//$darkBlue2 : #001097;
+$black : #000;
+$white : #fff;
+
+$default-button-bg-color : $orangeColor;
+$default-button-border-color : $orangeColor;
+
+$states : ("normal" : "",
+    "hover" : "hov",
+    "focus" : "fc",
+    "active" : "ac");
+
+$emmets : (
+    'clr' : 'color',
+    'bg-clr' : 'background-color',
+    'bd-clr' : 'border-color',
+    'bb-clr' : 'border-bottom-color',
+    'bt-clr' : 'border-top-color',
+    'br-clr' : 'border-right-color',
+    'bl-clr' : 'border-left-color'
+);
+
+//generate color emmet classes for all mouse states
+
+@mixin create-color-set($emmet-state, $emmet, $color, $for, $rule-key)
+{
+  #{'.'}#{$emmet-state}#{$emmet}#{$for}
+  {
+    #{$rule-key} : #{$color} !important;
+  }
+}
+
+@each $color in $colors
+{
+  @each $state, $emmet-state in $states
+  {
+    @if ($emmet-state == "")
+    {
+      @each $emmet, $rule-key in $emmets
+      {
+        $for : if($color == 'transparent', '-tr', index($colors, $color));
+
+        @include create-color-set($emmet-state, $emmet, $color, $for, $rule-key);
+      }
+
+    }
+    @else
+    {
+      #{'.'}#{$emmet-state}-clr#{index($colors, $color)}:#{$state}
+      {
+        color : #{$color} !important;
+      }
+
+      #{'.'}#{$emmet-state}-bg-clr#{index($colors, $color)}:#{$state}
+      {
+        background-color : #{$color} !important;
+      }
+
+      #{'.'}#{$emmet-state}-bd-clr#{index($colors, $color)}:#{$state}
+      {
+        border-color : #{$color} !important;
+      }
+    }
+  }
+}

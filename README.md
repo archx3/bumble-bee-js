@@ -41,6 +41,7 @@ If your app makes use of UI components like:
  -  Carousel
  -  Grid Layout
  -  ScrollView
+ -  Tree View
   
 ### Controls
  -  buttons
@@ -56,7 +57,7 @@ If your app makes use of UI components like:
  -  color picker
  -  image file selector w/ preview
  -  image cropper
- -  input elements with some sweet perks and user-input restrictionz as needed.
+ -  input elements with some sweet perks and user-input restrictions as needed.
  - On Screen Keyboard
 
 #### Animation (Courtesy Velocity)

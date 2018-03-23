@@ -283,9 +283,23 @@ Bee.Utils = {
    {
       if (!condition)
       {
-         if(callback) {callback()}
+         if(callback) {callback();}
          throw new Error(message);
       }
+   },
+   /**
+    * @use throws custom errors
+    * @param message {String}
+    * @param code {String}
+    * @param url {String}
+    */
+   error : function(message = "", code = "", url = "")
+   {
+      message = "Error: " +
+                code + " " +
+                message + " " +
+                url ;
+      throw new Error(message);
    }
 
 };

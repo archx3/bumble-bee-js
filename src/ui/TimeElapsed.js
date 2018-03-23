@@ -40,7 +40,7 @@
   function ()
   {
      let Bu = Bee.Utils;
-     var indexMapEn    = 'second_minute_hour_day_week_month_year'.split('_'),
+     let indexMapEn    = 'second_minute_hour_day_week_month_year'.split('_'),
          indexMapZh    = '秒_分钟_小时_天_周_月_年'.split('_'),
          indexMapTw    = 'par_sima_donhwiri_da_nawotwe_bosome_afi'.split('_'),
          // built-in locales: en & zh_CN & tw
@@ -51,7 +51,7 @@
                {
                   return ['just now', 'right now'];
                }
-               var unit = indexMapEn[Bu.pInt(index / 2)];
+               let unit = indexMapEn[Bu.pInt(index / 2)];
                if (number > 1)
                {
                   unit += 's';
@@ -65,7 +65,7 @@
                {
                   return ['刚刚', '片刻后'];
                }
-               var unit = indexMapZh[Bu.pInt(index / 2)];
+               let unit = indexMapZh[Bu.pInt(index / 2)];
                return [number + unit + '前', number + unit + '后'];
             },
 
@@ -76,18 +76,18 @@
                   return ['sesiara', 'nkyɛɛi'];
                }
 
-               var unit = indexMapTw[Bu.pInt(index / 2)];
+               let unit = indexMapTw[Bu.pInt(index / 2)];
 
                if (number > 1)
                {
                   if(unit === "da")
                   {
-                     unit = " nnafua "
+                     unit = " nnafua ";
                   }
 
                   if(unit === "afi")
                   {
-                     unit = " nnfie "
+                     unit = " nnfie ";
                   }
                }
 
@@ -134,7 +134,7 @@
       * @param diff
       * @param locale
       * @param defaultLocale
-      * @returns {*|XML|string|void}
+      * @returns {*|HTML|string|void}
       */
      function formatDiff(diff, locale, defaultLocale)
      {
@@ -143,7 +143,7 @@
         // be sure of no error when locale is not exist.
         locale = locales[locale] ? locale : (locales[defaultLocale] ? defaultLocale : 'en');
         // if (! locales[locale]) locale = defaultLocale;
-        var i         = 0,
+        let i         = 0,
             agoin     = diff < 0 ? 1 : 0, // timein or TimeElapsed
             total_sec = diff = Math.abs(diff);
 
@@ -182,7 +182,7 @@
       * What's the meaning?
       * diff = 61 then return 59
       * diff = 3601 (an hour + 1 second), then return 3599
-      * make the interval with high performace.
+      * make the interval with high performance.
       * @param diff
       **/
      function nextInterval(diff)
@@ -267,11 +267,11 @@
       * you.
       *
       * How to use it?
-      * var TimeElapsedLib = require('TimeElapsed.js');
-      * var TimeElapsed = TimeElapsedLib(); // all use default.
-      * var TimeElapsed = TimeElapsedLib('2016-09-10'); // the relative date is 2016-09-10, so the 2016-09-11 will be 1 day ago.
-      * var TimeElapsed = TimeElapsedLib(null, 'zh_CN'); // set default locale is `zh_CN`.
-      * var TimeElapsed = TimeElapsedLib('2016-09-10', 'zh_CN'); // the relative date is 2016-09-10, and locale is zh_CN, so the 2016-09-11
+      * let TimeElapsedLib = require('TimeElapsed.js');
+      * let TimeElapsed = TimeElapsedLib(); // all use default.
+      * let TimeElapsed = TimeElapsedLib('2016-09-10'); // the relative date is 2016-09-10, so the 2016-09-11 will be 1 day ago.
+      * let TimeElapsed = TimeElapsedLib(null, 'zh_CN'); // set default locale is `zh_CN`.
+      * let TimeElapsed = TimeElapsedLib('2016-09-10', 'zh_CN'); // the relative date is 2016-09-10, and locale is zh_CN, so the 2016-09-11
       * will be 1天前.
       *
       * @param nowDate
@@ -316,14 +316,14 @@
       * - locale: the formated string's locale name, e.g. en / zh_CN
       *
       * How to use it?
-      * var TimeElapsed = require('TimeElapsed.js')();
+      * let TimeElapsed = require('TimeElapsed.js')();
       * TimeElapsed.format(new Date(), 'pl'); // Date instance
       * TimeElapsed.format('2016-09-10', 'fr'); // formated date string
       * TimeElapsed.format(1473473400269); // timestamp with ms
       *
       * @param date
       * @param locale
-      * @returns {*|XML|string|void}
+      * @returns {*|HTML|string|void}
       */
      TimeElapsed.prototype.format = function (date, locale)
      {
@@ -335,7 +335,7 @@
       * - locale: the locale name used to format date.
       *
       * How to use it?
-      * var TimeElapsed = require('TimeElapsed.js')();
+      * let TimeElapsed = require('TimeElapsed.js')();
       * 1. javascript selector
       * TimeElapsed.render(document.querySelectorAll('.need_to_be_rendered'));
       * 2. use jQuery selector
@@ -362,7 +362,7 @@
       * setLocale: set the default locale name.
       *
       * How to use it?
-      * var TimeElapsed = require('TimeElapsed.js')();
+      * let TimeElapsed = require('TimeElapsed.js')();
       * TimeElapsed.setLocale('fr');
       *
       * @param locale
@@ -379,14 +379,14 @@
       * you.
       *
       * How to use it?
-      * var Bee.TimeElapsed = require('TimeElapsed.js');
-      * var TimeElapsed = Bee.TimeElapsed();
+      * let Bee.TimeElapsed = require('TimeElapsed.js');
+      * let TimeElapsed = Bee.TimeElapsed();
       *     all use default.
-      * var TimeElapsed = Bee.TimeElapsed('2016-09-10');
+      * let TimeElapsed = Bee.TimeElapsed('2016-09-10');
       *     the relative date is 2016-09-10, so the 2016-09-11 will be 1 day ago.
-      * var TimeElapsed = Bee.TimeElapsed(null, 'zh_CN');
+      * let TimeElapsed = Bee.TimeElapsed(null, 'zh_CN');
       *     set default locale is `zh_CN`.
-      * var TimeElapsed = Bee.TimeElapsed('2016-09-10', 'zh_CN');
+      * let TimeElapsed = Bee.TimeElapsed('2016-09-10', 'zh_CN');
       *     the relative date is 2016-09-10, and locale is zh_CN, so the
       * 2016-09-11 will be 1天前.
       *
@@ -406,7 +406,7 @@
       * - localeFunc: the locale process function
       *
       * How to use it?
-      * var Bee.TimeElapsed = require('TimeElapsed.src');
+      * let Bee.TimeElapsed = require('TimeElapsed.src');
       *
       * Bee.TimeElapsed.register('the locale name', the_locale_func);
       * // or
@@ -426,15 +426,15 @@
       *
       * How to use it?
       * For canceling all the timers:
-      * var Bee.TimeElapsed = require('TimeElapsed.src');
-      * var TimeElapsed = Bee.TimeElapsed();
+      * let Bee.TimeElapsed = require('TimeElapsed.src');
+      * let TimeElapsed = Bee.TimeElapsed();
       * TimeElapsed.render(document.querySelectorAll('.need_to_be_rendered'));
       * Bee.TimeElapsed.cancel(); // will stop all the timers, stop render in real time.
       *
       * For canceling single timer on specific node:
-      * var Bee.TimeElapsed = require('TimeElapsed.src');
-      * var TimeElapsed = Bee.TimeElapsed();
-      * var nodes = document.querySelectorAll('.need_to_be_rendered');
+      * let Bee.TimeElapsed = require('TimeElapsed.src');
+      * let TimeElapsed = Bee.TimeElapsed();
+      * let nodes = document.querySelectorAll('.need_to_be_rendered');
       * TimeElapsed.render(nodes);
       * Bee.TimeElapsed.cancel(nodes[0]); // will clear a timer attached to the first node, stop render in real time.
       *
@@ -477,8 +477,8 @@
      Bee.TimeElapsed.apply = function ()
      {
         document.querySelectorAll('.load_time').setAttribute('datetime', Bee.TimeElapsed.iso8601(new Date()));
-        var te = new Bee.TimeElapsed(null, 'tw');
-        //var te = new Bee.TimeElapsed(null, navigator.language.replace('-', '_'));
+        let te = new Bee.TimeElapsed(null, 'tw');
+        //let te = new Bee.TimeElapsed(null, navigator.language.replace('-', '_'));
         te.render(document.querySelectorAll('.timeago'));
      };
 

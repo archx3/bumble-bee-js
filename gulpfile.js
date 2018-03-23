@@ -1,6 +1,8 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var closureCompiler = require('gulp-closure-compiler');
+var jsdoc = require('gulp-jsdoc3');
+
 
 gulp.task('concat-base-js', function () {
    return gulp.src(['src/core/base/Utils.js',
@@ -17,6 +19,14 @@ gulp.task('concat-base-js', function () {
 
 });
 
+gulp.task('concat-event-js', function () {
+   return gulp.src(['src/ui/events/Event.js',
+                    'src/ui/events/EventsManager.js'])
+              .pipe(concat('event.js'))
+              .pipe(gulp.dest('build'));
+
+});
+
 gulp.task('minify-base-js', function () {
    return gulp.src(['build/base.js'])
               .pipe(closureCompiler({
@@ -25,6 +35,14 @@ gulp.task('minify-base-js', function () {
                                     }))
               .pipe(gulp.dest('dist'));
 
+});
+
+
+
+gulp.task('doc', function (cb) {
+   var config = require('./jsdoc.json');
+   gulp.src(['README.md', './src/**/*.js'], {read: false})
+       .pipe(jsdoc(config, cb));
 });
 
 gulp.task('default', ['concat-js'/*, 'pack-css'*/]);

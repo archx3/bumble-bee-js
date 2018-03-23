@@ -28,7 +28,6 @@
  * @requires {@link }
  *
  */
-
 (function (global, factory)
 {
    if (typeof define === 'function' && define.amd)
@@ -36,6 +35,7 @@
       // AMD. Register as an anonymous module unless amdModuleId is set
       define([], function ()
       {
+         Bee.Widget = Bee.Widget || {};
          return (global['Bee.Widget.Container'] = factory(global));
       });
    }
@@ -80,24 +80,34 @@
       constructor(config = {})
       {
          //call the super class
-         super(config);
+         super();
 
          this.options = {
             srcNode    : null,
+            hostNode   : document.body,
             formFactor : {
                //the default form factor is just a container
-               type   : "default", //can be of type window (in which case it comes w/ a chrome)
+               type    : "default", //can be of type window (in which case it comes w/ a chrome)
                //the thickness of the bezel around the container w/o the top if chrome exists (0 means no bezel)
-               bezel  : 0,
-               chrome : {
+               bezel   : {
+                  width : 0,
+                  color : "transparent"
+               },
+               scrollX : false,
+               scrollY : false,
+               chrome  : {
                   controls         : {
                      close    : true,
                      minimise : true,
                      maximise : true
                   },
+                  title            : {
+                     text      : "Untitled",
+                     alignment : "center" //could be left or right
+                  },
                   controlsLocation : "left",
                   //a set of pre-made chrome themes
-                  //windows, mac, and flatabulous-dark
+                  //windows, mac, and flatabulous-dark[DEFAULT]
                   theme            : "default", //
                   style            : {
                      color           : "#fff",
@@ -115,12 +125,16 @@
          };
 
          //msg this is being handled by the
-         //console.log(this.options);
-         //the copy operation is done in place and does not require reassignment
-         /*this.options = */Bo.extend(this.options, config);
-         console.log(this.options);
+         //console.log(config);
+         //the copy operation is not done in place and does require reassignment
+         this.options = Bo.deepMerge(this.options, config);
+         this.options.formFactor.bezel.width = "" + (this.options.formFactor.bezel.width === 0 ? "" :
+                            (this.options.formFactor.bezel.width === 1 ? "bdr" :
+                      "bdr" + this.options.formFactor.bezel.width));
          this.chrome = null;
          this.content = null;
+
+         this.render();
 
       }
 
@@ -129,15 +143,94 @@
 
       }
 
-      renderChrome()
-      {
-         this.chrome = Bd.createEl("div", {});
-
-      }
-
       render()
       {
+         this.renderUI();
+         this.options.hostNode.appendChild(this.boundingBox);
+      }
 
+      renderChrome()
+      {
+         let self = this;
+         let bezelWidth = this.options.formFactor.bezel.width;
+console.log(bezelWidth);
+         this.chrome = Bd.createEl("div", {
+            className : ["bee-chrome " + bezelWidth + " bb0 fph h40 clr14 bg-clr20 bd-clr14 pdl10 rctl6 rctr6"]
+         });
+
+         let createChromeButton = function (bgColor, spaceOut = true)
+         {
+            return Bd.createEl("span", {
+               className : "rc50p mtb10 iblk  hw15 " +
+                           (spaceOut ? " mlr5 " : " ") +
+                           bgColor
+            });
+         };
+
+         let titleAlignment = self.options.formFactor.chrome.title.alignment;
+         console.log(titleAlignment);
+         let chromeTitle = Bd.createEl("h3", {
+            className : "fph-75 m0a uc pd5 bld7 ltsp3 slogan ellipsify " +
+                        (!(self.options.formFactor.chrome.controlsLocation === "right") ? "fr " : "fl ") +
+                        (titleAlignment === "right" ? "ar" : (titleAlignment === "left" ? "al" : "ctr")),
+            innerHTML : self.options.formFactor.chrome.title.text
+         });
+
+         if (!(this.options.formFactor.chrome.controlsLocation === "right"))
+         {
+            if (this.options.formFactor.chrome.controls.close)
+            {
+               this.chrome.appendChild(createChromeButton("bg-clr4"));
+            }
+            if (this.options.formFactor.chrome.controls.minimise)
+            {
+               this.chrome.appendChild(createChromeButton("bg-clr14"));
+            }
+            if (this.options.formFactor.chrome.controls.maximise)
+            {
+               this.chrome.appendChild(createChromeButton("bg-clr27", false));
+            }
+         }
+         else
+         {
+            if (this.options.formFactor.chrome.controls.maximise)
+            {
+               this.chrome.appendChild(createChromeButton("bg-clr27", false));
+            }
+            if (this.options.formFactor.chrome.controls.minimise)
+            {
+               this.chrome.appendChild(createChromeButton("bg-clr14"));
+            }
+            if (this.options.formFactor.chrome.controls.close)
+            {
+               this.chrome.appendChild(createChromeButton("bg-clr4"));
+            }
+         }
+
+         //update view
+         this.chrome.appendChild(chromeTitle);
+         titleAlignment = bezelWidth = null;
+         return this.chrome;
+      }
+
+      renderUI()
+      {
+         this.boundingBox = Bd.createEl("div", { classList : ["bee-container-bezel", "fpv", "fph"] });
+
+         let formFactorType = this.options.formFactor.type;
+         let bezelWidth = this.options.formFactor.bezel.width;
+         let contentBoxHeight = "fpv";
+         if (this.options.formFactor.type === "window")
+         {
+            this.boundingBox.appendChild(this.renderChrome());
+            contentBoxHeight = "fpv-40";
+         }
+
+         this.contentBox = Bd.createEl("div", {
+            className : ["bee-content-box " + bezelWidth + " fph " + contentBoxHeight +  " clr14 bg-clr20 bd-clr14 pd10"]
+         });
+
+         this.boundingBox.appendChild(this.contentBox);
       }
 
       create()
@@ -186,37 +279,31 @@
       }
    }
 
-   let c = new Container({ draggable : true });
+   //let c = new Container({
+   //                         draggable : true,
+   //   }
+   //                      });
    //public methods object
-   Bee.Widget.Container = {};
+   //FIXME use revealing module pattern
+   Bee.Widget.Container = Container;
 
    //going public whoop! whoop! lol
-   return Bee.Widget.Container;
+   return Container;
 });
-/*
-<div class="fpv pdtb10">
-                  <div class="bdr2 bb0 fph h40 clr14 bg-clr20 bd-clr14 pdl10 rctl6 rctr6">
-                     <span class="rc50p mtb10 mlr5 hw15 bg-clr4 iblk"></span>
-                     <span class="rc50p mtb10 mr5 hw15 bg-clr14 iblk"></span>
-                     <span class="rc50p mtb10 hw15 bg-clr27 iblk"></span>
-                     <h3 class="fph-75 fr ctr m0a uc pd5 bld7 ltsp3 slogan ellipsify">SOFTWARE ENGINEERING</h3>
-                  </div>
-                  <div class="bdr2 fph fpv-40 clr14 bg-clr20 bd-clr14 pd10">
-                     <p class="cmd clr22 bld4 fts20">
-                        <span class="prompt"><span class="clr28">arch@kobina</span>:<span class="clr3">~</span>$</span>
-                        <span class="td-u">#Frontend developer </span>
-                     </p>
 
-                     <p class="cmd clr22 bld4 fts20">
-                        <span class="prompt"><span class="clr28">arch@kobina</span>:<span class="clr3">~</span>$</span>
-                        <span class="td-u">#Backend developer </span>
-                     </p>
-                     <p class="cmd clr22 bld4 fts20">
-                        <span class="prompt"><span class="clr28">arch@kobina</span>:<span class="clr3">~</span>$</span>
-                        <span class="blinking-cursor">|</span>
-                     </p>
-                  </div>
-               </div>
+/*html
+<div class="fpv pdtb10">
+   <div class="bdr2 bb0 fph h40 clr14 bg-clr20 bd-clr14 pdl10 rctl6 rctr6">
+      <span class="rc50p mtb10 mlr5 hw15 bg-clr4 iblk"></span>
+      <span class="rc50p mtb10 mr5 hw15  iblk"></span>
+      <span class="rc50p mtb10 hw15 bg-clr27 iblk"></span>
+
+      <h3 class="fph-75 fr ctr m0a uc pd5 bld7 ltsp3 slogan ellipsify">SOFTWARE ENGINEERING</h3>
+   </div>
+   <div class="bdr2 fph fpv-40 clr14 bg-clr20 bd-clr14 pd10">
+
+   </div>
+</div>
 
 
 seo optimizer and suggester

@@ -218,7 +218,7 @@
     */
    Bee.Object.get = function (obj, key)
    {
-      if (key in  obj)
+      if (key in obj)
       {
          return obj[key];
       }
@@ -752,7 +752,7 @@
       {
          dest = {};
       }
-      let copySrcToDest = function(dest, src)
+      let copySrcToDest = function (dest, src)
       {
          for (let key in src)
          {
@@ -768,16 +768,187 @@
          }
       };
 
-      if(!(Bu.isArray(src))){
+      if (!(Bu.isArray(src)))
+      {
          copySrcToDest(dest, src);
       }
-      else{
-         Ba.forEach(src, function(src){
+      else
+      {
+         Ba.forEach(src, function (src)
+         {
             copySrcToDest(dest, src);
          });
       }
       copySrcToDest = null;
       return dest;
+   };
+
+   /**
+    * Deep merge two or more objects and return a third object. If the first argument is
+    * true, the contents of the second object is copied into the first object.
+    * Previously this function redirected to jQuery.extend(true), but this had two limitations.
+    * First, it deep merged arrays, which lead to workarounds in {@link Highcharts}. Second,
+    * it copied properties from extended prototypes.
+    * @param var_args<Object>
+    */
+   Bee.Object.merge = function (var_args)
+   {
+      let i,
+          args   = arguments,
+          len,
+          ret    = {},
+          doCopy = function (copy, original)
+          {
+             var value, key;
+
+             // An object is replacing a primitive
+             if (typeof copy !== 'object')
+             {
+                copy = {};
+             }
+
+             for (key in original)
+             {
+                if (original.hasOwnProperty(key))
+                {
+                   value = original[key];
+
+                   // Copy the contents of objects, but not arrays or DOM nodes
+                   if (Bu.isObject(value, true) &&
+                       key !== 'renderTo' && typeof value.nodeType !== 'number')
+                   {
+                      copy[key] = doCopy(copy[key] || {}, value);
+
+                      // Primitives and arrays are copied over directly
+                   }
+                   else
+                   {
+                      copy[key] = original[key];
+                   }
+                }
+             }
+             return copy;
+          };
+
+      // If first argument is true, copy into the existing object. Used in setOptions.
+      if (args[0] === true)
+      {
+         ret = args[1];
+         args = Array.prototype.slice.call(args, 2);
+      }
+
+      // For each argument, extend the return
+      len = args.length;
+      for (i = 0; i < len; i++)
+      {
+         ret = doCopy(ret, args[i]);
+      }
+
+      return ret;
+   };
+
+   Bee.Object.deepMerge = function (target, source, optionsArgument)
+   {
+
+      /**
+       *
+       * @param val
+       * @returns {*|boolean}
+       */
+      function isMergeableObject(val)
+      {
+         let nonNullObject = val && typeof val === 'object';
+
+         return nonNullObject
+                && Object.prototype.toString.call(val) !== '[object RegExp]'
+                && Object.prototype.toString.call(val) !== '[object Date]';
+      }
+
+      /**
+       *
+       * @param val
+       * @returns {*}
+       */
+      function emptyTarget(val)
+      {
+         return Array.isArray(val) ? [] : {};
+      }
+
+      /**
+       *
+       * @param value
+       * @param optionsArgument
+       * @returns {*}
+       */
+      function cloneIfNecessary(value, optionsArgument)
+      {
+         var clone = optionsArgument && optionsArgument.clone === true;
+         return (clone && isMergeableObject(value)) ? Bee.Object.deepMerge(emptyTarget(value), value, optionsArgument) : value;
+      }
+
+      /**
+       *
+       * @param target
+       * @param source
+       * @param optionsArgument
+       */
+      function defaultArrayMerge(target, source, optionsArgument)
+      {
+         var destination = target.slice();
+         source.forEach(function (e, i)
+                        {
+                           if (typeof destination[i] === 'undefined')
+                           {
+                              destination[i] = cloneIfNecessary(e, optionsArgument);
+                           }
+                           else if (isMergeableObject(e))
+                           {
+                              destination[i] = Bee.Object.deepMerge(target[i], e, optionsArgument);
+                           }
+                           else if (target.indexOf(e) === -1)
+                           {
+                              destination.push(cloneIfNecessary(e, optionsArgument));
+                           }
+                        });
+         return destination;
+      }
+
+      function mergeObject(target, source, optionsArgument)
+      {
+         var destination = {};
+         if (isMergeableObject(target))
+         {
+            Object.keys(target).forEach(function (key)
+                                        {
+                                           destination[key] = cloneIfNecessary(target[key], optionsArgument);
+                                        });
+         }
+         Object.keys(source).forEach(function (key)
+                                     {
+                                        if (!isMergeableObject(source[key]) || !target[key])
+                                        {
+                                           destination[key] = cloneIfNecessary(source[key], optionsArgument);
+                                        }
+                                        else
+                                        {
+                                           destination[key] = Bee.Object.deepMerge(target[key], source[key], optionsArgument);
+                                        }
+                                     });
+         return destination;
+      }
+
+      var array = Array.isArray(source);
+      var options = optionsArgument || { arrayMerge : defaultArrayMerge };
+      var arrayMerge = options.arrayMerge || defaultArrayMerge;
+
+      if (array)
+      {
+         return Array.isArray(target) ? arrayMerge(target, source, optionsArgument) : cloneIfNecessary(source, optionsArgument);
+      }
+      else
+      {
+         return mergeObject(target, source, optionsArgument);
+      }
    };
 
    /*Bee.Object.extendClone = function (a, b)FIXME
@@ -827,7 +998,9 @@
        *
        * @constructor
        */
-      function Creator() {}
+      function Creator()
+      {}
+
       Creator.prototype = prototype;
       return new Creator();
    };

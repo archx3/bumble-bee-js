@@ -23,7 +23,7 @@
  */
 
 
-var Bee = Bee || {};
+//var Bee = Bee || {};
 (function (Bu, Ba, Bs, Bd, Bk)
 {
    let Be = new Bee.Event.EventManager();
@@ -38,7 +38,7 @@ var Bee = Bee || {};
        */
       isModifierKey         : function (e)
       {
-         return e.shiftKey || e.ctrlKey || e.altKey
+         return e.shiftKey || e.ctrlKey || e.altKey;
       },
       /**
        *
@@ -453,13 +453,13 @@ var Bee = Bee || {};
       function highlight(row)
       {
          //Bee.Dom.css(row, { transition : "background-color .6s"});
-         Bee.Dom.addClass(row, "highlighted")
+         Bee.Dom.addClass(row, "highlighted");
       }
 
       function unHighlight(row)
       {
          //Bee.Dom.css(row, {transition : "" });
-         Bee.Dom.removeClass(row, "highlighted")
+         Bee.Dom.removeClass(row, "highlighted");
       }
 
       fatherCheckBx.addEventListener("click", function (e)
@@ -494,7 +494,7 @@ var Bee = Bee || {};
                         {
                            input[i].readOnly = false;
                         }
-                     })
+                     });
                   }
                });
 
@@ -517,7 +517,7 @@ var Bee = Bee || {};
                         {
                            input[i].readOnly = true;
                         }
-                     })
+                     });
                   }
                });
 
@@ -587,7 +587,7 @@ var Bee = Bee || {};
                   {
                      input[row.rowIndex - 1].readOnly = false;
                   }
-               })
+               });
             }
          }
          else
@@ -603,7 +603,7 @@ var Bee = Bee || {};
                   {
                      input[row.rowIndex - 1].readOnly = true;
                   }
-               })
+               });
             }
          }
 
@@ -674,7 +674,7 @@ var Bee = Bee || {};
     * @param inputs {NodeList|String<className>}
     *
     * HTML INPUT elements of type button or BUTTON els [Single or Array]
-    * @param buttons {BUTTON|Array<BUTTON>|String<className>}
+    * @param buttons {Button|Array<Button>|String<className>}
     *
     * see if any of the inputs is empty when the page is first loaded
     * @param checkOnLoad {Boolean}
@@ -693,13 +693,19 @@ var Bee = Bee || {};
       inputs = Ba.toArray(inputs);
       buttons = Ba.toArray(buttons);
 
+      /**
+       *
+       * @param inputs
+       * @param buttons
+       * @param callback
+       */
       function makeEmptinessCheck(inputs, buttons, callback)
       {
          let allFilled = false;
 
          allFilled = Ba.allOf(inputs, function (inp)
          {
-            return !Bs.isEmpty(inp.value)
+            return !Bs.isEmpty(inp.value);
          });
 
          if (buttons)
@@ -868,7 +874,7 @@ var Bee = Bee || {};
          {
             if (el.type !== "password")
             {
-               el.type = "password"
+               el.type = "password";
             }
          });
       });
@@ -1051,7 +1057,7 @@ var Bee = Bee || {};
                }
 
                file = files = null;
-            }
+            };
          }
          else
          {
@@ -1152,7 +1158,7 @@ var Bee = Bee || {};
             }
             else if (e.keyCode === 40)
             {
-               Bi.changeNumericValue(this, false)
+               Bi.changeNumericValue(this, false);
             }
             else
             {

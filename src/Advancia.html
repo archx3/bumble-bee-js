@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Advancia</title>
+   <link rel="stylesheet" href="../demos/cssWhiteTheme/root.min.css">
+   <!--<link rel="stylesheet" href="../../../demos/cssWhiteTheme/root.min.css">-->
+
+   <link rel="stylesheet" href="../demos/css/core.min.css">
+   <link rel="stylesheet" href="../demos/css/table.css">
+   <link rel="stylesheet" href="../demos/css/form.css">
+   <link rel="stylesheet" href="../demos/css/messageBox.min.css">
+</head>
+<body>
+
+
+
+   <div class="dialog fdg" id="fdg" style="height: auto;">
+      <div class="fdg-h">
+         <h1 class="dg-title">
+            Employee Number
+            <button class="fdg-closeBtn">&times;</button>
+         </h1>
+      </div>
+      <div class="fdg-pr">
+         <div class="load-bar"></div>
+      </div>
+      <div class="fdg-b formContainer" style="margin-top: 0;">
+         <form action="studentForm.php" method="post" name="parcelCheckIn" enctype="multipart/form-data">
+
+            <div class="formBody">
+
+               <!--Bio Info-->
+
+                  <div class="fields-row">
+                        <label for="emp_no">
+                           <input type="text" class="inp" name="fname" data-type="alpha" id="emp_no" placeholder="First Name" value="" autofocus>
+                        </label>
+                  </div>
+
+            </div>
+
+            <!--Buttons-->
+            <div class="formFoot">
+               <button type="button" id="pay" class="button button-block fdg-closeBtn">PAY</button>
+            </div>
+         </form>
+      </div>
+   </div>
+
+
+<!--<iframe src="Advancia.html"></iframe>-->
+
+
+<script src="../build/base.js"></script>
+<script src="../src/core/async/Bee.Ajax.js"></script>
+
+
+<script src="../src/ui/events/Event.js"></script>
+<script src="../src/ui/events/EventsManager.js"></script>
+<script src="../src/ui/dom/Dom.js"></script>
+<script src="../src/ui/Drag.js"></script>
+
+<script src="../src/ui/widgets/widget/Widget.js"></script>
+<script src="../src/ui/widgets/Overlay.js"></script>
+<script src="../src/ui/widgets/DiceyDialog.js"></script>
+
+<script>
+   let jx = new Bee.Ajax();
+   let $    = Bee.Dom.getEl,
+       pay  = $("#pay"),
+      empNo = $("#emp_no");
+
+   //jx.send()
+
+   pay.addEventListener("click", function (e)
+   {
+      //jx.setRequestHeader("Authorization", "Token fa8ffc89e613129a8957f6fd8f9d35efb1ac7ec8");
+
+      Bee.DiceyDialog.progressDialog({ m : "please wait",dismissible : true });
+      jx.send({
+                 url     : "https://advancia.herokuapp.com/api/v1/transact/",
+                 method  : "POST",
+                 data    : {
+                    "amount"      : "90",
+                    "employee_no" : empNo.value,
+                 "order_id" : "AJ44KM9565M45L3K408N84J4NF94"},
+                 headers : {
+                    "Content-Type"  : "application/json",
+                    "Authorization" : "Token fa8ffc89e613129a8957f6fd8f9d35efb1ac7ec8",
+                 },
+                 error   : function (request)
+                 {
+                    Bee.DiceyDialog.dismiss();
+                    let self = this;
+                    Bee.DiceyDialog.confirm({
+                                               t : `error : ${request.status} (${request.readyState})`,
+                                               m : `URL : ${self.url} not found ${request.responseText}`
+                                            });
+                 },
+                 success : function (request)
+                 {
+                    let self = this;
+                    let message = JSON.parse(request.response);
+                    Bee.DiceyDialog.dismiss();
+                    Bee.DiceyDialog.confirm({
+                                               t : `success `,
+                                               m : `${message.message}`
+                                            });
+                 }
+              }, function (request)
+              {
+                 Bee.DiceyDialog.dismiss();
+                 Bee.DiceyDialog.confirm({
+                                            t : `success : ${request.status}`,
+                                            m : `URL : ${request.responseText}`
+                                         });
+              })
+   });
+
+
+console.log(Bee.String.rand({length : 32,
+                            caps : false}));
+
+</script>
+</body>
+</html>

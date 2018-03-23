@@ -124,7 +124,7 @@
     */
    Observable.prototype.getObj = function (index)
    {
-      return this.observerArray[index]
+      return this.observerArray[index];
    };
 
    /**
@@ -183,7 +183,7 @@
      {
         //msg the update method will be implemented on any observer object created
         // the new
-      this.observers.getObj(i).update(ctx)
+      this.observers.getObj(i).update(ctx);
      }
    };
 

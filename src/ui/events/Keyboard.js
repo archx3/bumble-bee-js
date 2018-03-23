@@ -52,7 +52,12 @@ var Barge = Bee || {};
 {
    "use strict";
 
-   let Bu = Bee.Utils, Bs = Bee.String;
+   let Bu  = Bee.Utils,
+       Ba  = Bee.Array,
+       Boa = Bee.ObservableArray,
+       Bo  = Bee.Object,
+       Bs  = Bee.String,
+       Bd  = Bee.Dom;
 
       Bee.Keyboard = Bee.Keyboard || {};
 
@@ -546,7 +551,7 @@ var Barge = Bee || {};
          //console.log("called");
 
 
-         var allButtons = Bu.getElementsByAttribute("data-shortcut");//all items with shortcut attr
+         var allButtons = Bd.getElementsByAttribute("data-shortcut");//all items with shortcut attr
 
          //console.log(allButtons);
          function _isSaveButton(button)
@@ -690,7 +695,7 @@ var Barge = Bee || {};
       };
 
 
-      if(Bee.Utils.getElementsByAttribute("data-shortcut", true) !== undefined)
+      if(Bd.getElementsByAttribute("data-shortcut", false, true) !== undefined)
       {
          let myVar = new Bee.Keyboard.shortcut();
       }
@@ -703,7 +708,7 @@ var Barge = Bee || {};
  @Author Created by ARCH on 05/01/2017
  @fileoverview Constant declarations for common key codes.
  */
-Bee.Utils.provide('Barge.Keyboard.KeyCodes');
+//Bee.Utils.provide('Barge.Keyboard.KeyCodes');
 /**
  * Key codes for common characters.
  *

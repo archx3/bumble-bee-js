@@ -30,7 +30,7 @@
  *
  * @user msg: Some lines in this file use constructs from es6 or later
  */
-var Barge = Bee || {};
+//var Bee = Bee || {};
 
 (function (global, factory)
 {
@@ -57,231 +57,236 @@ var Barge = Bee || {};
 {
    "use strict";
 
-   let Bu = Bee.Utils;
-   /**
-    *
-    * @type {{}}
-    */
-   Bee.Ajax = Bee.Ajax || {};
+   let Bu = Bee.Utils,
+       Bo = Bee.Object;
 
    /**
-    *
-    * @param options
-    * @constructor
+    * @class
     */
-   function Ajax(options = null)
-   {
-      this.options = {
-         baseUrl : "",
-         data : null,
-         method : "GET"
+   class Ajax {
+      /**
+       *
+       * @param options {{baseUrl : String,
+            data    : {},
+            method  : "GET"} | null}
+       * @constructor
+       */
+      constructor(options = null)
+      {
+         this.options = {
+            baseUrl : "",
+            data    : null,
+            method  : "GET"
+         };
+
+         if (options)
+         {
+            this.options = Bo.extend(this.options, options);
+         }
+
+         this.request = null;
+         return this;
+      }
+
+      /**
+       *
+       * @returns {XMLHttpRequest}
+       */
+      static createXHR()
+      {
+         let xhr = null;
+
+         try
+         {
+            if (window.XMLHttpRequest)
+            {
+               xhr = new XMLHttpRequest();
+            }
+            else if (window.ActiveXObject)
+            {
+               xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+         }
+         catch (e)
+         {
+            xhr = null;
+         }
+
+         return xhr;
       };
 
-      if (options)
+      /**
+       *
+       * @param options{{url : string, method : string, target : Element, title : string, error : fn,  success : fn, abort : fn, progress : fn, progressElement : Element|null, data: {}, status : { code : fn, 404 : fn, 200 : fn, ...} }}
+       * @returns {XMLHttpRequest}
+       */
+      send(options)
       {
-         this.options = Bu.extend(this.options, options);
-      }
-   }
+         this.request = Ajax.createXHR();
+         this.queryString = "";
+         this.formData = null;
 
-   /**
-    *
-    * @returns {XMLHttpRequest}
-    */
-  Ajax.prototype.createXHR = function ()
-   {
-      let xhr = null;
+         let self    = this,
+             request = this.request;
 
-      try
-      {
-         if (window.XMLHttpRequest)
+
+         if (options)
          {
-            xhr = new XMLHttpRequest();
+            this.options = Bo.extend(this.options, options);
          }
-         else if (window.ActiveXObject)
+
+         this.request.onreadystatechange = function ()
          {
-            xhr = new ActiveXObject("Microsoft.XMLHTTP")
-         }
-      }
-      catch (e)
-      {
-         xhr = null;
-      }
-
-      return xhr;
-   };
-
-   /**
-    *
-    * @param options{{url : string, method : string,
-      target : Element, title : string,
-      error : fn,  success : fn,
-      abort : fn,
-      progress : fn,
-      progressElement : Element|null
-      data: {}
-      }}
-    * @param callback {fn}
-    * @returns {XMLHttpRequest}
-    */
-   Ajax.prototype.send = function (options, callback = null)
-   {
-      let request = this.createXHR(),
-      self = this;
-
-      if (options)
-      {
-         this.options = Bu.extend(this.options, options);
-      }
-
-      request.onreadystatechange = function ()
-      {
-         if (request.readyState === 4 && request.status === 200)
-         {
-            if(self.options.success)
+            if (request.readyState === 4 && request.status === 200)
             {
-               self.options.success(request);
+               if (self.options.success && Bu.isFunction(self.options.success))
+               {
+                  self.options.success(request);
+               }
             }
-            else if(callback)
+            if (request.status === 404)
             {
-               callback(request);
+               if (self.options.error && Bu.isFunction(self.options.error))
+               {
+                  self.options.error(request);
+               }
             }
-         }
 
-         //if(Bu.defined(options.progressElement))
+            if (Bu.defined(self.options.status) && !Bo.isEmpty(self.options.status))
+            {
+               for (let key in self.options.status) //issue linear search my need improvement
+               {
+                  if (self.options.status.hasOwnProperty(key))
+                  {
+                     if (request.status.toString() === key && Bu.isFunction(self.options.status[key]))
+                     {
+                        self.options.status[key](request); //call the status code callback and pass it the request object
+                     }
+                  }
+               }
+
+            }
+         };
+
+         //NIU atm
+         //request.onerror = function ()
          //{
-         //   let prEl = document.getElementsByClassName(options.progressElement)[0];
-         //   console.log(prEl);
-         //
-         //   switch (request.readyState)
+         //   if (Bu.defined(self.options.error) && Bu.isFunction(self.options.error))
          //   {
-               //case 1:
-               //{
-               //   Bee.Widget.css(prEl, {width : "25%"});
-               //   break;
-               //}
-               //case 2:
-               //{
-               //   Bee.Widget.css(prEl, {width : "50%"});
-               //   break;
-               //}
-               //case 3:
-               //{
-               //   Bee.Widget.css(prEl, {width : "75%"});
-               //   break;
-               //}
-               //case 4:
-               //{
-               //   Bee.Widget.css(prEl, {width : "100%"})
-               //}
-            //}
-         //}
+         //      self.options.error(request);
+         //   }
+         //};
+         //
+         //request.onabort = function ()
+         //{
+         //   if (Bu.defined(self.options.abort) && Bu.isFunction(self.options.abort))
+         //   {
+         //      self.options.abort(request);
+         //   }
+         //};
+         //
+         //request.onprogress = function ()
+         //{
+         //   if (Bu.defined(self.options.progress))
+         //   {
+         //      self.options.progress(request);
+         //   }
+         //   else if (Bu.defined(self.options.onProgress))
+         //   {
+         //      self.options.onProgress(request);
+         //   }
+         //};
+
+         //open the request object
+         request.open(this.options.method,
+            this.options.baseUrl + this.options.url + self.toQueryString(self.options.data), true);
+
+         //issue need to find a way to send multiple headers cos calling RequestHeader multiple times
+         //issue concatenates the first header value and breaks the request
+         // set the necessary headers
+         //this.setHeaders(request, self.options.headers);
+
+         //create form data
+         let formData = new FormData();
+         for (let name in self.options.data)
+         {
+            if(self.options.data.hasOwnProperty(name))
+            {
+               formData.append(name, self.options.data[name]);
+            }
+         }
+
+         //now that all data have been passed and headers set, we can send the request
+         request.send(formData);
+
+         return this;
       };
 
-      request.onerror = function ()
+      abort()
       {
-         if(Bu.defined(self.options.error))
-         {
-            self.options.error(request)
-         }
+         this.request.abort();
+         return this;
       };
+
+      //send()
+      //{
       //
-      request.onabort = function ()
+      //};
+
+      makeQueryString(object)
       {
-         if(Bu.defined(self.options.abort))
+         let firstKey = Object.keys(object)[0];
+
+         this.queryString = "?";
+
+         this.queryString += firstKey + "=" + Ajax.encode(object[firstKey]);
+
+         for (let key in object)
          {
-            self.options.abort(request)
+            this.queryString += "&" + key + "=" + Ajax.encode(object[key]);
          }
-      };
-      //
-      request.onprogress = function ()
-      {
-         if(Bu.defined(self.options.progress))
-         {
-            self.options.progress(request);
-         }
-         else if(Bu.defined(self.options.onProgress))
-         {
-            self.options.onProgress(request);
-         }
-      };
-
-      //console.log(this.options.method, this.options.url, this.options.data);
-
-      request.open(this.options.method,
-                   this.options.baseUrl + this.options.url + self.toQueryString(self.options.data), true);
-      request.send(self.options.data);
-
-      //this.setHeaders(request, self.options.headers);
-
-      return request;
-   };
-
-   //Ajax.prototype.send = function ()
-   //{
-   //
-   //};
-
-   Ajax.prototype.getQueryString = function (object)
-   {
-      let self = this, qString = "?", i = 0;
-
-      for (let key in object)
-      {
-         qString += ( i > 0 ? "&" : "")+ key + "=" + self.encode(object[key]);
-         i++;
       }
 
-      return qString
-      //Object.keys(object).reduce(function (acc, item){//var prefix = ;//return (!acc ? '' : acc + '&') +
-      // self.encode(item) + '=' + self.encode(object[item])//}, '')
-   };
-
-   Ajax.prototype.encode = function(value)
-   {
-      return encodeURIComponent(value)
-   };
-
-   Ajax.prototype.hasContentType = function (headers)
-   {
-      //return Bu.defined(headers["Content-Type"])
-      return Object.keys(headers).some(function (name)
-      {return name.toLowerCase() === 'content-type'})
-   };
-
-   Ajax.prototype.setHeaders =function (xhr, headers = {})
-   {
-      //headers = headers || {};
-      if (!this.hasContentType(headers))
+      getQueryString(object)
       {
-         headers['Content-Type'] = 'application/x-www-form-urlencoded'
-      }
-      Object.keys(headers).forEach(function (name)
-                                   {
-                                      (headers[name] && xhr.setRequestHeader(name, headers[name]))
-                                   })
-   };
+         this.makeQueryString(object);
+         return this.queryString;
+         //Object.keys(object).reduce(function (acc, item){//var prefix = ;//return (!acc ? '' : acc + '&') +
+         // self.encode(item) + '=' + self.encode(object[item])//}, '')
+      };
 
-   Ajax.prototype.toQueryString =function (data)
-   {
-      return Bu.isObject(data) ? this.getQueryString(data) : data
-   };
+      static encode(value)
+      {
+         return encodeURIComponent(value);
+      };
 
+      static hasContentType(headers)
+      {  //return Bu.defined(headers["Content-Type"])
+         return Object.keys(headers).some(function (name)
+                                          {return name.toLowerCase() === 'content-type';});
+      };
 
+      setHeaders(xhr, headers = {})
+      {
+         let self = this;
+         //headers = headers || {};
+         if (!Ajax.hasContentType(headers))
+         {
+            headers['Content-Type'] = 'application/x-www-form-urlencoded';
+         }
+         Object.keys(headers).forEach(function (name)
+                                      {
+                                         (headers[name] && self.request.setRequestHeader(name, headers[name]));
+                                      });
+         return this;
+      };
 
-
-
-
-   /**
-    * todo write an ajax dialog form opener constructor for els with attr data-jx-dgf="<url>, <method>"
-    * add overlay
-    *
-    * if the dialog host (fdg) isnt already loaded load
-    *
-    * edit heading
-    *
-    * load form and insert into dialog
-    */
-
+      toQueryString(data)
+      {
+         //this.makeQueryString(data);
+         return Bu.isObject(data) ? this.getQueryString(data) : data;
+      };
+   }
    //going public whoop! whoop! lol
    return Bee.Ajax = Ajax;
 });

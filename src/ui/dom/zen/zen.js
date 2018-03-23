@@ -1,9 +1,38 @@
-/** Copyright (c) 2014 WaY **/
-
-let ZenParser = (function ()
+(function (global, factory)
 {
+   if (typeof define === 'function' && define.amd)
+   {
+      // AMD. Register as an anonymous module unless amdModuleId is set
+      define([], function ()
+      {
+         return (global['Zen'] = factory(global));
+      });
+   }
+   else if (typeof exports === 'object')
+   {
+      // Node. Does not work with strict CommonJS, but
+      // only CommonJS-like environments that support module.exports,
+      // like Node.
+      module.exports = factory(global);
+   }
+   else
+   {
+      global['Zen'] = factory(global);
+   }
+})(typeof window !== undefined ? window : this, function factory(global)
+{
+   "use strict";
+
+   //region protected globals
+   let Bu  = Bee.Utils,
+       Ba  = Bee.Array,
+       Boa = Bee.ObservableArray,
+       Bo  = Bee.Object,
+       Bs  = Bee.String;
+
    //Elements to be made public and reachable from out of this namespace
    let _public = {};
+
 
    let indentation = {
       TWO_SPACES   : "  ",
@@ -23,426 +52,35 @@ let ZenParser = (function ()
    };
 
    /* ******************************************
-    * Definition of characters with special meaning in script.
-    *   special_chars - characters that are used to signify
-    *					 attributes or relations.
-    *	 white_spaces  - characters to be ignored by script.
-    *					 They can break words.
-    *	 word_chars	   - characters that could be part of word.
-   *********************************************/
-   let special_chars = "$#.[]+>(){}^%";
-   let white_spaces = " \t\r\v\n\f";
-   let word_chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890%_-\\";
-   let digits = "1234567890";
-   let number_negation = "-";
-   let enum_char = "%";
-   let special_char_indicator = "\\";
-
-   /* ******************************************
-    * Void HTML elements are elements that do not have end tag.
-    * every void element has opening tag but CANNOT (since HTML5)
-    * have ending tag
-   *********************************************/
-   let void_tags = [
-      "area", "base", "br", "col", "command",
-      "embed", "hr", "img", "input", "keygen",
-      "link", "meta", "param", "source", "track", "wbr"
-   ];
-
-   //This is result of parsing zen syntax. Array of this elements will be returned as a result.
-   //Each script using zen parser can decide how to use/create parsed elements.
-   //<br/> is also an element!
-   let Elem = _public.Elem = function (tag)
-   {
-
-      //Element tag like "body", "a", "b", "br". Custom tags are acceptable!
-      this.tag = tag;
-
-      //If true element is void what means it's unclosing element (like input or br)
-      this.is_void = is_void_element(this.tag);
-
-      // Name of element - content after $ sign without '$'.
-      // This should be intuitive name for easy usage. Can be ignored in some implementations.
-      // This is for internal use in some implementations. Look at HTML generator example for
-      // great opportunity this operator creates. It's used in Component Base Application to
-      // make easy element references. It's not taken from element id because it could repeat in
-      // multiple object instances (every  photo in gallery could have "FRAME" $ name).
-      this.$ = "";
-
-      // The text inside an element a[href=#]{This is element text!}
-      // <br/> will be parsed as part of an text if we write:
-      //   span{first line<br/>second line}
-      // the text value will be exactly EQUAL to:
-      //   "first line<br/>second line"
-      // NOT:
-      //  "first line\nsecond line"
-      // this is because html apply \n only between <pre> tags.
-      // check out element.insertAdjacentHTML to proper insert text containing html tags
-      // but please do not use it to other adjustments than text modifiers.
-      this.text = "";
-
-      //Attributes of element written as: {name: value}.
-      //id and class are attributes and will be placed in here.
-      this.attr = {};
-
-      //Array of Elem instances.
-      this.children = [];
-
-      return this;
-   };
-
-   Elem.prototype.addAttribute =
-      function (name, value)
-      {
-         if (is_array(name))
-         {
-            if (name.length !== value.length) //if value isn't array value.length isn't defined
-            {
-               throw new Error("Invalid values passed to Elem.addAttribute! arguments!");
-            }
-
-            let n = name.length;
-            while (n--)
-            {
-               this.attr[name[n]] = value[n] || "";
-            }
-
-            return;
-         }
-
-         if (typeof name !== "string")
-         {
-            throw new Error("Invalid name delivered to Elem.addAttribute method!");
-         }
-
-         if (typeof value !== "string")
-         {
-            throw new Error("Invalid value delivered to Elem.addAttribute method!");
-         }
-
-         this.attr[name] = value || "";
-
-      };
-
-   Elem.prototype.removeAttribute =
-      function (name)
-      {
-         if (is_array(name))
-         {
-            for (let n in name)
-            {
-               delete this.attr[name[n]];
-            }
-
-            return;
-         }
-
-         if (typeof name !== "string")
-         {
-            throw new Error("Invalid values passed to Elem.removeAttribute! arguments: " + JSON.stringify(arguments));
-         }
-
-         delete this.attr[name];
-      };
-
-   Elem.prototype.addChild =
-      function (child)
-      {
-         if (child instanceof ElemArray)
-         {
-            child = child.elems;
-         }
-
-         if (this.is_void)
-         {
-            throw new Error("Cannot add child to the void element!");
-         }
-
-         if (!is_array(child))
-         {
-            child = [child];
-         }
-
-         for (let i in child)
-         {
-            this.children.push(child[i]);
-         }
-      };
-
-   /**
-    *
-    * @param skip_children if true any of children will be proceeded to html
-    * @param indent
-    * @returns {string}
-    */
-   Elem.prototype.toHTML = function (skip_children, indent)
-   {
-      let result = "";
-
-      if (!indent)
-      {
-         indent = 0;
-      }
-
-      //Firstly we have to indent our code as in param given
-      for (let i = 0; i < indent; ++i)
-      {
-         //result += "\t";
-         result += _public.options.indentChar;
-      }
-
-      //Add html element with attributes like "<body bgcolor="#afafaf">
-      result += "<" + this.tag + " ";
-      result += html_attr_list(this.attr);
-
-      //We have to remember to close void elements for XHTML compatibility
-      if (this.is_void)
-      {
-         result += "/";
-      }
-
-      result += ">";
-
-      //Print internal javascript identifier for debugging purposes
-      if (this.$)
-      {
-         result += "<!-- identified as: " + this.$ + " -->";
-      }
-
-      //Add element text before the children for easy read
-      if (this.text)
-      {
-         result += this.text;
-      }
-
-      //Not that void element cannot have children so the part inside this
-      //condition have no sense for them. The void elements children containment
-      //is tested in parse phase.
-      if (!this.is_void)
-      {
-         if (!skip_children)
-         {
-            let children = this.children;
-            let n = children.length;
-
-            //Start new line for first child. While current element isn't closed
-            //we didn't start new line yet.
-            if (n)
-            {
-               result += "\n";
-            }
-
-            //Now we have to parse every child like an element using current function.
-            //Note that we have to increase indent couse our child need additional tab
-            //for beauty alignment.
-            for (let i = 0; i < n; ++i)
-            {
-               result += children[i].toHTML(false, indent + 1);
-            }
-
-            //If we had some children our ending tag is placed in another line
-            //so we have to indent it.
-            if (n)
-            {
-               for (let i = 0; i < indent; ++i)
-               {
-                  //result += "\t";
-                  result += _public.options.indentChar;
-               }
-            }
-         }
-
-         //At the end we have to print ending tag.
-         //Note that it's placed inside of void element condition
-         //but outside of skip_children condition.
-         //This is because we don't want to close void elements.
-         //but not void elements with child parse disabled still
-         //have to be closed.
-         result += "</" + this.tag + ">\n";
-      }
-
-      return result;
-   };
-
-   /**
-    *
-    * @param skip_childs if true any of children will be proceeded to html
-    * @param id_field_name  name of field that will store element id
-    * (the value of $ element field). Any other value than string will be ignored
-    * @returns {HTMLAnchorElement | HTMLAppletElement | HTMLAreaElement | HTMLAudioElement | HTMLBaseElement | HTMLBaseFontElement |
-    *    HTMLQuoteElement | HTMLBodyElement | HTMLBRElement | HTMLButtonElement | HTMLCanvasElement | HTMLTableCaptionElement |
-    *    HTMLTableColElement | HTMLDataElement | HTMLDataListElement | HTMLModElement | HTMLDirectoryElement | HTMLDivElement |
-    *    HTMLDListElement | HTMLEmbedElement | HTMLFieldSetElement | HTMLFontElement | HTMLFormElement | HTMLFrameElement |
-    *    HTMLFrameSetElement | HTMLHeadingElement | HTMLHeadElement | HTMLHRElement | HTMLHtmlElement | HTMLIFrameElement |
-    *    HTMLImageElement | HTMLInputElement | HTMLUnknownElement | HTMLLabelElement | HTMLLegendElement | HTMLLIElement |
-    *    HTMLLinkElement | HTMLPreElement | HTMLMapElement | HTMLMarqueeElement | HTMLMenuElement | HTMLMetaElement | HTMLMeterElement
-    *    | HTMLObjectElement | HTMLOListElement | HTMLOptGroupElement | HTMLOptionElement | HTMLOutputElement | HTMLParagraphElement |
-    *    HTMLParamElement | HTMLPictureElement | HTMLProgressElement | HTMLScriptElement | HTMLSelectElement | HTMLSourceElement |
-    *    HTMLSpanElement | HTMLStyleElement | HTMLTableElement | HTMLTableSectionElement | HTMLTableDataCellElement |
-    *    HTMLTemplateElement | HTMLTextAreaElement | HTMLTableHeaderCellElement | HTMLTimeElement | HTMLTitleElement |
-    *    HTMLTableRowElement | HTMLTrackElement | HTMLUListElement | HTMLVideoElement | MSHTMLWebViewElement}
-    */
-   Elem.prototype.toDOM = function (skip_childs, id_field_name)
-   {
-      let result = document.createElement(this.tag);
-
-      if (this.text)
-      {
-         result.appendChild(document.createTextNode(this.text));
-      }
-
-      for (let name in this.attr)
-      {
-         result[(name === "class" ? "className" : name)] = this.attr[name];
-      }
-
-      if (typeof id_field_name === "string")
-      {
-         result[id_field_name] = this.$;
-      }
-
-      if (!skip_childs && this.children.length)
-      {
-         let n = this.children.length;
-         for (let i = 0; i < n; ++i)
-         {
-            result.appendChild(this.children[i].toDOM(skip_childs, id_field_name));
-         }
-      }
-
-      return result;
-   };
-
-   //All ElemArray methods (except push) are applied to all of the elems on the stack.
-   let ElemArray = _public.ElemArray = function ()
-   {
-      this.elems = [];
-
-      this.pop = this.elems.pop.bind(this.elems);
-
-      return this;
-   };
-
-   ElemArray.prototype.addAttribute = function (name, value)
-   {
-      if (typeof name !== "string")
-      {
-         throw new Error("Invalid name delivered to ElemArray.addAttribute method!");
-      }
-
-      if (typeof value !== "string")
-      {
-         throw new Error("Invalid value delivered to ElemArray.addAttribute method!");
-      }
-
-      for (let i in this.elems)
-      {
-         this.elems[i].addAttribute(name, value);
-      } //validation in there
-   };
-
-   ElemArray.prototype.removeAttribute = function (name)
-   {
-      if (typeof name !== "string")
-      {
-         throw new Error("Invalid name delivered to ElemArray.removeAttribute method!");
-      }
-
-      for (let i in this.elems)
-      {
-         this.elems[i].removeAttribute(name);
-      } //validation in there
-   };
-
-   ElemArray.prototype.addChild = function (child)
-   {
-      if (!(child instanceof Elem || child instanceof ElemArray))
-      {
-         throw new Error("Invalid argument delivered to ElemArray.addChild method!");
-      }
-
-      for (let i in this.elems)
-      {
-         this.elems[i].addChild(child);
-      } //validation in there
-   };
-
-   ElemArray.prototype.push = ElemArray.prototype.push_array = function ()
-   {
-      for (let i in arguments)
-      {
-         if (arguments[i] instanceof Elem)
-         {
-            this.elems.push(arguments[i]);
-         }
-         else if (arguments[i] instanceof ElemArray)
-         {
-            this.elems.push.apply(this.elems, arguments[i].elems);
-         }
-         else if (is_array(arguments[i]))
-         {
-            this.elems.push.apply(this.elems, arguments[i]);
-         }
-         else
-         {
-            throw new Error("Invalid value delivered to ElemArray.push method!");
-         }
-      }
-   };
-
-   ElemArray.prototype.toHTML =
-      function (skip_childs)
-      {
-         let n = this.elems.length;
-         let html = "";
-
-         for (let i = 0; i < n; ++i)
-         {
-            html += this.elems[i].toHTML(skip_childs);
-         }
-
-         return html;
-      };
-
-   ElemArray.prototype.toDOM =
-      function (id_field_name /*name of field that will store element id (the value of $ element field).*/)
-      {
-         let result = document.createDocumentFragment();
-         let elems = this.elems;
-
-         let n = elems.length;
-         for (let i = 0; i < n; ++i)
-         {
-            result.appendChild(elems[i].toDOM(false, id_field_name));
-         }
-
-         return result;
-      };
-
-   _public.parse =
-      function (abbr /*abbreviation in zen syntax*/)
-      {
-         let result = parse_group(abbr, 0, 0);
-         return result.result;
-      };
-
-   _public.toHTML =
-      function (abbr /*abbreviation in zen syntax*/)
-      {
-         return parse_group(abbr, 0, 0).result.toHTML();
-      };
-
-   /**
-    *
-    * @param abbr
-    * @param id_field_name
-    * @returns {DocumentFragment}
-    */
-   _public.toDOM = function (abbr /*abbreviation in zen syntax*/, id_field_name /*name of field that will store element id (the value of $ element field).*/)
-      {
-         return parse_group(abbr, 0, 0).result.toDOM(false, id_field_name);
-      };
-
+          * Definition of characters with special meaning in script.
+          *   special_chars - characters that are used to signify
+          *					 attributes or relations.
+          *	 white_spaces  - characters to be ignored by script.
+          *					 They can break words.
+          *	 word_chars	   - characters that could be part of word.
+         *********************************************/
+   let special_chars          = "$#.[]+>(){}^%",
+       white_spaces           = " \t\r\v\n\f",
+       word_chars             = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890%_-\\",
+       digits                 = "1234567890",
+       number_negation        = "-",
+       enum_char              = "%",
+       special_char_indicator = "\\",
+
+       /* ******************************************
+        * Void HTML elements are elements that do not have end tag.
+        * every void element has opening tag but CANNOT (since HTML5)
+        * have ending tag
+        *********************************************/
+       void_tags              = [
+          "area", "base", "br", "col", "command",
+          "embed", "hr", "img", "input", "keygen",
+          "link", "meta", "param", "source", "track", "wbr"
+       ];
+
+   //endregion
+
+   //region helper methods
    /**
     *
     * @param abbr
@@ -458,9 +96,9 @@ let ZenParser = (function ()
       let last_elem = null; //this is easy reference to last elem on the stack
       let curr_elem = null;
       let group = false;
-      let readed_text = "";
-      let readed_word = {};
-      let readed_number = {};
+      let already_read_text = "";
+      let already_read_word = {};
+      let already_read_number = {};
       let attributes = {};
 
       let n = abbr.length;
@@ -470,16 +108,16 @@ let ZenParser = (function ()
          if (!curr_elem && abbr[i] !== "(")
          {
             //skip whitespace and read tag. throws error if tag is empty
-            let readed_word = read_word(abbr, i);
+            let already_read_word = read_word(abbr, i);
 
-            if (!readed_word.result)
+            if (!already_read_word.result)
             {
                throw new Error("Cannot read tag! Expected a word! At " + i + " in \"" + abbr + "\"!");
             }
 
-            curr_elem = new Elem(readed_word.result);
+            curr_elem = new Elem(already_read_word.result);
 
-            i = readed_word.end_index;
+            i = already_read_word.end_index;
 
             //If abbreviation ends with tag
             if (i >= n)
@@ -510,45 +148,45 @@ let ZenParser = (function ()
                //    elems["content"]
 
                ++i;
-               readed_word = read_word(abbr, i);
+               already_read_word = read_word(abbr, i);
 
-               if (!readed_word.result)
+               if (!already_read_word.result)
                {
                   throw new Error("Cannot read internal identifier! Expected a word! At " + i + " in \"" + abbr + "\"!");
                }
 
-               curr_elem.$ = readed_word.result;
-               i = readed_word.end_index;
+               curr_elem.$ = already_read_word.result;
+               i = already_read_word.end_index;
             }
                break;
 
             case '#':
             { //ID
                ++i;
-               readed_word = read_word(abbr, i);
+               already_read_word = read_word(abbr, i);
 
-               if (!readed_word.result)
+               if (!already_read_word.result)
                {
                   throw new Error("Cannot read id! Expected a word! At " + i + " in \"" + abbr + "\"!");
                }
 
-               curr_elem.addAttribute("id", readed_word.result);
-               i = readed_word.end_index;
+               curr_elem.addAttribute("id", already_read_word.result);
+               i = already_read_word.end_index;
             }
                break;
 
             case '.':
             { //Class
                ++i;
-               readed_word = read_word(abbr, i);
+               already_read_word = read_word(abbr, i);
 
-               if (!readed_word.result)
+               if (!already_read_word.result)
                {
                   throw new Error("Cannot read internal identifier! Expected a word! At " + i + " in \"" + abbr + "\"!");
                }
 
-               curr_elem.addAttribute("class", readed_word.result);
-               i = readed_word.end_index;
+               curr_elem.addAttribute("class", already_read_word.result);
+               i = already_read_word.end_index;
             }
                break;
 
@@ -701,10 +339,10 @@ let ZenParser = (function ()
             case '{':
             { //Text
                ++i;
-               let readed_text = parse_text(abbr, i);
-               curr_elem.text = readed_text.result;
+               let already_read_text = parse_text(abbr, i);
+               curr_elem.text = already_read_text.result;
 
-               i = readed_text.end_index;
+               i = already_read_text.end_index;
             }
                break;
 
@@ -718,26 +356,26 @@ let ZenParser = (function ()
             { //Multiplier
                ++i; //skip '*' sign
 
-               readed_number = read_number(abbr, i);
-               if (readed_number.result <= 0)
+               already_read_number = read_number(abbr, i);
+               if (already_read_number.result <= 0)
                {
                   throw new Error("Expected a positive number at " + i + " in \"" + abbr + "\"!");
                }
 
-               i = readed_number.end_index;
+               i = already_read_number.end_index;
 
                enumerated = new ElemArray();
 
                if (_public.options.multiply_by_reference)
                {
-                  for (let k = 0; k < readed_number.result; ++k)
+                  for (let k = 0; k < already_read_number.result; ++k)
                   {
                      enumerated.push_array(curr_elem);
                   }
                }
                else
                {
-                  for (let k = 0; k < readed_number.result; ++k)
+                  for (let k = 0; k < already_read_number.result; ++k)
                   {
                      enumerated.push_array(enumerate(curr_elem, k));
                   }
@@ -794,7 +432,7 @@ let ZenParser = (function ()
          elem = elem.elems;
       }
 
-      if (!is_array(elem))
+      if (!Bu.isArray(elem))
       {
          elem = [elem];
       }
@@ -911,7 +549,7 @@ let ZenParser = (function ()
       }
 
       //while character exists and is digit, number variable is extended by character
-      while (index < n && is_digit(ch = abbr[index]))
+      while (index < n && Bs.isNumeric(ch = abbr[index]))
       {
          number += ch;
          ++index;
@@ -1014,20 +652,20 @@ let ZenParser = (function ()
       let result = {};
       let attr = "";
       let val = "";
-      let readed_word = {};
+      let already_read_word = {};
 
       index = skip_whitespaces(abbr, index);
 
       //Single loop attempt to read whole pair attribute=value and skipes whitespaces
       while (index < n && abbr[index] !== ']')
       {
-         readed_word = read_word(abbr, index, true);
-         if (!(attr = readed_word.result))
+         already_read_word = read_word(abbr, index, true);
+         if (!(attr = already_read_word.result))
          {
             throw new Error("Invalid attributes list! Expected an attribute name at " + index + " in \"" + abbr + "\"!");
          }
 
-         index = readed_word.end_index;
+         index = already_read_word.end_index;
 
          if (abbr[index] !== '=')
          { //if there is no value
@@ -1036,13 +674,13 @@ let ZenParser = (function ()
          }
          ++index; //skip '=' sign
 
-         readed_word = read_word(abbr, index, true);
-         if (!(val = readed_word.result))
+         already_read_word = read_word(abbr, index, true);
+         if (!(val = already_read_word.result))
          {
             throw new Error("Invalid attributes list! Expected an attribute value at " + index + " in \"" + abbr + "\"!");
          }
 
-         index = readed_word.end_index;
+         index = already_read_word.end_index;
          result[attr] = val;
       }
 
@@ -1146,15 +784,6 @@ let ZenParser = (function ()
       return (ch === "'" || ch === "\"");
    }
 
-   /**
-    *
-    * @param ch
-    * @returns {boolean}
-    */
-   function is_digit(ch)
-   {
-      return (digits.indexOf(ch) !== -1);
-   }
 
    /**
     *
@@ -1176,15 +805,6 @@ let ZenParser = (function ()
       return false;
    }
 
-   /**
-    *
-    * @param target
-    * @returns {boolean}
-    */
-   function is_array(target)
-   {
-      return (Object.prototype.toString.call(target) === '[object Array]');
-   }
 
    /**
     *
@@ -1210,5 +830,430 @@ let ZenParser = (function ()
       return result;
    }
 
-   return _public;
-})();
+   //endregion
+
+   class Elem {
+      constructor(tag)
+      {
+
+         //Element tag like "body", "a", "b", "br". Custom tags are acceptable!
+         this.tag = tag;
+
+         //If true element is void what means it's unclosing element (like input or br)
+         this.is_void = is_void_element(this.tag);
+
+         // Name of element - content after $ sign without '$'.
+         // This should be intuitive name for easy usage. Can be ignored in some implementations.
+         // This is for internal use in some implementations. Look at HTML generator example for
+         // great opportunity this operator creates. It's used in Component Base Application to
+         // make easy element references. It's not taken from element id because it could repeat in
+         // multiple object instances (every  photo in gallery could have "FRAME" $ name).
+         this.$ = "";
+
+         // The text inside an element a[href=#]{This is element text!}
+         // <br/> will be parsed as part of an text if we write:
+         //   span{first line<br/>second line}
+         // the text value will be exactly EQUAL to:
+         //   "first line<br/>second line"
+         // NOT:
+         //  "first line\nsecond line"
+         // this is because html apply \n only between <pre> tags.
+         // check out element.insertAdjacentHTML to proper insert text containing html tags
+         // but please do not use it to other adjustments than text modifiers.
+         this.text = "";
+
+         //Attributes of element written as: {name: value}.
+         //id and class are attributes and will be placed in here.
+         this.attr = {};
+
+         //Array of Elem instances.
+         this.children = [];
+
+         return this;
+      }
+
+      addAttribute(name, value)
+      {
+         if (Bu.isArray(name))
+         {
+            if (name.length !== value.length) //if value isn't array value.length isn't defined
+            {
+               throw new Error("Invalid values passed to Elem.addAttribute! arguments!");
+            }
+
+            let n = name.length;
+            while (n--)
+            {
+               this.attr[name[n]] = value[n] || "";
+            }
+
+            return;
+         }
+
+         if (typeof name !== "string")
+         {
+            throw new Error("Invalid name delivered to Elem.addAttribute method!");
+         }
+
+         if (typeof value !== "string")
+         {
+            throw new Error("Invalid value delivered to Elem.addAttribute method!");
+         }
+
+         this.attr[name] = value || "";
+
+      };
+
+      removeAttribute(name)
+      {
+         if (Bu.isArray(name))
+         {
+            for (let n in name)
+            {
+               delete this.attr[name[n]];
+            }
+
+            return;
+         }
+
+         if (typeof name !== "string")
+         {
+            throw new Error("Invalid values passed to Elem.removeAttribute! arguments: " + JSON.stringify(arguments));
+         }
+
+         delete this.attr[name];
+      };
+
+      addChild(child)
+      {
+         if (child instanceof ElemArray)
+         {
+            child = child.elems;
+         }
+
+         if (this.is_void)
+         {
+            throw new Error("Cannot add child to the void element!");
+         }
+
+         if (!Bu.isArray(child))
+         {
+            child = [child];
+         }
+
+         for (let i in child)
+         {
+            this.children.push(child[i]);
+         }
+      };
+
+      /**
+       *
+       * @param skip_children if true any of children will be proceeded to html
+       * @param indent
+       * @returns {string}
+       */
+      static toHTML(skip_children, indent)
+      {
+         let result = "";
+
+         if (!indent)
+         {
+            indent = 0;
+         }
+
+         //Firstly we have to indent our code as in param given
+         for (let i = 0; i < indent; ++i)
+         {
+            //result += "\t";
+            result += _public.options.indentChar;
+         }
+
+         //Add html element with attributes like "<body bgcolor="#afafaf">
+         result += "<" + this.tag + " ";
+         result += html_attr_list(this.attr);
+
+         //We have to remember to close void elements for XHTML compatibility
+         if (this.is_void)
+         {
+            result += "/";
+         }
+
+         result += ">";
+
+         //Print internal javascript identifier for debugging purposes
+         if (this.$)
+         {
+            result += "<!-- identified as: " + this.$ + " -->";
+         }
+
+         //Add element text before the children for easy read
+         if (this.text)
+         {
+            result += this.text;
+         }
+
+         //Not that void element cannot have children so the part inside this
+         //condition have no sense for them. The void elements children containment
+         //is tested in parse phase.
+         if (!this.is_void)
+         {
+            if (!skip_children)
+            {
+               let children = this.children;
+               let n = children.length;
+
+               //Start new line for first child. While current element isn't closed
+               //we didn't start new line yet.
+               if (n)
+               {
+                  result += "\n";
+               }
+
+               //Now we have to parse every child like an element using current function.
+               //Note that we have to increase indent couse our child need additional tab
+               //for beauty alignment.
+               for (let i = 0; i < n; ++i)
+               {
+                  result += children[i].toHTML(false, indent + 1);
+               }
+
+               //If we had some children our ending tag is placed in another line
+               //so we have to indent it.
+               if (n)
+               {
+                  for (let i = 0; i < indent; ++i)
+                  {
+                     //result += "\t";
+                     result += _public.options.indentChar;
+                  }
+               }
+            }
+
+            //At the end we have to print ending tag.
+            //Note that it's placed inside of void element condition
+            //but outside of skip_children condition.
+            //This is because we don't want to close void elements.
+            //but not void elements with child parse disabled still
+            //have to be closed.
+            result += "</" + this.tag + ">\n";
+         }
+
+         return result;
+      };
+
+      /**
+       *
+       * @param skip_children if true any of children will be proceeded to html
+       * @param id_field_name  name of field that will store element id
+       * (the value of $ element field). Any other value than string will be ignored
+       * @returns {HTMLAnchorElement | HTMLAppletElement | HTMLAreaElement | HTMLAudioElement | HTMLBaseElement | HTMLBaseFontElement |
+    *    HTMLQuoteElement | HTMLBodyElement | HTMLBRElement | HTMLButtonElement | HTMLCanvasElement | HTMLTableCaptionElement |
+    *    HTMLTableColElement | HTMLDataElement | HTMLDataListElement | HTMLModElement | HTMLDirectoryElement | HTMLDivElement |
+    *    HTMLDListElement | HTMLEmbedElement | HTMLFieldSetElement | HTMLFontElement | HTMLFormElement | HTMLFrameElement |
+    *    HTMLFrameSetElement | HTMLHeadingElement | HTMLHeadElement | HTMLHRElement | HTMLHtmlElement | HTMLIFrameElement |
+    *    HTMLImageElement | HTMLInputElement | HTMLUnknownElement | HTMLLabelElement | HTMLLegendElement | HTMLLIElement |
+    *    HTMLLinkElement | HTMLPreElement | HTMLMapElement | HTMLMarqueeElement | HTMLMenuElement | HTMLMetaElement | HTMLMeterElement
+    *    | HTMLObjectElement | HTMLOListElement | HTMLOptGroupElement | HTMLOptionElement | HTMLOutputElement | HTMLParagraphElement |
+    *    HTMLParamElement | HTMLPictureElement | HTMLProgressElement | HTMLScriptElement | HTMLSelectElement | HTMLSourceElement |
+    *    HTMLSpanElement | HTMLStyleElement | HTMLTableElement | HTMLTableSectionElement | HTMLTableDataCellElement |
+    *    HTMLTemplateElement | HTMLTextAreaElement | HTMLTableHeaderCellElement | HTMLTimeElement | HTMLTitleElement |
+    *    HTMLTableRowElement | HTMLTrackElement | HTMLUListElement | HTMLVideoElement | MSHTMLWebViewElement}
+       */
+      toDOM(skip_children, id_field_name)
+      {
+         let result = document.createElement(this.tag);
+
+         if (this.text)
+         {
+            result.appendChild(document.createTextNode(this.text));
+         }
+
+         for (let name in this.attr)
+         {
+            result[(name === "class" ? "className" : name)] = this.attr[name];
+         }
+
+         if (typeof id_field_name === "string")
+         {
+            result[id_field_name] = this.$;
+         }
+
+         if (!skip_children && this.children.length)
+         {
+            let n = this.children.length;
+            for (let i = 0; i < n; ++i)
+            {
+               result.appendChild(this.children[i].toDOM(skip_children, id_field_name));
+            }
+         }
+
+         return result;
+      };
+   }
+
+   class ElemArray {
+      constructor()
+      {
+         this.elems = [];
+
+         this.pop = this.elems.pop.bind(this.elems);
+
+         return this;
+      }
+
+      addAttribute(name, value)
+      {
+         if (typeof name !== "string")
+         {
+            throw new Error("Invalid name delivered to ElemArray.addAttribute method!");
+         }
+
+         if (typeof value !== "string")
+         {
+            throw new Error("Invalid value delivered to ElemArray.addAttribute method!");
+         }
+
+         for (let i in this.elems)
+         {
+            this.elems[i].addAttribute(name, value);
+         } //validation in there
+      };
+
+      removeAttribute(name)
+      {
+         if (typeof name !== "string")
+         {
+            throw new Error("Invalid name delivered to ElemArray.removeAttribute method!");
+         }
+
+         for (let i in this.elems)
+         {
+            this.elems[i].removeAttribute(name);
+         } //validation in there
+      };
+
+      addChild(child)
+      {
+         if (!(child instanceof Elem || child instanceof ElemArray))
+         {
+            throw new Error("Invalid argument delivered to ElemArray.addChild method!");
+         }
+
+         for (let i in this.elems)
+         {
+            this.elems[i].addChild(child);
+         } //validation in there
+      };
+
+      push()
+      {
+         for (let i in arguments)
+         {
+            if (arguments[i] instanceof Elem)
+            {
+               this.elems.push(arguments[i]);
+            }
+            else if (arguments[i] instanceof ElemArray)
+            {
+               this.elems.push.apply(this.elems, arguments[i].elems);
+            }
+            else if (Bu.isArray(arguments[i]))
+            {
+               this.elems.push.apply(this.elems, arguments[i]);
+            }
+            else
+            {
+               throw new Error("Invalid value delivered to ElemArray.push method!");
+            }
+         }
+      };
+
+      push_array()
+      {
+         this.push();
+      };
+
+      toHTML(skip_children)
+      {
+         let n = this.elems.length;
+         let html = "";
+
+         for (let i = 0; i < n; ++i)
+         {
+            html += this.elems[i].toHTML(skip_children);
+         }
+
+         return html;
+      };
+
+      /**
+       * name of field that will store element id (the value of $ element field).
+       * @param id_field_name
+       * @returns {DocumentFragment}
+       */
+      toDOM(id_field_name /**/)
+      {
+         let result = document.createDocumentFragment();
+         let elems = this.elems;
+
+         let n = elems.length;
+         for (let i = 0; i < n; ++i)
+         {
+            result.appendChild(elems[i].toDOM(false, id_field_name));
+         }
+
+         return result;
+      };
+   }
+
+   //the first instance
+   //let elem      = new ElemArray();
+   let publicInterface = {
+      ElemArray : ElemArray,
+      Elem : Elem,
+      options : {
+         //if true multiplied objects will be single-instance
+         //referenced many times. This option should be turned of
+         //if we want to set different field values for multiplied
+         //elements we have to set this option to false.
+         // NOTICE!!
+         //If you enable this option multipled elements enumeration by '%' sign will be disabled!
+         indentChar            : indentation.THREE_SPACES,
+         multiply_by_reference : false,
+      }
+   };
+   //public methods object
+
+
+   publicInterface.parse =
+      function (abbr /*abbreviation in zen syntax*/)
+      {
+         let result = parse_group(abbr, 0, 0);
+         return result.result;
+      };
+
+   publicInterface.toHTML =
+      function (abbr /*abbreviation in zen syntax*/)
+      {
+         return parse_group(abbr, 0, 0).result.toHTML();
+      };
+
+   /**
+    *
+    * @param abbr
+    * @param id_field_name
+    * @returns {DocumentFragment}
+    */
+   publicInterface.toDOM = function (abbr /*abbreviation in zen syntax*/, id_field_name /*name of field that will store element id (the value of $ element field).*/)
+   {
+      return parse_group(abbr, 0, 0).result.toDOM(false, id_field_name);
+   };
+   //publicInterface = Bo.extend(publicInterface, [elem, elemArray]);
+   //Bo.extend(publicInterface, [zen, elem, elemArray]);
+
+   //going public whoop! whoop! lol
+   //console.log(elem);
+   //window.Zen = elem;
+   return publicInterface;
+});

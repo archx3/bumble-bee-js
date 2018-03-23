@@ -1508,6 +1508,51 @@
       inArray : function (obj, arr)
       {
          return arr.indexOf(obj) > -1;
+      },
+
+      /**
+       * Non-recursive method to find the lowest member of an array. Math.min raises a maximum
+       * call stack size exceeded error in Chrome when trying to apply more than 150.000 points. This
+       * method is slightly slower, but safe.
+       * @param data
+       * @returns {*}
+       */
+      min : function (data)
+   {
+      var i   = data.length,
+          min = data[0];
+
+      while (i--)
+      {
+         if (data[i] < min)
+         {
+            min = data[i];
+         }
+      }
+      return min;
+   },
+
+      /**
+       * Non-recursive method to find the lowest member of an array. Math.min raises a maximum
+       * call stack size exceeded error in Chrome when trying to apply more than 150.000 points. This
+       * method is slightly slower, but safe.
+       *
+       * @param data
+       * @returns {*}
+       */
+      max : function (data)
+      {
+         var i   = data.length,
+             max = data[0];
+
+         while (i--)
+         {
+            if (data[i] > max)
+            {
+               max = data[i];
+            }
+         }
+         return max;
       }
    };
 })(Bee.Utils);

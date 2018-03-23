@@ -95,3 +95,73 @@ function handlePaste (e)
 
    alert(pastedData);
 }
+
+(function (global, factory)
+{
+   if (typeof define === 'function' && define.amd)
+   {
+      // AMD. Register as an anonymous module unless amdModuleId is set
+      define([], function ()
+      {
+         return (global['Bee.CopyCat'] = factory(global));
+      });
+   }
+   else if (typeof exports === 'object')
+   {
+      // Node. Does not work with strict CommonJS, but
+      // only CommonJS-like environments that support module.exports,
+      // like Node.
+      module.exports = factory(global);
+   }
+   else
+   {
+      global['Bee.CopyCat'] = factory(global);
+   }
+})(typeof window !== undefined ? window : this, function factory(global)
+{
+   "use strict";
+
+   //region protected globals
+   let Bu  = Bee.Utils,
+       Ba  = Bee.Array,
+       Boa = Bee.ObservableArray,
+       Bo  = Bee.Object,
+       Bs  = Bee.String,
+       Bd  = Bee.Dom;
+   //endregion
+
+
+   class CopyCat
+   {
+     //region class properties
+
+     //endregion
+     /**
+       * @constructor
+       * @param config
+       */
+     constructor(config = {})
+     {
+        this.options = {};
+        Bo.extend(this.options, config);
+
+     }
+     //region methods
+
+     //endregion
+
+   }
+
+   //the first instance
+   let x = new CopyCat();
+
+   //public methods object
+   //let publicInterface = {
+   //
+   //};
+
+   //going public whoop! whoop! lol
+   return {
+
+   };
+});
