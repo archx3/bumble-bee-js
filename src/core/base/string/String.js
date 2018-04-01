@@ -217,12 +217,14 @@
          },
          /**
           * @use for ellipsifying text if longer than the maxLen  ellipses
+          * FIXME deal with the edge case where max length is equal to the string length
+          *
           * @param str
           * @param maxLen
           * @returns {*}
           */
          ellipsify    : function (str, maxLen)
-         {
+         {  //
             if (str === null || str === undefined)
             {
                return "";
@@ -300,7 +302,7 @@
             }
          },
          /*
-          *@use multiplies strings | takes a string value and and returns the string times, "times"
+          * @use multiplies strings | takes a string value and and returns the string times, "times"
           * A javaScript implementation of python's string multiplication
           * @param str {string}
           * @param times {number}
@@ -461,7 +463,7 @@
          },
 
          /**
-          * @use returns an array with the lines in a string (split on new lin char)
+          * @use returns an array with the lines in a string (split on new line char)
           * @returns {Array}
           */
          lines   : function (str)//

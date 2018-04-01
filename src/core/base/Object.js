@@ -260,6 +260,11 @@
       return keys[Math.random() * keys.length];
    };
 
+   Bee.Object.getKeyAt = function (obj, index)
+   {
+      return Object.keys(obj)[index];
+   };
+
    /**
     * Returns one value from the object map, if any exists.
     * For map literals the returned value will be the first one in most of the

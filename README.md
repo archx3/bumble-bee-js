@@ -5,8 +5,6 @@ It comes with a decouplable, environment-agnostic base utility library which shi
 to help reduce repetitive tasks.
 
 
-
-
 If your app makes use of UI components like:
 ------------------------------ 
 

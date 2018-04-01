@@ -358,6 +358,12 @@ const BODY = document ? document.body : null;
          });
       },
 
+      /**
+       *
+       * @param descendantEl
+       * @param parentEl
+       * @returns {boolean}
+       */
       isDescendantOf : function (descendantEl, parentEl)
       {
          //msg we're using the custom one for now cos
@@ -391,6 +397,12 @@ const BODY = document ? document.body : null;
 
       },
 
+      /**
+       *
+       * @param child
+       * @param parent
+       * @returns {boolean}
+       */
       isDescendantNodeOf : function (child, parent)
       {
          var node = child.parentNode;

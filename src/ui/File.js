@@ -7,7 +7,7 @@ function UploadAndTabularise()
    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
    if (regex.test(fileUpload.value.toLowerCase()))
    {
-      if (typeof (FileReader) != "undefined")
+      if (typeof (FileReader) !== "undefined")
       {
          var reader = new FileReader();
          reader.onload = function (e)
@@ -52,7 +52,7 @@ function uploadIntoTable(targetTableBodyID, fileInputID)
 
    if (regex.test(fileUpload.value.toLowerCase()))
    {
-      if (typeof (FileReader) != "undefined")
+      if (typeof (FileReader) !== "undefined")
       {
          var reader = new FileReader();
          reader.onload = function (e)

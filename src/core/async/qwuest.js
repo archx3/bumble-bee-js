@@ -3,7 +3,7 @@
 module.exports = function ()
 {
 
-   var global                 = typeof window != 'undefined' ? window : self,
+   var global                 = typeof window !== 'undefined' ? window : self,
        pinkyswear             = require('pinkyswear'),
        jparam                 = require('jquery-param'),
        defaultOptions         = {},
@@ -20,9 +20,9 @@ module.exports = function ()
        {
           return new global.XMLHttpRequest();
        } : function ()
-       {
-         return new ActiveXObject('Microsoft.XMLHTTP');
-       },
+                                {
+                                   return new ActiveXObject('Microsoft.XMLHTTP');
+                                },
        // Guess XHR version
        xhr2                   = (getXHR().responseType === ''),
 
@@ -37,7 +37,7 @@ module.exports = function ()
           {
              if (!(name in options))
              {
-                if (typeof defaultOptions[name] == 'object' && typeof options[name] == 'object')
+                if (typeof defaultOptions[name] === 'object' && typeof options[name] === 'object')
                 {
                    for (var name2 in defaultOptions[name])
                    {

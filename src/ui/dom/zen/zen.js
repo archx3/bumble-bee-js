@@ -33,7 +33,6 @@
    //Elements to be made public and reachable from out of this namespace
    let _public = {};
 
-
    let indentation = {
       TWO_SPACES   : "  ",
       THREE_SPACES : "   ",
@@ -784,7 +783,6 @@
       return (ch === "'" || ch === "\"");
    }
 
-
    /**
     *
     * @param tag
@@ -804,7 +802,6 @@
 
       return false;
    }
-
 
    /**
     *
@@ -1211,8 +1208,8 @@
    //let elem      = new ElemArray();
    let publicInterface = {
       ElemArray : ElemArray,
-      Elem : Elem,
-      options : {
+      Elem      : Elem,
+      options   : {
          //if true multiplied objects will be single-instance
          //referenced many times. This option should be turned of
          //if we want to set different field values for multiplied
@@ -1225,27 +1222,24 @@
    };
    //public methods object
 
+   publicInterface.parse = function (abbr /*abbreviation in zen syntax*/)
+   {
+      let result = parse_group(abbr, 0, 0);
+      return result.result;
+   };
 
-   publicInterface.parse =
-      function (abbr /*abbreviation in zen syntax*/)
-      {
-         let result = parse_group(abbr, 0, 0);
-         return result.result;
-      };
-
-   publicInterface.toHTML =
-      function (abbr /*abbreviation in zen syntax*/)
-      {
-         return parse_group(abbr, 0, 0).result.toHTML();
-      };
+   publicInterface.toHTML = function (abbr /*abbreviation in zen syntax*/)
+   {
+      return parse_group(abbr, 0, 0).result.toHTML();
+   };
 
    /**
     *
-    * @param abbr
-    * @param id_field_name
+    * @param abbr abbreviation in zen syntax
+    * @param id_field_name name of field that will store element id (the value of $ element field)
     * @returns {DocumentFragment}
     */
-   publicInterface.toDOM = function (abbr /*abbreviation in zen syntax*/, id_field_name /*name of field that will store element id (the value of $ element field).*/)
+   publicInterface.toDOM = function (abbr, id_field_name)
    {
       return parse_group(abbr, 0, 0).result.toDOM(false, id_field_name);
    };
