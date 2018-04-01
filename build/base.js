@@ -283,9 +283,23 @@ Bee.Utils = {
    {
       if (!condition)
       {
-         if(callback) {callback()}
+         if(callback) {callback();}
          throw new Error(message);
       }
+   },
+   /**
+    * @use throws custom errors
+    * @param message {String}
+    * @param code {String}
+    * @param url {String}
+    */
+   error : function(message = "", code = "", url = "")
+   {
+      message = "Error: " +
+                code + " " +
+                message + " " +
+                url ;
+      throw new Error(message);
    }
 
 };
@@ -2398,6 +2412,11 @@ Bee.Utils.inherits = function (childCtor, parentCtor)
       return keys[Math.random() * keys.length];
    };
 
+   Bee.Object.getKeyAt = function (obj, index)
+   {
+      return Object.keys(obj)[index];
+   };
+
    /**
     * Returns one value from the object map, if any exists.
     * For map literals the returned value will be the first one in most of the
@@ -3529,7 +3548,7 @@ Bee.String.Unicode = {
          },
 
          /**
-          *@use for removing beginning and trailing space chars in a string
+          * @use for removing beginning and trailing space chars in a string
           * @param str {string}
           * @returns {string}
           */
@@ -3542,7 +3561,7 @@ Bee.String.Unicode = {
           *
           * @param str {String}
           * @param charsArray {Array<String>}
-          * @param replaceWith
+          * @param replaceWith {String}
           * @returns {String | *}
           */
          stripChars : function (str, charsArray, replaceWith = "")
@@ -3554,7 +3573,8 @@ Bee.String.Unicode = {
             return str;
          },
 
-         /** @use for removing any white space that starts a string
+         /**
+          * @use for removing any white space that starts a string
           * @param str {string}
           * returns {string}
           * */

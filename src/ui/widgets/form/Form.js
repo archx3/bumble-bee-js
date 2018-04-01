@@ -83,8 +83,9 @@
         Bo.extend(this.options, config);
 
      }
-     //region methods
 
+     //region methods
+      addInputWidget
      //endregion
 
    }

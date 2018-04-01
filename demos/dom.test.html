@@ -79,7 +79,7 @@
         var el2 = Bee.Utils.gebi("el2");
         var el3 = Bee.Utils.gebi("el3");
 
-        var b = Bee.Widget;
+        var b = Bee.Dom;
 
         elsArr = [el2, el3];
         elsArr2 = [el1, el2, el3];
@@ -107,11 +107,8 @@
         /* event.bindOnAll(elsArr2, 'click', function (node)
          {
          b.centerToPageHorizontally(this)
-         });*/
-
-
-
-        /*Be.bindXTimes(el1, 'click', function ()
+         });
+         Be.bindXTimes(el1, 'click', function ()
          {
          b.alignRight(el1, el2);
          }, 3);
@@ -134,7 +131,6 @@
 //        console.log(this);
 ////        b.alignRight(el1, this);
 //    });
-
 //
 //    for(let key of elsArr2)
 //    {

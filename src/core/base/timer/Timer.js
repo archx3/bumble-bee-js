@@ -47,14 +47,14 @@
    {
       global['Bee.Timer'] = factory(global);
    }
-})( this, function factory(global)
+})(this, function factory(global)
 {
    "use strict";
 
    //region protected globals
-   //let Bu  = Bee.Utils,
-   //    Ba  = Bee.Array,
-   //    Boa = Bee.ObservableArray;
+   let Bu  = Bee.Utils,
+       Ba  = Bee.Array,
+       Boa = Bee.ObservableArray;
 
    //endregion
 
@@ -77,7 +77,7 @@
        *
        *
        * @param callback {fn|Array<fn>}
-       * @param delay {Number} [milliseconds]
+       * @param delay {Number | Array<Number>} [milliseconds]
        * the timeout delay or interval delay
        * @param autoStart {Boolean}
        * @param type {String} [timeout|interval]
@@ -95,36 +95,39 @@
           * @private
           */
          this.timerId = null;
+
+         //this.timerIds = null;
+
          /**
           * @type {Null|Date}
           * @private
           */
          this.startTime = null;
          /**
-          *
-          * @type {Number}
+          * @private
+          * @type {Number | Array}
           */
          this.delay = delay;
          /**
           *
-          * @type {Number}
+          * @type {Number | Array}
           * @private
           */
          this.remaining = delay;
          /**
           *
-          * @type {fn}
+          * @type {fn | Array<fn>}
           */
          this.callback = callback;
 
          /**
-          *
+          * @private
           * @type {Boolean}
           */
          this.autoStart = autoStart;
 
          /**
-          *
+          * @private
           * @type {{started : boolean, playing : boolean, paused : boolean, stopped : boolean}}
           */
          this.states = {
@@ -136,14 +139,15 @@
 
          /**
           * Alias for {@see Bee.Timer.restart}
-          * @type {*}
+          * @type {fn}
+          * @public
           */
          this.reset = this.restart;
 
          /**
           * resumes a paused timer
           * works just like the play method
-          * @type {*}
+          * @type {fn}
           */
          this.start = this.play;
 
@@ -151,15 +155,20 @@
           * Alias for {@see Bee.Timer.play}
           * resumes a paused timer
           * works jus like the play method
-          * @type {*}
+          * @type {fn}
+          * @public
           */
          this.resume = this.play;
 
          this.init();
-
       }
 
       //region methods
+
+      /**
+       * This sets this initial state of the timer object at object creation time
+       * @private
+       */
       init()
       {
          if (this.type === "timeout")
@@ -180,19 +189,38 @@
          }
       };
 
+      /**
+       * Get the amount of time that has elapsed in a timeout type timer object
+       * @public
+       * @returns {number}
+       */
       getRemaining()
       {
-         return this.remaining -= new Date() - this.startTime;
+         if (this.type === "timeout")
+         {
+            return this.remaining -= new Date() - this.startTime;
+         }
+         return undefined;
       };
 
+      /**
+       * Get the amount of time that has elapsed in a timeout type timer object
+       * @public
+       * @returns {number}
+       */
       getElapsed()
       {
-         return this.remaining -= Math.abs(this.startTime - new Date());
+         if (this.type === "timeout")
+         {
+            return this.remaining -= Math.abs(this.startTime - new Date());
+         }
+         return undefined;
       };
 
       /**
        * starts the timer
        * and can be used to resume a paused timer
+       * @public
        */
       play()
       {
@@ -210,10 +238,46 @@
             }
             else
             {
-               this.timerId = setInterval(function (data)
-                                          {
-                                             self.callback(data);
-                                          }, self.remaining);
+               if (Bee.Utils.isNumber(this.delay))
+               {
+                  this.timerId = setInterval(function (data)
+                                             {
+                                                self.callback(data);
+                                             }, self.remaining);
+               }
+               else
+               {
+                  /**this.timerIds = this.delay;
+                   * In this case {@link Bee.Timer.delay} is the array of timerIds
+                   *
+                   *
+                   * */
+                  if (!(Bee.Array.isEmpty(this.delay)))
+                  {
+
+                     this.delay.forEach(function (timerDelay, i)
+                                        {  //self.timerIds[i]
+                                           let previousDelay = self.delay[i - 1];
+
+                                           this.delay[i] = setTimeout(function (data)
+                                                                      {
+                                                                         if (i < self.delay.length)
+                                                                         {
+                                                                            if(previousDelay)
+                                                                            {
+                                                                               //clear the timeout from the previous array element
+                                                                               clearTimeout(previousDelay);
+                                                                               //let's remove the timer Object from the array after
+                                                                               // clearing it
+                                                                               self.delay.splice(i - 1, 1);
+                                                                            }
+                                                                         }
+                                                                         self.callback(data);
+                                                                      }, self.remaining[i] + (previousDelay ? previousDelay : 0));
+
+                                        });
+                  }
+               }
             }
             this.states.stopped = false;
             this.states.paused = false;
@@ -224,12 +288,15 @@
        * pauses the timer
        * If it's a timeout the current time is saved and reused on resumption
        * In case of intervals the interval is just cleared
+       * @public
        */
       pause()
       {
          if (!this.states.paused)
          {
             this.stop();
+            //the line above also caters for setInterval too cos pausing an interval just means clearing the interval
+            //and resuming a setInterval just creates the intervals again
 
             if (this.type === "timeout")
             {
@@ -246,9 +313,11 @@
        * Halts the timer and prevents the timer from executing the callback function bound to it
        * If it's a timeout the current time is saved and reused on resumption
        * THE interval OR timeout is just cleared and the state of the timer at the timerId set to stopped
+       * @public
        */
       stop()
       {
+         let self = this;
          if (!(this.states.stopped))
          {
             if (this.type === "timeout")
@@ -257,7 +326,32 @@
             }
             else
             {
-               clearInterval(this.timerId);
+               if (Bee.Utils.isNumber(this.delay))
+               {  //It's a uniform interval
+                  clearInterval(this.timerId);
+               }
+               else if (Bee.Utils.isArray(this.delay))
+               {
+                  /**
+                   * this.timerIds = this.delay;
+                   * In this case {@link Bee.Timer.delay} is the array of timerIds
+                   * */
+                  if (!(Bee.Array.isEmpty(this.delay))) // is
+                  {
+                     this.delay.forEach(function (timerId, i)
+                                        {  //self.timerIds[i]
+                                           this.delay[i] = setTimeout(function (data)
+                                                                      {
+                                                                         if (i < self.delay.length)
+                                                                         {
+                                                                            //jst remove clear the timeout
+                                                                            clearTimeout(self.delay[i - 1]);
+                                                                         }
+                                                                         self.callback(data);
+                                                                      }, self.remaining[i]);
+                                        });
+                  }
+               }
             }
             this.states.stopped = true;
             this.states.playing = false;
@@ -268,7 +362,7 @@
        * Alias for {@see Bee.Timer.stop}
        * Goes beyond stopping to destroying
        * and setting the instance up for garbage collection
-       * @type {*}
+       * @public
        */
       clear()
       {
@@ -278,6 +372,7 @@
 
       /**
        * restarts the timing
+       * @public
        */
       restart()
       {
@@ -288,6 +383,7 @@
       /**
        * Nullifies all properties
        * and sets them up for garbage collection
+       * @public
        * @Destructor
        */
       destroy()
@@ -311,7 +407,7 @@
    }
 
    //going public whoop! whoop! lol
-   return  Timer;
+   return Timer;
 });
 
 //let Timer  = require("Timer");
@@ -322,4 +418,6 @@
 //TODO reveal other methods by returning an object
 //TODO make the params after callback properties of an options object
 //TODO In future look into swapping a timer b/n an interval and a timeout at runtime
+//TODO Add support for a setInterval method that permits un-uniform interval which accepts an array of intervals (it can )
+// eg
 

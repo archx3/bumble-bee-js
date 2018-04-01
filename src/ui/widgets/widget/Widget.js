@@ -174,6 +174,17 @@
           */
          this.strings = null;
 
+         /**
+          * this is the property / field that represents the Widgets data Structure
+          * It's meant to permit reactivity
+          * @type {{}}
+          */
+         this.model = {};
+
+         /**
+          *
+          * @type {Array}
+          */
          this.eventList = [];
          //endregion
 
@@ -241,6 +252,11 @@
       syncUI(){
       }
 
+      /**
+       *
+       * @param callback {fn}
+       * @returns {Widget}
+       */
       disable(callback)
       {
          this.disabled = true;
@@ -251,6 +267,11 @@
          return this;
       }
 
+      /**
+       *
+       * @param callback {fn}
+       * @returns {Widget}
+       */
       enable(callback)
       {
          this.disabled = false;
@@ -258,6 +279,29 @@
          {
             callback(this);
          }
+         return this;
+      }
+
+      /**
+       * Makes a hidden widget appear in the visible DOM
+       * @param displayValue {String}
+       * @returns {Widget}
+       */
+      show(displayValue = "")
+      {
+         Bd.addClass(this.boundingBox, "hidden");
+         Bd.css(this.boundingBox, {display : displayValue});
+         return this;
+      }
+
+      /**
+       * Hides a widget from the visible DOM
+       * @returns {Widget}
+       */
+      hide()
+      {
+         Bd.removeClass(this.boundingBox, "hidden");
+         Bd.css(this.boundingBox, {display : "none"});
          return this;
       }
 
