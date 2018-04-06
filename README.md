@@ -1,7 +1,28 @@
-# bumble-bee-js
-A UI Framework for building and managing User Interfaces by creating robust, composable widgets and components.
-It comes with a decouplable, environment-agnostic base utility library which ships with tonnes of methods 
-to help reduce repetitive tasks.
+<p align="center">
+  <a href="https://getbootstrap.com/">
+    <img src="https://lh6.googleusercontent.com/4d9oIKqSnzW0em1F9HNlOrUQ-sCK2ScALccfLLZnT_HaIHpVJHWjqohn4w-5ldSZ5yIaIJLK-xbFoRp7moBa0mOIEwxZD5tAJlksgEcACbsxv1_AOVwcdDhnJd1TWJ99tICHp6MD" alt="" width=120 height=120>
+  </a>
+
+  <h3 align="center">Bumble Bee JS</h3>
+
+  <p align="center">
+  ·Sexy front-end framework·
+  <br>
+  A UI Framework for building and managing User Interfaces by creating robust, composable widgets and components.
+  <br>
+  ·Comes with a decouplable, environment-agnostic base utility library which ships with tonnes of methods 
+  to help reduce repetitive tasks·
+    <a href="#"><strong>See The Bumble-bee JS (Bee JS) docs here »</strong></a>
+    <br>
+    <br>
+    <a href="#">Report bug</a>
+    ·
+    <a href="https://github.com/archX3/bumble-bee-js/issues/new?template=feature.md&labels=feature">Request feature</a>
+  </p>
+</p>
+
+<br>
+
 
 
 If your app makes use of UI components like:

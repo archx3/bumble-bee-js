@@ -34,5 +34,8 @@
     "gulp-concat": "^2.6.1",
     "gulp-jsdoc3": "^1.0.1",
     "jest": "^22.2.2"
+  },
+  "scripts": {
+    "concat-base":""
   }
 }

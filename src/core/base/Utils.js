@@ -300,6 +300,29 @@ Bee.Utils = {
                 message + " " +
                 url ;
       throw new Error(message);
+   },
+
+   /**
+    * An implementation of Exclusive OR XOR in javascript
+    * It should return true if one and only one of the expressions is true
+    * All other situations
+    * @param expression1 {expression}
+    * @param expression2 {expression}
+    * @returns {boolean}
+    */
+   xor :function (expression1, expression2)
+   {
+      if(expression1 === true && expression2 === false)
+      {
+         return true;
+      }
+      else if(expression2 === true && expression1 === false)
+      {
+         //both of them maybe true or both maybe false
+         return true;
+      }
+
+      return false;
    }
 
 };
@@ -308,7 +331,7 @@ Bee.Utils = {
  * @return {number} An integer value representing the number of milliseconds
  *     between midnight, January 1, 1970 (The UNIX Epoch) and the current time.
  */
-Bee.Utils.now = (Bee.TRUSTED_SITE && Date.now) || (function ()
+Bee.Utils.now = (Date.now) || (function ()
 {
    // Unary plus operator converts its operand to a number which in
    // the case of
