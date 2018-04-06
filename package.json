@@ -1,0 +1,38 @@
+{
+  "name": "bumblebee-js",
+  "version": "0.0.1",
+  "dependencies": {
+    "babel-core": "^6.7.6",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "bumblebee-css": "https://github.com/archX3/bumble-bee-css.git",
+    "esdoc": "^1.0.4",
+    "esdoc-standard-plugin": "^1.0.0"
+  },
+  "files": [
+    ".gitbub",
+    "build",
+    "demos",
+    "dist",
+    "scripts",
+    "shared",
+    "src",
+    "tests",
+    ".babelrc",
+    ".eslintrc",
+    "gulpfile.js",
+    "package.json",
+    "README.md",
+    "package-lock.json"
+  ],
+  "devDependencies": {
+    "eslint": "^4.17.0",
+    "gulp": "^3.9.1",
+    "gulp-closure-compiler": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-jsdoc3": "^1.0.1",
+    "jest": "^22.2.2"
+  }
+}

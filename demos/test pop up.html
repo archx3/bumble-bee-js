@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BlobBalloon</title>
+    <link rel="stylesheet" href="../cssWhiteTheme/animations.css">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+        }
+        .poppy
+        {
+            height:100px;
+            width:200px;
+            background: #002240;
+            border: 1px solid #fffd84;
+            display: none;
+        }
+        button
+        {
+            margin-top:150px;
+            margin-left:150px;
+            position: relative;
+            left: auto;
+            top: auto;
+        }
+        /*#popupImageDiv {margin: 0; width: 200px;  height:auto; padding: 10px; border: 1px solid #ccc; position: absolute;background-color: #fff;z-index: 30; box-shadow: 0 0 4px rgba(0, 0, 0, .5)}*/
+
+    </style>
+</head>
+<body>
+<button data-popup="true" data-popupItem=".poppy">Click Me</button>
+<button data-hover-popup>Mouse Over Me</button>
+
+<div class="poppy"></div>
+
+<img src="../../uploads/resized/database1.PNG" data-popupImage="" width="150" />
+
+<!--<div id="popupImageDiv" style="">
+    <img src="../im4.jpg" alt="" width="200"/>
+</div>-->
+
+<div data-hint="" id="mtp"  style="background:#6b54d3;" >show tip</div>
+
+<div class="qHint" data-hint="my tool hint and it has a long amount of text associated with it">&quest;</div>
+<div class="iHint" data-hint="my tool hint and it has a long amount of text associated with it">i</div>
+
+<script src="../js/core/base/Barge.Utils.js"></script>
+<script src="../js/ui/Barge.Popup.js"></script>
+<script>
+    var cue = new Bee.Bursty.popup();
+    var im = new Bee.Bursty.BulgeImage();
+    //var cued = new Bee.Barbecue.hint();
+</script>
+</body>
+</html>

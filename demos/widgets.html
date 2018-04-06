@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" class="fp">
+<head>
+   <meta charset="UTF-8">
+   <title>Container</title>
+   <link rel="stylesheet" href="root.css">
+   <link rel="stylesheet" href="colors.css">
+   <link rel="stylesheet" href="bumble-bee.css">
+   <link rel="stylesheet" href="css/bubblyBalloon.css">
+</head>
+<body class="fp">
+
+
+<button id="but1">Press My Ass</button>
+
+
+
+<script src="../build/base.js"></script>
+<script src="../src/ui/events/Event.js"></script>
+<script src="../src/ui/events/EventsManager.js"></script>
+<script src="../src/ui/dom/zen/ZenParser.js"></script>
+<script src="../src/core/base/timer/Timer.js"></script>
+
+<script src="../src/ui/dom/Dom.js"></script>
+<script src="../src/ui/widgets/widget/Widget.js"></script>
+<script src="../src/ui/widgets/Container.js"></script>
+<script src="../src/ui/widgets/Overlay.js"></script>
+<script src="../src/ui/BubblyBalloon.js"></script>
+
+
+<script >
+   let zenHtml = "div.granny>div#pop1.pops>span.child{schoold_chiiiillllddddd}";
+   console.log(ZenParser);
+   //console.log(Zen.toHTML(zenHtml));
+   let domNode = ZenParser.toDOM(zenHtml);
+   console.log(domNode);
+   console.log(domNode.childNodes[0]);
+   document.body.appendChild(domNode.childNodes[0]);
+
+   console.log(Bee.Widget);
+   let overlay = new Bee.Widget.Overlay({dismissOnClick:true, scrollY : true});
+   //overlay.hide();
+
+   let timer = new Bee.Timer(function(){
+      overlay.hide();
+   }, 3000);
+
+   let timer2 = new Bee.Timer(function(){
+      timer.pause();
+   }, 2000);
+
+   let con = new Bee.Widget.Container({formFactor : {
+         type  : "window",
+         chrome : {
+            title : { text : "My window", alignment : "" },
+            controlsLocation : "",
+            controls : {
+               close : false,
+               maximise : false
+            }
+         }
+   }
+   });
+
+
+   let but1 = document.getElementById("but1");
+   but1.addEventListener("click", function (e)
+   {
+      Bee.BubblyBalloon.balloon({
+                                   message : "show me some shit",
+                                   autoClose : true,
+                                   icon : "failure"});
+   });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <link rel="stylesheet" href="../cssDarkTheme/root.min.css">
+   <!--<link rel="stylesheet" href="../../../demos/cssWhiteTheme/root.min.css">-->
+
+   <link rel="stylesheet" href="../css/core.min.css">
+   <link rel="stylesheet" href="../css/table.css">
+   <link rel="stylesheet" href="../css/form.css">
+   <link rel="stylesheet" href="../css/messageBox.min.css">
+   <style>
+      *
+      {
+         margin: 0;
+         padding: 0;
+         border: 0;
+         font-size: 100%;
+         box-sizing: border-box;
+         font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+      }
+
+      .serialKey
+      {
+         max-width: 70px;
+         display: inline-block !important;
+         text-transform: uppercase;
+      }
+
+      /**:active*/
+      /*{*/
+      /*border: 0;*/
+      /*}*/
+   </style>
+</head>
+<body>
+<div>
+   <p>Darks</p>
+   <button id="tester">Tester 1</button>
+   <button id="tester2">Tester 2</button>
+   <button id="tester3">Tester 3</button>
+   <br>
+   <p>Lights</p>
+   <button id="tester4">Tester 4</button>
+   <button id="tester5">Tester 5</button>
+   <button id="tester6">Tester 6</button>
+   <p>----------------------------------------------------------------------------</p>
+
+   <button id="tester7">Tester 7</button>
+   <button id="tester8">Tester 8</button>
+   <button id="tester9">Tester 9</button>
+   <button id="tester10">Tester 10</button>
+</div>
+<p>----------------------------------------------------------------------------</p>
+<div>
+   <input type="text" title="" class="serialKey"> -
+   <input type="text" title="" class="serialKey"> -
+   <input type="text" title="" class="serialKey"> -
+   <input type="text" title="" class="serialKey"> -
+   <input type="text" title="" class="serialKey">
+</div>
+
+
+<!--<div class="msgBx">
+<div class="msgTitle">
+<h1>Title</h1>
+<h1>Password</h1>
+<button class="closeBtn">&times;</button>
+<button class="backBtn">&leftarrow;</button>
+</div>
+
+<div class="msgBody">
+<div class="msgIcon"></div>
+<div class="msgContent">
+<p style="display: none">This id the content of the dialog box</p>
+<p style="/*display: none*/">This id the long type of content of the dialog box and it's very long especially when you think about how you can think of thoughts about how long you it can be thought of as</p>
+<input title="" type="password"/>
+</div>
+</div>
+<div class="msgFoot">
+<button class="msgBxBtns dark primary">Cancel</button>
+<button class="defaultBtn msgBxBtns dark">OK</button>
+</div>
+
+</div>-->
+
+<!--<div class="msgBx">
+   <div class="msgTitle">
+      <h1>Title</h1>
+      <h1>Password</h1>
+      <button class="closeBtn">&times;</button>
+      <button class="backBtn">&leftarrow;</button>
+   </div>
+   <div class="context">
+      <div class="msgContent">
+         <div class="msgIcon"></div>
+         <div></div>
+      </div>
+      <div class="msgFoot">
+         <button class="msgBxBtns">Cancel</button>
+         <button class="defaultBtn msgBxBtns">OK</button>
+      </div>
+   </div>
+</div>-->
+
+
+<!--<div class="msgBx fl-dg">
+   <div class="msgTitle">
+      <h1>Title</h1>
+      <button class="closeBtn">&times;</button>
+   </div>
+
+   <div class="msgBody ys">
+      <div class="fileContainer fp">
+         <ul id="existingFileList">
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+            <li>
+               <div class="file">
+                  <div class="fileIcon"></div>
+                  <div class="fileName">
+                     Wassce.gsys
+                  </div>
+               </div>
+            </li>
+         </ul>
+      </div>
+   </div>
+   <div class="msgFoot ar">
+      <div class="inputContainer">
+         <table class="dataTable medium">
+            <tr class="noHov footRow">
+               <td class="fileNameInputLabel">File Name</td>
+               <td>
+                  <input type="text" title="" id="filnameInp"></td>
+               <td class="shortest">Type</td>
+               <td class="shorter fileType">
+                  <select name='' id='' title='' class='disabled'>
+                     <option value='gsys'>.gsys</option>
+                  </select>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <button class="msgBxBtns dark primary">Cancel</button>
+      <button class="defaultBtn msgBxBtns dark">OK</button>
+   </div>
+
+</div>-->
+
+<section class="overlay"></section>
+
+<!--<script src="../../src/core/base/Bee.Utils.min.js"></script>-->
+<!--<script src="../../src/core/base/Bee.Array.min.js"></script>-->
+<script src="../../build/base.js"></script>
+<script src="../../build/event.js/"></script>
+
+<script src="../../src/ui/dom/Dom.js"></script>
+<script src="../../src/ui/Drag.js"></script>
+<script src="../../src/ui/widgets/widget/Widget.js"></script>
+<script src="../../src/ui/widgets/Overlay.js"></script>
+<script src="../../src/ui/widgets/DiceyDialog.js"></script>
+
+
+<script src="../../src/ui/events/Keyboard.js"></script>
+<script src="../../src/ui/widgets/form/InputController.js"></script>
+<!--<script src="../../src/ui/widgets/InputController.js"></script>-->
+
+<script>
+
+   let Bd = Bee.Dom;
+   //region dgbx
+   let tester   = Bd.getEl("#tester"),
+       tester2  = Bd.getEl("#tester2"),
+       tester3  = Bd.getEl("#tester3"),
+       tester4  = Bd.getEl("#tester4"),
+       tester5  = Bd.getEl("#tester5"),
+       tester6  = Bd.getEl("#tester6"),
+
+       /******************************************************/
+       tester7  = Bd.getEl("#tester7"),
+       tester8  = Bd.getEl("#tester8"),
+       tester9  = Bd.getEl("#tester9"),
+       tester10 = Bd.getEl("#tester10");
+
+   tester.onclick = function ()
+   {
+      Bee.DiceyDialog.alert({ title : "Confirm me", message : "Sing it Damn It!", b : "YES" });
+   };
+
+   tester2.onclick = function ()
+   {
+      Bee.DiceyDialog.confirm({
+                                   title          : "show me you head",
+                                   message        : "This is my body!",
+                                   affirmBtnTitle : "YES",
+                                   cancelBtnTitle : "Cancel my right butt",
+
+                                });
+   };
+
+   tester3.onclick = function ()
+   {
+      Bee.DiceyDialog.progressDialog({
+                                          title            : "Testing Icons",
+                                          message          : "",
+                                          icon             : "f",
+                                          primaryBtnNumber : 1,
+                                          dismissible      : true,
+                                          onAffirm         : function ()
+                                          {
+                                             console.log("//affirm button clicked");
+                                             console.log("//onAffirm callback called");
+                                          },
+                                          cancel           : function ()
+                                          {
+//                                      console.log("//cancel button clicked");
+                                          }
+                                       });
+   };
+
+   tester4.onclick = function ()
+   {
+      Bee.DiceyDialog.confirm({
+                                   t                : "Testing Icons",
+                                   m                : "Are you gonna ask me a question or what?" +
+                                                      "well i'll give an answer if you ask so please do," +
+                                                      "\n Thanks",
+                                   i                : "q",
+                                   primaryBtnNumber : 1,
+                                   onAffirm         : function ()
+                                   {
+                                      console.log("//affirm button clicked");
+                                      console.log("//onAffirm callback called");
+                                   },
+                                   onCancel         : function ()
+                                   {
+//                                      console.log("//cancel button clicked");
+                                   }
+                                });
+   };
+
+   tester5.onclick = function ()
+   {
+      Bee.DiceyDialog.alert({ t : "Get me out of here will you?", affirmBtnTitle : "Sorry Man" })
+   };
+
+   tester6.onclick = function (e)
+   {
+      Bee.DiceyDialog.fileDialog({
+                                      title            : "Defile a feline, and you go to jail",
+                                      files            : [{ name : "wassce.gsys" }, { name : "bece.gsys" }, { name : "sssce.gsys" }],
+                                      accept           : ".gsys",
+                                      primaryBtnNumber : 1,
+
+                                      onAffirm              : function (value)
+                                      {
+                                         console.log("New Grading system '" + value + "' has been saved");
+                                      },
+                                      cancel                : function ()
+                                      {
+//                                      console.log("//cancel button clicked");
+                                      },
+                                      dismissOnOverlayClick : true
+                                   });
+   };
+   /******************************************************/
+
+   tester7.onclick = function ()
+   {
+      Bee.DiceyDialog.confirm({
+                                   t                : "You are a failure",
+                                   m                : "<span class='al'>Hell NO! that's absolutely impossible.<span> ;nl" +
+                                                      "<span class='al'>I know it's not, cos Jehovah is my refuge</span> ",
+                                   i                : "f",
+                                   primaryBtnNumber : 1
+                                });
+   };
+
+   tester8.onclick = function ()
+   {
+      Bee.DiceyDialog.confirm({
+                                   t : "Your last warning",
+                                   m : "we'll demolish your reputation",
+                                   i : "w"
+                                });
+   };
+
+   tester9.onclick = function ()
+   {
+      Bee.DiceyDialog.confirm({
+                                   t : "Got some juicy info for ya",
+                                   m : "Really, let me have it. ;nl Ok here it goes, ;nl trrrrrrrrrrrrrrrrr haha",
+                                   i : "i"
+                                });
+   };
+
+   tester10.onclick = function ()
+   {
+      Bee.DiceyDialog.confirm({
+                                   title    : "Success is your portion",
+                                   message  : "I know right, Jehovah's got me",
+                                   icon     : "s",
+                                   onCancel : function ()
+                                   {
+                                      console.log("Cancelled");
+                                   }
+
+                                });
+   };
+
+   //endregion   Bee.DiceyDialog.alert({title : "My First Alert"});
+
+   Bee.Input.manageTextBoxGroup("serialKey", 4);
+
+   function getName(name, doSth)
+   {
+      if (doSth)
+      {
+         doSth()
+      }
+
+      return name;
+   }
+
+   let fn = getName("Charles", function ()
+   {
+      document.writeln("<b>" + "Nama" + "</b>");
+   });
+
+   console.log(fn);
+
+
+</script>
+</body>
+</html>

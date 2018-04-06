@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>testUserAgent</title>
+   <!--<script src="Utils.js"></script>-->
+   <!--<script src="Array.js"></script>-->
+   <!--<script src="String.js"></script>-->
+   <!--<script src="Object.js"></script>-->
+   <!--<script src="EventsManager.js"></script>-->
+</head>
+<body>
+
+
+<script data-main="js/sidebar.js" src="../js/require.js"></script>
+<script>
+   include(['/core/Barge.Utils', '/core/Barge.Array', 'Barge.String.js',
+            'Barge.Object.js', 'Barge.Events.js']);
+
+//   include(['/core/Bee.Utils', '/core/Bee.Array', 'String.js']);
+</script>
+
+
+<script src="../js/core/Barge.UserAgent.js"></script>
+
+
+<script >
+
+   console.log(Bee.userAgent.getNavigator());
+   console.log('gk', Bee.userAgent.GECKO);
+   console.log(Bee.uLabs.userAgent.platform.isWindows());
+   console.log('lin', Bee.uLabs.userAgent.platform.isLinux());
+
+   console.log(Bee.uLabs.userAgent.platform.isMacintosh());
+   console.log('chr', Bee.uLabs.userAgent.browser.isChrome());
+   console.log('ff', Bee.uLabs.userAgent.browser.isFirefox());
+
+
+</script>
+
+
+</body>
+</html>

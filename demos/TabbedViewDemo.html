@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>TabbedViewDemo</title>
+
+   <link rel="stylesheet" href="css/root.min.css">
+   <link rel="stylesheet" href="css/core.min.css">
+   <link rel="stylesheet" href="css/TabbedViewDockManager.css">
+   <style>
+      #parent
+      {
+         width: 500px;
+         height: 400px;
+         border: 1;
+      }
+
+      .child
+      {
+         /*width: 500px;*/
+         /*height: 400px;*/
+      }
+
+      #c1
+      {
+         background-color: #00a5ff;
+      }
+
+      #c2
+      {
+         background-color: #cd1f3e;
+      }
+   </style>
+</head>
+<body>
+<div id="parent" class="parent bdr">
+</div>
+
+<div id="c1" class="child fp"></div>
+<div id="c2" class="child fp"></div>
+
+
+<!--<script src="../src/core/base/Bee.Utils.min.js"></script>-->
+<!--<script src="../src/core/base/Bee.Array.min.js"></script>-->
+<!--<script src="../src/core/base/Bee.Object.min.js"></script>-->
+<script src="../build/base.js"></script>
+
+<script src="../src/ui/dom/Dom.js"></script>
+<script src="../build/event.js"></script>
+
+<!--<script src="../src/ui/DragSorter.js"></script>-->
+
+<script src="../src/ui/widgets/TabbedView.js"></script>
+
+<script>
+   let tv = new TabbedView("#parent",
+                           {
+                              1 : {
+                                 containerID : "c1",
+                                 tabName     : "Pane 1"
+                              },
+                              2 : {
+                                 containerID : "c2",
+                                 tabName     : "Pane 2",
+                                 activeTab   : true
+                              }
+                           },
+                           {
+                              defaultActiveTabNumber : 1,
+                              closeButtons           : true,
+                              canAddTab              : true,
+                              canRemoveTab           : true,
+                              showTabsList : true,
+                              //sortHeads : true
+                           })
+</script>
+</body>
+</html>

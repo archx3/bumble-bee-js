@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Tool Box</title>
+   <link rel="stylesheet" href="../../css/font-awesome.css">
+   <link rel="stylesheet" href="../../cssDarkTheme/tiles.css">
+   <link rel="stylesheet" href="../../cssDarkTheme/menuBar.css">
+   <link rel="stylesheet" href="../../css/flyOutToolBox.css">
+   <style>
+
+   </style>
+
+
+</head>
+<body>
+<div id="toolBox">
+   <ul id="toolBoxList">
+      <li class="" id="smi2" onclick=" ">
+         <a data-tooltip="Records" class="normalTip " data-tbTip="Undo CTR + Z" title="Apple">
+            <span class="toolBoxIconItem fat">
+               <i class="fa fa-apple"></i>
+            </span>
+         </a>
+         <ul id="addList" class="long">
+            <li class="noCtxMenu">
+               <a href="#" class="noCtxMenu">
+                  <span class="toolBoxIconItem commandIcon" title="Undo" style="background-position: -200px center;"></span>
+                  Undo
+                  <span class="shortCut"> Ctrl+Z </span></a>
+            </li>
+            <li class="noCtxMenu">
+               <a href="#" class="noCtxMenu">
+                  <span class="svgIcon prefIcon"></span>
+                  Preferences
+                  <span class="shortCut"> Ctrl+K </span>
+               </a>
+            </li>
+            <li class="noCtxMenu">
+               <a href="#" class="noCtxMenu">
+                  <span class="toolBoxIconItem fat" data-tbTip="Undo">
+                     <i class="fa fa-apple"></i>
+                  </span>
+                  Withdrawn Students
+                  <span class="shortCut">ctrl+alt+d</span>
+               </a>
+            </li>
+            <li class="noCtxMenu">
+               <a href="#" data-shortcut="ctrl,i">
+                  <span class="toolBoxIconItem smdl">&#xE1AE;</span> Import Students</a>
+            </li>
+
+         </ul>
+      </li>
+      <li class="" liName="sec" onclick="">
+         <a href="#" data-tbTip="Users CTR + Z">
+            <span class="svgIcon prefIcon"></span>
+         </a>
+         <ul class="hidden" id="miniUser">
+            <li class=""><a href="#" data-tooltip=" Add User" class="normalTip "><span class="smdl">&#xE8FA;</span></a></li>
+            <li class=""><a href="#" data-tooltip=" View all users" class="normalTip "><i class="fa fa-list fa-fw"></i></a></li>
+         </ul>
+      </li>
+
+      <li class="hDivider"></li>
+
+      <li class="" id="notifications">
+         <a href="#" data-tbTip="Subjects" class="normalTip ">
+            <span class="smdl">&#xE8F1;</span>
+         </a>
+         <ul class="hidden" id="miniSubject">
+            <li class=""><a href="#" data-tooltip=" Add Subject" class="normalTip "><span class="smdl">&#xE82E;</span></a></li>
+            <li class="">
+               <a href="#" data-tooltip=" View All Subjects" class="normalTip  pushDownSubMenu commandIcon"
+                  style="background-position-x: -785px;">
+               </a>
+            </li>
+            <li class=""><a href="#" data-tooltip=" Search Subjects" class="normalTip "><i class="fa fa-search fa-fw"></i></a></li>
+            <li class=""><a href="#" data-tooltip=" Enrolment" class="normalTip "><i class="fa fa-list-ol fa-fw"></i></a></li>
+         </ul>
+      </li>
+      <li class="" id="reports" onclick="">
+         <a href="#" data-tbTip="Grades" class="normalTip ">
+            <span class="toolBoxIconItem commandIcon" style="background-position: -196px center;"></span>
+         </a>
+         <ul class="hidden" id="miniGrade">
+            <li class=""><a href="#" data-tooltip=" Grades" class="normalTip "><i class="fa fa-certificate fa-fw"></i></a></li>
+            <li class=""><a href="#" data-tooltip=" Search Report" class="normalTip "><i class="fa fa-search fa-fw"></i></a></li>
+            <li class=""><a href="#" data-tooltip=" Cumulative Records" class="normalTip "><i class="fa fa-archive fa-fw"></i></a></li>
+         </ul>
+      </li>
+
+
+      <li class="hDivider"></li>
+
+      <li class="">
+         <a href="#" data-tbTip=" Manage" class="noPushDown">
+            <span class="smdl">&#xE912;</span>
+         </a>
+      </li>
+
+      <li class="hDivider"></li>
+
+      <!--<ul class="hidden" id="miniMgGrades">
+          <li><a href = "" data-tooltip="All Subjects"  class="normalTip"><i class="fa fa-list fa-fw"></i></a></li>
+      </ul>-->
+      <li class="" id="settings" onclick="">
+         <a href="#" data-tooltip="Settings" class="normalTip ">
+            <span class="toolBoxIconItem fat" data-tbTip="Undo">
+              <i class="fa fa-cog"></i>
+            </span>
+         </a>
+         <ul class="hidden" id="miniSettings">
+            <li class="">
+               <a href="#" data-tooltip=" System Config" class="normalTip ">
+                  <i class="fa fa-gears fa-fw"></i>
+               </a>
+            </li>
+
+            <li class="">
+               <a href="#" data-tooltip=" Preferences" class="normalTip ">
+                  <i class="fa fa-toggle-on fa-fw"></i></a></li>
+
+            <li class="">
+               <a href="#" data-tooltip=" Grade Settings" class="normalTip ">
+                  <i class="fa fa-steam fa-fw"></i></a></li>
+
+            <li class="">
+               <a href="#" data-tooltip=" Promote Students" class="normalTip ">
+                  <i class="fa  fa-level-up fa-fw"></i></a></li>
+         </ul>
+      </li>
+
+   </ul>
+</div>
+
+
+<script src="../../src/core/base/Utils.js"></script>
+<script src="../../src/core/base/Array.js"></script>
+<script src="../../src/core/base/string/String.js"></script>
+<script src="../../trash/Bee.UserAgent.js"></script>
+<script src="../../src/ui/dom/Dom.js"></script>
+<script src="../../src/ui/events/EventsManager.js"></script>
+
+<script src="../../src/ui/Drag.js"></script>
+
+
+<script src="../../src/ui/widgets/ToolBox.js"></script>
+<script>
+
+   var myBox = new Bee.Widget.Toolbox({
+      toolBoxID             : 'toolBox',
+      toolBoxListNodeID     : 'toolBoxList',
+      toolBoxItemsClassName : 'toolBoxItem',
+      keepState             : false,
+      keepPosition          : false,
+      unDockable : true
+   });
+   myBox.create();
+
+</script>
+
+
+</body>
+</html>

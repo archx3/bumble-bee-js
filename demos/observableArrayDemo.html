@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Observable Array</title>
+   <style>
+      div
+      {
+         padding: 5px;
+      }
+   </style>
+</head>
+<body>
+SUBJECT : <input type="text" id="subject" title="">
+
+OBSERVERS
+<div id="observer1">o1</div>
+<br>
+<div id="observer2">o2</div>
+<br>
+<div id="observer3">o3</div>
+
+<!--<ul>-->
+<!--li.item$$*15-->
+<!--</ul>-->
+
+<!--div#page$>(div#header>ul#nav>li*4>a)+(div#page>(h1>span)+p*2)+div#footers-->
+
+<!--#divi>div.lowass>ul[id=]>li*5-->
+
+<!--Zen Coding is bae-->
+<!--p{click}>+a{here}+{to continue}-->
+<!--<p>click<a href="">here</a>to continue</p>-->
+
+<!--ul>.item#eli$*5-->
+
+<!--table>(.trail>.trodeau{$}*4)*5-->
+
+<!--ol>li{item $}*6-->
+
+<script src="../js/core/base/Barge.Utils.min.js"></script>
+<script src="../js/core/base/Barge.Array.js"></script>
+<script src="../js/core/base/Barge.Observable.js"></script>
+<script src="../js/core/Barge.Array.ObservableArray.js"></script>
+<!--<script src="../core/Bee.Array.ObservableArray.js"></script>-->
+
+<script>
+
+   let gebi = function (id)
+   {
+      return document.getElementById(id)
+   };
+
+   let Bu = Bee.Utils, Ba = Bee.Array,
+       subj               = gebi("subject"),
+       o1                 = gebi("observer1"),
+       o2                 = gebi("observer2"),
+       o3                 = gebi("observer3");
+
+   console.log(subj, o1);
+
+   //      window.addEventListener("load", function (e)
+   //      {
+   //         Bu.extend(subj, new Bee.Observable());
+   //         Bu.extend(o1, new Bee.Observable());
+   //         Bu.extend(o2, new Bee.Observable());
+   //         Bu.extend(o3, new Bee.Observable());
+   //
+   //         subj.addEventListener('keyup', function (e)
+   //         {
+   //            this.notify(this.value);
+   //         }, false);
+   //
+   ////         subj.addSubscriber(o1);
+   //         subj.addSubscriber(o2);
+   //         subj.addSubscriber(o3);
+   //
+   //         o1.update = function (val)
+   //         {
+   //            this.innerHTML = val;
+   //         };
+   //
+   //         o2.update = function (val)
+   //         {
+   //            setTimeout(function ()
+   //                       {
+   //                          o2.innerHTML = val;
+   //                       },500)
+   //         };
+   //
+   //         o3.update = function (val)
+   //         {
+   //            this.innerHTML = val;
+   //         };
+   //
+   //         window.setTimeout(function ()
+   //                           {
+   //                              subj.removeObserver(o3);
+   //                           }, 3000);
+   //
+   //
+   //
+   //      });
+
+   let arr1 = { x : "ul" }, arr2 = ["ht2"];
+   let myArr = ["item 1", "item 2", "item 3", "item 4"];
+
+   let OmyArr = new Bee.Array.ObservableArray(myArr, {
+      subscribers : [arr1, arr2],
+      updateFn    : function (val)
+      {
+         console.log("val is", val)
+      }
+   });
+
+   arr2.update = function (val)
+   {
+      console.log("vale is", val)
+   };
+
+   //      for (let id in myArr)
+   //      {
+   //         console.log(id);
+   //      }
+   //
+   Bu.extend(myArr, new Bee.Observable());
+   Bu.extend(arr1, new Bee.Observable());
+   Bu.extend(arr2, new Bee.Observable());
+   //
+   //      window.addEventListener("click", function (e)
+   //      {
+   //         myArr.notify(myArr); //dangerous shit
+   //
+   //         console.log(myArr.push);
+   //      });
+   //
+   myArr.subscribe(arr1);
+   myArr.subscribe(arr2);
+
+   //copying the implementation function of the Array.prototype.push()
+   //into the psh property so that the original push could be overridden
+   // and it's functionality extended
+
+   myArr.psh = myArr["push"];
+   myArr.push = function (val)
+   {
+      myArr.psh(val);
+      myArr.notify(myArr);
+   };
+
+   myArr.pp = myArr["pop"];
+
+   //a modified version of the Array.prototype.pop() method;
+   // works lyk the List.pop() method in python
+   myArr.pop = function (index = null)
+   {
+      if (!index)
+      {
+         myArr.pp()
+      }
+      else
+      {
+         myArr.splice(index, 0)
+      }
+      myArr.publish(myArr);
+   };
+
+   arr1.update = function (val)
+   {
+      console.log(val)
+   };
+   //
+   arr2.update = function (val)
+   {
+      console.log(val)
+   }
+</script>
+</body>
+</html>
