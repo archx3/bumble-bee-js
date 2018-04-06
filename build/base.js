@@ -300,6 +300,29 @@ Bee.Utils = {
                 message + " " +
                 url ;
       throw new Error(message);
+   },
+
+   /**
+    * An implementation of Exclusive OR XOR in javascript
+    * It should return true if one and only one of the expressions is true
+    * All other situations
+    * @param expression1 {expression}
+    * @param expression2 {expression}
+    * @returns {boolean}
+    */
+   xor :function (expression1, expression2)
+   {
+      if(expression1 === true && expression2 === false)
+      {
+         return true;
+      }
+      else if(expression2 === true && expression1 === false)
+      {
+         //both of them maybe true or both maybe false
+         return true;
+      }
+
+      return false;
    }
 
 };
@@ -308,7 +331,7 @@ Bee.Utils = {
  * @return {number} An integer value representing the number of milliseconds
  *     between midnight, January 1, 1970 (The UNIX Epoch) and the current time.
  */
-Bee.Utils.now = (Bee.TRUSTED_SITE && Date.now) || (function ()
+Bee.Utils.now = (Date.now) || (function ()
 {
    // Unary plus operator converts its operand to a number which in
    // the case of
@@ -3527,12 +3550,14 @@ Bee.String.Unicode = {
          },
          /**
           * @use for ellipsifying text if longer than the maxLen  ellipses
+          * FIXME deal with the edge case where max length is equal to the string length
+          *
           * @param str
           * @param maxLen
           * @returns {*}
           */
          ellipsify    : function (str, maxLen)
-         {
+         {  //
             if (str === null || str === undefined)
             {
                return "";
@@ -3610,7 +3635,7 @@ Bee.String.Unicode = {
             }
          },
          /*
-          *@use multiplies strings | takes a string value and and returns the string times, "times"
+          * @use multiplies strings | takes a string value and and returns the string times, "times"
           * A javaScript implementation of python's string multiplication
           * @param str {string}
           * @param times {number}
@@ -3771,7 +3796,7 @@ Bee.String.Unicode = {
          },
 
          /**
-          * @use returns an array with the lines in a string (split on new lin char)
+          * @use returns an array with the lines in a string (split on new line char)
           * @returns {Array}
           */
          lines   : function (str)//
