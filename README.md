@@ -80,7 +80,7 @@ If your app makes use of UI components like:
  - On Screen Keyboard
 
  
- * The bumble-bee library, started @ BARGE Studios Inc, is Made w/ :yellow_heart: by @archx3, is what you should be using.
+ * The bumble-bee library made w/ :yellow_heart: by @archx3, is what you should be using.
  
  ##### Contributions are welcome; just read the code of conduct. and the contributors' instructions
  
