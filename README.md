@@ -6,9 +6,7 @@
   <h3 align="center">Bumble Bee JS</h3>
 
   <p align="center">
-  ·Sexy front-end framework·
-  <br>
-  A UI Framework for building and managing User Interfaces by creating robust, composable widgets and components.
+  A UI library for building and managing User Interfaces by creating robust, composable widgets.
   <br>
   ·Comes with a decoupled, environment-agnostic base utility library which ships with tons of methods 
   to help reduce repetitive tasks·
