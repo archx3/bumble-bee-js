@@ -10,7 +10,7 @@
   <br>
   A UI Framework for building and managing User Interfaces by creating robust, composable widgets and components.
   <br>
-  ·Comes with a decouplable, environment-agnostic base utility library which ships with tonnes of methods 
+  ·Comes with a decoupled, environment-agnostic base utility library which ships with tons of methods 
   to help reduce repetitive tasks·
     <a href="#"><strong>See The Bumble-bee JS (Bee JS) docs here »</strong></a>
     <br>
@@ -79,12 +79,9 @@ If your app makes use of UI components like:
  -  input elements with some sweet perks and user-input restrictions as needed.
  - On Screen Keyboard
 
-#### Animation (Courtesy Velocity)
-#### Reactive Components (Courtesy Vue js) 
-#### Date Related tasks (Courtesy Moment.js) 
  
- * The bumble-bee library, started @ BARGE Studios Inc, is Made w/ :yellow_heart: by @archx3 and other contributers, is what you should be using.
+ * The bumble-bee library, started @ BARGE Studios Inc, is Made w/ :yellow_heart: by @archx3, is what you should be using.
  
- #####Your contributions are welcome; just read the code of conduct. and the contributors' instructions
+ ##### Contributions are welcome; just read the code of conduct. and the contributors' instructions
  
  
